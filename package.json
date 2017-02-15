@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "nodemon": "tsc -p . && nodemon dist/server.js"
+    "nodemon": "tsc -p . && set NODE_PATH=./src; && nodemon dist/server.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/mamontovgrigory/typescript-server#readme",
   "dependencies": {
+    "babel-core": "^6.23.1",
+    "babel-polyfill": "^6.23.0",
     "express": "^4.14.1"
   },
   "devDependencies": {

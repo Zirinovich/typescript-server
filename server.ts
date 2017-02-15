@@ -1,13 +1,5 @@
-import * as express from "express";
+['.css', '.less', '.sass', '.ttf', '.woff', '.woff2'].forEach((ext) => require.extensions[ext] = () => {});
 
-var app = express();
+import Server from './src/server';
 
-app.get('/', function(req, res) {
-    res.send('hello world');
-});
-
-const PORT = process.env.PORT || 3001;
-
-app.listen(PORT, () => {
-    console.log(`Server listening on: ${PORT}`);
-});
+Server.start();
