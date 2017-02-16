@@ -7,8 +7,8 @@ class Server {
 
     constructor() {
         this.app = express();
-        this.port = process.env.PORT || 3001;
-        this.assetUrl = process.env.NODE_ENV !== 'production' ? 'http://localhost:8080' : '';
+        this.port = 3001;//process.env.PORT || 3001;
+        this.assetUrl = 'http://localhost:8080';//process.env.NODE_ENV !== 'production' ? 'http://localhost:8080' : '';
     }
 
     renderHTML(componentHTML, initialState) {

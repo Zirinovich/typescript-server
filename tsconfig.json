@@ -3,8 +3,7 @@
     "module": "commonjs",
     "noImplicitAny": false,
     "removeComments": true,
-    "sourceMap": false,
-    "outDir": "./dist/"
+    "sourceMap": false
   },
   "exclude": [
     "node_modules"
