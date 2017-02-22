@@ -1,7 +1,7 @@
 {
-  "name": "typescript-server",
-  "version": "1.0.0",
-  "description": "",
+  "name": "vortigern",
+  "version": "0.1.2",
+  "description": "A universal boilerplate for building web applications w/ TypeScript, React, Redux and more.",
   "main": "build/server.js",
   "scripts": {
     "clean": "rimraf build",
@@ -15,16 +15,53 @@
     "test": "karma start config/test/karma.conf.js",
     "lint": "tslint \"src/**/**.ts*\""
   },
+  "author": "Barbar Startup Factory <hey@barbar.com.tr>",
+  "contributors": [{
+      "name": "Altay Aydemir",
+      "email": "altay.aydemir@gmail.com",
+      "url": "http://altayaydemir.com/"
+    },
+    {
+      "name": "Batuhan Icoz",
+      "email": "hey@batuhanicoz.com",
+      "url": "http://batuhanicoz.com/"
+    },
+    {
+      "name": "Omer Ufuk Efendioglu",
+      "email": "ufukomer@gmail.com",
+      "url": "http://ufukomer.com/"
+    },
+    {
+      "name": "Patrick Roza",
+      "email": "contact@patrickroza.com",
+      "url": "http://patrickroza.com/"
+    }
+  ],
+  "homepage": "https://github.com/barbar/vortigern.git",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mamontovgrigory/typescript-server.git"
+    "url": "https://github.com/barbar/vortigern.git"
   },
-  "author": "",
-  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mamontovgrigory/typescript-server/issues"
+    "url": "https://github.com/barbar/vortigern/issues"
   },
-  "homepage": "https://github.com/mamontovgrigory/typescript-server#readme",
+  "keywords": [
+    "react",
+    "redux",
+    "typescript",
+    "webpack",
+    "universal",
+    "isomorphic",
+    "starter",
+    "kit",
+    "boilerplate",
+    "hot reload",
+    "react-hot-loader",
+    "enzyme",
+    "mocha",
+    "chai"
+  ],
+  "license": "MIT",
   "devDependencies": {
     "@types/base16": "^1.0.1",
     "@types/chai": "^3.4.34",
