@@ -1,4 +1,5 @@
 const express = require('express');
+const Chalk = require('chalk');
 const path = require('path');
 const favicon = require('serve-favicon');
 
@@ -42,9 +43,11 @@ app.get('*', (req, res) => {
 
 app.listen(appConfig.port, appConfig.host, (err) => {
   if (err) {
-    console.error(err);
+    console.error(Chalk.bgRed(err));
   } else {
-    console.log(`\n\nListening at http://${appConfig.host}:${appConfig.port}\n`);
+    console.info(Chalk.black.bgGreen(
+      `\n\nListening at http://${appConfig.host}:${appConfig.port}\n`,
+    ));
   }
 });
 
