@@ -1,9 +1,11 @@
+import { IStore } from 'redux/IStore';
 import * as React from 'react';
 import * as Helmet from 'react-helmet';
 
 interface IHtmlProps {
-  manifest?: Object;
+  manifest?: any;
   markup?: string;
+  store?: Redux.Store<IStore>;
 }
 
 class Html extends React.Component<IHtmlProps, {}> {
@@ -16,28 +18,38 @@ class Html extends React.Component<IHtmlProps, {}> {
 
   public render() {
     const head = Helmet.rewind();
-    const { markup } = this.props;
+    const { markup, store } = this.props;
 
-    const scripts = this.resolve([/*'vendor.js', */'app.js']);
+    const styles = this.resolve(['vendor.css', 'app.css']);
+    const renderStyles = styles.map((src, i) =>
+      <link key={i} rel="stylesheet" type="text/css" href={src} />,
+    );
+
+    const scripts = this.resolve(['vendor.js', 'app.js']);
     const renderScripts = scripts.map((src, i) =>
       <script src={src} key={i} />,
     );
 
+    // tslint:disable-next-line:max-line-length
+    const initialState = (<script dangerouslySetInnerHTML={{ __html: `window.__INITIAL_STATE__=${JSON.stringify(store.getState())};` }} charSet="UTF-8" />);
+
     return (
       <html>
-      <head>
-        {head.base.toComponent()}
-        {head.title.toComponent()}
-        {head.meta.toComponent()}
-        {head.link.toComponent()}
-        {head.script.toComponent()}
+        <head>
+          {head.base.toComponent()}
+          {head.title.toComponent()}
+          {head.meta.toComponent()}
+          {head.link.toComponent()}
+          {head.script.toComponent()}
 
-        <link rel="shortcut icon" href="/favicon.ico" />
-      </head>
-      <body>
-      <main id="app" dangerouslySetInnerHTML={{ __html: markup }} />
-      {renderScripts}
-      </body>
+          {renderStyles}
+          <link rel="shortcut icon" href="/favicon.ico" />
+        </head>
+        <body>
+          <main id="app" dangerouslySetInnerHTML={{ __html: markup }} />
+          {initialState}
+          {renderScripts}
+        </body>
       </html>
     );
   }
