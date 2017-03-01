@@ -17,7 +17,7 @@
 
     "start": "npm-run-all --parallel watch:server watch:build",
     "watch:build": "webpack --watch --config config/webpack/server.js",
-    "watch:server": "nodemon \"./build/server.js\" --watch \"./build\""
+    "watch:server": "nodemon --inspect build/server.js --watch build"
   },
   "author": "Barbar Startup Factory <hey@barbar.com.tr>",
   "contributors": [
@@ -119,6 +119,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.1",
     "mocha": "^3.2.0",
+    "nodemon": "^1.11.0",
     "npm-run-all": "^4.0.2",
     "phantomjs-prebuilt": "^2.1.14",
     "postcss-assets": "^4.1.0",

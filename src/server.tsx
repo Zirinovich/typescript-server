@@ -28,6 +28,7 @@ const app = express();
 app.use(compression());
 
 if (process.env.NODE_ENV !== 'production') {
+  debugger;
   const webpack = require('webpack');
   const webpackConfig = require('../config/webpack/dev');
   const webpackCompiler = webpack(webpackConfig);
@@ -74,7 +75,7 @@ app.get('*', (req, res) => {
           res.status(200).send(renderHTML(markup, store));
         });
       } else {
-        res.status(404).send('Not Found?');
+        res.status(404).send('Not Found???');
       }
     });
 });
