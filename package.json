@@ -14,7 +14,6 @@
     "start:prod": "cross-env NODE_ENV=production npm start",
     "test": "karma start config/test/karma.conf.js",
     "lint": "tslint \"src/**/**.ts*\"",
-
     "start": "npm-run-all --parallel watch:server watch:build",
     "watch:build": "webpack --watch --config config/webpack/server.js",
     "watch:server": "nodemon --inspect build/server.js --watch build"
@@ -75,6 +74,8 @@
     "@types/history": "^4.5.0",
     "@types/mocha": "^2.2.38",
     "@types/node": "^7.0.0",
+    "@types/passport": "^0.3.3",
+    "@types/passport-local": "^1.0.29",
     "@types/react": "^15.0.0",
     "@types/react-addons-test-utils": "^0.14.16",
     "@types/react-dom": "^0.14.20",
@@ -150,6 +151,8 @@
     "express": "^4.14.0",
     "history": "^4.5.1",
     "isomorphic-fetch": "^2.2.1",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
     "react": "~15.4.2",
     "react-css-modules": "^4.1.0",
     "react-dom": "~15.4.2",
