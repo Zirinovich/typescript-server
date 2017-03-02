@@ -21,7 +21,7 @@ export function loginAPI(req, res, next) {
             }
         }
         if (!user) {
-            throw new Error("Unexpected error. 'user' is null");
+            return res.json(HTTP_STATUS_CODES.OK, {errors: {username: info.message}});
         }
         req.logIn(user, function (err) {
             if (err) {
@@ -36,4 +36,8 @@ export function loginAPI(req, res, next) {
 export function logoutAPI(req, res) {
     req.logout();
     return res.json({result: 'ok'});
+}
+
+export function mustAuthenticateAPIMiddleware(req, res, next) {
+    req.isAuthenticated() ? next() : res.status(HTTP_STATUS_CODES.UNAUTHORIZED).json({message: "Authorization required!"});
 }

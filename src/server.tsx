@@ -7,17 +7,24 @@ import 'isomorphic-fetch';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 
-import { Provider } from 'react-redux';
-import { createMemoryHistory, match } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
-const { ReduxAsyncConnect, loadOnServer } = require('redux-connect');
-import { configureStore } from './app/redux/store';
+import {Provider} from 'react-redux';
+import {createMemoryHistory, match} from 'react-router';
+import {syncHistoryWithStore} from 'react-router-redux';
+const {ReduxAsyncConnect, loadOnServer} = require('redux-connect');
+import {configureStore} from './app/redux/store';
 import routes from './app/routes';
 
-import { Html } from './app/containers';
+import {Html} from './app/containers';
 const manifest = require('../build/manifest.json');
 
 const express = require('express');
+import * as bodyParser from 'body-parser';
+import * as cookieParser from 'cookie-parser';
+const session = require('express-session');
+const passport = require('passport');
+import {Init} from "./api/auth/authentication";
+import {router as apiRouter} from './routesAPI';
+
 const path = require('path');
 const compression = require('compression');
 const Chalk = require('chalk');
@@ -26,25 +33,37 @@ const favicon = require('serve-favicon');
 const app = express();
 
 app.use(compression());
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(session({
+    secret: 'yaouyahanSecretWord',
+    resave: false,
+    saveUninitialized: false
+}));
+Init(passport);
+app.use(passport.initialize());
+app.use(passport.session());
+app.use('/API', apiRouter);
 
 if (process.env.NODE_ENV !== 'production') {
-  debugger;
-  const webpack = require('webpack');
-  const webpackConfig = require('../config/webpack/dev');
-  const webpackCompiler = webpack(webpackConfig);
+    debugger;
+    const webpack = require('webpack');
+    const webpackConfig = require('../config/webpack/dev');
+    const webpackCompiler = webpack(webpackConfig);
 
-  app.use(require('webpack-dev-middleware')(webpackCompiler, {
-    publicPath: webpackConfig.output.publicPath,
-    stats: { colors: true },
-    noInfo: true,
-    hot: true,
-    inline: true,
-    lazy: false,
-    historyApiFallback: true,
-    quiet: true,
-  }));
+    app.use(require('webpack-dev-middleware')(webpackCompiler, {
+        publicPath: webpackConfig.output.publicPath,
+        stats: {colors: true},
+        noInfo: true,
+        hot: true,
+        inline: true,
+        lazy: false,
+        historyApiFallback: true,
+        quiet: true,
+    }));
 
-  app.use(require('webpack-hot-middleware')(webpackCompiler));
+    app.use(require('webpack-hot-middleware')(webpackCompiler));
 }
 
 app.use(favicon(path.join(__dirname, 'public/favicon.ico')));
@@ -52,48 +71,48 @@ app.use(favicon(path.join(__dirname, 'public/favicon.ico')));
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 app.get('*', (req, res) => {
-  const location = req.url;
-  const memoryHistory = createMemoryHistory(req.originalUrl);
-  const store = configureStore(memoryHistory);
-  const history = syncHistoryWithStore(memoryHistory, store);
+    const location = req.url;
+    const memoryHistory = createMemoryHistory(req.originalUrl);
+    const store = configureStore(memoryHistory);
+    const history = syncHistoryWithStore(memoryHistory, store);
 
-  match({ history, routes, location },
-    (error, redirectLocation, renderProps) => {
-      if (error) {
-        res.status(500).send(error.message);
-      } else if (redirectLocation) {
-        res.redirect(302, redirectLocation.pathname + redirectLocation.search);
-      } else if (renderProps) {
-        const asyncRenderData = Object.assign({}, renderProps, { store });
+    match({history, routes, location},
+        (error, redirectLocation, renderProps) => {
+            if (error) {
+                res.status(500).send(error.message);
+            } else if (redirectLocation) {
+                res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+            } else if (renderProps) {
+                const asyncRenderData = Object.assign({}, renderProps, {store});
 
-        loadOnServer(asyncRenderData).then(() => {
-          const markup = ReactDOMServer.renderToString(
-            <Provider store={store} key="provider">
-              <ReduxAsyncConnect {...renderProps} />
-            </Provider>,
-          );
-          res.status(200).send(renderHTML(markup, store));
+                loadOnServer(asyncRenderData).then(() => {
+                    const markup = ReactDOMServer.renderToString(
+                        <Provider store={store} key="provider">
+                            <ReduxAsyncConnect {...renderProps} />
+                        </Provider>,
+                    );
+                    res.status(200).send(renderHTML(markup, store));
+                });
+            } else {
+                res.status(404).send('Not Found???');
+            }
         });
-      } else {
-        res.status(404).send('Not Found???');
-      }
-    });
 });
 
 app.listen(appConfig.port, appConfig.host, (err) => {
-  if (err) {
-    console.error(Chalk.bgRed(err));
-  } else {
-    console.info(Chalk.black.bgGreen(
-      `\n\n💂  Listening at http://${appConfig.host}:${appConfig.port}\n`,
-    ));
-  }
+    if (err) {
+        console.error(Chalk.bgRed(err));
+    } else {
+        console.info(Chalk.black.bgGreen(
+            `\n\n💂  Listening at http://${appConfig.host}:${appConfig.port}\n`,
+        ));
+    }
 });
 
 function renderHTML(markup: string, store: any) {
-  const html = ReactDOMServer.renderToString(
-    <Html markup={markup} manifest={manifest} store={store} />,
-  );
+    const html = ReactDOMServer.renderToString(
+        <Html markup={markup} manifest={manifest} store={store}/>,
+    );
 
-  return `<!doctype html>${html}`;
+    return `<!doctype html>${html}`;
 }
