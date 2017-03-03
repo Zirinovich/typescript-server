@@ -47,7 +47,6 @@ app.use(passport.session());
 app.use('/API', apiRouter);
 
 if (process.env.NODE_ENV !== 'production') {
-    debugger;
     const webpack = require('webpack');
     const webpackConfig = require('../config/webpack/dev');
     const webpackCompiler = webpack(webpackConfig);

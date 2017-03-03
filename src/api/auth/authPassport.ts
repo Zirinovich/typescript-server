@@ -74,7 +74,7 @@ class AuthPassport {
         }, (username, password, done) => {
             AuthPassport.FindUser(username, password, (err: IAuthenticationError, user: IUser) => {
                 if (err) {
-                    return done(err.errorType, false, {message: err.message});
+                    return done(err, false);
                 }
                 else {
                     return done(null, user)
