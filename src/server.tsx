@@ -17,25 +17,22 @@ import routes from './app/routes';
 import {Html} from './app/containers';
 const manifest = require('../build/manifest.json');
 
-const express = require('express');
-import * as bodyParser from 'body-parser';
-import * as cookieParser from 'cookie-parser';
+import * as express from 'express';
 const session = require('express-session');
 const passport = require('passport');
 import {Init} from "./api/auth/authentication";
 import {router as apiRouter} from './routesAPI';
 
+import {expressSetup} from "./server/modules/expressSetup/index";
+
 const path = require('path');
-const compression = require('compression');
 const Chalk = require('chalk');
 const favicon = require('serve-favicon');
 
 const app = express();
 
-app.use(compression());
-app.use(cookieParser());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+expressSetup(app);
+
 app.use(session({
     secret: 'yaouyahanSecretWord',
     resave: false,
