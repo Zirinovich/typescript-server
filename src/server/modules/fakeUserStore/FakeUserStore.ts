@@ -1,6 +1,7 @@
-import {Strategy} from 'passport-local'
-import {UserRoleEnum, AuthenticationErrorEnum, IUser, IAuthenticationError} from "./declarations";
-import {Passport} from "passport";
+import {UserRoleEnum} from "../../interfaces/authentication/UserRoleEnum";
+import {IUser} from "../../interfaces/authentication/IUser";
+import {IUserStore} from "../../interfaces/authentication/IUserStore";
+import {AuthenticationErrorEnum} from "../../interfaces/authentication/AuthenticationErrorEnum";
 
 const constUsers: Array<IUser> = [{
     fullName: "Иванов Иван Иваныч",
@@ -14,10 +15,10 @@ const constUsers: Array<IUser> = [{
     role: UserRoleEnum.User
 }];
 
-class AuthPassport {
-    private static FindUser(username: string, password: string, callbackFunction: (error: IAuthenticationError, user?: IUser) => void) {
+export class FakeUserStore implements IUserStore {
+    FindUser(username: string, password: string, callback: Function): void {
         if (!username) { // NOTE: в данном случае при не переданном параметре username текст ошибки произвольный для примера, при поиске в реальном хранилище ошибки могут быть разными
-            callbackFunction({
+            callback({
                 errorType: AuthenticationErrorEnum.SystemError,
                 message: "Непредвиденная ошибка в хранилище пользователей(напр. в функцию не передан объект пользователя)"
             }, null)
@@ -27,27 +28,26 @@ class AuthPassport {
                 return o.username === username;
             });
             if (!user) {
-                callbackFunction({
+                callback({
                     errorType: AuthenticationErrorEnum.NoSuchUser,
                     message: "Данный пользователь не зарегистрирован."
                 });
                 return;
             }
             if (user.password !== password) {
-                callbackFunction({
+                callback({
                     errorType: AuthenticationErrorEnum.WrongPassword,
                     message: "Неверный пароль. Повторите попытку."
                 });
                 return;
             }
-            callbackFunction(null, user);
+            callback(null, user);
         }
     }
 
-    // данная функция имеет в данный момент упрощенный вид
-    private static FindUserById(id: string, callbackFunction: (error: IAuthenticationError, user?: IUser) => void) {
+    FindUserById(id: string, callback: Function): void {
         if (!id) {
-            callbackFunction({
+            callback({
                 errorType: AuthenticationErrorEnum.SystemError,
                 message: "Непредвиденная ошибка в хранилище пользователей(напр. в функцию не передан объект пользователя)"
             }, null)
@@ -57,37 +57,13 @@ class AuthPassport {
                 return o.username === id;
             });
             if (!user) {
-                callbackFunction({
+                callback({
                     errorType: AuthenticationErrorEnum.NoSuchUser,
                     message: "Данный пользователь не зарегистрирован."
                 });
                 return;
             }
-            callbackFunction(null, user);
+            callback(null, user);
         }
     }
-
-    static InitPassport(passport: Passport): void {
-        passport.use(new Strategy({
-            usernameField: "username",
-            passwordField: "password"
-        }, (username, password, done) => {
-            AuthPassport.FindUser(username, password, (err: IAuthenticationError, user: IUser) => {
-                if (err) {
-                    return done(err, false);
-                }
-                else {
-                    return done(null, user)
-                }
-            });
-        }));
-        passport.serializeUser<IUser,string>(function (user, done) {
-            done(null, user.username);
-        });
-        passport.deserializeUser<IUser,string>(function (username, done) {
-            AuthPassport.FindUserById(username, done);
-        });
-    }
 }
-
-export {AuthPassport}

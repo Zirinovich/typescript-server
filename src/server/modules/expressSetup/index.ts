@@ -1,3 +1,7 @@
 import {ExpressCommonTuner} from './ExpressCommonTuner';
+import {ExpressSessionTuner} from "./ExpressSessionTuner";
 
-export const expressSetup = ExpressCommonTuner.Setup;
+const expressSetup = ExpressCommonTuner.Setup;
+const expressSessionSetup = ExpressSessionTuner.Setup;
+
+export {expressSetup, expressSessionSetup}

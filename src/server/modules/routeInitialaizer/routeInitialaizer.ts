@@ -1,4 +1,4 @@
-const express = require('express');
+import * as express from 'express';
 // import HTTP_STATUS_CODES from 'http-status-enum';
 
 export function initializeRoutes(app){

@@ -18,30 +18,18 @@ import {Html} from './app/containers';
 const manifest = require('../build/manifest.json');
 
 import * as express from 'express';
-const session = require('express-session');
-const passport = require('passport');
-import {Init} from "./api/auth/authentication";
-import {router as apiRouter} from './routesAPI';
+import {serverRouter} from "./server/middlewares/ServerRouter"
 
-import {expressSetup} from "./server/modules/expressSetup/index";
+import {expressSetup, expressSessionSetup} from "./server/modules/expressSetup";
+import {passportSetup} from "./server/modules/authenticationPassport"
 
-const path = require('path');
 const Chalk = require('chalk');
-const favicon = require('serve-favicon');
 
 const app = express();
 
 expressSetup(app);
-
-app.use(session({
-    secret: 'yaouyahanSecretWord',
-    resave: false,
-    saveUninitialized: false
-}));
-Init(passport);
-app.use(passport.initialize());
-app.use(passport.session());
-app.use('/API', apiRouter);
+expressSessionSetup(app);
+passportSetup(app);
 
 if (process.env.NODE_ENV !== 'production') {
     const webpack = require('webpack');
@@ -62,9 +50,7 @@ if (process.env.NODE_ENV !== 'production') {
     app.use(require('webpack-hot-middleware')(webpackCompiler));
 }
 
-app.use(favicon(path.join(__dirname, 'public/favicon.ico')));
-
-app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use(serverRouter);
 
 app.get('*', (req, res) => {
     const location = req.url;
