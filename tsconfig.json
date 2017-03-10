@@ -4,7 +4,9 @@
     "paths": {
       "*": [
         "src/app/*",
-        "src/app/redux/*"
+        "src/app/redux/*",
+        "src/client/*",
+        "src/server/*"
       ]
     },
     "outDir": "build",
