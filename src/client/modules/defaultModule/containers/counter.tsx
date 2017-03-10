@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {increment, decrement} from 'modules/counter/';
-import {ICounter} from 'models/counter';
-import {ICounterAction} from 'models/counter';
+import {ICounterAction} from '../../../interfaces/defaultModule/ICounterAction';
+import {ICounter} from '../../../interfaces/defaultModule/ICounter';
+import {decrement, increment} from '../redux/actions/counterActions';
 const {connect} = require('react-redux');
 const style = require('./counter.scss');
 

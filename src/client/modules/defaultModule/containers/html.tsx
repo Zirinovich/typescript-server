@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import * as Helmet from 'react-helmet';
 import {IReduxStore} from "../../../interfaces/defaultModule/IReduxStore";

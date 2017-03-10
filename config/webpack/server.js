@@ -70,7 +70,7 @@ var config = {
                 include: path.resolve('./src/client'),
                 loaders: [
                     'isomorphic-style-loader',
-                    'css-loader',
+                    'css-loader?modules&importLoaders=2&localIdentName=[local]___[hash:base64:5]',
                     'sass-loader?sourceMap'
                 ]
             },

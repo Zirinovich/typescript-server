@@ -69,9 +69,10 @@ var config = {
             {
                 test: /\.scss$/,
                 include: path.resolve('./src/client'),
-                loaders:[
+                loaders: [
                     'style-loader',
-                    'css-loader',
+                    'css-loader?modules&importLoaders=2&localIdentName=[local]___[hash:base64:5]',
+                    'postcss-loader',
                     'sass-loader?sourceMap'
                 ]
             },
