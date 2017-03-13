@@ -6,14 +6,14 @@ import {IAuthenticationMiddleware} from '../../shared/interfaces/authentication/
 
 
 export const apiRouter = express.Router();
-
+const authenticationMiddleware = Ioc.resolve<IAuthenticationMiddleware>("IAuthenticationMiddleware");
 // NOTE: Порядок маршрутов важен!
 // apiRouter.post('/login', PassportLocalStrategyMiddlewareFunctions.login);
-apiRouter.post('/login', (<IAuthenticationMiddleware>Ioc.resolve("IAuthenticationMiddleware")).login);
+apiRouter.post('/login', authenticationMiddleware.login);
 
-apiRouter.all('/*', (<IAuthenticationMiddleware>Ioc.resolve("IAuthenticationMiddleware")).mustAuthenticate); // все последующие маршруты требуют аутентификацию
+apiRouter.all('/*', authenticationMiddleware.mustAuthenticate); // все последующие маршруты требуют аутентификацию
 
-apiRouter.post('/logout', (<IAuthenticationMiddleware>Ioc.resolve("IAuthenticationMiddleware")).logout);
+apiRouter.post('/logout', authenticationMiddleware.logout);
 
 apiRouter.get('/test', (req, res) => {
     res.status(HTTP_STATUS_CODES.OK).json(req.user);

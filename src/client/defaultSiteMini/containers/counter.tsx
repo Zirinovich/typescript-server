@@ -7,28 +7,26 @@ const style = require('./counter.scss');
 
 interface IProps {
     counter: ICounter;
-    increment: Redux.ActionCreator<ICounterAction>;
-    decrement: Redux.ActionCreator<ICounterAction>;
+    increment: (count:number)=>ICounterAction;
+    decrement: ()=>ICounterAction;
 }
 
 @connect(
     (state) => ({counter: state.counter}),
     (dispatch) => ({
         decrement: () => dispatch(decrement()),
-        increment: () => dispatch(increment()),
+        increment: (count) => dispatch(increment(count)),
     }),
 )
-
 class Counter extends React.Component<IProps, void> {
     public render() {
         const {increment, decrement, counter} = this.props;
-
         return (
             <div className={style.Counter}>
                 <h4>Counter Example</h4>
                 <button
                     name="incBtn"
-                    onClick={increment}>
+                    onClick={()=>{increment(3)}}>
                     INCREMENT
                 </button>
                 <button

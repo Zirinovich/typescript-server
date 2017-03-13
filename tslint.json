@@ -1,4 +1,5 @@
 {
+  "no-debugger": true,
   "extends": [
     "tslint:latest",
     "tslint-react"
@@ -9,7 +10,7 @@
       "spaces"
     ],
     "quotemark": [
-      true,
+      false,
       "single",
       "jsx-double"
     ],
