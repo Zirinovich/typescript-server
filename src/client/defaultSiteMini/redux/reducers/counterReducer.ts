@@ -1,5 +1,5 @@
-import {ICounterAction} from '../../../../interfaces/defaultModule/ICounterAction';
-import {ICounter} from '../../../../interfaces/defaultModule/ICounter';
+import {ICounterAction} from '../../../../../shared/interfaces/defaultModule/ICounterAction';
+import {ICounter} from '../../../../../shared/interfaces/defaultModule/ICounter';
 import {INCREMENT, DECREMENT} from '../actions/counterActions';
 
 const initialState: ICounter = {

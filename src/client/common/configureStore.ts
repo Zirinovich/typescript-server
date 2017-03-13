@@ -1,4 +1,4 @@
-import {IReduxStore} from '../../interfaces/defaultModule/IReduxStore';
+import {IReduxStore} from '../../../shared/interfaces/defaultModule/IReduxStore';
 const appConfig = require('../../../../config/main');
 import {createStore, applyMiddleware, compose} from 'redux';
 import {routerMiddleware} from 'react-router-redux';

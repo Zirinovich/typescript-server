@@ -1,4 +1,4 @@
-import {ICounterAction} from '../../../../interfaces/defaultModule/ICounterAction';
+import {ICounterAction} from '../../../../../shared/interfaces/defaultModule/ICounterAction';
 /** Action Types */
 export const INCREMENT: string = 'counter/INCREMENT';
 export const DECREMENT: string = 'counter/DECREMENT';

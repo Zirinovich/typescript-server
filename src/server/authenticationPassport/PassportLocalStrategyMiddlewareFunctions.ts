@@ -1,11 +1,11 @@
 import * as passportStatic  from "passport";
 import HTTP_STATUS_CODES from 'http-status-enum';
-import {IUser} from "../../interfaces/authentication/IUser";
-import {IAuthenticationError} from "../../interfaces/authentication/IAuthenticationError";
-import {AuthenticationErrorEnum} from "../../interfaces/authentication/AuthenticationErrorEnum";
+import {IUser} from "../../../shared/interfaces/authentication/IUser";
+import {IAuthenticationError} from "../../../shared/interfaces/authentication/IAuthenticationError";
+import {AuthenticationErrorEnum} from "../../../shared/interfaces/authentication/AuthenticationErrorEnum";
 
 export class PassportLocalStrategyMiddlewareFunctions {
-    static login(req, res, next) {
+    login(req, res, next) {
         passportStatic.authenticate('local', (err: IAuthenticationError, user: IUser) => {
             if (err) {
                 switch (err.errorType) {

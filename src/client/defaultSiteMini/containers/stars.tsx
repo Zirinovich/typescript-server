@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {IStars} from '../../../interfaces/defaultModule/IStars';
+import {IStars} from '../../../../shared/interfaces/defaultModule/IStars';
 import {getStars} from '../redux/actions/starsActions';
-import {IStarsAction} from '../../../interfaces/defaultModule/IStarsAction';
+import {IStarsAction} from '../../../../shared/interfaces/defaultModule/IStarsAction';
 
 const {connect} = require('react-redux');
 const {asyncConnect} = require('redux-connect');

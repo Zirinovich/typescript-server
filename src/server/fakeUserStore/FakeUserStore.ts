@@ -1,7 +1,7 @@
-import {UserRoleEnum} from "../../interfaces/authentication/UserRoleEnum";
-import {IUser} from "../../interfaces/authentication/IUser";
-import {IUserStore} from "../../interfaces/authentication/IUserStore";
-import {AuthenticationErrorEnum} from "../../interfaces/authentication/AuthenticationErrorEnum";
+import {UserRoleEnum} from "../../shared/interfaces/authentication/UserRoleEnum";
+import {IUser} from "../../shared/interfaces/authentication/IUser";
+import {IUserStore} from "../../shared/interfaces/authentication/IUserStore";
+import {AuthenticationErrorEnum} from "../../shared/interfaces/authentication/AuthenticationErrorEnum";
 
 const constUsers: Array<IUser> = [{
     fullName: "Иванов Иван Иваныч",

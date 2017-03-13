@@ -1,4 +1,4 @@
-import {IStarsAction} from '../../../../interfaces/defaultModule/IStarsAction';
+import {IStarsAction} from '../../../../../shared/interfaces/defaultModule/IStarsAction';
 
 export const GET_REQUEST: string = 'stars/GET_REQUEST';
 export const GET_SUCCESS: string = 'stars/GET_SUCCESS';

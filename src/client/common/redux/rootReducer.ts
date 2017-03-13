@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
 import {routerReducer} from 'react-router-redux';
-import {IReduxStore} from '../../../interfaces/defaultModule/IReduxStore';
-import {counterReducer} from '../../defaultModule/redux/reducers/counterReducer';
-import {starsReducer} from '../../defaultModule/redux/reducers/starsReducer';
+import {IReduxStore} from '../../../../shared/interfaces/defaultModule/IReduxStore';
+import {counterReducer} from '../../defaultSiteMini/redux/reducers/counterReducer';
+import {starsReducer} from '../../defaultSiteMini/redux/reducers/starsReducer';
 
 const {reducer} = require('redux-connect');
 

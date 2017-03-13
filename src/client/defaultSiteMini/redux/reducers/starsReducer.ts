@@ -1,5 +1,5 @@
-import {IStars} from '../../../../interfaces/defaultModule/IStars';
-import {IStarsAction} from '../../../../interfaces/defaultModule/IStarsAction';
+import {IStars} from '../../../../../shared/interfaces/defaultModule/IStars';
+import {IStarsAction} from '../../../../../shared/interfaces/defaultModule/IStarsAction';
 import {GET_REQUEST, GET_SUCCESS, GET_FAILURE} from '../actions/starsActions';
 
 const initialState: IStars = {

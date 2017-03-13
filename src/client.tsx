@@ -8,9 +8,9 @@ import { Provider } from 'react-redux';
 const { Router, browserHistory } = require('react-router');
 import { syncHistoryWithStore } from 'react-router-redux';
 const { ReduxAsyncConnect } = require('redux-connect');
-import {configureStore} from './client/modules/common/configureStore';
+import {configureStore} from './client/common/configureStore';
 import 'isomorphic-fetch';
-import {routes} from './client/modules/defaultModule/routes';
+import {routes} from './client/defaultSiteMini/routes';
 
 const store = configureStore(
   browserHistory,

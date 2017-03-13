@@ -1,4 +1,4 @@
-import {configureStore} from "./client/modules/common/configureStore";
+import {configureStore} from "./client/common/configureStore";
 const appConfig = require('../config/main');
 
 import * as e6p from 'es6-promise';
@@ -13,16 +13,16 @@ import {createMemoryHistory, match} from 'react-router';
 import {syncHistoryWithStore} from 'react-router-redux';
 const {ReduxAsyncConnect, loadOnServer} = require('redux-connect');
 
-import {routes} from "./client/modules/defaultModule/routes";
+import {routes} from "./client/defaultSiteMini/routes";
 
-import {Html} from "./client/modules/defaultModule/containers/html";
+import {Html} from "./client/defaultSiteMini/containers/html";
 const manifest = require('../build/manifest.json');
 
 import * as express from 'express';
-import {serverRouter} from "./server/middlewares/serverRouter"
+import {serverRouter} from "./server/serverRouterMiddleware"
 
-import {expressSetup, expressSessionSetup} from "./server/modules/expressSetup";
-import {passportSetup} from "./server/modules/authenticationPassport"
+import {expressSetup, expressSessionSetup} from "./server/expressSetup";
+import {passportSetup} from "./server/authenticationPassport"
 
 const Chalk = require('chalk');
 

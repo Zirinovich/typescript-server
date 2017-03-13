@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as Helmet from 'react-helmet';
-import {IReduxStore} from "../../../interfaces/defaultModule/IReduxStore";
+import {IReduxStore} from "../../../../shared/interfaces/defaultModule/IReduxStore";
 
 interface IHtmlProps {
     manifest?: any;

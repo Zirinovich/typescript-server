@@ -1,4 +1,4 @@
-import {PassportLocalStrategyMiddlewareFunctions} from "../../modules/authenticationPassport";
+import {PassportLocalStrategyMiddlewareFunctions} from "./";
 import * as express from "express";
 import HTTP_STATUS_CODES from 'http-status-enum';
 
