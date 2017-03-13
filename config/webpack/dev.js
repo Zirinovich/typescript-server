@@ -20,7 +20,7 @@ var config = {
         app: [
             'webpack-hot-middleware/client?reload=true',
             './src/client.tsx',
-            './src/vendor/main.ts'
+            './src/client/vendor.ts'
         ]
     },
 
@@ -100,6 +100,10 @@ var config = {
     },
 
     plugins: [
+        /*new webpack.ProvidePlugin({
+            $: 'jquery',
+            _: 'lodash'
+        }),*/
         new CheckerPlugin(),
         new webpack.LoaderOptionsPlugin({
             debug: true,

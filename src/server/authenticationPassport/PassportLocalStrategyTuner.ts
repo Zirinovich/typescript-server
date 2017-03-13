@@ -1,9 +1,10 @@
 import {Strategy, IVerifyOptions} from 'passport-local'
 import * as passport  from "passport";
 import {Express} from "express-serve-static-core";
-import {FakeUserStore} from "./.";
-import {IUser} from "../../../shared/interfaces/authentication/IUser";
-import {IAuthenticationError} from "../../../shared/interfaces/authentication/IAuthenticationError";
+
+import {FakeUserStore} from '../fakeUserStore';
+import {IUser} from '../../shared/interfaces/authentication/IUser';
+import {IAuthenticationError} from '../../shared/interfaces/authentication/IAuthenticationError';
 
 export class PassportLocalStrategyTuner {
     private static store = new FakeUserStore();

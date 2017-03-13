@@ -1,4 +1,7 @@
-import {configureStore} from "./client/common/configureStore";
+import {Ioc} from './server/registration';
+console.log(Ioc);
+
+import {configureStore} from './client/common/configureStore';
 const appConfig = require('../config/main');
 
 import * as e6p from 'es6-promise';
@@ -19,10 +22,10 @@ import {Html} from "./client/defaultSiteMini/containers/html";
 const manifest = require('../build/manifest.json');
 
 import * as express from 'express';
-import {serverRouter} from "./server/serverRouterMiddleware"
+import {serverRouter} from './server/serverRouterMiddleware'
 
-import {expressSetup, expressSessionSetup} from "./server/expressSetup";
-import {passportSetup} from "./server/authenticationPassport"
+import {expressSetup, expressSessionSetup} from './server/expressSetup';
+import {passportSetup} from './server/authenticationPassport';
 
 const Chalk = require('chalk');
 

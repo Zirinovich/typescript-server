@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 export default class Ioc {
     private static bindings: Bind[] = [];
 
@@ -5,7 +7,7 @@ export default class Ioc {
         this.registerMany([name], isSingletone, obj, params);
     }
 
-    public static registerMany<T>(name: string[], isSingletone: boolean, obj: T, params?: any,removeRegistrations:boolean=true):T {
+    public static registerMany<T>(name: string[], isSingletone: boolean, obj: T, params?: any, removeRegistrations: boolean = true): T {
         let bind = new Bind();
         bind.identifiers = name;
         bind.paramsCreate = params;
@@ -16,16 +18,19 @@ export default class Ioc {
             bind.isSingletone = true;
             bind.instanceObj = obj;
         }
-        if(removeRegistrations)
-            _.remove(this.bindings,(b)=>{
-                return _.isEqual(b.identifiers.sort(),name.sort())
+        if (removeRegistrations) {
+            _.remove(this.bindings, (b) => {
+                return _.isEqual(b.identifiers.sort(), name.sort())
             });
+        }
         this.bindings.push(bind);
         return obj;
     }
+
     public static initModule<T>(name: string): T {
         return Ioc.resolve<T>(name);
     }
+
     public static resolve<T>(name: string): T {
         let res: T[] = this.resolvePrivate<T>(name, true);
         if (res.length > 0)
@@ -40,8 +45,8 @@ export default class Ioc {
 
     private static resolvePrivate<T>(name: string, isSingle: boolean): T[] {
         let res: T[] = [];
-        _.forEach(this.bindings, (bind, key)=> {
-            let find: string = _.find(bind.identifiers, (ident)=>ident === name);
+        _.forEach(this.bindings, (bind/*, key*/) => {
+            let find: string = _.find(bind.identifiers, (ident) => ident === name);
             if (find) {
                 if (bind.isSingletone) {
                     if (bind.instanceObj) {

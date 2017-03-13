@@ -90,7 +90,11 @@ var config = {
                     ];
                 },
             }
-        })
+        })/*,
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            _: 'lodash'
+        })*/
     ],
 
     node: {

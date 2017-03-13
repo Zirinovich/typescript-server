@@ -18,7 +18,7 @@ var config = {
     entry: {
         app: './src/client.tsx',
         vendor: [
-            './src/vendor/main.ts',
+            './src/client/vendor.ts',
             'react',
             'react-dom',
             'react-router',
@@ -142,6 +142,10 @@ var config = {
             }
         }),
         new ExtractTextPlugin('css/[name].[hash].css'),
+        /*new webpack.ProvidePlugin({
+            $: 'jquery',
+            _: 'lodash'
+        }),*/
         new ManifestPlugin({
             fileName: '../manifest.json'
         }),

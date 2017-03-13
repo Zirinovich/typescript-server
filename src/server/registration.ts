@@ -1,3 +1,6 @@
-/**
- * Created by Alex on 13.03.2017.
- */
+import Ioc from '../shared/classes/ioc';
+import {PassportLocalStrategyMiddlewareFunctions} from './authenticationPassport/PassportLocalStrategyMiddlewareFunctions';
+
+Ioc.register("IAuthenticationMiddleware", true, new PassportLocalStrategyMiddlewareFunctions());
+
+export {Ioc};

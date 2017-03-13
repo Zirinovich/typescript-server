@@ -1,10 +1,11 @@
 import * as passportStatic  from "passport";
 import HTTP_STATUS_CODES from 'http-status-enum';
-import {IUser} from "../../../shared/interfaces/authentication/IUser";
-import {IAuthenticationError} from "../../../shared/interfaces/authentication/IAuthenticationError";
-import {AuthenticationErrorEnum} from "../../../shared/interfaces/authentication/AuthenticationErrorEnum";
+import {IAuthenticationError} from '../../shared/interfaces/authentication/IAuthenticationError';
+import {IUser} from '../../shared/interfaces/authentication/IUser';
+import {AuthenticationErrorEnum} from '../../shared/interfaces/authentication/AuthenticationErrorEnum';
+import {IAuthenticationMiddleware} from '../../shared/interfaces/authentication/IAuthenticationMiddleware';
 
-export class PassportLocalStrategyMiddlewareFunctions {
+export class PassportLocalStrategyMiddlewareFunctions implements IAuthenticationMiddleware{
     login(req, res, next) {
         passportStatic.authenticate('local', (err: IAuthenticationError, user: IUser) => {
             if (err) {
@@ -42,12 +43,12 @@ export class PassportLocalStrategyMiddlewareFunctions {
         })(req, res, next)
     }
 
-    static logout(req, res) {
+    logout(req, res) {
         req.logout();
         return res.json({result: 'ok'});
     }
 
-    static mustAuthenticate(req, res, next) {
+    mustAuthenticate(req, res, next) {
         req.isAuthenticated() ? next() : res.status(HTTP_STATUS_CODES.UNAUTHORIZED).json({message: "Authorization required!"});
     }
 }

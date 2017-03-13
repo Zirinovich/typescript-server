@@ -1,4 +1,4 @@
-const appConfig = require('../../../../../config/main');
+const appConfig = require('../../../../config/main');
 // TODO: привести в порядок подобные ссылки, каким то образом посредством указания корневых каталогов или типа того
 
 import * as React from 'react';
