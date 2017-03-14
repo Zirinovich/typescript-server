@@ -4,16 +4,22 @@ const appConfig = require('../../../../config/main');
 import * as React from 'react';
 import * as Helmet from 'react-helmet';
 import {Header} from '../components/header';
+import {Grid}  from 'react-bootstrap';
 
-const style = require('./app.scss');
+import '../../common/content/bootstrap-slate/bootstrap.scss';
+
+
+ // require('./app.scss');
 
 class App extends React.Component<any, any> {
     public render() {
         return (
-            <section className={style.AppContainer}>
+            <section>
                 <Helmet {...appConfig.app} {...appConfig.app.head}/>
                 <Header />
-                {this.props.children}
+                <Grid>
+                    {this.props.children}
+                </Grid>
             </section>
         );
     }

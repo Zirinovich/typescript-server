@@ -7,7 +7,7 @@ const style = require('./counter.scss');
 
 interface IProps {
     counter: ICounter;
-    increment: (count:number)=>ICounterAction;
+    increment: (count: number)=>ICounterAction;
     decrement: ()=>ICounterAction;
 }
 

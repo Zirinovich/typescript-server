@@ -5,10 +5,10 @@ export const INCREMENT: string = 'counter/INCREMENT';
 export const DECREMENT: string = 'counter/DECREMENT';
 
 /** Action Creator: Increments the Counter */
-export function increment(count:number): ICounterAction {
+export function increment(count: number): ICounterAction {
     return {
         type: INCREMENT,
-        count:count
+        count
     };
 }
 

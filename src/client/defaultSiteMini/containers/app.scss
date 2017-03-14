@@ -1,5 +1,18 @@
+body,html {
+  background:black;
+}
 .AppContainer {
-  padding: 0;
-  margin: 0;
-  text-align: center;
+  padding: 20px;
+
+  h1 {
+    font-size: 26px;
+  }
+
+  input {
+    padding: 10px;
+  }
+
+  hr {
+    margin-top: 20px;
+  }
 }
