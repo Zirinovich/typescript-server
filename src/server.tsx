@@ -1,5 +1,4 @@
-import {Ioc} from './server/registration';
-console.log(Ioc);
+import './server/registration';
 
 import {configureStore} from './client/common/configureStore';
 const appConfig = require('../config/main');
@@ -59,7 +58,7 @@ app.use(serverRouter);
 app.get('*', (req, res) => {
     const location = req.url;
     const memoryHistory = createMemoryHistory(req.originalUrl);
-    const store = configureStore(memoryHistory);
+    const store = configureStore(memoryHistory, (req.user ? {account: req.user} : {}));
     const history = syncHistoryWithStore(memoryHistory, store);
 
     match({history, routes, location},

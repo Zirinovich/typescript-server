@@ -2,10 +2,11 @@ import * as React from 'react';
 import {Link} from 'react-router';
 import {Nav, Navbar, NavItem} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
+import {IUser} from '../../../shared/interfaces/authentication/IUser';
 
 /*const style = require('./header.scss');*/
 
-export const Header = () => (
+export const Header = (props: {account: IUser, logout: ()=>void}) => (
     <Navbar>
         <Navbar.Header>
             <Navbar.Brand>
@@ -25,6 +26,16 @@ export const Header = () => (
                     <NavItem>Stars</NavItem>
                 </LinkContainer>
             </Nav>
+            <Nav pullRight>
+                { props.account ?
+                    <NavItem onClick={props.logout}>Выйти</NavItem>
+                    :
+                    <LinkContainer to='/login'>
+                        <NavItem>Вход</NavItem>
+                    </LinkContainer>
+                }
+            </Nav>
+            {props.account && <Navbar.Text pullRight>{props.account.fullName}</Navbar.Text>}
         </Navbar.Collapse>
     </Navbar>
     /*<nav className={style.Nav}>

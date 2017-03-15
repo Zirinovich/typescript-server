@@ -29,7 +29,7 @@ export function configureStore(history, initialState?: IReduxStore): Redux.Store
 
     if (appConfig.env === 'development' && (module as any).hot) {
         (module as any).hot.accept('./redux/rootReducer', () => {
-            store.replaceReducer((require('./redux/rootReducer')));
+            store.replaceReducer(require('./redux/rootReducer'));
         });
     }
 

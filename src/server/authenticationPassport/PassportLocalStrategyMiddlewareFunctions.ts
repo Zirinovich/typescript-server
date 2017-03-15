@@ -13,9 +13,9 @@ export class PassportLocalStrategyMiddlewareFunctions implements IAuthentication
                     case AuthenticationErrorEnum.SystemError:
                         return res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR).send(err.message);
                     case AuthenticationErrorEnum.NoSuchUser:
-                        return res.json(HTTP_STATUS_CODES.OK, {errors: {username: err.message}});
+                        return res.status(HTTP_STATUS_CODES.OK).json({errors: {username: err.message}});
                     case AuthenticationErrorEnum.WrongPassword:
-                        return res.json(HTTP_STATUS_CODES.OK, {errors: {password: err.message}});
+                        return res.status(HTTP_STATUS_CODES.OK).json({errors: {password: err.message}});
                 }
             }
             if (!user) {
@@ -29,9 +29,9 @@ export class PassportLocalStrategyMiddlewareFunctions implements IAuthentication
                     if (!body.password) {
                         errors.password = message;
                     }
-                    return res.json(HTTP_STATUS_CODES.OK, {errors: {errors}});
+                    return res.status(HTTP_STATUS_CODES.OK).json({errors});
                 }
-                return res.json(HTTP_STATUS_CODES.OK, {errors: {username: err.message}});
+                return res.status(HTTP_STATUS_CODES.OK).json({errors: {username: err.message}});
             }
             req.logIn(user, (error) => {
                 if (error) {

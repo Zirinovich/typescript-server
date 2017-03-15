@@ -5,6 +5,7 @@ import {About} from '../containers/about';
 import {Counter} from '../containers/counter';
 import {Stars} from '../containers/stars';
 import {App} from '../containers/app';
+import {SignIn} from '../containers/signIn';
 
 export default (
     <Route path="/" component={App}>
@@ -12,5 +13,6 @@ export default (
         <Route path="about" component={About}/>
         <Route path="counter" component={Counter}/>
         <Route path="stars" component={Stars}/>
+        <Route path="login" component={SignIn}/>
     </Route>
 );
