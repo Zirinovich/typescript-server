@@ -68,14 +68,23 @@ var config = {
             },
             {
                 test: /\.scss$/,
-                include: path.resolve('./src/client'),
-                loader: ExtractTextPlugin.extract({
-                    fallbackLoader: 'style-loader',
-                    loader: [
-                        'css-loader?modules&importLoaders=2&localIdentName=[local]___[hash:base64:5]',
-                        'sass-loader'
-                    ]
-                })
+                include: path.resolve('./src/client/defaultSiteMini'),
+                loaders: [
+                    'style-loader',
+                    'css-loader?modules&importLoaders=2&localIdentName=[local]___[hash:base64:5]',
+                    'postcss-loader',
+                    'sass-loader?sourceMap'
+                ]
+            },
+            {
+                test: /\.scss$/,
+                include: path.resolve('./src/client/common'),
+                loaders: [
+                    'style-loader',
+                    'css-loader',
+                    'postcss-loader',
+                    'sass-loader?sourceMap'
+                ]
             },
             {
                 test: /\.css$/,
