@@ -1,4 +1,4 @@
-import {LOGOUT, LOGIN_SUCCESS} from '../actions/signInActions';
+import {LOGOUT, LOGIN_SUCCESS} from './signInActions';
 
 const initialState = null;
 

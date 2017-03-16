@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {getStars} from '../redux/actions/starsActions';
+import {getStars} from '../redux/starsActions';
 import {IStars} from '../../../shared/interfaces/defaultModule/IStars';
 import {IStarsAction} from '../../../shared/interfaces/defaultModule/IStarsAction';
 

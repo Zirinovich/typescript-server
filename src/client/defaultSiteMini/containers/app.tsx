@@ -1,4 +1,4 @@
-import {logout} from '../redux/actions/signInActions';
+import {logout} from '../redux/signInActions';
 const appConfig = require('../../../../config/main');
 // TODO: привести в порядок подобные ссылки, каким то образом посредством указания корневых каталогов или типа того
 

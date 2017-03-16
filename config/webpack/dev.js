@@ -148,7 +148,15 @@ var config = {
         new webpack.NoEmitOnErrorsPlugin()
     ]
 };
+/*
+if(DEV){
 
+    config.plugins.push();
+}
+if(PROD){
+
+}
+*/
 const copySync = (src, dest, overwrite) => {
     if (overwrite && fs.existsSync(dest)) {
         fs.unlinkSync(dest);

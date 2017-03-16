@@ -1,6 +1,6 @@
-import {IStars} from '../../../../shared/interfaces/defaultModule/IStars';
-import {IStarsAction} from '../../../../shared/interfaces/defaultModule/IStarsAction';
-import {GET_REQUEST, GET_SUCCESS, GET_FAILURE} from '../actions/starsActions';
+import {IStars} from '../../../shared/interfaces/defaultModule/IStars';
+import {IStarsAction} from '../../../shared/interfaces/defaultModule/IStarsAction';
+import {GET_REQUEST, GET_SUCCESS, GET_FAILURE} from './starsActions';
 
 const initialState: IStars = {
     isFetching: false,
