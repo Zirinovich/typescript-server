@@ -36,7 +36,7 @@ passportSetup(app);
 
 if (process.env.NODE_ENV !== 'production') {
     const webpack = require('webpack');
-    const webpackConfig = require('../config/webpack/dev');
+    const webpackConfig = require('../config/webpack/client.webpack.config');
     const webpackCompiler = webpack(webpackConfig);
 
     app.use(require('webpack-dev-middleware')(webpackCompiler, {
