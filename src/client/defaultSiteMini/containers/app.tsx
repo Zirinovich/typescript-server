@@ -13,7 +13,7 @@ import '../../common/content/bootstrap-slate/bootstrap.scss';
 
 interface IProps {
     account: IUser;
-    dispatch: Function;
+    dispatch: ()=>void;
 }
 
 @connect(

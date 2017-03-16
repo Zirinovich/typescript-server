@@ -1,8 +1,7 @@
 {
   "no-debugger": true,
   "extends": [
-    "tslint:latest",
-    "tslint-react"
+
   ],
   "rules": {
     "indent": [
@@ -24,8 +23,18 @@
     "no-console": [
       false
     ],
+    "whitespace": false,
+    "typedef-whitespace": false,
+    "no-trailing-whitespace":false,
+
+
+
+
     "jsx-alignment": [
       false
-    ]
+    ],
+    "jsx-no-lambda": false,
+    "jsx-boolean-value":"never",
+    "jsx-no-multiline-js":false
   }
 }
