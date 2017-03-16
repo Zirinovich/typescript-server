@@ -1,9 +1,15 @@
+import {IAction} from "../../../shared/interfaces/defaultModule/IAction";
 const formData = require('form-urlencoded');
 import {SubmissionError} from 'redux-form';
 import {browserHistory} from 'react-router';
+import {IUser} from "../../../shared/interfaces/authentication/IUser";
 
 export const LOGIN_SUCCESS = 'LOGIN_REQUEST_FINISHED',
     LOGOUT = 'LOGOUT_REQUEST';
+
+export interface ISignInAction extends IAction {
+    account: IUser;
+}
 
 export function signInRequest(credentials) {
     return fetch('/api/login', {

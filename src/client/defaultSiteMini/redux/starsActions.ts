@@ -1,8 +1,16 @@
-import {IStarsAction} from '../../../shared/interfaces/defaultModule/IStarsAction';
+// import {IStarsAction} from '../../../shared/interfaces/defaultModule/IStarsAction';
+import {IAction} from "../../../shared/interfaces/defaultModule/IAction";
 
 export const GET_REQUEST: string = 'stars/GET_REQUEST';
 export const GET_SUCCESS: string = 'stars/GET_SUCCESS';
 export const GET_FAILURE: string = 'stars/GET_FAILURE';
+
+export interface IStarsAction extends IAction{
+    payload: {
+        count?: number;
+        message?: any;
+    };
+}
 
 /** Async Action Creator */
 export function getStars() {
@@ -24,7 +32,7 @@ export function getStars() {
 }
 
 /** Action Creator */
-export function starsRequest(): IStarsAction {
+export function starsRequest(): IAction {
     return {
         type: GET_REQUEST,
     };

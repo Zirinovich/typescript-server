@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {getStars} from '../redux/starsActions';
 import {IStars} from '../../../shared/interfaces/defaultModule/IStars';
-import {IStarsAction} from '../../../shared/interfaces/defaultModule/IStarsAction';
+import {IAction} from "../../../shared/interfaces/defaultModule/IAction";
 
 const {connect} = require('react-redux');
 const {asyncConnect} = require('redux-connect');
@@ -9,7 +9,7 @@ const style = require('./stars.scss');
 
 interface IProps {
     stars: IStars;
-    getStars: Redux.ActionCreator<IStarsAction>;
+    getStars: ()=>IAction;
 }
 
 @asyncConnect([{

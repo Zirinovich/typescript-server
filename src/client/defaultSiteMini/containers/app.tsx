@@ -9,7 +9,7 @@ import {Grid}  from 'react-bootstrap';
 const {connect} = require('react-redux');
 import {IUser} from '../../../shared/interfaces/authentication/IUser';
 
-import '../../common/content/bootstrap-slate_theme/bootstrap.scss';
+import '../../common/content/bootstrap-cerulean_theme/bootstrap.scss';
 
 interface IProps {
     account: IUser;

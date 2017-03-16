@@ -4,8 +4,6 @@ import {Nav, Navbar, NavItem} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import {IUser} from '../../../shared/interfaces/authentication/IUser';
 
-/*const style = require('./header.scss');*/
-
 export const Header = (props: {account: IUser, logout: ()=>void}) => (
     <Navbar>
         <Navbar.Header>

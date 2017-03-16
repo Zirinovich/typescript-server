@@ -1,4 +1,5 @@
 {
+  "ignoreFiles": ["./src/client/common/content/**/bootstrap.scss"],
   "rules": {
     "block-no-empty": null,
     "color-no-invalid-hex": true,
