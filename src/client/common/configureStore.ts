@@ -3,7 +3,7 @@ const appConfig = require('../../../config/main');
 import {createStore, applyMiddleware, compose} from 'redux';
 import {routerMiddleware} from 'react-router-redux';
 import thunk from 'redux-thunk';
-import rootReducer from './redux/rootReducer';
+import rootReducer from '../rootReducer';
 const createLogger = require('redux-logger');
 
 export function configureStore(history, initialState?: IReduxStore): Redux.Store<IReduxStore> {
@@ -28,8 +28,8 @@ export function configureStore(history, initialState?: IReduxStore): Redux.Store
     ));
 
     if (appConfig.env === 'development' && (module as any).hot) {
-        (module as any).hot.accept('./redux/rootReducer', () => {
-            store.replaceReducer(require('./redux/rootReducer'));
+        (module as any).hot.accept('./../rootReducer', () => {
+            store.replaceReducer(require('./../rootReducer'));
         });
     }
 
