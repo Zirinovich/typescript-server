@@ -29,7 +29,7 @@ import {passportSetup} from './server/authenticationPassport';
 const Chalk = require('chalk');
 
 const app = express();
-
+// Интерфейсы экшенов правь!!!
 expressSetup(app);
 expressSessionSetup(app);
 passportSetup(app);
