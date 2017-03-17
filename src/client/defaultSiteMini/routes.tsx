@@ -6,6 +6,7 @@ import {Counter} from './containers/counter';
 import {Stars} from './containers/stars';
 import {App} from './containers/app';
 import {SignIn} from './containers/signIn';
+import {Contacts} from './containers/contacts';
 
 export const routes = (
     <Route path="/" component={App}>
@@ -14,5 +15,6 @@ export const routes = (
         <Route path="counter" component={Counter}/>
         <Route path="stars" component={Stars}/>
         <Route path="login" component={SignIn}/>
+        <Route path="contacts" component={Contacts}/>
     </Route>
 );

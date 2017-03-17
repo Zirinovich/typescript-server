@@ -11,8 +11,7 @@
     "prestart": "npm run build",
     "start": "npm-run-all --parallel watch:server watch:build",
     "watch:build": "webpack --watch --config config/webpack/server.webpack.config.js",
-    "watch:server": "nodemon --delay 4 --inspect build/server.js --watch build",
-
+    "watch:server": "nodemon --delay 1 --inspect build/server.js --watch build",
     "test": "karma start config/test/karma.conf.js",
     "lint": "tslint \"src/**/**.ts*\"",
     "start:prod": "cross-env NODE_ENV=production npm start",
@@ -178,6 +177,7 @@
     "react-css-modules": "^4.1.0",
     "react-dom": "~15.4.2",
     "react-helmet": "^4.0.0",
+    "react-load-script": "0.0.2",
     "react-redux": "^5.0.2",
     "react-router": "^3.0.2",
     "react-router-bootstrap": "^0.23.1",

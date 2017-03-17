@@ -4,7 +4,7 @@ import {createStore, applyMiddleware, compose} from 'redux';
 import {routerMiddleware} from 'react-router-redux';
 import thunk from 'redux-thunk';
 import rootReducer from '../rootReducer';
-const createLogger = require('redux-logger');
+// const createLogger = require('redux-logger'); // выводит в консоль логи экшенов redux-а, засирает всю консоль. КМК не нужен.
 
 export function configureStore(history, initialState?: IReduxStore): Redux.Store<IReduxStore> {
 
@@ -15,8 +15,8 @@ export function configureStore(history, initialState?: IReduxStore): Redux.Store
 
     /** Add Only Dev. Middlewares */
     if (appConfig.env !== 'production' && process.env.BROWSER) {
-        const logger = createLogger();
-        middlewares.push(logger);
+        // const logger = createLogger();
+        // middlewares.push(logger);
     }
 
     const composeEnhancers = (appConfig.env !== 'production' &&

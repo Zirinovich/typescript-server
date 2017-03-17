@@ -23,6 +23,9 @@ export const Header = (props: {account: IUser, logout: ()=>void}) => (
                 <LinkContainer to="/stars">
                     <NavItem>Stars</NavItem>
                 </LinkContainer>
+                <LinkContainer to="/contacts">
+                    <NavItem>Contacts</NavItem>
+                </LinkContainer>
             </Nav>
             <Nav pullRight>
                 { props.account ?

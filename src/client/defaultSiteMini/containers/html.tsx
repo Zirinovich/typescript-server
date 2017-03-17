@@ -51,6 +51,7 @@ class Html extends React.Component<IHtmlProps, {}> {
             </head>
             <body>
             <main id="app" dangerouslySetInnerHTML={{ __html: markup }}/>
+
             {initialState}
             {renderScripts}
             </body>

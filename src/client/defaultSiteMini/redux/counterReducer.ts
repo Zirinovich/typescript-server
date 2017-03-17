@@ -6,12 +6,12 @@ const initialState: ICounter = {
     count: 0,
 };
 
-export function counterReducer(state = initialState, action?: IAction) {
+export function counterReducer(state = initialState, action?: IAction): ICounter {
     switch (action.type) {
         case INCREMENT:
             let {count} = <ICounterAction>action;
             return {
-                count: count +count
+                count: state.count + count
             };
 
         case DECREMENT:
