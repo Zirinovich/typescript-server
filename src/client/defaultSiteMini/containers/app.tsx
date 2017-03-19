@@ -10,6 +10,7 @@ const {connect} = require('react-redux');
 import {IUser} from '../../../shared/interfaces/authentication/IUser';
 
 import '../../common/content/bootstrap-cerulean_theme/bootstrap.scss';
+import {CustomScripts} from "../../common/components/customScripts/customScripts";
 
 interface IProps {
     account: IUser;
@@ -29,6 +30,7 @@ class App extends React.Component<IProps, any> {
                 <Grid>
                     {this.props.children}
                 </Grid>
+                <CustomScripts/>
             </section>
         );
     }

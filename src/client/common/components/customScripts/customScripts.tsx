@@ -8,7 +8,7 @@ interface IState {
     scripts: IScript[]
 }
 interface IProps {
-    script: IScript
+    script?: IScript
 }
 
 @connect(
@@ -21,31 +21,30 @@ interface IProps {
 export class CustomScripts extends React.Component<IProps, IState> {
     constructor(props: IProps) {
         super(props);
-        if (props.script) {
-            this.state = {scripts: [props.script]};
-        }
+        this.state = {scripts: props.script ? [props.script] : []};
     }
 
     componentWillReceiveProps(newProps: IProps) {
         let {script} = newProps;
         let {scripts} = this.state;
-        if (script && scripts.some(o => o.name !== script.name)) {
+        if (script && !scripts.some(o => o.name === script.name)) {
             this.setState({scripts: [...scripts, script]});
         }
     }
 
     // tslint:disable-next-line
     shouldComponentUpdate(nextProps: IProps, nextState: IState) {
+        console.log(nextProps);
         return this.state.scripts.length === nextState.scripts.length;
     }
 
     public render() {
         const {scripts} = this.state;
         return (
-            <div>
+            <div id="cs-script">
                 {
                     scripts.map((s: IScript) => {
-                        return <Script url={s.url}/>
+                        return <Script onLoad={()=>{}} onError={()=>{}} key={`cscript-${s.name}`} url={s.url}/>
                     })
                 }
             </div>

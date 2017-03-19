@@ -15,7 +15,7 @@ export class Contacts extends React.Component<any, any> {
         const {scriptLoad} = this.props;
         return (
             <div>
-                <ContactMap loadGoogleScript={scriptLoad}/>
+                <ContactMap loadGoogleScript={scriptLoad} gkey="AIzaSyBZKRzL-MKcBjVPbkcpXaSI_nhhbx1rkCY"/>
             </div>
         );
     }
