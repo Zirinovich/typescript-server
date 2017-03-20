@@ -8,6 +8,7 @@ export interface ILoadScriptAction extends IAction {
 }
 
 export function loadScript(name: string, url: string, options?: any): ILoadScriptAction {
+
     return {
         type: LOAD_SCRIPT,
         name,
