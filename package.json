@@ -18,52 +18,38 @@
     "nodestart": "node build/server.js",
     "build:prod": "cross-env NODE_ENV=production npm run build"
   },
-  "author": "Barbar Startup Factory <hey@barbar.com.tr>",
+  "author": "Developers team",
   "contributors": [
     {
-      "name": "Altay Aydemir",
-      "email": "altay.aydemir@gmail.com",
-      "url": "http://altayaydemir.com/"
+      "name": "Alexandr",
+      "email": "info@alt-lan",
+      "url": "http://alt-lan.ru/"
     },
     {
-      "name": "Batuhan Icoz",
-      "email": "hey@batuhanicoz.com",
-      "url": "http://batuhanicoz.com/"
+      "name": "Grigory",
+      "email": "info@alt-lan",
+      "url": "http://alt-lan.ru/"
     },
     {
-      "name": "Omer Ufuk Efendioglu",
-      "email": "ufukomer@gmail.com",
-      "url": "http://ufukomer.com/"
-    },
-    {
-      "name": "Patrick Roza",
-      "email": "contact@patrickroza.com",
-      "url": "http://patrickroza.com/"
+      "name": "Eugene",
+      "email": "info@alt-lan",
+      "url": "http://alt-lan.ru/"
     }
   ],
-  "homepage": "https://github.com/barbar/vortigern.git",
+  "homepage": "http://alt-lan-ru",
   "repository": {
     "type": "git",
-    "url": "https://github.com/barbar/vortigern.git"
+    "url": "https://github.com/mamontovgrigory/typescript-server"
   },
   "bugs": {
-    "url": "https://github.com/barbar/vortigern/issues"
+    "url": "https://github.com/mamontovgrigory/typescript-server/issues"
   },
   "keywords": [
     "react",
     "redux",
     "typescript",
     "webpack",
-    "universal",
-    "isomorphic",
-    "starter",
-    "kit",
-    "boilerplate",
-    "hot reload",
-    "react-hot-loader",
-    "enzyme",
-    "mocha",
-    "chai"
+    "isomorphic"
   ],
   "license": "MIT",
   "devDependencies": {
