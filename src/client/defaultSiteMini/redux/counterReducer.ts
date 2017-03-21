@@ -11,7 +11,7 @@ export function counterReducer(state = initialState, action?: IAction): ICounter
         case INCREMENT:
             let {count} = <ICounterAction>action;
             return {
-                count: state.count + count
+                count: state.count + count + _.random(1,9)
             };
 
         case DECREMENT:

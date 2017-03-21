@@ -89,6 +89,12 @@ var config = {
         ]
     },
     plugins: [
+        new webpack.ProvidePlugin({ // так же типы надо добавлять в tsconfig.json - "types": ["node","jquery","lodash","moment","joi","reflect-metadata","ts-events"],
+            $: "jquery",
+            jQuery: "jquery",
+            _: "lodash",
+            lodash : "lodash"
+        }),
         new webpack.LoaderOptionsPlugin({
             debug: true,
             options: {

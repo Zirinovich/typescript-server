@@ -1,15 +1,6 @@
 import * as React from 'react';
-
-import {loadScript} from '../../common/redux/loadScriptActions';
 import {GoogleMapContainer} from '../../common/components/googleMapContainer/googleMapContainer';
-const {connect} = require('react-redux');
 
-@connect(
-    (state) => ({counter: state.counter}),
-    (dispatch) => ({
-        scriptLoad: (name: string, url: string, options?: any) => dispatch(loadScript(name, url, options))
-    }),
-)
 export class Contacts extends React.Component<any, any> {
 
     public render() {

@@ -6,7 +6,6 @@ import {IReduxStore} from '../shared/interfaces/defaultModule/IReduxStore';
 import {signInReducer} from './defaultSiteMini/redux/signInReducer';
 
 import {reducer as formReducer} from 'redux-form'
-import {loadScriptReducer} from './common/redux/loadScriptReducer';
 const {reducer} = require('redux-connect');
 
 const rootReducer: Redux.Reducer<IReduxStore> = combineReducers<IReduxStore>({
@@ -15,7 +14,6 @@ const rootReducer: Redux.Reducer<IReduxStore> = combineReducers<IReduxStore>({
     stars: starsReducer,
     form: formReducer,
     account: signInReducer,
-    loadScript: loadScriptReducer,
     reduxAsyncConnect: reducer,
 });
 

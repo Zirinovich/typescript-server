@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as $ from 'jquery';
 import './googleMapContainer.scss';
 import * as classNames from 'classnames';
+// import * as $ from 'jquery';
 
 interface IProps {
     googleAPIKey: string;
@@ -21,9 +21,8 @@ export class GoogleMapContainer extends React.Component<IProps, any> {
     }
 
     refName: string = this.refName;
-
-    static googleMapAPIUrl = "https://maps.googleapis.com/maps/api/js";
-    static isLoaded = false;
+    static googleMapAPIUrl: string = "https://maps.googleapis.com/maps/api/js";
+    static isLoaded: boolean = false;
 
     static loadScript(url: string, key: string, options: any, callback: ()=>any) {
         if (GoogleMapContainer.isLoaded && callback) {
@@ -31,10 +30,9 @@ export class GoogleMapContainer extends React.Component<IProps, any> {
             return;
         }
         let params = $.param(Object.assign({key}, options));
-        const fullUrl = `${url}?${params}`;
 
         const script = document.createElement('script');
-        script.src = fullUrl;
+        script.src = `${url}?${params}`;
         script.async = true;
         script.onload = () => {
             GoogleMapContainer.isLoaded = true;
@@ -67,7 +65,7 @@ export class GoogleMapContainer extends React.Component<IProps, any> {
     }
 
     public render() {
-        const {className, style} =this.props;
+        const {className, style} = this.props;
         return (<div style={{...style}} ref={this.refName}
                      className={classNames("g-map-container", className)}/>);
     }
