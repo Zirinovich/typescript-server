@@ -4,6 +4,9 @@ var webpack = require('webpack');
 var postcssAssets = require('postcss-assets');
 var postcssNext = require('postcss-cssnext');
 var stylelint = require('stylelint');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
 var nodeModules = {};
 fs.readdirSync('node_modules')
@@ -60,19 +63,14 @@ var config = {
             },
             {
                 test: /\.css$/,
-                loaders: [
-                    'isomorphic-style-loader',
-                    'css-loader?modules&importLoaders=2'
-                ]
+                loader: ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader!postcss-loader'})
             },
             {
                 test: /\.scss$/,
-                include: path.resolve('./src/client'),
-                loaders: [
-                    'isomorphic-style-loader',
-                    'css-loader',
-                    'sass-loader?sourceMap'
-                ]
+                loader: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: 'css-loader!postcss-loader!sass-loader'
+                })
             },
         ]
     },
@@ -90,11 +88,13 @@ var config = {
                     ];
                 },
             }
-        })/*,
+        }),
         new webpack.ProvidePlugin({
             $: 'jquery',
+            jQuery: 'jquery',
             _: 'lodash'
-        })*/
+        }),
+        new ExtractTextPlugin(IS_PRODUCTION ? 'css/styles-[hash].css' : 'css/styles.css')
     ],
 
     node: {

@@ -29,7 +29,7 @@ export class GoogleMapContainer extends React.Component<IProps, any> {
             callback();
             return;
         }
-        let params = $.param(Object.assign({key}, options));
+        let params = $.param(_.assign({key}, options));
 
         const script = document.createElement('script');
         script.src = `${url}?${params}`;

@@ -5,26 +5,7 @@ var postcssAssets = require('postcss-assets');
 var postcssNext = require('postcss-cssnext');
 var stylelint = require('stylelint');
 var ManifestPlugin = require('webpack-manifest-plugin');
-
-//#region copySync, createIfDoesntExist
-const copySync = (src, dest, overwrite) => {
-    if (overwrite && fs.existsSync(dest)) {
-        fs.unlinkSync(dest);
-    }
-    const data = fs.readFileSync(src);
-    fs.writeFileSync(dest, data);
-};
-
-const createIfDoesntExist = dest => {
-    if (!fs.existsSync(dest)) {
-        fs.mkdirSync(dest);
-    }
-};
-
-createIfDoesntExist('./build');
-createIfDoesntExist('./build/public');
-copySync('./src/favicon.ico', './build/public/favicon.ico', true);
-//#endregion
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const NODE_ENV = (process.env.NODE_ENV === 'production' ? 'production' : 'development');
 
@@ -57,14 +38,15 @@ var config = {
                 loader: 'json-loader'
             },
             {
+                test: /\.css$/,
+                loader: ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader!postcss-loader'})
+            },
+            {
                 test: /\.scss$/,
-                include: path.resolve('./src/client/'),
-                loaders: [
-                    'style-loader',
-                    'css-loader',
-                    'postcss-loader',
-                    'sass-loader?sourceMap'
-                ]
+                loader: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: 'css-loader!postcss-loader!sass-loader'
+                })
             },
             {
                 test: /\.eot(\?.*)?$/,
@@ -92,8 +74,7 @@ var config = {
         new webpack.ProvidePlugin({ // так же типы надо добавлять в tsconfig.json - "types": ["node","jquery","lodash","moment","joi","reflect-metadata","ts-events"],
             $: "jquery",
             jQuery: "jquery",
-            _: "lodash",
-            lodash : "lodash"
+            _: "lodash"
         }),
         new webpack.LoaderOptionsPlugin({
             debug: true,
@@ -140,39 +121,17 @@ if (NODE_ENV === 'development') {
     config.output.filename = 'js/[name].js';
     config.output.pathinfo = true;
 
-    config.module.rules.push(
-        {
-            test: /\.css$/,
-            include: path.resolve('./src/client'),
-            loaders: [
-                'style-loader',
-
-                'css-loader?modules&importLoaders=2',
-                'postcss-loader'
-            ]
-        },
-        {
-            test: /\.css$/,
-            exclude: path.resolve('./src/client'),
-            loaders: [
-                'style-loader',
-                'css-loader'
-            ]
-        }
-    );
-
     config.plugins.push(
         new CheckerPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin()
+        new webpack.NoEmitOnErrorsPlugin(),
+        new ExtractTextPlugin('css/styles.css')
     );
 
     config.devtool = 'source-map';
 }
 
 if (NODE_ENV === 'production') {
-    var ExtractTextPlugin = require('extract-text-webpack-plugin');
-
     config.entry = {
         app: './src/client.tsx',
         vendor: [
@@ -190,30 +149,6 @@ if (NODE_ENV === 'production') {
     };
     config.output.filename = 'js/[name].[chunkhash].js';
 
-    config.module.rules.push(
-        {
-            test: /\.css$/,
-            include: path.resolve('./src/app'),
-            loader: ExtractTextPlugin.extract({
-                fallbackLoader: 'style-loader',
-                loader: [
-                    'css-loader?modules&importLoaders=2&localIdentName=[local]___[hash:base64:5]',
-                    'postcss-loader'
-                ]
-            })
-        },
-        {
-            test: /\.css$/,
-            exclude: path.resolve('./src/app'),
-            loader: ExtractTextPlugin.extract({
-                fallbackLoader: 'style-loader',
-                loader: [
-                    'css-loader',
-                ]
-            })
-        }
-    );
-
     config.plugins.push(
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
@@ -226,10 +161,30 @@ if (NODE_ENV === 'production') {
                 warnings: false
             }
         }),
-        new ExtractTextPlugin('css/[name].[hash].css')
+        new ExtractTextPlugin('css/styles-[hash].css')
     );
 
     config.bail = true;
 }
+
+//#region copySync, createIfDoesntExist
+const copySync = (src, dest, overwrite) => {
+    if (overwrite && fs.existsSync(dest)) {
+        fs.unlinkSync(dest);
+    }
+    const data = fs.readFileSync(src);
+    fs.writeFileSync(dest, data);
+};
+
+const createIfDoesntExist = dest => {
+    if (!fs.existsSync(dest)) {
+        fs.mkdirSync(dest);
+    }
+};
+
+createIfDoesntExist('./build');
+createIfDoesntExist('./build/public');
+copySync('./src/favicon.ico', './build/public/favicon.ico', true);
+//#endregion
 
 module.exports = config;
