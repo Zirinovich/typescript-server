@@ -62,14 +62,37 @@ var config = {
                 loader: "file-loader"
             },
             {
+                include: path.resolve('./src'),
+                exclude: path.resolve('./src/client/common/content'),
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader!postcss-loader'})
+                loader: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: 'css-loader?modules&importLoaders=2&localIdentName=[local]___[hash:base64:5]!postcss-loader'
+                })
             },
             {
+                include: path.resolve('./src'),
+                exclude: path.resolve('./src/client/common/content'),
                 test: /\.scss$/,
                 loader: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-                    use: 'css-loader!postcss-loader!sass-loader'
+                    use: 'css-loader?modules&importLoaders=2&localIdentName=[local]___[hash:base64:5]!postcss-loader!sass-loader'
+                })
+            },
+            {
+                include: path.resolve('./src/client/common/content'),
+                test: /\.css$/,
+                loader: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: 'css-loader?modules&importLoaders=2&localIdentName=[local]!postcss-loader'
+                })
+            },
+            {
+                include: path.resolve('./src/client/common/content'),
+                test: /\.scss$/,
+                loader: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: 'css-loader?modules&importLoaders=2&localIdentName=[local]!postcss-loader!sass-loader'
                 })
             },
         ]
