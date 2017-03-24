@@ -6,7 +6,7 @@ import {IScript} from '../common/IScript';
 export interface IReduxStore {
     counter?: ICounter;
     stars?: IStars;
-    account?: IUser;
+    user?: IUser;
     form?: any;
     loadScript?: IScript;
 }

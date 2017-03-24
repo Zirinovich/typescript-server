@@ -4,7 +4,7 @@ import {Nav, Navbar, NavItem} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import {IUser} from '../../../shared/interfaces/authentication/IUser';
 
-export const Header = (props: {account: IUser, logout: ()=>void}) => (
+export const Header = (props: {user: IUser, logout: ()=>void}) => (
     <Navbar>
         <Navbar.Header>
             <Navbar.Brand>
@@ -28,7 +28,7 @@ export const Header = (props: {account: IUser, logout: ()=>void}) => (
                 </LinkContainer>
             </Nav>
             <Nav pullRight>
-                { props.account ?
+                { props.user ?
                     <NavItem onClick={props.logout}>Выйти</NavItem>
                     :
                     <LinkContainer to='/login'>
@@ -36,7 +36,7 @@ export const Header = (props: {account: IUser, logout: ()=>void}) => (
                     </LinkContainer>
                 }
             </Nav>
-            {props.account && <Navbar.Text pullRight>{props.account.fullName}</Navbar.Text>}
+            {props.user && <Navbar.Text pullRight>{props.user.fullName}</Navbar.Text>}
         </Navbar.Collapse>
     </Navbar>
     /*<nav className={style.Nav}>

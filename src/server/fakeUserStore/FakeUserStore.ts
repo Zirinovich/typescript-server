@@ -1,9 +1,9 @@
 import {UserRoleEnum} from "../../shared/interfaces/authentication/UserRoleEnum";
-import {IUser} from "../../shared/interfaces/authentication/IUser";
+import {IAccount} from '../../shared/interfaces/authentication/IAccount';
 import {IUserStore} from "../../shared/interfaces/authentication/IUserStore";
 import {AuthenticationErrorEnum} from "../../shared/interfaces/authentication/AuthenticationErrorEnum";
 
-const constUsers: Array<IUser> = [{
+const constUsers: Array<IAccount> = [{
     fullName: "Иванов Иван Иваныч",
     username: "admin",
     password: "qwe123@#",
@@ -11,7 +11,7 @@ const constUsers: Array<IUser> = [{
 }, {
     fullName: "Петров Водкин Закусонович",
     username: "test",
-    password: "test",
+    password: "CY9rzUYh03PK3k6DJie09g==",
     role: UserRoleEnum.User
 }];
 

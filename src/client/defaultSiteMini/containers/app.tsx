@@ -12,7 +12,7 @@ import {IUser} from '../../../shared/interfaces/authentication/IUser';
 import '../../common/content/bootstrap-cerulean_theme/bootstrap.scss';
 
 interface IProps {
-    account: IUser;
+    user: IUser;
     dispatch: ()=>void;
 }
 
@@ -21,11 +21,11 @@ interface IProps {
 )
 class App extends React.Component<IProps, any> {
     public render() {
-        const {account, dispatch} = this.props;
+        const {user, dispatch} = this.props;
         return (
             <section>
                 <Helmet {...appConfig.app} {...appConfig.app.head}/>
-                <Header account={account} logout={()=>{logout(dispatch)}}/>
+                <Header user={user} logout={()=>{logout(dispatch)}}/>
                 <Grid>
                     {this.props.children}
                 </Grid>

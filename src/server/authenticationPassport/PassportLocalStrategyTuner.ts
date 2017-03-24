@@ -5,6 +5,7 @@ import {Express} from "express-serve-static-core";
 import {FakeUserStore} from '../fakeUserStore';
 import {IUser} from '../../shared/interfaces/authentication/IUser';
 import {IAuthenticationError} from '../../shared/interfaces/authentication/IAuthenticationError';
+import {IAccount} from '../../shared/interfaces/authentication/IAccount';
 
 export class PassportLocalStrategyTuner {
     private static store = new FakeUserStore();
@@ -26,11 +27,17 @@ export class PassportLocalStrategyTuner {
     }
 
     private static verifyFunction(username: string, password: string, done: (error: any, user?: any, options?: IVerifyOptions) => void) {
-        PassportLocalStrategyTuner.store.FindUser(username, password, (err: IAuthenticationError, user: IUser) => {
+        console.log(password);
+        PassportLocalStrategyTuner.store.FindUser(username, password, (err: IAuthenticationError, account: IAccount) => {
             if (err) {
                 return done(err, false);
             }
             else {
+                const user = {
+                    fullName: account.fullName,
+                    username: account.username,
+                    role: account.role
+                };
                 return done(null, user);
             }
         });

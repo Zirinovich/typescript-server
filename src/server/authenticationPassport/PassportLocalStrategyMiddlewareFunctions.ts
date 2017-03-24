@@ -1,13 +1,13 @@
 import * as passportStatic  from "passport";
 import HTTP_STATUS_CODES from 'http-status-enum';
 import {IAuthenticationError} from '../../shared/interfaces/authentication/IAuthenticationError';
-import {IUser} from '../../shared/interfaces/authentication/IUser';
 import {AuthenticationErrorEnum} from '../../shared/interfaces/authentication/AuthenticationErrorEnum';
 import {IAuthenticationMiddleware} from '../../shared/interfaces/authentication/IAuthenticationMiddleware';
+import {IAccount} from '../../shared/interfaces/authentication/IAccount';
 
-export class PassportLocalStrategyMiddlewareFunctions implements IAuthenticationMiddleware{
+export class PassportLocalStrategyMiddlewareFunctions implements IAuthenticationMiddleware {
     login(req, res, next) {
-        passportStatic.authenticate('local', (err: IAuthenticationError, user: IUser) => {
+        passportStatic.authenticate('local', (err: IAuthenticationError, account: IAccount) => {
             if (err) {
                 switch (err.errorType) {
                     case AuthenticationErrorEnum.SystemError:
@@ -18,7 +18,7 @@ export class PassportLocalStrategyMiddlewareFunctions implements IAuthentication
                         return res.status(HTTP_STATUS_CODES.OK).json({errors: {password: err.message}});
                 }
             }
-            if (!user) {
+            if (!account) {
                 if (err === null) {
                     let errors: any = {};
                     let message = "Поле обязательно для заполнения!";
@@ -33,11 +33,16 @@ export class PassportLocalStrategyMiddlewareFunctions implements IAuthentication
                 }
                 return res.status(HTTP_STATUS_CODES.OK).json({errors: {username: err.message}});
             }
-            req.logIn(user, (error) => {
+            req.logIn(account, (error) => {
+                const user = {
+                    fullName: account.fullName,
+                    username: account.username,
+                    role: account.role
+                }
                 if (error) {
                     return next(error);
                 }
-                return res.json({account: req.user})
+                return res.json({account: user})
             });
 
         })(req, res, next)

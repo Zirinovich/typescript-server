@@ -2,28 +2,32 @@ import {IAction} from "../../../shared/interfaces/defaultModule/IAction";
 const formData = require('form-urlencoded');
 import {SubmissionError} from 'redux-form';
 import {browserHistory} from 'react-router';
-import {IUser} from "../../../shared/interfaces/authentication/IUser";
+import {getMD5base64} from '../../../shared/tools/index';
+import {IUser} from '../../../shared/interfaces/authentication/IUser';
+
 
 export const LOGIN_SUCCESS = 'LOGIN_REQUEST_FINISHED',
     LOGOUT = 'LOGOUT_REQUEST';
 
 export interface ISignInAction extends IAction {
-    account: IUser;
+    user: IUser;
 }
 
-export function signInRequest(credentials) {
+export function signInRequest(credentials: {username?: string, password?: string}) {
+    const data = {username: credentials.username, password: getMD5base64(credentials.password)}
+
     return fetch('/api/login', {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: formData(credentials)
+        body: formData(data)
     })
         .then(res => res.json())
         .then((json: any) => {
             if (!json.errors) {
-                return json.account;
+                return json.user;
             }
             throw new SubmissionError({...json.errors});
         })
@@ -38,7 +42,7 @@ export function signInRequest(credentials) {
 export function signInSuccess(user, dispatch) {
     dispatch({
         type: LOGIN_SUCCESS,
-        account: user
+        user: user
     });
     browserHistory.push('/');
 }
