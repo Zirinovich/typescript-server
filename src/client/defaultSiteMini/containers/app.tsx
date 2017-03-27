@@ -17,7 +17,7 @@ interface IProps {
 }
 
 @connect(
-    (state) => ({account: state.account})
+    (state) => ({user: state.user})
 )
 class App extends React.Component<IProps, any> {
     public render() {

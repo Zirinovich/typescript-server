@@ -27,7 +27,6 @@ export class PassportLocalStrategyTuner {
     }
 
     private static verifyFunction(username: string, password: string, done: (error: any, user?: any, options?: IVerifyOptions) => void) {
-        console.log(password);
         PassportLocalStrategyTuner.store.FindUser(username, password, (err: IAuthenticationError, account: IAccount) => {
             if (err) {
                 return done(err, false);

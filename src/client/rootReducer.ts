@@ -13,7 +13,7 @@ const rootReducer: Redux.Reducer<IReduxStore> = combineReducers<IReduxStore>({
     counter: counterReducer,
     stars: starsReducer,
     form: formReducer,
-    account: signInReducer,
+    user: signInReducer,
     reduxAsyncConnect: reducer,
 });
 

@@ -25,6 +25,7 @@ import {serverRouter} from './server/serverRouterMiddleware'
 
 import {expressSetup, expressSessionSetup} from './server/expressSetup';
 import {passportSetup} from './server/authenticationPassport';
+// import {IUser} from './shared/interfaces/authentication/IUser';
 
 const Chalk = require('chalk');
 
@@ -56,9 +57,10 @@ if (process.env.NODE_ENV !== 'production') {
 app.use(serverRouter);
 
 app.get('*', (req, res) => {
+
     const location = req.url;
     const memoryHistory = createMemoryHistory(req.originalUrl);
-    const store = configureStore(memoryHistory, (req.user ? {account: req.user} : {}));
+    const store = configureStore(memoryHistory, ( req.user ? {user: Object.assign({}, req.user, {password: undefined})} : {}));
     const history = syncHistoryWithStore(memoryHistory, store);
 
     match({history, routes, location},

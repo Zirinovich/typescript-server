@@ -8,7 +8,7 @@ export function signInReducer(state: IUser = initialState, action: IAction) {
     switch (action.type) {
         case LOGIN_SUCCESS:
             let {user} = <ISignInAction>action;
-            return _.assign({}, state, {...user});
+            return Object.assign({}, state, {...user});
         case LOGOUT:
             return null;
         default:

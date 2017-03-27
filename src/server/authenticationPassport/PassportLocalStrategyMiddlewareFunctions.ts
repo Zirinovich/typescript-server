@@ -38,11 +38,11 @@ export class PassportLocalStrategyMiddlewareFunctions implements IAuthentication
                     fullName: account.fullName,
                     username: account.username,
                     role: account.role
-                }
+                };
                 if (error) {
                     return next(error);
                 }
-                return res.json({account: user})
+                return res.json({user})
             });
 
         })(req, res, next)
