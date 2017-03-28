@@ -9,6 +9,7 @@ export class PassportLocalStrategyMiddlewareFunctions implements IAuthentication
     login(req, res, next) {
         passportStatic.authenticate('local', (err: IAuthenticationError, account: IAccount) => {
             if (err) {
+                console.log(err);
                 switch (err.errorType) {
                     case AuthenticationErrorEnum.SystemError:
                         return res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR).send(err.message);
