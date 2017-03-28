@@ -8,7 +8,7 @@ import {IUserStore} from '../../shared/interfaces/authentication/IUserStore';
 import Ioc from '../../shared/classes/ioc';
 
 export class PassportLocalStrategyTuner {
-    private static store = Ioc.resolve<IUserStore>('IAuthenticationMiddleware');
+    private static store = Ioc.resolve<IUserStore>('IUserStore');
 
     static Setup(app: Express) {
         PassportLocalStrategyTuner.InitializePassport();

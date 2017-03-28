@@ -3,6 +3,6 @@ import {PassportLocalStrategyMiddlewareFunctions} from './authenticationPassport
 import {UserStore} from './PostgeDatabase/UserStore';
 
 Ioc.register("IAuthenticationMiddleware", true, new PassportLocalStrategyMiddlewareFunctions());
-Ioc.register("IUserStore", true, new UserStore);
+Ioc.register("IUserStore", true, new UserStore());
 
 export {Ioc};
