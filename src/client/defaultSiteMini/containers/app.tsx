@@ -4,12 +4,14 @@ const appConfig = require('../../../../config/main');
 
 import * as React from 'react';
 import * as Helmet from 'react-helmet';
-import {Header} from '../components/header';
+//import {Header} from '../components/header';
+import {Header} from '../components/superHeader';
 import {Grid}  from 'react-bootstrap';
 const {connect} = require('react-redux');
 import {IUser} from '../../../shared/interfaces/authentication/IUser';
 
 import '../../common/content/bootstrap-cerulean_theme/bootstrap.scss';
+import '../../common/content/template/template.scss';
 
 interface IProps {
     user: IUser;
