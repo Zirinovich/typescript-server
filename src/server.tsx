@@ -25,7 +25,6 @@ import {serverRouter} from './server/serverRouterMiddleware'
 
 import {expressSetup, expressSessionSetup} from './server/expressSetup';
 import {passportSetup} from './server/authenticationPassport';
-// import {IUser} from './shared/interfaces/authentication/IUser';
 
 const Chalk = require('chalk');
 

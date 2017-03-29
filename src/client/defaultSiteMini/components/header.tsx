@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Link} from 'react-router';
-import {Nav, Navbar, NavItem} from 'react-bootstrap';
+import {Nav, Navbar, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 import {IUser} from '../../../shared/interfaces/authentication/IUser';
 
@@ -25,6 +25,20 @@ export const Header = (props: {user: IUser, logout: ()=>void}) => (
                 </LinkContainer>
                 <LinkContainer to="/contacts">
                     <NavItem>Contacts</NavItem>
+                </LinkContainer>
+                <NavDropdown title="RemoteFetch" id="remote-fetch-dd">
+                    <LinkContainer to="/fetching/1">
+                        <MenuItem>1</MenuItem>
+                    </LinkContainer>
+                    <LinkContainer to="/fetch/2">
+                        <MenuItem>2</MenuItem>
+                    </LinkContainer>
+                    <LinkContainer to="/fetch/some">
+                        <MenuItem>some</MenuItem>
+                    </LinkContainer>
+                </NavDropdown>
+                <LinkContainer to="/srender">
+                    <NavItem>ServerRender</NavItem>
                 </LinkContainer>
             </Nav>
             <Nav pullRight>

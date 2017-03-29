@@ -16,7 +16,6 @@ export interface IStarsAction extends IAction{
 export function getStars() {
     return (dispatch) => {
         dispatch(starsRequest());
-
         return fetch('https://api.github.com/repos/barbar/vortigern')
             .then((res) => {
                 if (res.ok) {

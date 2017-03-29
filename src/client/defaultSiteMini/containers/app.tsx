@@ -14,6 +14,7 @@ import '../../common/content/bootstrap-cerulean_theme/bootstrap.scss';
 interface IProps {
     user: IUser;
     dispatch: ()=>void;
+    children?: any;
 }
 
 @connect(
@@ -21,13 +22,13 @@ interface IProps {
 )
 class App extends React.Component<IProps, any> {
     public render() {
-        const {user, dispatch} = this.props;
+        const {user, dispatch, children} = this.props;
         return (
             <section>
                 <Helmet {...appConfig.app} {...appConfig.app.head}/>
                 <Header user={user} logout={()=>{logout(dispatch)}}/>
                 <Grid>
-                    {this.props.children}
+                    {children}
                 </Grid>
             </section>
         );

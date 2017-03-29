@@ -7,6 +7,8 @@ import {Stars} from './containers/stars';
 import {App} from './containers/app';
 import {SignIn} from './containers/signIn';
 import {Contacts} from './containers/contacts';
+import {ServerRender} from './containers/serverRender';
+import {ServerRender2} from './containers/serverRender2';
 
 export const routes = (
     <Route path="/" component={App}>
@@ -16,5 +18,7 @@ export const routes = (
         <Route path="stars" component={Stars}/>
         <Route path="login" component={SignIn}/>
         <Route path="contacts" component={Contacts}/>
+        <Route path="fetch/:fetchId" component={ServerRender2}/>
+        <Route path="parallel" component={ServerRender}/>
     </Route>
 );
