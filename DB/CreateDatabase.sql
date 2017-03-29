@@ -9,3 +9,6 @@ create table t_user_accounts
 	role integer default 1 not null
 )
 ;
+
+INSERT INTO t_user_accounts (username, password, full_name) VALUES ('test', 'CY9rzUYh03PK3k6DJie09g==', 'Петров Водкин Закусонович');
+INSERT INTO t_user_accounts (username, password, full_name) VALUES ('admin', 'r5HI0MW24N7VLKXqNl8POg==', 'Иванов Иван Иванович');
