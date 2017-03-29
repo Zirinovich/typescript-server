@@ -2,13 +2,13 @@ import {Strategy, IVerifyOptions} from 'passport-local'
 import * as passport  from "passport";
 import {Express} from "express-serve-static-core";
 
-import {FakeUserStore} from '../fakeUserStore';
-import {IUser} from '../../shared/interfaces/authentication/IUser';
 import {IAuthenticationError} from '../../shared/interfaces/authentication/IAuthenticationError';
 import {IAccount} from '../../shared/interfaces/authentication/IAccount';
+import {IUserStore} from '../../shared/interfaces/authentication/IUserStore';
+import Ioc from '../../shared/classes/ioc';
 
 export class PassportLocalStrategyTuner {
-    private static store = new FakeUserStore();
+    private static store = Ioc.resolve<IUserStore>('IUserStore');
 
     static Setup(app: Express) {
         PassportLocalStrategyTuner.InitializePassport();
@@ -22,8 +22,8 @@ export class PassportLocalStrategyTuner {
                 passwordField: "password"
             }, PassportLocalStrategyTuner.verifyFunction
         ));
-        passport.serializeUser<IUser,string>(PassportLocalStrategyTuner.serializeUser);
-        passport.deserializeUser<IUser,string>(PassportLocalStrategyTuner.deserializeUser);
+        passport.serializeUser<IAccount,string>(PassportLocalStrategyTuner.serializeUser);
+        passport.deserializeUser<IAccount,string>(PassportLocalStrategyTuner.deserializeUser);
     }
 
     private static verifyFunction(username: string, password: string, done: (error: any, user?: any, options?: IVerifyOptions) => void) {
@@ -32,21 +32,16 @@ export class PassportLocalStrategyTuner {
                 return done(err, false);
             }
             else {
-                const user = {
-                    fullName: account.fullName,
-                    username: account.username,
-                    role: account.role
-                };
-                return done(null, user);
+                return done(null, account);
             }
         });
     }
 
-    private static serializeUser(user: IUser, done: Function) {
-        done(null, user.username)
+    private static serializeUser(account: IAccount, done: (err, id)=> void) {
+        done(null, account.id)
     }
 
-    private static deserializeUser(username: string, done: Function) {
-        PassportLocalStrategyTuner.store.FindUserById(username, done);
+    private static deserializeUser(id: string, done: (err, user?)=>void) {
+        PassportLocalStrategyTuner.store.FindUserById(id, done);
     }
 }
