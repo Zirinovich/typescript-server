@@ -15,9 +15,9 @@ import {createMemoryHistory, match} from 'react-router';
 import {syncHistoryWithStore} from 'react-router-redux';
 const {ReduxAsyncConnect, loadOnServer} = require('redux-connect');
 
-import {routes} from "./client/defaultSiteMini/routes";
+import {routes} from "./client/siteAltLan/routes";
 
-import {Html} from "./client/defaultSiteMini/containers/html";
+import {Html} from "./client/siteAltLan/containers/html";
 const manifest = require('../build/manifest.json');
 
 import * as express from 'express';

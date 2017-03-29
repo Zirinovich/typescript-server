@@ -1,5 +1,7 @@
 import * as React from 'react';
 import {Link} from 'react-router';
+import {Nav, NavItem} from 'react-bootstrap';
+import {LinkContainer} from 'react-router-bootstrap';
 
 import {IUser} from "../../../shared/interfaces/authentication/IUser";
 const style = require('./superHeader.scss');
@@ -38,66 +40,6 @@ export class Header extends React.Component<IProps, IState> {
                     <div id="navbar-collapse-1" className="navbar-collapse collapse pull-right">
                       <nav>
                         <ul className="nav navbar-nav">
-                          <li className="dropdown"><a href="index.html" className="dropdown-toggle active"> Home</a>
-                          </li>
-                          <li className="dropdown"><a href="http://codelayers.net/foxuhost/layout2/fullwidth/index.html"
-                                                      className="dropdown-toggle"> Layouts</a>
-                            <ul className="dropdown-menu" role="menu">
-                              <li><a href="http://codelayers.net/foxuhost/layout2/fullwidth/index.html">Layout Light</a>
-                              </li>
-                              <li><a
-                                href="http://codelayers.net/foxuhost/layout3/fullwidth/index.html">Layout Classic</a>
-                              </li>
-                              <li><a
-                                href="http://codelayers.net/foxuhost/layout4/fullwidth/index.html">Layout Light2</a>
-                              </li>
-                              <li><a
-                                href="http://codelayers.net/foxuhost/layout5/fullwidth/index.html">Layout Classic2</a>
-                              </li>
-                              <li><a
-                                href="http://codelayers.net/foxuhost/layout6/fullwidth/index.html">Layout Classic3</a>
-                              </li>
-                              <li><a
-                                href="http://codelayers.net/foxuhost/layout1/fullwidth/index.html">Layout Creative</a>
-                              </li>
-                              <li><a
-                                href="http://codelayers.net/foxuhost/layout7/fullwidth/index.html">Layout One Page</a>
-                              </li>
-                              <li className="dropdown-submenu mul"><a href="#">Header Styles</a>
-                                <ul className="dropdown-menu">
-                                  <li><a href="http://codelayers.net/foxuhost/layout2/fullwidth/index.html">Header Style1</a>
-                                  </li>
-                                  <li><a href="http://codelayers.net/foxuhost/layout3/fullwidth/index.html">Header Style2</a>
-                                  </li>
-                                  <li><a href="http://codelayers.net/foxuhost/layout4/fullwidth/index.html">Header Style3</a>
-                                  </li>
-                                  <li><a href="http://codelayers.net/foxuhost/layout5/fullwidth/index.html">Header Style4</a>
-                                  </li>
-                                  <li><a href="http://codelayers.net/foxuhost/layout6/fullwidth/index.html">Header Style5</a>
-                                  </li>
-                                  <li><a href="http://codelayers.net/foxuhost/layout1/fullwidth/index.html">Header Style6</a>
-                                  </li>
-                                  <li><a href="http://codelayers.net/foxuhost/layout7/fullwidth/index.html">Header Style7</a>
-                                  </li>
-                                </ul>
-                              </li>
-                            </ul>
-                          </li>
-                          <li className="dropdown"><a href="domain_search.html" className="dropdown-toggle"> Domains</a>
-                            <ul className="dropdown-menu" role="menu">
-                              <li><a href="domain_search.html">Domain Search</a></li>
-                              <li><a href="domain_transfer.html">Domain Transfer</a></li>
-                            </ul>
-                          </li>
-                          <li className="dropdown"><a href="webhosting.html" className="dropdown-toggle"> Hosting</a>
-                            <ul className="dropdown-menu" role="menu">
-                              <li><a href="webhosting.html">Web Hosting</a></li>
-                              <li><a href="dedicated_hosting.html">Dedicate Hosting</a></li>
-                              <li><a href="shared_hosting.html">Shared Hosting</a></li>
-                              <li><a href="vps_hosting.html">VPS Hosting</a></li>
-                              <li><a href="reseller.html">Reseller Hosting</a></li>
-                            </ul>
-                          </li>
                           <li className="dropdown yamm-fw"><a href="message-boxes.html" className="dropdown-toggle">Elements</a>
                             <ul className="dropdown-menu">
                               <li>
@@ -161,6 +103,15 @@ export class Header extends React.Component<IProps, IState> {
                                       <li><a href="widgets.html"><i className="fa fa-external-link"></i>
                                         &nbsp; Widget Styles</a></li>
                                     </ul>
+                                    <Nav pullRight>
+                                      { this.props.user ?
+                                        <NavItem onClick={this.props.logout}>Выйти</NavItem>
+                                        :
+                                        <LinkContainer to='/login'>
+                                          <NavItem>Вход</NavItem>
+                                        </LinkContainer>
+                                      }
+                                    </Nav>
                                   </div>
                                 </div>
                               </li>
@@ -187,34 +138,7 @@ export class Header extends React.Component<IProps, IState> {
                               <li><a href="404.html">404 Error Page</a></li>
                             </ul>
                           </li>
-                          <li className="dropdown"><a href="portfolio-three.html"
-                                                      className="dropdown-toggle">Portfolio</a>
-                            <ul className="dropdown-menu" role="menu">
-                              <li><a href="portfolio-one.html">Single Item</a></li>
-                              <li><a href="portfolio-two.html">Portfolio Columns 2</a></li>
-                              <li><a href="portfolio-three.html">Portfolio Columns 3</a></li>
-                              <li><a href="portfolio-four.html">Portfolio Columns 4</a></li>
-                              <li><a href="portfolio-five.html">Portfolio + Sidebar</a></li>
-                              <li><a href="portfolio-six.html">Portfolio Full Width</a></li>
-                              <li><a href="portfolio-seven.html">Portfolio Masonry</a></li>
-                            </ul>
-                          </li>
-                          <li className="dropdown"><a href="blog.html" className="dropdown-toggle">Blog</a>
-                            <ul className="dropdown-menu three" role="menu">
-                              <li><a href="blog.html">Blog Full Width</a></li>
-                              <li><a href="blog2.html">Blog 3Columns</a></li>
-                              <li><a href="blog3.html">Blog Standard</a></li>
-                              <li><a href="blog-post.html">Single Post</a></li>
-                            </ul>
-                          </li>
 
-                          <li className="dropdown"><a href="contact.html" className="dropdown-toggle">Contact</a>
-                            <ul className="dropdown-menu two" role="menu">
-                              <li><a href="contact.html">Contact Variation 1</a></li>
-                              <li><a href="contact2.html">Contact Variation 2</a></li>
-                              <li><a href="contact3.html">Contact Variation 3</a></li>
-                            </ul>
-                          </li>
                         </ul>
                       </nav>
                     </div>

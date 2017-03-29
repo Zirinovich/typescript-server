@@ -1,9 +1,10 @@
 import {combineReducers} from 'redux';
 import {routerReducer} from 'react-router-redux';
-import {counterReducer} from './defaultSiteMini/redux/counterReducer';
-import {starsReducer} from './defaultSiteMini/redux/starsReducer';
+
 import {IReduxStore} from '../shared/interfaces/defaultModule/IReduxStore';
-import {signInReducer} from './defaultSiteMini/redux/signInReducer';
+import {counterReducer} from './siteAltLan/redux/counterReducer';
+import {starsReducer} from './siteAltLan/redux/starsReducer';
+import {signInReducer} from './siteAltLan/redux/signInReducer';
 
 import {reducer as formReducer} from 'redux-form'
 const {reducer} = require('redux-connect');
