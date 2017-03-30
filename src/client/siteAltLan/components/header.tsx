@@ -28,23 +28,24 @@ export class Header extends React.Component<IProps, IState> {
                                     <li><i className="fa fa-comments"></i> 24x7  live Technical Support</li>
                                     <li><i className="fa fa-phone"></i> (888) 123-4567</li>
                                     <li><a href="#"><i className="fa fa-comments"></i> Live Chat</a></li>
-                                    <li><a href="#"><i className="fa fa-user"></i> Login</a></li>
-                                    <li><a href="#"><i className="fa fa-user"></i> Register</a></li>
+                                    { this.props.user &&
                                     <li>
-                                        <div className="country_selector">Country
-                                            <select id="source">
-                                                <option selected={true} value="RU">Russia</option>
-                                                <option value="US">United States</option>
-                                                <option value="FR">France</option>
-                                                <option value="DE">Germany</option>
-                                                <option value="IN">India</option>
-                                                <option value="JP">Japan</option>
-                                                <option value="RS">Serbia</option>
-                                                <option value="UK">United Kingdom</option>
-                                                <option value="BR">Brasil</option>
-                                            </select>
-                                        </div>
+                                        <i className="fa fa-user"></i> {this.props.user.fullName}
                                     </li>
+                                    }
+                                    { this.props.user ?
+                                        <li>
+                                            <a href="#" onClick={this.props.logout}>
+                                                <i className="fa fa-user"></i> Выйти
+                                            </a>
+                                        </li>
+                                        :
+                                        <li>
+                                            <LinkContainer to="/login">
+                                                <a><i className="fa fa-user"></i> Login</a>
+                                            </LinkContainer>
+                                        </li>
+                                    }
                                     <li><a href="#"><i className="fa fa-facebook"></i></a></li>
                                     <li><a href="#"><i className="fa fa-twitter"></i></a></li>
                                     <li><a href="#"><i className="fa fa-google-plus"></i></a></li>
@@ -54,6 +55,8 @@ export class Header extends React.Component<IProps, IState> {
                         </div>
                     </div>
                 </div>
+
+                <div className="clearfix"></div>
 
                 <div className={style.trueHeader}>
                     <div className="wrapper">
