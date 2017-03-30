@@ -6,12 +6,13 @@ import * as React from 'react';
 import * as Helmet from 'react-helmet';
 //import {Header} from '../components/header';
 import {Header} from '../components/header';
-import {Grid}  from 'react-bootstrap';
+import {Footer}from '../components/footer';
+//import {Grid}  from 'react-bootstrap';
 const {connect} = require('react-redux');
 import {IUser} from '../../../shared/interfaces/authentication/IUser';
 
 import '../../common/content/bootstrap-cerulean_theme/bootstrap.scss';
-import '../../common/content/template/template.scss';
+import '../../common/content/template/template';
 
 interface IProps {
     user: IUser;
@@ -28,9 +29,8 @@ class App extends React.Component<IProps, any> {
             <section>
                 <Helmet {...appConfig.app} {...appConfig.app.head}/>
                 <Header user={user} logout={()=>{logout(dispatch)}}/>
-                <Grid>
-                    {this.props.children}
-                </Grid>
+                {this.props.children}
+                <Footer/>
             </section>
         );
     }
