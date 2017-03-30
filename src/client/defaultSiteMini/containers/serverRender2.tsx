@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {getArticle} from '../redux/serverRenderActions';
+import {getArticlePromise} from '../redux/serverRenderActions';
 
 const {asyncConnect} = require('redux-connect');
 
@@ -9,7 +9,7 @@ interface IProps {
 
 @asyncConnect([{
     key: 'article',
-    promise: () => getArticle(1)
+    promise: ({params:{fetchId}}) => getArticlePromise(fetchId)
 }])
 export class ServerRender2 extends React.Component<IProps, any> {
 

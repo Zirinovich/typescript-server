@@ -3,27 +3,22 @@ import {IAction} from '../../../shared/interfaces/defaultModule/IAction';
 import {ARTICLE_GET_REQUEST, ARTICLE_GET_SUCCESS, IArticleAction, ARTICLE_GET_FAILURE} from './serverRenderActions';
 
 const initialState: IArticle = {
-    isFetching: false
+    isFetching: 0
 };
 
 export function articleReducer(state: IArticle = initialState, action: IAction) {
+    const {isFetching} = state;
     switch (action.type) {
         case ARTICLE_GET_REQUEST:
-            return Object.assign({}, state, {isFetching: true});
-
+            return {isFetching: isFetching + 1};
         case ARTICLE_GET_SUCCESS:
-            let {payload:{text}} = <IArticleAction>action;
-            return Object.assign({}, state, {
-                isFetching: false,
-                text
-            });
+            return {isFetching: isFetching ? isFetching - 1 : 0};
 
         case ARTICLE_GET_FAILURE:
-            let {payload:{message}} = <IArticleAction>action;
+            let {errorMessage} = <IArticleAction>action;
             return Object.assign({}, state, {
-                isFetching: false,
-                message: message,
-                error: true,
+                isFetching: isFetching ? isFetching - 1 : 0,
+                message: errorMessage,
             });
 
         default:

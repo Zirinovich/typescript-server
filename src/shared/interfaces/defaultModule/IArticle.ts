@@ -1,5 +1,5 @@
 export interface IArticle {
-    isFetching?: boolean;
+    isFetching: number;
     text?: string;
     message?: any;
 }

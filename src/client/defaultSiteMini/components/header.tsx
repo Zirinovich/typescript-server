@@ -27,7 +27,7 @@ export const Header = (props: {user: IUser, logout: ()=>void}) => (
                     <NavItem>Contacts</NavItem>
                 </LinkContainer>
                 <NavDropdown title="RemoteFetch" id="remote-fetch-dd">
-                    <LinkContainer to="/fetching/1">
+                    <LinkContainer to="/fetch/1">
                         <MenuItem>1</MenuItem>
                     </LinkContainer>
                     <LinkContainer to="/fetch/2">
@@ -37,8 +37,8 @@ export const Header = (props: {user: IUser, logout: ()=>void}) => (
                         <MenuItem>some</MenuItem>
                     </LinkContainer>
                 </NavDropdown>
-                <LinkContainer to="/srender">
-                    <NavItem>ServerRender</NavItem>
+                <LinkContainer to="/parallel">
+                    <NavItem>ParallelFetch</NavItem>
                 </LinkContainer>
             </Nav>
             <Nav pullRight>
