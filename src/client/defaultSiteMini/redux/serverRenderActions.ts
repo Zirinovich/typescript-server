@@ -37,55 +37,28 @@ export function getArticle(artNumber: number) {
 
         try {
             let response = await fetch(`http://localhost:8889/api/public/article/${artNumber}`);
-            if(response.ok){
-                if(artNumber === 2){
+            if (response.ok) {
+                if (artNumber === 2) {
                     await delay(3000);
                     dispatch(articleSuccess());
                     return await response.text();
 
                 }
-                else{
+                else {
                     dispatch(articleSuccess());
                     return await response.text();
                 }
             }
-            else{
+            else {
                 let errText = await response.text();
-                dispatch(articleFailure('!!!Alarm!!! '+errText));
+                dispatch(articleFailure('!!!Alarm!!! ' + errText));
                 return "";
             }
-/*            return fetch(`http://localhost:8889/api/public/article/${artNumber}`)
-                .then((res) => {
-                    if (res.ok) {
-                        if (artNumber === 2) {
-                            return delay(3000)
-                                .then(() => {
-                                    dispatch(articleSuccess());
-                                    return res.text();
-
-                                });
-                        }
-                        else {
-                            dispatch(articleSuccess());
-                            return res.text();
-                        }
-                    }
-                    else {
-                        return res.text().then(text => {
-                            dispatch(articleFailure(text));
-                            return Promise.resolve("");
-                        });
-                    }
-                })
-                .catch((err) => {
-                    dispatch(articleFailure(err));
-                });*/
         }
-        catch(error){
+        catch (error) {
             dispatch(articleFailure(error));
         }
     }
-
 }
 
 export function articleRequest(): IAction {
