@@ -1,11 +1,10 @@
 import * as React from 'react';
 import * as Helmet from 'react-helmet';
-import {IDefaultSiteReduxStore} from '../../../shared/interfaces/defaultModule/IDefaultSiteReduxStore';
 
 interface IHtmlProps {
     manifest?: any;
     markup?: string;
-    store?: Redux.Store<IDefaultSiteReduxStore>;
+    store?: any;
 }
 
 class Html extends React.Component<IHtmlProps, {}> {

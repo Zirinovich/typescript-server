@@ -16,7 +16,7 @@ import {syncHistoryWithStore} from 'react-router-redux';
 import HTTP_STATUS_CODES from 'http-status-enum';
 const {ReduxAsyncConnect, loadOnServer} = require('redux-connect');
 
-import {Html} from "./client/defaultSiteMini/containers/html";
+import {Html} from "./client/common/html";
 const manifest = require('../build/manifest.json');
 
 import * as express from 'express';
@@ -78,10 +78,10 @@ app.get('*', (req, res) => {
                             <ReduxAsyncConnect {...renderProps} />
                         </Provider>,
                     );
-                    res.status(200).send(renderHTML(markup, store));
+                    res.status(HTTP_STATUS_CODES.OK).send(renderHTML(markup, store));
                 });
             } else {
-                res.status(404).send('Not Found???');
+                res.status(HTTP_STATUS_CODES.NOT_FOUND).send('Not Found???');
             }
         });
 });

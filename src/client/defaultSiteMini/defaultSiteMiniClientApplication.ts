@@ -24,5 +24,4 @@ export class DefaultSiteMiniClientApplication extends ClientApplicationBase<IDef
     });
 
     clientRoutes = routes;
-
 }

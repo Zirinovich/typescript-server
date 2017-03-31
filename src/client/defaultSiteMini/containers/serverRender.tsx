@@ -26,13 +26,8 @@ interface IProps {
     (state) => ({...state.articles})
 )
 export class ServerRender extends React.Component<IProps, any> {
-    componentDidMount(){
-        console.log("mounted");
-    }
-
     public render() {
         const {article1, article2, message, isFetching} = this.props;
-        console.log("render");
         return (
             <div>{
                 isFetching ? 'Fetching articles' :
