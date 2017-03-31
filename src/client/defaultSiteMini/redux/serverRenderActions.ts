@@ -18,20 +18,10 @@ export function getArticlePromise(artNumber: any) {
     return getArticleSerial();
 }
 
-function getArticleSerial() {
-    // Данная функция не использует проверок res.ok и прочего, учитывать это беря как пример
-    let text = "";
-    return fetch(`http://localhost:8889/api/public/article/${67}`)
-        .then((res) => {
-            res.text().then(txt => text += txt);
-            return fetch(`http://localhost:8889/api/public/article/${89}`)
-                .then((res) => {
-                    return res.text().then(txt => {
-                        text = text + ' --->>> ' + txt;
-                        return Promise.resolve(text);
-                    })
-                })
-        })
+async function getArticleSerial() {
+    let first = await (await fetch(`http://localhost:8889/api/public/article/${67}`)).text();
+    let second = await (await fetch(`http://localhost:8889/api/public/article/${89}`)).text();
+    return first + "  --->>>  " + second;
 }
 
 
@@ -42,36 +32,60 @@ function delay(t) {
 }
 
 export function getArticle(artNumber: number) {
-    return (dispatch) => {
+    return async(dispatch) => {
         dispatch(articleRequest());
 
-        return fetch(`http://localhost:8889/api/public/article/${artNumber}`)
-            .then((res) => {
-                if (res.ok) {
-                    if (artNumber === 2) {
-                        return delay(3000)
-                            .then(() => {
-                                dispatch(articleSuccess());
-                                return res.text();
+        try {
+            let response = await fetch(`http://localhost:8889/api/public/article/${artNumber}`);
+            if(response.ok){
+                if(artNumber === 2){
+                    await delay(3000);
+                    dispatch(articleSuccess());
+                    return await response.text();
 
-                            });
+                }
+                else{
+                    dispatch(articleSuccess());
+                    return await response.text();
+                }
+            }
+            else{
+                let errText = await response.text();
+                dispatch(articleFailure('!!!Alarm!!! '+errText));
+                return "";
+            }
+/*            return fetch(`http://localhost:8889/api/public/article/${artNumber}`)
+                .then((res) => {
+                    if (res.ok) {
+                        if (artNumber === 2) {
+                            return delay(3000)
+                                .then(() => {
+                                    dispatch(articleSuccess());
+                                    return res.text();
+
+                                });
+                        }
+                        else {
+                            dispatch(articleSuccess());
+                            return res.text();
+                        }
                     }
                     else {
-                        dispatch(articleSuccess());
-                        return res.text();
+                        return res.text().then(text => {
+                            dispatch(articleFailure(text));
+                            return Promise.resolve("");
+                        });
                     }
-                }
-                else {
-                    return res.text().then(text => {
-                        dispatch(articleFailure(text));
-                        return Promise.resolve("");
-                    });
-                }
-            })
-            .catch((err) => {
-                dispatch(articleFailure(err));
-            });
+                })
+                .catch((err) => {
+                    dispatch(articleFailure(err));
+                });*/
+        }
+        catch(error){
+            dispatch(articleFailure(error));
+        }
     }
+
 }
 
 export function articleRequest(): IAction {

@@ -3,6 +3,7 @@ import './server/registration';
 import {configureStore} from './client/common/configureStore';
 const appConfig = require('../config/main');
 
+import "babel-polyfill";
 import * as e6p from 'es6-promise';
 (e6p as any).polyfill();
 import 'isomorphic-fetch';

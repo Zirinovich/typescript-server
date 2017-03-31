@@ -45,7 +45,7 @@ var config = {
                 loader: 'json-loader'
             },
             {
-                test: /\.jsx$/,
+                test: /\.jsx?$/,
                 loader: 'babel-loader'
             },
             {
