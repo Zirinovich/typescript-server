@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Link} from 'react-router';
 import {LinkContainer} from 'react-router-bootstrap';
 //const FontAwesome = require('react-fontawesome');
-import FontAwesome from 'react-fontawesome';
+var FontAwesome = require('react-fontawesome');
 
 import {IUser} from "../../../shared/interfaces/authentication/IUser";
 const style = require('./header.scss');
