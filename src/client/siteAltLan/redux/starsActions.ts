@@ -1,5 +1,5 @@
 // import {IStarsAction} from '../../../shared/interfaces/defaultModule/IStarsAction';
-import {IAction} from "../../../shared/interfaces/defaultModule/IAction";
+import {IAction} from "../../../shared/interfaces/common/IAction";
 
 export const GET_REQUEST: string = 'stars/GET_REQUEST';
 export const GET_SUCCESS: string = 'stars/GET_SUCCESS';
@@ -16,7 +16,6 @@ export interface IStarsAction extends IAction{
 export function getStars() {
     return (dispatch) => {
         dispatch(starsRequest());
-
         return fetch('https://api.github.com/repos/barbar/vortigern')
             .then((res) => {
                 if (res.ok) {
