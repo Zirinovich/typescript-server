@@ -1,4 +1,4 @@
-import {IAction} from '../../../shared/interfaces/defaultModule/IAction';
+import {IAction} from '../../../shared/interfaces/common/IAction';
 
 export const ARTICLE_GET_REQUEST: string = 'article/GET_REQUEST';
 export const ARTICLE_GET_SUCCESS: string = 'article/GET_SUCCESS';

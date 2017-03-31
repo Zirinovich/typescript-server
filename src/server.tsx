@@ -1,6 +1,5 @@
 import './server/registration';
 
-import {configureStore} from './client/common/configureStore';
 const appConfig = require('../config/main');
 
 import "babel-polyfill";
@@ -14,9 +13,8 @@ import * as ReactDOMServer from 'react-dom/server';
 import {Provider} from 'react-redux';
 import {createMemoryHistory, match} from 'react-router';
 import {syncHistoryWithStore} from 'react-router-redux';
+import HTTP_STATUS_CODES from 'http-status-enum';
 const {ReduxAsyncConnect, loadOnServer} = require('redux-connect');
-
-import {routes} from "./client/defaultSiteMini/routes";
 
 import {Html} from "./client/defaultSiteMini/containers/html";
 const manifest = require('../build/manifest.json');
@@ -26,6 +24,7 @@ import {serverRouter} from './server/serverRouterMiddleware'
 
 import {expressSetup, expressSessionSetup} from './server/expressSetup';
 import {passportSetup} from './server/authenticationPassport';
+import {clientApplication} from './server/clientApplication';
 
 const Chalk = require('chalk');
 
@@ -60,15 +59,16 @@ app.get('*', (req, res) => {
 
     const location = req.url;
     const memoryHistory = createMemoryHistory(req.originalUrl);
-    const store = configureStore(memoryHistory, ( req.user ? {user: Object.assign({}, req.user, {password: undefined})} : {}));
+    const store = clientApplication.configureStore(memoryHistory, ( req.user ? {user: Object.assign({}, req.user, {password: undefined})} : {}));
+    const routes = clientApplication.clientRoutes;
     const history = syncHistoryWithStore(memoryHistory, store);
 
     match({history, routes, location},
         (error, redirectLocation, renderProps) => {
             if (error) {
-                res.status(500).send(error.message);
+                res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR).send(error.message);
             } else if (redirectLocation) {
-                res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+                res.redirect(HTTP_STATUS_CODES.FOUND, redirectLocation.pathname + redirectLocation.search);
             } else if (renderProps) {
                 const asyncRenderData = Object.assign({}, renderProps, {store});
 

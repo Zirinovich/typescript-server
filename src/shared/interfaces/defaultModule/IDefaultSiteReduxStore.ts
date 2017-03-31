@@ -3,7 +3,7 @@ import {IStars} from "./IStars";
 import {IUser} from '../authentication/IUser';
 import {IScript} from '../common/IScript';
 
-export interface IReduxStore {
+export interface IDefaultSiteReduxStore {
     counter?: ICounter;
     stars?: IStars;
     user?: IUser;
