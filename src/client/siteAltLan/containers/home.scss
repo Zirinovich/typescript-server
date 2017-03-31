@@ -1,0 +1,16 @@
+.Home {
+  text-align: center;
+  align-content: center;
+  p {
+    font-weight: 600;
+    color: #022a50;
+  }
+}
+
+.logo {
+  height: 100px;
+  width: 170px;
+  background: url('../content/logo.svg') no-repeat transparent;
+  background-size: cover;
+  margin: auto;
+}
