@@ -15,6 +15,8 @@ import '../../common/content/bootstrap-cerulean_theme/bootstrap.scss';
 import '../../common/content/template/template';
 
 interface IProps {
+    location?: any;
+
     user: IUser;
     dispatch: ()=>void;
 }
@@ -24,11 +26,11 @@ interface IProps {
 )
 class App extends React.Component<IProps, any> {
     public render() {
-        const {user, dispatch} = this.props;
+        const {user, dispatch, location: {pathname}} = this.props;
         return (
             <section>
                 <Helmet {...appConfig.app} {...appConfig.app.head}/>
-                <Header user={user} logout={()=>{logout(dispatch)}}/>
+                <Header user={user} logout={()=>{logout(dispatch)}} pathname={pathname}/>
                 {this.props.children}
                 <Footer/>
             </section>

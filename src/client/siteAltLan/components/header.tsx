@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {Link} from 'react-router';
-import {NavItem} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 
 import {IUser} from "../../../shared/interfaces/authentication/IUser";
@@ -9,14 +8,50 @@ const style = require('./header.scss');
 interface IProps {
     user: IUser;
     logout: ()=>void;
+    pathname: string;
 }
 
 interface IState {
 
 }
 
+const renderNavItem = ({to, label, pathname}) => (
+    <LinkContainer to={to}>
+        <li className="dropdown">
+            <a href="#" className={'dropdown-toggle ' + (to === pathname ? 'active' : '')}> {label}</a>
+        </li>
+    </LinkContainer>
+);
+
 export class Header extends React.Component<IProps, IState> {
     render() {
+        const {user, logout, pathname} = this.props;
+        const pages = [
+            {
+                to: '/',
+                label: 'Главная'
+            },
+            {
+                to: '/lab',
+                label: 'Lab'
+            },
+            {
+                to: '/contacts',
+                label: 'Контакты'
+            },
+            {
+                to: '/presentation',
+                label: 'Презентации решений'
+            },
+            {
+                to: '/partners',
+                label: 'Партнеры'
+            },
+            {
+                to: '/oss',
+                label: 'OSS решения'
+            }
+        ];
         return (
             <header className={style.header}>
 
@@ -27,22 +62,21 @@ export class Header extends React.Component<IProps, IState> {
                                 <ul>
                                     <li><i className="fa fa-comments"></i> 24x7  live Technical Support</li>
                                     <li><i className="fa fa-phone"></i> (888) 123-4567</li>
-                                    <li><a href="#"><i className="fa fa-comments"></i> Live Chat</a></li>
-                                    { this.props.user &&
+                                    { user &&
                                     <li>
-                                        <i className="fa fa-user"></i> {this.props.user.fullName}
+                                        <i className="fa fa-user"></i> {user.fullName}
                                     </li>
                                     }
-                                    { this.props.user ?
+                                    { user ?
                                         <li>
-                                            <a href="#" onClick={this.props.logout}>
+                                            <a href="#" onClick={logout}>
                                                 <i className="fa fa-user"></i> Выйти
                                             </a>
                                         </li>
                                         :
                                         <li>
                                             <LinkContainer to="/login">
-                                                <a><i className="fa fa-user"></i> Login</a>
+                                                <a><i className="fa fa-user"></i> Войти</a>
                                             </LinkContainer>
                                         </li>
                                     }
@@ -79,37 +113,13 @@ export class Header extends React.Component<IProps, IState> {
                                         <div id="navbar-collapse-1" className="navbar-collapse collapse pull-right">
                                             <nav>
                                                 <ul className="nav navbar-nav">
-                                                    <LinkContainer to='/' className="active">
-                                                        <NavItem>Главная</NavItem>
-                                                    </LinkContainer>
-
-                                                    <LinkContainer to='/lab'>
-                                                        <NavItem>Lab</NavItem>
-                                                    </LinkContainer>
-
-                                                    <LinkContainer to='/contacts'>
-                                                        <NavItem>Контакты</NavItem>
-                                                    </LinkContainer>
-
-                                                    <LinkContainer to='/contacts'>
-                                                        <NavItem>Презентации решений</NavItem>
-                                                    </LinkContainer>
-
-                                                    <LinkContainer to='/contacts'>
-                                                        <NavItem>Партнеры</NavItem>
-                                                    </LinkContainer>
-
-                                                    <LinkContainer to='/contacts'>
-                                                        <NavItem>OSS решения</NavItem>
-                                                    </LinkContainer>
-
-                                                    { this.props.user ?
-                                                        <NavItem onClick={this.props.logout}>Выйти</NavItem>
-                                                        :
-                                                        <LinkContainer to='/login'>
-                                                            <NavItem>Вход</NavItem>
-                                                        </LinkContainer>
-                                                    }
+                                                    {pages.map((page) => {
+                                                        return renderNavItem({
+                                                            to: page.to,
+                                                            label: page.label,
+                                                            pathname
+                                                        })
+                                                    })}
                                                 </ul>
                                             </nav>
                                         </div>
