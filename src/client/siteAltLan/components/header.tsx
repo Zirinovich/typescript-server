@@ -1,6 +1,8 @@
 import * as React from 'react';
 import {Link} from 'react-router';
 import {LinkContainer} from 'react-router-bootstrap';
+//const FontAwesome = require('react-fontawesome');
+import FontAwesome from 'react-fontawesome';
 
 import {IUser} from "../../../shared/interfaces/authentication/IUser";
 const style = require('./header.scss');
@@ -60,30 +62,30 @@ export class Header extends React.Component<IProps, IState> {
                         <div className="top_nav three">
                             <div className="container">
                                 <ul>
-                                    <li><i className="fa fa-comments"></i> 24x7  live Technical Support</li>
-                                    <li><i className="fa fa-phone"></i> (888) 123-4567</li>
+                                    <li><FontAwesome name="comments"/> 24x7  live Technical Support</li>
+                                    <li><FontAwesome name="phone"/> (888) 123-4567</li>
                                     { user &&
                                     <li>
-                                        <i className="fa fa-user"></i> {user.fullName}
+                                        <FontAwesome name="user"/> {user.fullName}
                                     </li>
                                     }
                                     { user ?
                                         <li>
                                             <a href="#" onClick={logout}>
-                                                <i className="fa fa-user"></i> Выйти
+                                                <FontAwesome name="user"/> Выйти
                                             </a>
                                         </li>
                                         :
                                         <li>
                                             <LinkContainer to="/login">
-                                                <a><i className="fa fa-user"></i> Войти</a>
+                                                <a><FontAwesome name="user"/> Войти</a>
                                             </LinkContainer>
                                         </li>
                                     }
-                                    <li><a href="#"><i className="fa fa-facebook"></i></a></li>
-                                    <li><a href="#"><i className="fa fa-twitter"></i></a></li>
-                                    <li><a href="#"><i className="fa fa-google-plus"></i></a></li>
-                                    <li className="last"><a href="#"><i className="fa fa-linkedin"></i></a></li>
+                                    <li><a href="#"><FontAwesome name="facebook"/></a></li>
+                                    <li><a href="#"><FontAwesome name="twitter"/></a></li>
+                                    <li><a href="#"><FontAwesome name="plus"/></a></li>
+                                    <li className="last"><a href="#"><FontAwesome name="linkedin"/></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -107,7 +109,7 @@ export class Header extends React.Component<IProps, IState> {
                                             <div className="navbar-toggle .navbar-collapse .pull-right "
                                                  data-toggle="collapse"
                                                  data-target="#navbar-collapse-1"><span>Menu</span>
-                                                <button type="button"><i className="fa fa-bars"></i></button>
+                                                <button type="button"><FontAwesome name="bars"/></button>
                                             </div>
                                         </div>
                                         <div id="navbar-collapse-1" className="navbar-collapse collapse pull-right">
