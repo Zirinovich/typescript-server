@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Link} from 'react-router';
-import {LinkContainer} from 'react-router-bootstrap';
+// import {LinkContainer} from 'react-router-bootstrap';
 import FontAwesome = require("react-fontawesome");
 
 import {IUser} from "../../../shared/interfaces/authentication/IUser";
@@ -16,18 +16,19 @@ interface IState {
 
 }
 
-const renderNavItem = ({to, label, pathname}) => (
-    <LinkContainer to={to}>
-        <li className="dropdown">
-            <a href="#" className={'dropdown-toggle ' + (to === pathname ? 'active' : '')}> {label}</a>
+const renderNavItem = (page) => {
+    const {to, label, index, pathname} = page;
+    return (
+        <li className="dropdown" key={`${index}-page-link`}>
+            <Link to={to} className={classNames('dropdown-toggle', to === pathname && 'active')}>{label}</Link>
         </li>
-    </LinkContainer>
-);
+    )
+};
 
 export class Header extends React.Component<IProps, IState> {
     render() {
         const {user, logout, pathname} = this.props;
-        const pages = [
+        const pageLinks = [
             {
                 to: '/',
                 label: 'Главная'
@@ -76,9 +77,9 @@ export class Header extends React.Component<IProps, IState> {
                                         </li>
                                         :
                                         <li>
-                                            <LinkContainer to="/login">
-                                                <a><FontAwesome name="user"/> Войти</a>
-                                            </LinkContainer>
+                                            <Link to="/login">
+                                                <FontAwesome name="user"/> Войти
+                                            </Link>
                                         </li>
                                     }
                                     <li><a href="#"><FontAwesome name="facebook"/></a></li>
@@ -114,13 +115,7 @@ export class Header extends React.Component<IProps, IState> {
                                         <div id="navbar-collapse-1" className="navbar-collapse collapse pull-right">
                                             <nav>
                                                 <ul className="nav navbar-nav">
-                                                    {pages.map((page) => {
-                                                        return renderNavItem({
-                                                            to: page.to,
-                                                            label: page.label,
-                                                            pathname
-                                                        })
-                                                    })}
+                                                    {pageLinks.map((page, index) => renderNavItem({...page, pathname, index}))}
                                                 </ul>
                                             </nav>
                                         </div>

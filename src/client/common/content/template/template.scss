@@ -1,5 +1,7 @@
-$fa-font-path: "D:/Git/typescript-server/node_modules/font-awesome/fonts"; //TODO: Разобравться с путями до шрифтов!
+$bootstrap-sass-asset-helper: true;
+@import '~bootstrap-sass/assets/stylesheets/bootstrap';
 
+$fa-font-path: "font-awesome/fonts";
 @import "~font-awesome/scss/font-awesome";
 @import "reset";
 @import "menu";

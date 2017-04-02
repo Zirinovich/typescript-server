@@ -95,8 +95,8 @@ export class SignInForm extends React.Component<IProps, any> {
                                         <div className="row">
                                             <div className="col col-4"></div>
                                             <div className="col col-8">
-                                                <label className="checkbox"><input type="checkbox" name="remember"
-                                                                                   checked/><i></i>Keep me logged in</label>
+                                                <label className="checkbox"><input type="checkbox" name="remember" checked/>
+                                                    <i></i>Keep me logged in</label>
                                             </div>
                                         </div>
                                         {error && <strong>{error}</strong>}

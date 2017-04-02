@@ -11,7 +11,7 @@ import {Footer}from '../components/footer';
 const {connect} = require('react-redux');
 import {IUser} from '../../../shared/interfaces/authentication/IUser';
 
-import '../../common/content/bootstrap-cerulean_theme/bootstrap.scss';
+// import '../../common/content/bootstrap-cerulean_theme/bootstrap.scss';
 import '../../common/content/template/template';
 
 interface IProps {

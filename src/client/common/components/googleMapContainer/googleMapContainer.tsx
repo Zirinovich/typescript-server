@@ -1,8 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import './googleMapContainer.scss';
-import * as classNames from 'classnames';
-// import * as $ from 'jquery';
 
 interface IProps {
     googleAPIKey: string;

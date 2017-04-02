@@ -115,7 +115,8 @@ var config = {
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery',
-            _: 'lodash'
+            _: 'lodash',
+            classNames: "classnames"
         }),
         new ExtractTextPlugin(IS_PRODUCTION ? 'css/styles-[hash].css' : 'css/styles.css')
     ],

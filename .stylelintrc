@@ -1,11 +1,20 @@
 {
-  "ignoreFiles": ["./src/client/common/content/**/bootstrap.scss"],
+  "ignoreFiles": [
+    "./src/client/common/content/**/bootstrap.scss",
+    "./src/client/common/content/template/template.scss"
+  ],
   "rules": {
     "block-no-empty": null,
     "color-no-invalid-hex": true,
     "declaration-colon-space-after": "always",
     "indentation": null,
     "max-empty-lines": 2,
-    "unit-whitelist": ["px", "em", "rem", "%", "s"]
+    "unit-whitelist": [
+      "px",
+      "em",
+      "rem",
+      "%",
+      "s"
+    ]
   }
 }

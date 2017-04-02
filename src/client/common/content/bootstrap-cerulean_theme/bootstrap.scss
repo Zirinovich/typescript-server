@@ -1,5 +1,5 @@
 $bootstrap-sass-asset-helper: true;
 // порядок импорта важен и должен начинаться именно с _variables
 @import './_variables';
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
-//@import './_bootswatch';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap';
+@import './_bootswatch';
