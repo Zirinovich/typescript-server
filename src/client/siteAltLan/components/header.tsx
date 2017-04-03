@@ -1,15 +1,23 @@
 import * as React from 'react';
+import {i18nActions} from 'redux-react-i18n'
 import {Link} from 'react-router';
-// import {LinkContainer} from 'react-router-bootstrap';
+const {connect} = require('react-redux');
+import {Loc} from 'redux-react-i18n'
 import FontAwesome = require("react-fontawesome");
 
 import {IUser} from "../../../shared/interfaces/authentication/IUser";
 const style = require('./header.scss');
 
 interface IProps {
+    currentLanguage?: string;
+    languages?: {
+        code: string;
+        name: string;
+    }[]
     user: IUser;
     logout: ()=>void;
     pathname: string;
+    setCurrentLanguage?: (language:string)=>void;
 }
 
 interface IState {
@@ -19,39 +27,53 @@ interface IState {
 const renderNavItem = (page) => {
     const {to, label, index, pathname} = page;
     return (
-        <li className="dropdown" key={`${index}-page-link`}>
-            <Link to={to} className={classNames('dropdown-toggle', to === pathname && 'active')}>{label}</Link>
+        <li key={`${index}-page-link`}>
+            <Link to={to} className={classNames(to === pathname && 'active')}>{label}</Link>
         </li>
     )
 };
 
+@connect(
+    (state) => ({
+        currentLanguage: state.i18n.currentLanguage,
+        languages: state.i18n.languages
+    }),
+    (dispatch) => ({
+        setCurrentLanguage: (language) => dispatch(i18nActions.setCurrentLanguage(language)),
+    })
+)
 export class Header extends React.Component<IProps, IState> {
+    languageChangeHandler(e) {
+        let language = e.target.value;
+        this.props.setCurrentLanguage(language);
+    }
+
     render() {
-        const {user, logout, pathname} = this.props;
+        const {user, logout, pathname, currentLanguage, languages} = this.props;
         const pageLinks = [
             {
                 to: '/',
-                label: 'Главная'
+                label: <Loc locKey="mainPage"/>
             },
             {
                 to: '/lab',
-                label: 'Lab'
+                label: <Loc locKey="labPage"/>
             },
             {
                 to: '/contacts',
-                label: 'Контакты'
+                label: <Loc locKey="contactsPage"/>
             },
             {
-                to: '/presentation',
-                label: 'Презентации решений'
+                to: '/presentations',
+                label: <Loc locKey="presentationsPage"/>
             },
             {
                 to: '/partners',
-                label: 'Партнеры'
+                label: <Loc locKey="partnersPage"/>
             },
             {
                 to: '/oss',
-                label: 'OSS решения'
+                label: <Loc locKey="ossPage"/>
             }
         ];
         return (
@@ -62,7 +84,6 @@ export class Header extends React.Component<IProps, IState> {
                         <div className="top_nav three">
                             <div className="container">
                                 <ul>
-                                    <li><FontAwesome name="comments"/> 24x7  live Technical Support</li>
                                     <li><FontAwesome name="phone"/> (888) 123-4567</li>
                                     { user &&
                                     <li>
@@ -72,16 +93,30 @@ export class Header extends React.Component<IProps, IState> {
                                     { user ?
                                         <li>
                                             <a href="#" onClick={logout}>
-                                                <FontAwesome name="user"/> Выйти
+                                                <FontAwesome name="user"/> <Loc locKey="actionLogout"/>
                                             </a>
                                         </li>
                                         :
                                         <li>
                                             <Link to="/login">
-                                                <FontAwesome name="user"/> Войти
+                                                <FontAwesome name="user"/> <Loc locKey="actionLogin"/>
                                             </Link>
                                         </li>
                                     }
+                                    <li>
+                                        <div className="country_selector">
+                                            <FontAwesome name="language"/> <Loc locKey="language"/>
+                                            <select id="source" onChange={this.languageChangeHandler.bind(this)} value={currentLanguage}>
+                                                {
+                                                    languages.map((lng, i) => {
+                                                        return (
+                                                            <option key={i} value={lng.code}>{lng.name}</option>
+                                                        )
+                                                    })
+                                                }
+                                            </select>
+                                        </div>
+                                    </li>
                                     <li><a href="#"><FontAwesome name="facebook"/></a></li>
                                     <li><a href="#"><FontAwesome name="twitter"/></a></li>
                                     <li><a href="#"><FontAwesome name="plus"/></a></li>
@@ -115,14 +150,17 @@ export class Header extends React.Component<IProps, IState> {
                                         <div id="navbar-collapse-1" className="navbar-collapse collapse pull-right">
                                             <nav>
                                                 <ul className="nav navbar-nav">
-                                                    {pageLinks.map((page, index) => renderNavItem({...page, pathname, index}))}
+                                                    {pageLinks.map((page, index) => renderNavItem({
+                                                        ...page,
+                                                        pathname,
+                                                        index
+                                                    }))}
                                                 </ul>
                                             </nav>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>

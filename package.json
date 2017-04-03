@@ -182,6 +182,7 @@
     "redux-connect": "^5.0.0",
     "redux-form": "^6.5.0",
     "redux-logger": "^2.7.4",
+    "redux-react-i18n": "^1.1.0",
     "redux-thunk": "^2.2.0",
     "serve-favicon": "^2.3.2",
     "session-memory-store": "^0.2.2"
