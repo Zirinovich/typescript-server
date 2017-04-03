@@ -5,6 +5,7 @@ const appConfig = require('../config/main');
 import "babel-polyfill";
 import * as e6p from 'es6-promise';
 (e6p as any).polyfill();
+require('require-ensure');
 import 'isomorphic-fetch';
 
 import * as React from 'react';

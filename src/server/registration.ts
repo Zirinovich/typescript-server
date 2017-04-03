@@ -1,15 +1,20 @@
 import Ioc from '../shared/classes/ioc';
 import {PassportLocalStrategyMiddlewareFunctions} from './authenticationPassport/PassportLocalStrategyMiddlewareFunctions';
 import {UserStore} from './PostgreDatabase/UserStore';
-import {SiteAltLanClientApplication} from '../client/siteAltLan/siteAltLanClientApplication';
-import {DefaultSiteMiniClientApplication} from "../client/defaultSiteMini/defaultSiteMiniClientApplication";
-import {IsDefaultSiteMini} from "../shared/siteSwitcher";
+const appConfig = require('../../config/main');
 
 Ioc.register("IAuthenticationMiddleware", true, new PassportLocalStrategyMiddlewareFunctions());
 Ioc.register("IUserStore", true, new UserStore());
-if(IsDefaultSiteMini) {
-    Ioc.register("IClientApplication/IDefaultSiteReduxStore/", true, new DefaultSiteMiniClientApplication());
+if (appConfig.isDefaultSiteMini) {
+    (require as any).ensure([], () => {
+        const {DefaultSiteMiniClientApplication} = require('../client/defaultSiteMini/defaultSiteMiniClientApplication');
+        Ioc.register("IClientApplication/IDefaultSiteReduxStore/", true, new DefaultSiteMiniClientApplication());
+    })
+
 } else {
-    Ioc.register("IClientApplication/IDefaultSiteReduxStore/", true, new SiteAltLanClientApplication());
+    (require as any).ensure([], () => {
+        const {DefaultSiteMiniClientApplication} = require('../client/siteAltLan/siteAltLanClientApplication');
+        Ioc.register("IClientApplication/IDefaultSiteReduxStore/", true, new DefaultSiteMiniClientApplication());
+    })
 }
 export {Ioc};
