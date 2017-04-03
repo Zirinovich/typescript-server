@@ -1,46 +1,41 @@
+import {IAjaxRequest, HttpMethod, IResponseAjax} from "../interfaces/core/dto/AjaxDTOs";
 const formData = require('form-urlencoded');
 
-export enum HttpMethod{
-    GET,
-    POST
-}
-
 export class Core {
-    static async SENDAsync(url: string, method: HttpMethod, data?: any, options?: any) {
-        const body = formData(data);
+
+    static post(request:IAjaxRequest) {
+        Core.postAsync(request).then((response)=>{
+            if(request.callback)
+                request.callback(response);
+        })
+    }
+    static async postAsync(request:IAjaxRequest) {
+        request.method = HttpMethod.POST;
+        return new Promise<IResponseAjax>((resolve) => {
+            Core.sendAsync(request).then(async(response) => {
+                debugger;
+                resolve({
+                    isSuccess: response.ok,
+                    errorMessage: response.ok ? undefined : response.statusText,
+                    data: await response.json()
+                });
+            });
+        });
+    }
+    static async sendAsync(request:IAjaxRequest) {
+        const body = formData(request.data);
         const requestOptions = {
-            method: HttpMethod[method],
+            method: HttpMethod[request.method],
             credentials: 'same-origin'
         };
         const requestData = Object.assign(
             requestOptions,
-            body && {body, headers: {'Content-Type': 'application/x-www-form-urlencoded'}},
-            {...options});
+            body && {body, headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
         try {
-            return fetch(url, requestData);
+            return fetch(request.url, requestData);
         }
         catch (error) {
             throw error;
         }
-    }
-
-    static async GETAsync(url: string, data?: any, options?: any) {
-        return Core.SENDAsync(url, HttpMethod.GET, data, options);
-    }
-
-    static async POSTAsync(url: string, data?: any, options?: any) {
-        return Core.SENDjsonAsync(url, HttpMethod.POST, data, options);
-    }
-
-    static async SENDjsonAsync(url: string, method: HttpMethod, data?: any, options?: any) {
-        return (await Core.SENDAsync(url, method, data, options)).json();
-    }
-
-    static async GETjsonAsync(url: string, data?: any, options?: any) {
-        return Core.SENDjsonAsync(url, HttpMethod.GET, data, options);
-    }
-
-    static async POSTjsonAsync(url: string, data?: any, options?: any) {
-        return Core.SENDjsonAsync(url, HttpMethod.POST, data, options);
     }
 }
