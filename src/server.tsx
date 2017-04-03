@@ -5,7 +5,6 @@ const appConfig = require('../config/main');
 import "babel-polyfill";
 import * as e6p from 'es6-promise';
 (e6p as any).polyfill();
-require('require-ensure');
 import 'isomorphic-fetch';
 
 import * as React from 'react';
@@ -18,7 +17,8 @@ import HTTP_STATUS_CODES from 'http-status-enum';
 const {ReduxAsyncConnect, loadOnServer} = require('redux-connect');
 
 import {Html} from "./client/common/html";
-const manifest = require('../build/manifest.json');
+var lazyRequire = require('lazy-require');
+const manifest = lazyRequire('../build/manifest.json');
 
 import * as express from 'express';
 import {serverRouter} from './server/serverRouterMiddleware'

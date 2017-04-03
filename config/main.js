@@ -5,7 +5,7 @@ var config = {
     host: process.env.HOST || 'localhost',
     port: process.env.PORT || 8889,
     karmaPort: 9876,
-    isDefaultSiteMini: true,
+    isDefaultSiteMini: false,
 
     // This part goes to React-Helmet for Head of our HTML
     app: {

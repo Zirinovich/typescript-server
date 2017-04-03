@@ -12,7 +12,7 @@ import {routes} from './routes'
 import {ClientApplicationBase} from '../common/classes/ClientApplicationBase';
 
 
-export default class  SiteAltLanClientApplication extends ClientApplicationBase<IDefaultSiteReduxStore> {
+export class SiteAltLanClientApplication extends ClientApplicationBase<IDefaultSiteReduxStore> {
     rootReducer = combineReducers<IDefaultSiteReduxStore>({
         routing: routerReducer,
         counter: counterReducer,
