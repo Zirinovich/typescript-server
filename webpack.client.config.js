@@ -46,9 +46,6 @@ var config = {
                 include: path.resolve('./src'),
                 exclude: path.resolve('./src/client/common/content'),
                 loader: ExtractPlugin.extract({
-                    fallback: [{
-                        loader: 'style-loader',
-                    }],
                     use: [{
                         loader: 'css-loader',
                         options: {
@@ -65,9 +62,6 @@ var config = {
                 include: path.resolve('./src'),
                 exclude: path.resolve('./src/client/common/content'),
                 loader: ExtractPlugin.extract({
-                    fallback: [{
-                        loader: 'style-loader',
-                    }],
                     use: [{
                         loader: 'css-loader',
                         options: {
@@ -85,9 +79,6 @@ var config = {
                 test: /\.css$/,
                 include: path.resolve('./src/client/common/content'),
                 loader: ExtractPlugin.extract({
-                    fallback: [{
-                        loader: 'style-loader',
-                    }],
                     use: [{
                         loader: 'css-loader',
                         options: {
@@ -103,9 +94,6 @@ var config = {
                 test: /\.scss$/,
                 include: path.resolve('./src/client/common/content'),
                 loader: ExtractPlugin.extract({
-                    fallback: [{
-                        loader: 'style-loader',
-                    }],
                     use: [{
                         loader: 'css-loader',
                         options: {

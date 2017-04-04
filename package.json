@@ -6,9 +6,9 @@
   "scripts": {
     "clean": "rimraf build",
     "prestart": "npm run clean",
-    "start": "webpack --watch",
-    "build:front": "webpack --config webpack.client.clone.config.js",
-    "build:server": "webpack --config webpack.server.clone.config.js"
+    "start": "parallel-webpack --watch",
+    "build:front": "webpack --config webpack.client.config.js",
+    "build:server": "webpack --config webpack.server.config.js"
   },
   "author": "Developers team",
   "contributors": [
@@ -115,6 +115,7 @@
     "node-sass": "^4.5.0",
     "nodemon": "^1.11.0",
     "npm-run-all": "^4.0.2",
+    "parallel-webpack": "^1.6.1",
     "phantomjs-prebuilt": "^2.1.14",
     "postcss-assets": "^4.1.0",
     "postcss-cssnext": "^2.9.0",
