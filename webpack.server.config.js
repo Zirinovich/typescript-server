@@ -5,6 +5,7 @@ var postcssAssets = require('postcss-assets');
 var postcssNext = require('postcss-cssnext');
 var stylelint = require('stylelint');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var WebpackShellPlugin = require('webpack-shell-plugin');
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
@@ -38,7 +39,7 @@ var config = {
     module: {
         loaders: [{
             test: /\.(jpe?g|png|gif)$/i,
-            loader: 'url-loader?limit=1000&name=public/images/[hash].[ext]'
+            loader: 'url-loader?limit=1000&name=images/[hash].[ext]'
         },
             {
                 test: /\.json$/,
@@ -181,12 +182,16 @@ const copySync = (src, dest, overwrite) => {
     }
     const data = fs.readFileSync(src);
     fs.writeFileSync(dest, data);
-}
+};
 
 const createIfDoesntExist = dest => {
     if (!fs.existsSync(dest)) {
         fs.mkdirSync(dest);
     }
+};
+
+if (!IS_PRODUCTION) {
+    config.plugins.push(new WebpackShellPlugin({onBuildEnd: ['nodemon --delay 2 build/server.js --watch build']}));
 }
 
 createIfDoesntExist('./build');

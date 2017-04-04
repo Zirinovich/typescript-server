@@ -57,7 +57,6 @@ if (process.env.NODE_ENV !== 'production') {
 app.use(serverRouter);
 
 app.get('*', (req, res) => {
-
     const location = req.url;
     const memoryHistory = createMemoryHistory(req.originalUrl);
     const store = clientApplication.configureStore(memoryHistory, ( req.user ? {user: Object.assign({}, req.user, {password: undefined})} : {}));

@@ -3,7 +3,8 @@ import * as e6p from 'es6-promise';
 (e6p as any).polyfill();
 import 'isomorphic-fetch';
 import 'core-js';
-
+import {registrationApplication} from "./client/registration";
+registrationApplication(registrationOk);
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
@@ -11,13 +12,10 @@ const {Router, browserHistory} = require('react-router');
 import {syncHistoryWithStore} from 'react-router-redux';
 const {ReduxAsyncConnect} = require('redux-connect');
 import "babel-polyfill";
-import {registrationApplication} from "./client/registration";
 
-registrationApplication(registrationOk);
 
-function registrationOk(){
+function registrationOk() {
     var {clientApplication}=  require('./client/clientApplication');
-    debugger;
     const store = clientApplication.configureStore(
         browserHistory,
         window.__INITIAL_STATE__,
