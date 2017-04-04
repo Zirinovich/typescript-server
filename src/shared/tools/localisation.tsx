@@ -1,24 +1,39 @@
 import * as React from 'react';
 import {i18nActions, Loc} from 'redux-react-i18n';
 
+import {IAction} from '../interfaces/common/IAction';
+
+interface ILocalisationAction extends IAction {
+    data: any;
+}
+
+interface IDictionary {
+    [code: string]: any;
+}
+
+interface ILanguage {
+    code: string;
+    name: string;
+}
+
 class Localisation {
-    t(key) {
+    t(key: string) {
         return (
             <Loc locKey={key}/>
         )
     }
 
-    getCurrentLanguage(state) {
+    getCurrentLanguage(state: any): string {
         return state && state.i18n ? state.i18n.currentLanguage : null;
     }
 
-    getLanguages(state){
-        return state && state.i18n ? state.i18n.languages: null;
+    getLanguages(state: any):ILanguage[] {
+        return state && state.i18n ? state.i18n.languages : null;
     }
 
-    setDictionaries = i18nActions.setDictionaries;
-    setLanguages = i18nActions.setLanguages;
-    setCurrentLanguage = i18nActions.setCurrentLanguage;
+    setDictionaries: (dictionaries: IDictionary[])=>ILocalisationAction = i18nActions.setDictionaries;
+    setLanguages: (languages: ILanguage[])=>ILocalisationAction = i18nActions.setLanguages;
+    setCurrentLanguage: (languageCode: string)=>ILocalisationAction = i18nActions.setCurrentLanguage;
 }
 
 const localisation = new Localisation();

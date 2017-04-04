@@ -44,7 +44,6 @@ const renderNavItem = (page) => {
 export class Header extends React.Component<IProps, IState> {
     languageChangeHandler(e) {
         let language = e.target.value;
-        console.log(language, localisation);
         this.props.setCurrentLanguage(language);
     }
 
