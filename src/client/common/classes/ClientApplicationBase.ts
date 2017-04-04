@@ -1,10 +1,10 @@
 import {createStore, applyMiddleware, compose} from 'redux';
 import {routerMiddleware} from 'react-router-redux';
 import thunk from 'redux-thunk';
-import {i18nActions} from 'redux-react-i18n';
 
 import {IClientApplication} from '../../../shared/interfaces/common/IClientApplication';
 const appConfig = require('./../../../../config/main');
+import {localisation} from '../../../shared/tools/localisation';
 
 export abstract class ClientApplicationBase<TStoreInterface> implements IClientApplication<TStoreInterface> {
     rootReducer: Redux.Reducer<TStoreInterface>;
@@ -39,11 +39,11 @@ export abstract class ClientApplicationBase<TStoreInterface> implements IClientA
             });
         }
 
-        store.dispatch(i18nActions.setDictionaries(this.dictionaries));
+        store.dispatch(localisation.setDictionaries(this.dictionaries));
 
-        store.dispatch(i18nActions.setLanguages(this.languages));
+        store.dispatch(localisation.setLanguages(this.languages));
 
-        store.dispatch(i18nActions.setCurrentLanguage(appConfig.language));
+        store.dispatch(localisation.setCurrentLanguage(appConfig.language));
 
         return store;
     }

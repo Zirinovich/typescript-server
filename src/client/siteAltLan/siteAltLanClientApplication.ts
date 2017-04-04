@@ -22,7 +22,7 @@ const languages = [
     },
     {
         code: 'en',
-        name: 'English (USA)'
+        name: 'English'
     }
 ];
 

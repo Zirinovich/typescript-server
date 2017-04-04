@@ -1,11 +1,10 @@
 import * as React from 'react';
-import {i18nActions} from 'redux-react-i18n'
 import {Link} from 'react-router';
 const {connect} = require('react-redux');
-import {Loc} from 'redux-react-i18n'
-import FontAwesome = require("react-fontawesome");
 
-import {IUser} from "../../../shared/interfaces/authentication/IUser";
+import {IUser} from '../../../shared/interfaces/authentication/IUser';
+import {localisation} from '../../../shared/tools/localisation';
+import {Icon} from '../../common/components/icon/icon';
 const style = require('./header.scss');
 
 interface IProps {
@@ -35,16 +34,17 @@ const renderNavItem = (page) => {
 
 @connect(
     (state) => ({
-        currentLanguage: state.i18n.currentLanguage,
-        languages: state.i18n.languages
+        currentLanguage: localisation.getCurrentLanguage(state),
+        languages: localisation.getLanguages(state)
     }),
     (dispatch) => ({
-        setCurrentLanguage: (language) => dispatch(i18nActions.setCurrentLanguage(language)),
+        setCurrentLanguage: (language) => dispatch(localisation.setCurrentLanguage(language)),
     })
 )
 export class Header extends React.Component<IProps, IState> {
     languageChangeHandler(e) {
         let language = e.target.value;
+        console.log(language, localisation);
         this.props.setCurrentLanguage(language);
     }
 
@@ -53,27 +53,27 @@ export class Header extends React.Component<IProps, IState> {
         const pageLinks = [
             {
                 to: '/',
-                label: <Loc locKey="mainPage"/>
+                label: localisation.t('mainPage')
             },
             {
                 to: '/lab',
-                label: <Loc locKey="labPage"/>
+                label: localisation.t('labPage')
             },
             {
                 to: '/contacts',
-                label: <Loc locKey="contactsPage"/>
+                label: localisation.t('contactsPage')
             },
             {
                 to: '/presentations',
-                label: <Loc locKey="presentationsPage"/>
+                label: localisation.t('presentationsPage')
             },
             {
                 to: '/partners',
-                label: <Loc locKey="partnersPage"/>
+                label: localisation.t('partnersPage')
             },
             {
                 to: '/oss',
-                label: <Loc locKey="ossPage"/>
+                label: localisation.t('ossPage')
             }
         ];
         return (
@@ -84,28 +84,28 @@ export class Header extends React.Component<IProps, IState> {
                         <div className="top_nav three">
                             <div className="container">
                                 <ul>
-                                    <li><FontAwesome name="phone"/> (888) 123-4567</li>
+                                    <li><Icon name="phone"/> (888) 123-4567</li>
                                     { user &&
                                     <li>
-                                        <FontAwesome name="user"/> {user.fullName}
+                                        <Icon name="user"/> {user.fullName}
                                     </li>
                                     }
                                     { user ?
                                         <li>
                                             <a href="#" onClick={logout}>
-                                                <FontAwesome name="user"/> <Loc locKey="actionLogout"/>
+                                                <Icon name="user"/> {localisation.t('actionLogout')}
                                             </a>
                                         </li>
                                         :
                                         <li>
                                             <Link to="/login">
-                                                <FontAwesome name="user"/> <Loc locKey="actionLogin"/>
+                                                <Icon name="user"/> {localisation.t('actionLogin')}
                                             </Link>
                                         </li>
                                     }
                                     <li>
                                         <div className="country_selector">
-                                            <FontAwesome name="language"/> <Loc locKey="language"/>
+                                            <Icon name="language"/> {localisation.t('language')}
                                             <select id="source" onChange={this.languageChangeHandler.bind(this)} value={currentLanguage}>
                                                 {
                                                     languages.map((lng, i) => {
@@ -117,10 +117,10 @@ export class Header extends React.Component<IProps, IState> {
                                             </select>
                                         </div>
                                     </li>
-                                    <li><a href="#"><FontAwesome name="facebook"/></a></li>
-                                    <li><a href="#"><FontAwesome name="twitter"/></a></li>
-                                    <li><a href="#"><FontAwesome name="plus"/></a></li>
-                                    <li className="last"><a href="#"><FontAwesome name="linkedin"/></a></li>
+                                    <li><a href="#"><Icon name="facebook"/></a></li>
+                                    <li><a href="#"><Icon name="twitter"/></a></li>
+                                    <li><a href="#"><Icon name="plus"/></a></li>
+                                    <li className="last"><a href="#"><Icon name="linkedin"/></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -144,7 +144,7 @@ export class Header extends React.Component<IProps, IState> {
                                             <div className="navbar-toggle .navbar-collapse .pull-right "
                                                  data-toggle="collapse"
                                                  data-target="#navbar-collapse-1"><span>Menu</span>
-                                                <button type="button"><FontAwesome name="bars"/></button>
+                                                <button type="button"><Icon name="bars"/></button>
                                             </div>
                                         </div>
                                         <div id="navbar-collapse-1" className="navbar-collapse collapse pull-right">
