@@ -11,24 +11,31 @@ const {Router, browserHistory} = require('react-router');
 import {syncHistoryWithStore} from 'react-router-redux';
 const {ReduxAsyncConnect} = require('redux-connect');
 import "babel-polyfill";
-import {clientApplication} from './client/clientApplication';
+import {registrationApplication} from "./client/registration";
 
-const store = clientApplication.configureStore(
-    browserHistory,
-    window.__INITIAL_STATE__,
-);
-const routes = clientApplication.clientRoutes;
-const history = syncHistoryWithStore(browserHistory, store);
-const connectedCmp = (props) => <ReduxAsyncConnect {...props} />;
+registrationApplication(registrationOk);
 
-ReactDOM.render(
-    <Provider store={store} key="provider">
-        <Router
-            history={history}
-            render={connectedCmp}
-        >
-            {routes}
-        </Router>
-    </Provider>,
-    document.getElementById('app'),
-);
+function registrationOk(){
+    var {clientApplication}=  require('./client/clientApplication');
+    debugger;
+    const store = clientApplication.configureStore(
+        browserHistory,
+        window.__INITIAL_STATE__,
+    );
+    const routes = clientApplication.clientRoutes;
+    const history = syncHistoryWithStore(browserHistory, store);
+    const connectedCmp = (props) => <ReduxAsyncConnect {...props} />;
+
+    ReactDOM.render(
+        <Provider store={store} key="provider">
+            <Router
+                history={history}
+                render={connectedCmp}
+            >
+                {routes}
+            </Router>
+        </Provider>,
+        document.getElementById('app'),
+    );
+}
+
