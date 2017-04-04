@@ -9,6 +9,8 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const NODE_ENV = (process.env.NODE_ENV === 'production' ? 'production' : 'development');
 
+var ExtractPlugin = new ExtractTextPlugin(NODE_ENV === 'production' ? 'css/styles-[hash].css' : 'css/styles.css');
+
 var config = {
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx'],
@@ -43,7 +45,7 @@ var config = {
                 test: /\.css$/,
                 include: path.resolve('./src'),
                 exclude: path.resolve('./src/client/common/content'),
-                loader: ExtractTextPlugin.extract({
+                loader: ExtractPlugin.extract({
                     fallback: [{
                         loader: 'style-loader',
                     }],
@@ -62,7 +64,7 @@ var config = {
                 test: /\.scss$/,
                 include: path.resolve('./src'),
                 exclude: path.resolve('./src/client/common/content'),
-                loader: ExtractTextPlugin.extract({
+                loader: ExtractPlugin.extract({
                     fallback: [{
                         loader: 'style-loader',
                     }],
@@ -82,7 +84,7 @@ var config = {
             {
                 test: /\.css$/,
                 include: path.resolve('./src/client/common/content'),
-                loader: ExtractTextPlugin.extract({
+                loader: ExtractPlugin.extract({
                     fallback: [{
                         loader: 'style-loader',
                     }],
@@ -100,7 +102,7 @@ var config = {
             {
                 test: /\.scss$/,
                 include: path.resolve('./src/client/common/content'),
-                loader: ExtractTextPlugin.extract({
+                loader: ExtractPlugin.extract({
                     fallback: [{
                         loader: 'style-loader',
                     }],
@@ -150,7 +152,7 @@ var config = {
             debug: true,
             options: {
                 tslint: {
-                    failOnHint: true
+                    failOnHint: false
                 },
                 postcss: function () {
                     return [
@@ -174,6 +176,7 @@ var config = {
                 NODE_ENV: JSON.stringify(NODE_ENV)
             }
         }),
+        ExtractPlugin
     ]
 
 };
@@ -194,8 +197,7 @@ if (NODE_ENV === 'development') {
     config.plugins.push(
         new CheckerPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin(),
-        new ExtractTextPlugin('css/styles.css')
+        new webpack.NoEmitOnErrorsPlugin()
     );
 
     config.devtool = 'source-map';
@@ -230,8 +232,7 @@ if (NODE_ENV === 'production') {
             compress: {
                 warnings: false
             }
-        }),
-        new ExtractTextPlugin('css/styles-[hash].css')
+        })
     );
 
     config.bail = true;

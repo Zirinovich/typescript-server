@@ -6,8 +6,8 @@ var postcssNext = require('postcss-cssnext');
 var stylelint = require('stylelint');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var WebpackShellPlugin = require('webpack-shell-plugin');
-
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+var ExtractPlugin = new ExtractTextPlugin(IS_PRODUCTION ? 'css/styles-[hash].css' : 'css/styles.css');
 
 var nodeModules = {};
 fs.readdirSync('node_modules')
@@ -30,8 +30,8 @@ var config = {
     entry: './src/server.tsx',
 
     output: {
-        path: path.resolve('./build'),
-        filename: './server.js',
+        path: path.resolve('./build/public'),
+        filename: '../server.js',
         publicPath: '/public/',
         libraryTarget: 'commonjs2'
     },
@@ -39,7 +39,7 @@ var config = {
     module: {
         loaders: [{
             test: /\.(jpe?g|png|gif)$/i,
-            loader: 'url-loader?limit=1000&name=images/[hash].[ext]'
+            loader: 'file-loader?&name=images/[hash].[ext]'
         },
             {
                 test: /\.json$/,
@@ -56,17 +56,17 @@ var config = {
             },
             {
                 test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: "url-loader?limit=10000&mimetype=application/font-woff&name=public/fonts/[hash].[ext]"
+                loader: "file-loader?name=fonts/[hash].[ext]"
             },
             {
                 test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: "file-loader?name=public/fonts/[hash].[ext]"
+                loader: "file-loader?name=fonts/[hash].[ext]"
             },
             {
                 test: /\.css$/,
                 include: path.resolve('./src'),
                 exclude: path.resolve('./src/client/common/content'),
-                loader: ExtractTextPlugin.extract({
+                loader: ExtractPlugin.extract({
                     fallback: [{
                         loader: 'isomorphic-style-loader',
                     }],
@@ -85,7 +85,7 @@ var config = {
                 test: /\.scss$/,
                 include: path.resolve('./src'),
                 exclude: path.resolve('./src/client/common/content'),
-                loader: ExtractTextPlugin.extract({
+                loader: ExtractPlugin.extract({
                     fallback: [{
                         loader: 'isomorphic-style-loader',
                     }],
@@ -105,7 +105,7 @@ var config = {
             {
                 test: /\.css$/,
                 include: path.resolve('./src/client/common/content'),
-                loader: ExtractTextPlugin.extract({
+                loader: ExtractPlugin.extract({
                     fallback: [{
                         loader: 'isomorphic-style-loader',
                     }],
@@ -123,7 +123,7 @@ var config = {
             {
                 test: /\.scss$/,
                 include: path.resolve('./src/client/common/content'),
-                loader: ExtractTextPlugin.extract({
+                loader: ExtractPlugin.extract({
                     fallback: [{
                         loader: 'isomorphic-style-loader',
                     }],
@@ -163,7 +163,7 @@ var config = {
             _: 'lodash',
             classNames: "classnames"
         }),
-        new ExtractTextPlugin(IS_PRODUCTION ? 'css/styles-[hash].css' : 'css/styles.css')
+        ExtractPlugin
     ],
 
     node: {

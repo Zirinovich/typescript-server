@@ -5,8 +5,9 @@ var postcssAssets = require('postcss-assets');
 var postcssNext = require('postcss-cssnext');
 var stylelint = require('stylelint');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-
+var WebpackShellPlugin = require('webpack-shell-plugin');
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+var ExtractPlugin = new ExtractTextPlugin(IS_PRODUCTION ? 'css/styles-[hash].css' : 'css/styles.css');
 
 var nodeModules = {};
 fs.readdirSync('node_modules')
@@ -38,7 +39,7 @@ var config = {
     module: {
         loaders: [{
             test: /\.(jpe?g|png|gif)$/i,
-            loader: 'url-loader?limit=1000&name=images/[hash].[ext]'
+            loader: 'file-loader?&name=images/[hash].[ext]'
         },
             {
                 test: /\.json$/,
@@ -55,44 +56,88 @@ var config = {
             },
             {
                 test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: "url-loader?limit=10000&mimetype=application/font-woff"
+                loader: "file-loader?name=fonts/[hash].[ext]"
             },
             {
                 test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                 loader: "file-loader?name=fonts/[hash].[ext]"
             },
             {
+                test: /\.css$/,
                 include: path.resolve('./src'),
                 exclude: path.resolve('./src/client/common/content'),
-                test: /\.css$/,
-                loader: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: 'css-loader?modules&importLoaders=2&localIdentName=[local]___[hash:base64:5]!postcss-loader'
+                loader: ExtractPlugin.extract({
+                    fallback: [{
+                        loader: 'isomorphic-style-loader',
+                    }],
+                    use: [{
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                            localIdentName: '[local]___[hash:base64:5]',
+                        },
+                    }, {
+                        loader: 'postcss-loader',
+                    }]
                 })
             },
             {
+                test: /\.scss$/,
                 include: path.resolve('./src'),
                 exclude: path.resolve('./src/client/common/content'),
-                test: /\.scss$/,
-                loader: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: 'css-loader?modules&importLoaders=2&localIdentName=[local]___[hash:base64:5]!postcss-loader!sass-loader'
+                loader: ExtractPlugin.extract({
+                    fallback: [{
+                        loader: 'isomorphic-style-loader',
+                    }],
+                    use: [{
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                            localIdentName: '[local]___[hash:base64:5]',
+                        },
+                    }, {
+                        loader: 'postcss-loader',
+                    }, {
+                        loader: 'sass-loader'
+                    }]
                 })
             },
             {
-                include: path.resolve('./src/client/common/content'),
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: 'css-loader?modules&importLoaders=2&localIdentName=[local]!postcss-loader'
+                include: path.resolve('./src/client/common/content'),
+                loader: ExtractPlugin.extract({
+                    fallback: [{
+                        loader: 'isomorphic-style-loader',
+                    }],
+                    use: [{
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                            localIdentName: '[local]',
+                        },
+                    }, {
+                        loader: 'postcss-loader',
+                    }]
                 })
             },
             {
-                include: path.resolve('./src/client/common/content'),
                 test: /\.scss$/,
-                loader: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: 'css-loader?modules&importLoaders=2&localIdentName=[local]!postcss-loader!sass-loader'
+                include: path.resolve('./src/client/common/content'),
+                loader: ExtractPlugin.extract({
+                    fallback: [{
+                        loader: 'isomorphic-style-loader',
+                    }],
+                    use: [{
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                            localIdentName: '[local]',
+                        },
+                    }, {
+                        loader: 'postcss-loader',
+                    }, {
+                        loader: 'sass-loader'
+                    }]
                 })
             },
         ]
@@ -118,7 +163,7 @@ var config = {
             _: 'lodash',
             classNames: "classnames"
         }),
-        new ExtractTextPlugin(IS_PRODUCTION ? 'css/styles-[hash].css' : 'css/styles.css')
+        ExtractPlugin
     ],
 
     node: {
@@ -137,12 +182,16 @@ const copySync = (src, dest, overwrite) => {
     }
     const data = fs.readFileSync(src);
     fs.writeFileSync(dest, data);
-}
+};
 
 const createIfDoesntExist = dest => {
     if (!fs.existsSync(dest)) {
         fs.mkdirSync(dest);
     }
+};
+
+if (!IS_PRODUCTION) {
+    config.plugins.push(new WebpackShellPlugin({onBuildEnd: ['nodemon --delay 2 build/server.js --watch build']}));
 }
 
 createIfDoesntExist('./build');

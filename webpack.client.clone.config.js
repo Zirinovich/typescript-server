@@ -9,6 +9,8 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const NODE_ENV = (process.env.NODE_ENV === 'production' ? 'production' : 'development');
 
+var ExtractPlugin = new ExtractTextPlugin(NODE_ENV === 'production' ? 'css/styles-[hash].css' : 'css/styles.css');
+
 var config = {
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx'],
@@ -43,34 +45,78 @@ var config = {
                 test: /\.css$/,
                 include: path.resolve('./src'),
                 exclude: path.resolve('./src/client/common/content'),
-                loader: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: 'css-loader?modules&importLoaders=2&localIdentName=[local]___[hash:base64:5]!postcss-loader'
+                loader: ExtractPlugin.extract({
+                    fallback: [{
+                        loader: 'style-loader',
+                    }],
+                    use: [{
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                            localIdentName: '[local]___[hash:base64:5]',
+                        },
+                    }, {
+                        loader: 'postcss-loader',
+                    }]
                 })
             },
             {
                 test: /\.scss$/,
                 include: path.resolve('./src'),
                 exclude: path.resolve('./src/client/common/content'),
-                loader: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: 'css-loader?modules&importLoaders=2&localIdentName=[local]___[hash:base64:5]!postcss-loader!sass-loader'
+                loader: ExtractPlugin.extract({
+                    fallback: [{
+                        loader: 'style-loader',
+                    }],
+                    use: [{
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                            localIdentName: '[local]___[hash:base64:5]',
+                        },
+                    }, {
+                        loader: 'postcss-loader',
+                    }, {
+                        loader: 'sass-loader'
+                    }]
                 })
             },
             {
                 test: /\.css$/,
                 include: path.resolve('./src/client/common/content'),
-                loader: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: 'css-loader?modules&importLoaders=2&localIdentName=[local]!postcss-loader'
+                loader: ExtractPlugin.extract({
+                    fallback: [{
+                        loader: 'style-loader',
+                    }],
+                    use: [{
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                            localIdentName: '[local]',
+                        },
+                    }, {
+                        loader: 'postcss-loader',
+                    }]
                 })
             },
             {
                 test: /\.scss$/,
                 include: path.resolve('./src/client/common/content'),
-                loader: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: 'css-loader?modules&importLoaders=2&localIdentName=[local]!postcss-loader!sass-loader'
+                loader: ExtractPlugin.extract({
+                    fallback: [{
+                        loader: 'style-loader',
+                    }],
+                    use: [{
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                            localIdentName: '[local]',
+                        },
+                    }, {
+                        loader: 'postcss-loader',
+                    }, {
+                        loader: 'sass-loader'
+                    }]
                 })
             },
             {
@@ -106,12 +152,12 @@ var config = {
             debug: true,
             options: {
                 tslint: {
-                    failOnHint: true
+                    failOnHint: false
                 },
                 postcss: function () {
                     return [
                         stylelint({
-                            files: '../../src/app/*.css'
+                            files: './src/app/*.css'
                         }),
                         postcssNext(),
                         postcssAssets({
@@ -130,6 +176,7 @@ var config = {
                 NODE_ENV: JSON.stringify(NODE_ENV)
             }
         }),
+        ExtractPlugin
     ]
 
 };
@@ -150,8 +197,7 @@ if (NODE_ENV === 'development') {
     config.plugins.push(
         new CheckerPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin(),
-        new ExtractTextPlugin('css/styles.css')
+        new webpack.NoEmitOnErrorsPlugin()
     );
 
     config.devtool = 'source-map';
@@ -186,8 +232,7 @@ if (NODE_ENV === 'production') {
             compress: {
                 warnings: false
             }
-        }),
-        new ExtractTextPlugin('css/styles-[hash].css')
+        })
     );
 
     config.bail = true;
