@@ -6,6 +6,8 @@ var postcssNext = require('postcss-cssnext');
 var stylelint = require('stylelint');
 var ManifestPlugin = require('webpack-manifest-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var helpers = require('./config/helpers');
+var appConfig = require('./config/main');
 
 const NODE_ENV = (process.env.NODE_ENV === 'production' ? 'production' : 'development');
 
@@ -23,12 +25,12 @@ var config = {
     module: {
         rules: [
             /*
-            {
-                enforce: 'pre',
-                test: /\.tsx?$/,
-                loader: 'tslint-loader'
-            },
-            */
+             {
+             enforce: 'pre',
+             test: /\.tsx?$/,
+             loader: 'tslint-loader'
+             },
+             */
             {
                 test: /\.tsx?$/,
                 loader: 'react-hot-loader/webpack!awesome-typescript-loader'
@@ -162,7 +164,9 @@ var config = {
             'process.env': {
                 BROWSER: JSON.stringify(true),
                 NODE_ENV: JSON.stringify(NODE_ENV)
-            }
+            },
+            APP_ENTRY_PATH: JSON.stringify(helpers.getFullPath(appConfig.APP_ENTRY)),
+            APP_ENTRY: JSON.stringify(appConfig.APP_ENTRY)
         }),
         ExtractPlugin
     ]

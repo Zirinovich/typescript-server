@@ -15,11 +15,9 @@ export interface ISignInAction extends IAction {
 
 export function signInRequest(credentials: {username?: string, password?: string}) {
     const data = {username: credentials.username, password: getMD5base64(credentials.password)};
-    debugger;
     var y = Core.postAsync({url:'/api/login', data:data}).then(response=>{
         console.log(response);
     });
-    debugger;
     return y;
     /*
         .then(json => {

@@ -25,7 +25,7 @@ import {serverRouter} from './server/serverRouterMiddleware'
 
 import {expressSetup, expressSessionSetup} from './server/expressSetup';
 import {passportSetup} from './server/authenticationPassport';
-import {clientApplication} from './server/clientApplication';
+const {ClientApplication} = require(APP_ENTRY_PATH);
 
 const Chalk = require('chalk');
 
@@ -59,6 +59,7 @@ app.use(serverRouter);
 app.get('*', (req, res) => {
     const location = req.url;
     const memoryHistory = createMemoryHistory(req.originalUrl);
+    const clientApplication = new ClientApplication();
     const store = clientApplication.configureStore(memoryHistory, ( req.user ? {user: Object.assign({}, req.user, {password: undefined})} : {}));
     const routes = clientApplication.clientRoutes;
     const history = syncHistoryWithStore(memoryHistory, store);

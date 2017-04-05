@@ -8,6 +8,9 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var WebpackShellPlugin = require('webpack-shell-plugin');
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 var ExtractPlugin = new ExtractTextPlugin(IS_PRODUCTION ? 'css/styles-[hash].css' : 'css/styles.css');
+var helpers = require('./config/helpers');
+var appConfig = require('./config/main');
+
 
 var nodeModules = {};
 fs.readdirSync('node_modules')
@@ -162,6 +165,10 @@ var config = {
             jQuery: 'jquery',
             _: 'lodash',
             classNames: "classnames"
+        }),
+        new webpack.DefinePlugin({
+            APP_ENTRY_PATH: JSON.stringify(helpers.getFullPath(appConfig.APP_ENTRY)),
+            APP_ENTRY: JSON.stringify(appConfig.APP_ENTRY)
         }),
         ExtractPlugin
     ],

@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rimraf build",
     "prestart": "npm run clean",
-    "start": "parallel-webpack --watch",
+    "start": "webpack --watch",
     "build:front": "webpack --config webpack.client.config.js",
     "build:server": "webpack --config webpack.server.config.js"
   },
@@ -112,6 +112,7 @@
     "karma-webpack": "^2.0.1",
     "less-loader": "^4.0.3",
     "mocha": "^3.2.0",
+    "node-glob": "^1.2.0",
     "node-sass": "^4.5.0",
     "nodemon": "^1.11.0",
     "npm-run-all": "^4.0.2",
@@ -154,7 +155,6 @@
     "form-urlencoded": "^1.5.0",
     "history": "^4.5.1",
     "http-status-enum": "^1.0.2",
-    "isomorphic-ensure": "^1.0.1",
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^3.1.1",
     "lazy-require": "^2.2.0",
@@ -180,7 +180,6 @@
     "redux-form": "^6.5.0",
     "redux-logger": "^2.7.4",
     "redux-thunk": "^2.2.0",
-    "require-ensure": "^1.0.2",
     "serve-favicon": "^2.3.2",
     "session-memory-store": "^0.2.2"
   }

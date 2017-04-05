@@ -13,7 +13,6 @@ export class Core {
         request.method = HttpMethod.POST;
         return new Promise<IResponseAjax>((resolve) => {
             Core.sendAsync(request).then(async(response) => {
-                debugger;
                 resolve({
                     isSuccess: response.ok,
                     errorMessage: response.ok ? undefined : response.statusText,

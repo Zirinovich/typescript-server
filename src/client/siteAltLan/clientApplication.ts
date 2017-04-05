@@ -11,8 +11,7 @@ import {articleReducer} from './redux/serverRenderReducer';
 import {routes} from './routes'
 import {ClientApplicationBase} from '../common/classes/ClientApplicationBase';
 
-
-export class DefaultSiteMiniClientApplication extends ClientApplicationBase<IDefaultSiteReduxStore> {
+export class ClientApplication extends ClientApplicationBase<IDefaultSiteReduxStore> {
     rootReducer = combineReducers<IDefaultSiteReduxStore>({
         routing: routerReducer,
         counter: counterReducer,
