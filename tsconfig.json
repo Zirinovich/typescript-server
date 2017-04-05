@@ -30,6 +30,7 @@
   ],
   "awesomeTypescriptLoaderOptions": {
     "useCache": true,
-    "useBabel": true
+    "useBabel": true,
+    "doTypeCheck": false
   }
 }

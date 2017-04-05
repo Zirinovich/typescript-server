@@ -30,6 +30,7 @@ export abstract class ClientApplicationBase<TStoreInterface> implements IClientA
             applyMiddleware(...middlewares),
         ));
         const appEntryPath = APP_ENTRY_PATH;
+        console.log(appEntryPath);
         if (appConfig.env === 'development' && (module as any).hot) {
             (module as any).hot.accept(appEntryPath, function () {
                 store.replaceReducer(this.rootReducer);

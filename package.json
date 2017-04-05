@@ -7,8 +7,8 @@
     "clean": "rimraf build",
     "prestart": "npm run clean",
     "start": "webpack --watch",
-    "build:front": "webpack --config webpack.client.config.js",
-    "build:server": "webpack --config webpack.server.config.js"
+    "build:front": "set NODE_ENV=production&& webpack --debug --config webpack.client.config.js",
+    "build:server": "webpack --profile --json > server.json --config webpack.server.config.js"
   },
   "author": "Developers team",
   "contributors": [

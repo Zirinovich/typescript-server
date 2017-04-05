@@ -40,10 +40,11 @@ var config = {
     },
 
     module: {
-        loaders: [{
-            test: /\.(jpe?g|png|gif)$/i,
-            loader: 'file-loader?&name=images/[hash].[ext]'
-        },
+        loaders: [
+            {
+                test: /\.(jpe?g|png|gif)$/i,
+                loader: 'file-loader?&name=images/[hash].[ext]'
+            },
             {
                 test: /\.json$/,
                 loader: 'json-loader'

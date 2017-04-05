@@ -24,16 +24,10 @@ var config = {
     },
     module: {
         rules: [
-            /*
-             {
-             enforce: 'pre',
-             test: /\.tsx?$/,
-             loader: 'tslint-loader'
-             },
-             */
             {
                 test: /\.tsx?$/,
-                loader: 'react-hot-loader/webpack!awesome-typescript-loader'
+                // loader: 'react-hot-loader/webpack!awesome-typescript-loader'
+                loader: 'awesome-typescript-loader'
             },
             {
                 test: /\.jsx$/,
@@ -191,13 +185,14 @@ if (NODE_ENV === 'development') {
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin()
     );
-
     config.devtool = 'source-map';
 }
 
 if (NODE_ENV === 'production') {
     config.entry = {
-        app: './src/client.tsx',
+        app: [
+            './src/client.tsx'
+        ],
         vendor: [
             './src/client/vendor.ts',
             'react',
@@ -212,6 +207,7 @@ if (NODE_ENV === 'production') {
         ]
     };
     config.output.filename = 'js/[name].[chunkhash].js';
+    config.output.pathinfo = true;
 
     config.plugins.push(
         new webpack.optimize.OccurrenceOrderPlugin(),
