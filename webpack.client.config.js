@@ -25,6 +25,11 @@ var config = {
     module: {
         rules: [
             {
+                test: /\.tsx?$/,
+                loader: 'awesome-typescript-loader',
+                exclude: /node_modules/
+            },
+            {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader?cacheDirectory'
@@ -168,7 +173,6 @@ if (NODE_ENV === 'development') {
 
     config.entry = {
         app: [
-            'webpack-hot-middleware/client?reload=true',
             './src/client.tsx',
             './src/client/vendor.ts'
         ]
@@ -176,17 +180,11 @@ if (NODE_ENV === 'development') {
     config.output.filename = 'js/[name].js';
     config.output.pathinfo = true;
 
-    config.module.rules.push({
-        test: /\.tsx?$/,
-        loader: 'react-hot-loader/webpack!awesome-typescript-loader'
-    });
-
     config.plugins.push(
         new CheckerPlugin(),
-        new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin()
     );
-    config.devtool = 'inline-eval-cheap-source-map'; //'source-map'
+    config.devtool = 'source-map';
 }
 
 if (NODE_ENV === 'production') {
@@ -209,11 +207,6 @@ if (NODE_ENV === 'production') {
     };
     config.output.filename = 'js/[name].[chunkhash].js';
     config.output.pathinfo = true;
-
-    config.module.rules.push({
-        test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader'
-    });
 
     config.plugins.push(
         new webpack.optimize.OccurrenceOrderPlugin(),

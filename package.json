@@ -6,8 +6,7 @@
   "scripts": {
     "clean": "rimraf build",
     "prestart": "npm run clean",
-    "start": "webpack --config webpack.client.config.js",
-    "poststart": "webpack --watch --config webpack.server.config.js",
+    "start": "parallel-webpack --watch",
     "build:front": "set NODE_ENV=production&& webpack --debug --config webpack.client.config.js",
     "build:server": "webpack --profile --json > server.json --config webpack.server.config.js"
   },

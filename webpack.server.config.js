@@ -24,7 +24,7 @@ var config = {
     watch: true,
     externals: nodeModules,
     target: 'node',
-    devtool: 'inline-eval-cheap-source-map', //'source-map'
+    devtool: 'source-map',
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx'],
         modules: [path.resolve(__dirname), 'node_modules', 'app', 'app/redux'],

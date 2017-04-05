@@ -30,29 +30,10 @@ const {ClientApplication} = require(APP_ENTRY_PATH);
 const Chalk = require('chalk');
 
 const app = express();
-// Интерфейсы экшенов правь!!!
+
 expressSetup(app);
 expressSessionSetup(app);
 passportSetup(app);
-
-if (process.env.NODE_ENV !== 'production') {
-    const webpack = require('webpack');
-    const webpackConfig = require('../webpack.client.config');
-    const webpackCompiler = webpack(webpackConfig);
-
-    app.use(require('webpack-dev-middleware')(webpackCompiler, {
-        publicPath: webpackConfig.output.publicPath,
-        stats: {colors: true},
-        noInfo: true,
-        hot: true,
-        inline: true,
-        lazy: false,
-        historyApiFallback: true,
-        quiet: true,
-    }));
-
-    app.use(require('webpack-hot-middleware')(webpackCompiler));
-}
 
 app.use(serverRouter);
 

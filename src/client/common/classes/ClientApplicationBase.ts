@@ -29,12 +29,6 @@ export abstract class ClientApplicationBase<TStoreInterface> implements IClientA
         const store = createStore(this.rootReducer, initialState, composeEnhancers(
             applyMiddleware(...middlewares),
         ));
-        const appEntryPath = APP_ENTRY_PATH;
-        if (appConfig.env === 'development' && (module as any).hot) {
-            (module as any).hot.accept(appEntryPath, function () {
-                store.replaceReducer(this.rootReducer);
-            });
-        }
 
         return store;
     }
