@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 const {connect} = require('react-redux');
 
 import {IUser} from '../../../shared/interfaces/authentication/IUser';
-import {localisation} from '../../../shared/tools/localisation';
+import {localization} from '../../../shared/tools/localization';
 import {Icon} from '../../common/components/icon/icon';
 const style = require('./header.scss');
 
@@ -13,6 +13,7 @@ interface IProps {
         code: string;
         name: string;
     }[]
+    dictionary?:any;
     user: IUser;
     logout: ()=>void;
     pathname: string;
@@ -34,11 +35,11 @@ const renderNavItem = (page) => {
 
 @connect(
     (state) => ({
-        currentLanguage: localisation.getCurrentLanguage(state),
-        languages: localisation.getLanguages(state)
+        currentLanguage: localization.getCurrentLanguage(state),
+        languages: localization.getLanguages(state)
     }),
     (dispatch) => ({
-        setCurrentLanguage: (language) => dispatch(localisation.setCurrentLanguage(language)),
+        setCurrentLanguage: (language) => dispatch(localization.setCurrentLanguage(language))
     })
 )
 export class Header extends React.Component<IProps, IState> {
@@ -49,30 +50,31 @@ export class Header extends React.Component<IProps, IState> {
 
     render() {
         const {user, logout, pathname, currentLanguage, languages} = this.props;
+
         const pageLinks = [
             {
                 to: '/',
-                label: localisation.t('mainPage')
+                label: localization.t('mainPage')
             },
             {
                 to: '/lab',
-                label: localisation.t('labPage')
+                label: localization.t('labPage')
             },
             {
                 to: '/contacts',
-                label: localisation.t('contactsPage')
+                label: localization.t('contactsPage')
             },
             {
                 to: '/presentations',
-                label: localisation.t('presentationsPage')
+                label: localization.t('presentationsPage')
             },
             {
                 to: '/partners',
-                label: localisation.t('partnersPage')
+                label: localization.t('partnersPage')
             },
             {
                 to: '/oss',
-                label: localisation.t('ossPage')
+                label: localization.t('ossPage')
             }
         ];
         return (
@@ -92,19 +94,19 @@ export class Header extends React.Component<IProps, IState> {
                                     { user ?
                                         <li>
                                             <a href="#" onClick={logout}>
-                                                <Icon name="user"/> {localisation.t('actionLogout')}
+                                                <Icon name="user"/> {localization.t('actionLogout')}
                                             </a>
                                         </li>
                                         :
                                         <li>
                                             <Link to="/login">
-                                                <Icon name="user"/> {localisation.t('actionLogin')}
+                                                <Icon name="user"/> {localization.t('actionLogin')}
                                             </Link>
                                         </li>
                                     }
                                     <li>
                                         <div className="country_selector">
-                                            <Icon name="language"/> {localisation.t('language')}
+                                            <Icon name="language"/> {localization.t('language')}
                                             <select id="source" onChange={this.languageChangeHandler.bind(this)} value={currentLanguage}>
                                                 {
                                                     languages.map((lng, i) => {

@@ -4,14 +4,13 @@ import thunk from 'redux-thunk';
 
 import {IClientApplication} from '../../../shared/interfaces/common/IClientApplication';
 const appConfig = require('./../../../../config/main');
-import {localisation} from '../../../shared/tools/localisation';
+import {localization} from '../../../shared/tools/localization';
 
 export abstract class ClientApplicationBase<TStoreInterface> implements IClientApplication<TStoreInterface> {
     rootReducer: Redux.Reducer<TStoreInterface>;
 
     clientRoutes: any;
-    languages: any;
-    dictionaries: any;
+    localizationResources: any;
 
     configureStore(history, initialState) {
         const middlewares: Redux.Middleware[] = [
@@ -39,11 +38,11 @@ export abstract class ClientApplicationBase<TStoreInterface> implements IClientA
             });
         }
 
-        store.dispatch(localisation.setDictionaries(this.dictionaries));
+        store.dispatch(localization.setDictionaries(this.localizationResources));
 
-        store.dispatch(localisation.setLanguages(this.languages));
+        store.dispatch(localization.setLanguages(this.localizationResources.languages));
 
-        store.dispatch(localisation.setCurrentLanguage(appConfig.language));
+        store.dispatch(localization.setCurrentLanguage(appConfig.language));
 
         return store;
     }
