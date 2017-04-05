@@ -3,7 +3,7 @@ var path = require('path');
 var webpack = require('webpack');
 var postcssAssets = require('postcss-assets');
 var postcssNext = require('postcss-cssnext');
-var stylelint = require('stylelint');
+// var stylelint = require('stylelint');
 var ManifestPlugin = require('webpack-manifest-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var helpers = require('./config/helpers');
@@ -136,9 +136,9 @@ var config = {
                 },
                 postcss: function () {
                     return [
-                        stylelint({
-                            files: './src/app/*.css'
-                        }),
+                        /*stylelint({
+                            files: './src/app/!*.css'
+                        }),*/
                         postcssNext(),
                         postcssAssets({
                             relative: true
@@ -186,7 +186,7 @@ if (NODE_ENV === 'development') {
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin()
     );
-    config.devtool = 'source-map';
+    config.devtool = 'inline-eval-cheap-source-map'; //'source-map'
 }
 
 if (NODE_ENV === 'production') {

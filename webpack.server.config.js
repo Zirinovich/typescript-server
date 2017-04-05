@@ -3,7 +3,6 @@ var fs = require('fs');
 var webpack = require('webpack');
 var postcssAssets = require('postcss-assets');
 var postcssNext = require('postcss-cssnext');
-var stylelint = require('stylelint');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var WebpackShellPlugin = require('webpack-shell-plugin');
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
@@ -22,9 +21,10 @@ fs.readdirSync('node_modules')
     });
 
 var config = {
+    watch: true,
     externals: nodeModules,
     target: 'node',
-    devtool: 'source-map',
+    devtool: 'inline-eval-cheap-source-map', //'source-map'
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx'],
         modules: [path.resolve(__dirname), 'node_modules', 'app', 'app/redux'],
