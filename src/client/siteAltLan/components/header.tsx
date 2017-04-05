@@ -3,8 +3,9 @@ import {Link} from 'react-router';
 const {connect} = require('react-redux');
 
 import {IUser} from '../../../shared/interfaces/authentication/IUser';
-import {localization} from '../../../shared/tools/localization';
 import {Icon} from '../../common/components/icon/icon';
+//import {Loc} from './loc';
+import {i18n} from '../../../shared/tools/i18n/i18n';
 const style = require('./header.scss');
 
 interface IProps {
@@ -13,11 +14,11 @@ interface IProps {
         code: string;
         name: string;
     }[]
-    dictionary?:any;
+    dictionary?: any;
     user: IUser;
     logout: ()=>void;
     pathname: string;
-    setCurrentLanguage?: (language:string)=>void;
+    setCurrentLanguage?: (language: string)=>void;
 }
 
 interface IState {
@@ -35,11 +36,11 @@ const renderNavItem = (page) => {
 
 @connect(
     (state) => ({
-        currentLanguage: localization.getCurrentLanguage(state),
-        languages: localization.getLanguages(state)
+        currentLanguage: state.i18n.currentLanguage,
+        languages: state.i18n.languages
     }),
     (dispatch) => ({
-        setCurrentLanguage: (language) => dispatch(localization.setCurrentLanguage(language))
+        setCurrentLanguage: (language) => dispatch(i18n.setCurrentLanguage(language))
     })
 )
 export class Header extends React.Component<IProps, IState> {
@@ -54,27 +55,27 @@ export class Header extends React.Component<IProps, IState> {
         const pageLinks = [
             {
                 to: '/',
-                label: localization.t('mainPage')
+                label: i18n.t('mainPage')
             },
             {
                 to: '/lab',
-                label: localization.t('labPage')
+                label: i18n.t('labPage')
             },
             {
                 to: '/contacts',
-                label: localization.t('contactsPage')
+                label: i18n.t('contactsPage')
             },
             {
                 to: '/presentations',
-                label: localization.t('presentationsPage')
+                label: i18n.t('presentationsPage')
             },
             {
                 to: '/partners',
-                label: localization.t('partnersPage')
+                label: i18n.t('partnersPage')
             },
             {
                 to: '/oss',
-                label: localization.t('ossPage')
+                label: i18n.t('ossPage')
             }
         ];
         return (
@@ -94,20 +95,21 @@ export class Header extends React.Component<IProps, IState> {
                                     { user ?
                                         <li>
                                             <a href="#" onClick={logout}>
-                                                <Icon name="user"/> {localization.t('actionLogout')}
+                                                <Icon name="user"/> {i18n.t('actionLogout')}
                                             </a>
                                         </li>
                                         :
                                         <li>
                                             <Link to="/login">
-                                                <Icon name="user"/> {localization.t('actionLogin')}
+                                                <Icon name="user"/> {i18n.t('actionLogin')}
                                             </Link>
                                         </li>
                                     }
                                     <li>
                                         <div className="country_selector">
-                                            <Icon name="language"/> {localization.t('language')}
-                                            <select id="source" onChange={this.languageChangeHandler.bind(this)} value={currentLanguage}>
+                                            <Icon name="language"/> {i18n.t('language')}
+                                            <select id="source" onChange={this.languageChangeHandler.bind(this)}
+                                                    value={currentLanguage}>
                                                 {
                                                     languages.map((lng, i) => {
                                                         return (

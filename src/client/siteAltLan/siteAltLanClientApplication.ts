@@ -8,7 +8,7 @@ import {counterReducer} from './redux/counterReducer';
 import {starsReducer} from './redux/starsReducer';
 import {signInReducer} from './redux/signInReducer';
 import {articleReducer} from './redux/serverRenderReducer';
-import {localization} from '../../shared/tools/localization';
+import {i18n} from '../../shared/tools/i18n/i18n';
 
 import {routes} from './routes'
 import {ClientApplicationBase} from '../common/classes/ClientApplicationBase';
@@ -18,7 +18,7 @@ export class SiteAltLanClientApplication extends ClientApplicationBase<IDefaultS
     clientRoutes = routes;
     rootReducer = combineReducers<IDefaultSiteReduxStore>({
         routing: routerReducer,
-        i18n: localization.getReducer(),
+        i18n: i18n.getReducer(),
         counter: counterReducer,
         stars: starsReducer,
         form: formReducer,

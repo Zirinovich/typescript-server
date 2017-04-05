@@ -1,34 +1,30 @@
 {
-  "languages": [
-    {
-      "code": "ru",
-      "name": "Русский"
-    },
-    {
-      "code": "en",
-      "name": "English"
-    }
-  ],
   "ru": {
-    "mainPage": "Главная",
-    "labPage": "LAB",
-    "contactsPage": "Контакты",
-    "presentationsPage": "Презентации решений",
-    "partnersPage": "Партнеры",
-    "ossPage": "OSS решения",
-    "language": "Язык",
-    "actionLogin": "Войти",
-    "actionLogout": "Выйти"
+    "name": "Русский",
+    "translation": {
+      "mainPage": "Главная",
+      "labPage": "LAB",
+      "contactsPage": "Контакты",
+      "presentationsPage": "Презентации решений",
+      "partnersPage": "Партнеры",
+      "ossPage": "OSS решения",
+      "language": "Язык",
+      "actionLogin": "Войти",
+      "actionLogout": "Выйти"
+    }
   },
   "en": {
-    "mainPage": "Main",
-    "labPage": "LAB",
-    "contactsPage": "Contacts",
-    "presentationsPage": "Presentations of solutions",
-    "partnersPage": "Partners",
-    "ossPage": "OSS solutions",
-    "language": "Language",
-    "actionLogin": "Login",
-    "actionLogout": "Logout"
+    "name": "English",
+    "translation": {
+      "mainPage": "Main",
+      "labPage": "LAB",
+      "contactsPage": "Contacts",
+      "presentationsPage": "Presentations of solutions",
+      "partnersPage": "Partners",
+      "ossPage": "OSS solutions",
+      "language": "Language",
+      "actionLogin": "Login",
+      "actionLogout": "Logout"
+    }
   }
 }
