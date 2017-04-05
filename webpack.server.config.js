@@ -42,16 +42,17 @@ var config = {
     module: {
         loaders: [
             {
-                test: /\.(jpe?g|png|gif)$/i,
-                loader: 'file-loader?&name=images/[hash].[ext]'
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader?cacheDirectory'
             },
             {
                 test: /\.json$/,
                 loader: 'json-loader'
             },
             {
-                test: /\.jsx?$/,
-                loader: 'babel-loader'
+                test: /\.(jpe?g|png|gif)$/i,
+                loader: 'file-loader?&name=images/[hash].[ext]'
             },
             {
                 test: /\.tsx?$/,

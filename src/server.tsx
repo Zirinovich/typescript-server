@@ -17,7 +17,7 @@ import HTTP_STATUS_CODES from 'http-status-enum';
 const {ReduxAsyncConnect, loadOnServer} = require('redux-connect');
 
 import {Html} from "./client/common/html";
-var lazyRequire = require('lazy-require');
+const lazyRequire = require('lazy-require');
 const manifest = lazyRequire('../build/manifest.json');
 
 import * as express from 'express';
