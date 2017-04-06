@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as Helmet from 'react-helmet';
+import * as fs from "fs";
 
 interface IHtmlProps {
     manifest?: any;
@@ -8,6 +9,8 @@ interface IHtmlProps {
 }
 
 class Html extends React.Component<IHtmlProps, {}> {
+    static extractTextPluginStyleBundles = fs.readdirSync('.\\build\\public\\css').filter(o => /\.css$/.test(o)).map(file => '/public/css/' + file);
+
     private resolve(files) {
         return files.map((src) => {
             if (!this.props.manifest[src]) {
@@ -22,7 +25,7 @@ class Html extends React.Component<IHtmlProps, {}> {
         const {markup, store} = this.props;
 
         const styles = this.resolve(['vendor.css', 'app.css']);
-        const renderStyles = styles.map((src, i) =>
+        const renderStyles = styles.concat(Html.extractTextPluginStyleBundles).map((src, i) =>
             <link key={i} rel="stylesheet" type="text/css" href={src}/>,
         );
 

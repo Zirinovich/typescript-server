@@ -3,11 +3,15 @@ var path = require('path');
 var webpack = require('webpack');
 var postcssAssets = require('postcss-assets');
 var postcssNext = require('postcss-cssnext');
-var stylelint = require('stylelint');
+// var stylelint = require('stylelint');
 var ManifestPlugin = require('webpack-manifest-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var helpers = require('./config/helpers');
+var appConfig = require('./config/main');
 
 const NODE_ENV = (process.env.NODE_ENV === 'production' ? 'production' : 'development');
+
+var ExtractPlugin = new ExtractTextPlugin(NODE_ENV === 'production' ? 'css/styles-[hash].css' : 'css/styles.css');
 
 var config = {
     resolve: {
@@ -21,17 +25,14 @@ var config = {
     module: {
         rules: [
             {
-                enforce: 'pre',
                 test: /\.tsx?$/,
-                loader: 'tslint-loader'
+                loader: 'awesome-typescript-loader',
+                exclude: /node_modules/
             },
             {
-                test: /\.tsx?$/,
-                loader: 'react-hot-loader/webpack!awesome-typescript-loader'
-            },
-            {
-                test: /\.jsx$/,
-                loader: 'babel-loader'
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader?cacheDirectory'
             },
             {
                 test: /\.json$/,
@@ -41,34 +42,66 @@ var config = {
                 test: /\.css$/,
                 include: path.resolve('./src'),
                 exclude: path.resolve('./src/client/common/content'),
-                loader: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: 'css-loader?modules&importLoaders=2&localIdentName=[local]___[hash:base64:5]!postcss-loader'
+                loader: ExtractPlugin.extract({
+                    use: [{
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                            localIdentName: '[local]___[hash:base64:5]',
+                        },
+                    }, {
+                        loader: 'postcss-loader',
+                    }]
                 })
             },
             {
                 test: /\.scss$/,
                 include: path.resolve('./src'),
                 exclude: path.resolve('./src/client/common/content'),
-                loader: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: 'css-loader?modules&importLoaders=2&localIdentName=[local]___[hash:base64:5]!postcss-loader!sass-loader'
+                loader: ExtractPlugin.extract({
+                    use: [{
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                            localIdentName: '[local]___[hash:base64:5]',
+                        },
+                    }, {
+                        loader: 'postcss-loader',
+                    }, {
+                        loader: 'sass-loader'
+                    }]
                 })
             },
             {
                 test: /\.css$/,
                 include: path.resolve('./src/client/common/content'),
-                loader: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: 'css-loader?modules&importLoaders=2&localIdentName=[local]!postcss-loader'
+                loader: ExtractPlugin.extract({
+                    use: [{
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                            localIdentName: '[local]',
+                        },
+                    }, {
+                        loader: 'postcss-loader',
+                    }]
                 })
             },
             {
                 test: /\.scss$/,
                 include: path.resolve('./src/client/common/content'),
-                loader: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: 'css-loader?modules&importLoaders=2&localIdentName=[local]!postcss-loader!sass-loader'
+                loader: ExtractPlugin.extract({
+                    use: [{
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                            localIdentName: '[local]',
+                        },
+                    }, {
+                        loader: 'postcss-loader',
+                    }, {
+                        loader: 'sass-loader'
+                    }]
                 })
             },
             {
@@ -104,13 +137,13 @@ var config = {
             debug: true,
             options: {
                 tslint: {
-                    failOnHint: true
+                    failOnHint: false
                 },
                 postcss: function () {
                     return [
-                        stylelint({
-                            files: '../../src/app/*.css'
-                        }),
+                        /*stylelint({
+                            files: './src/app/!*.css'
+                        }),*/
                         postcssNext(),
                         postcssAssets({
                             relative: true
@@ -126,8 +159,11 @@ var config = {
             'process.env': {
                 BROWSER: JSON.stringify(true),
                 NODE_ENV: JSON.stringify(NODE_ENV)
-            }
+            },
+            APP_ENTRY_PATH: JSON.stringify(helpers.getFullPath(appConfig.appEntryName)),
+            APP_ENTRY_NAME: JSON.stringify(appConfig.appEntryName)
         }),
+        ExtractPlugin
     ]
 
 };
@@ -137,7 +173,6 @@ if (NODE_ENV === 'development') {
 
     config.entry = {
         app: [
-            'webpack-hot-middleware/client?reload=true',
             './src/client.tsx',
             './src/client/vendor.ts'
         ]
@@ -147,17 +182,16 @@ if (NODE_ENV === 'development') {
 
     config.plugins.push(
         new CheckerPlugin(),
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin(),
-        new ExtractTextPlugin('css/styles.css')
+        new webpack.NoEmitOnErrorsPlugin()
     );
-
     config.devtool = 'source-map';
 }
 
 if (NODE_ENV === 'production') {
     config.entry = {
-        app: './src/client.tsx',
+        app: [
+            './src/client.tsx'
+        ],
         vendor: [
             './src/client/vendor.ts',
             'react',
@@ -172,6 +206,7 @@ if (NODE_ENV === 'production') {
         ]
     };
     config.output.filename = 'js/[name].[chunkhash].js';
+    config.output.pathinfo = true;
 
     config.plugins.push(
         new webpack.optimize.OccurrenceOrderPlugin(),
@@ -184,8 +219,7 @@ if (NODE_ENV === 'production') {
             compress: {
                 warnings: false
             }
-        }),
-        new ExtractTextPlugin('css/styles-[hash].css')
+        })
     );
 
     config.bail = true;
