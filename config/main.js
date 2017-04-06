@@ -10,7 +10,7 @@ var config = {
     host: process.env.HOST || 'localhost',
     port: process.env.PORT || 8889,
     karmaPort: 9876,
-    APP_ENTRY: sites.siteAltLan,
+    appEntryName: sites.siteAltLan,
 
     // This part goes to React-Helmet for Head of our HTML
     app: {

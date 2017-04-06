@@ -169,8 +169,8 @@ var config = {
             classNames: "classnames"
         }),
         new webpack.DefinePlugin({
-            APP_ENTRY_PATH: JSON.stringify(helpers.getFullPath(appConfig.APP_ENTRY)),
-            APP_ENTRY: JSON.stringify(appConfig.APP_ENTRY)
+            APP_ENTRY_PATH: JSON.stringify(helpers.getFullPath(appConfig.appEntryName)),
+            APP_ENTRY_NAME: JSON.stringify(appConfig.appEntryName)
         }),
         ExtractPlugin
     ],
