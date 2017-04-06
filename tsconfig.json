@@ -16,8 +16,8 @@
     "inlineSourceMap": false,
     "inlineSources": false,
     "experimentalDecorators": true,
-    "noUnusedParameters": true,
-    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "noUnusedLocals": false,
     "jsx": "react",
     "moduleResolution": "node",
     "skipLibCheck": true
@@ -30,6 +30,7 @@
   ],
   "awesomeTypescriptLoaderOptions": {
     "useCache": true,
-    "useBabel": true
+    "useBabel": true,
+    "doTypeCheck": false
   }
 }

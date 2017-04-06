@@ -30,12 +30,6 @@ export abstract class ClientApplicationBase<TStoreInterface> implements IClientA
             applyMiddleware(...middlewares),
         ));
 
-        if (appConfig.env === 'development' && (module as any).hot) {
-            (module as any).hot.accept('./../../rootReducer', () => {
-                store.replaceReducer(this.rootReducer);
-            });
-        }
-
         return store;
     }
 }
