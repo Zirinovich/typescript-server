@@ -1,15 +1,23 @@
 import * as React from 'react';
 import {Link} from 'react-router';
-// import {LinkContainer} from 'react-router-bootstrap';
-import FontAwesome = require("react-fontawesome");
+const {connect} = require('react-redux');
 
-import {IUser} from "../../../shared/interfaces/authentication/IUser";
+import {IUser} from '../../../shared/interfaces/authentication/IUser';
+import {Icon} from '../../common/components/icon/icon';
+import {i18n} from '../../../shared/tools/i18n/i18n';
 const style = require('./header.scss');
 
 interface IProps {
+    currentLanguage?: string;
+    languages?: {
+        code: string;
+        name: string;
+    }[]
+    dictionary?: any;
     user: IUser;
     logout: ()=>void;
     pathname: string;
+    setCurrentLanguage?: (language: string)=>void;
 }
 
 interface IState {
@@ -19,39 +27,54 @@ interface IState {
 const renderNavItem = (page) => {
     const {to, label, index, pathname} = page;
     return (
-        <li className="dropdown" key={`${index}-page-link`}>
-            <Link to={to} className={classNames('dropdown-toggle', to === pathname && 'active')}>{label}</Link>
+        <li key={`${index}-page-link`}>
+            <Link to={to} className={classNames(to === pathname && 'active')}>{label}</Link>
         </li>
     )
 };
 
+@connect(
+    (state) => ({
+        currentLanguage: state.i18n.currentLanguage,
+        languages: state.i18n.languages
+    }),
+    (dispatch) => ({
+        setCurrentLanguage: (language) => dispatch(i18n.setCurrentLanguage(language))
+    })
+)
 export class Header extends React.Component<IProps, IState> {
+    languageChangeHandler(e) {
+        let language = e.target.value;
+        this.props.setCurrentLanguage(language);
+    }
+
     render() {
-        const {user, logout, pathname} = this.props;
+        const {user, logout, pathname, currentLanguage, languages} = this.props;
+
         const pageLinks = [
             {
                 to: '/',
-                label: 'Главная'
+                label: i18n.t('mainPage')
             },
             {
                 to: '/lab',
-                label: 'Lab'
+                label: i18n.t('labPage')
             },
             {
                 to: '/contacts',
-                label: 'Контакты'
+                label: i18n.t('contactsPage')
             },
             {
-                to: '/presentation',
-                label: 'Презентации решений'
+                to: '/presentations',
+                label: i18n.t('presentationsPage')
             },
             {
                 to: '/partners',
-                label: 'Партнеры'
+                label: i18n.t('partnersPage')
             },
             {
                 to: '/oss',
-                label: 'OSS решения'
+                label: i18n.t('ossPage')
             }
         ];
         return (
@@ -62,30 +85,44 @@ export class Header extends React.Component<IProps, IState> {
                         <div className="top_nav three">
                             <div className="container">
                                 <ul>
-                                    <li><FontAwesome name="comments"/> 24x7  live Technical Support</li>
-                                    <li><FontAwesome name="phone"/> (888) 123-4567</li>
+                                    <li><Icon name="phone"/> (888) 123-4567</li>
                                     { user &&
                                     <li>
-                                        <FontAwesome name="user"/> {user.fullName}
+                                        <Icon name="user"/> {user.fullName}
                                     </li>
                                     }
                                     { user ?
                                         <li>
                                             <a href="#" onClick={logout}>
-                                                <FontAwesome name="user"/> Выйти
+                                                <Icon name="user"/> {i18n.t('actionLogout')}
                                             </a>
                                         </li>
                                         :
                                         <li>
                                             <Link to="/login">
-                                                <FontAwesome name="user"/> Войти
+                                                <Icon name="user"/> {i18n.t('actionLogin')}
                                             </Link>
                                         </li>
                                     }
-                                    <li><a href="#"><FontAwesome name="facebook"/></a></li>
-                                    <li><a href="#"><FontAwesome name="twitter"/></a></li>
-                                    <li><a href="#"><FontAwesome name="plus"/></a></li>
-                                    <li className="last"><a href="#"><FontAwesome name="linkedin"/></a></li>
+                                    <li>
+                                        <div className="country_selector">
+                                            <Icon name="language"/> {i18n.t('language')}
+                                            <select id="source" onChange={this.languageChangeHandler.bind(this)}
+                                                    value={currentLanguage}>
+                                                {
+                                                    languages.map((lng, i) => {
+                                                        return (
+                                                            <option key={i} value={lng.code}>{lng.name}</option>
+                                                        )
+                                                    })
+                                                }
+                                            </select>
+                                        </div>
+                                    </li>
+                                    <li><a href="#"><Icon name="facebook"/></a></li>
+                                    <li><a href="#"><Icon name="twitter"/></a></li>
+                                    <li><a href="#"><Icon name="plus"/></a></li>
+                                    <li className="last"><a href="#"><Icon name="linkedin"/></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -109,20 +146,45 @@ export class Header extends React.Component<IProps, IState> {
                                             <div className="navbar-toggle .navbar-collapse .pull-right "
                                                  data-toggle="collapse"
                                                  data-target="#navbar-collapse-1"><span>Menu</span>
-                                                <button type="button"><FontAwesome name="bars"/></button>
+                                                <button type="button"><Icon name="bars"/></button>
                                             </div>
                                         </div>
                                         <div id="navbar-collapse-1" className="navbar-collapse collapse pull-right">
                                             <nav>
                                                 <ul className="nav navbar-nav">
-                                                    {pageLinks.map((page, index) => renderNavItem({...page, pathname, index}))}
+                                                    <li className="dropdown"> <a href="http://codelayers.net/foxuhost/layout2/fullwidth/index.html" className="dropdown-toggle"> Layouts</a>
+                                                        <ul className="dropdown-menu" role="menu">
+                                                            <li><a href="http://codelayers.net/foxuhost/layout2/fullwidth/index.html">Layout Light</a> </li>
+                                                            <li><a href="http://codelayers.net/foxuhost/layout3/fullwidth/index.html">Layout Classic</a> </li>
+                                                            <li><a href="http://codelayers.net/foxuhost/layout4/fullwidth/index.html">Layout Light2</a> </li>
+                                                            <li><a href="http://codelayers.net/foxuhost/layout5/fullwidth/index.html">Layout Classic2</a> </li>
+                                                            <li><a href="http://codelayers.net/foxuhost/layout6/fullwidth/index.html">Layout Classic3</a> </li>
+                                                            <li><a href="http://codelayers.net/foxuhost/layout1/fullwidth/index.html">Layout Creative</a> </li>
+                                                            <li><a href="http://codelayers.net/foxuhost/layout7/fullwidth/index.html">Layout One Page</a></li>
+                                                            <li className="dropdown-submenu mul"> <a href="#">Header Styles</a>
+                                                                <ul className="dropdown-menu">
+                                                                    <li><a href="http://codelayers.net/foxuhost/layout2/fullwidth/index.html">Header Style1</a> </li>
+                                                                    <li><a href="http://codelayers.net/foxuhost/layout3/fullwidth/index.html">Header Style2</a> </li>
+                                                                    <li><a href="http://codelayers.net/foxuhost/layout4/fullwidth/index.html">Header Style3</a> </li>
+                                                                    <li><a href="http://codelayers.net/foxuhost/layout5/fullwidth/index.html">Header Style4</a> </li>
+                                                                    <li><a href="http://codelayers.net/foxuhost/layout6/fullwidth/index.html">Header Style5</a> </li>
+                                                                    <li><a href="http://codelayers.net/foxuhost/layout1/fullwidth/index.html">Header Style6</a> </li>
+                                                                    <li><a href="http://codelayers.net/foxuhost/layout7/fullwidth/index.html">Header Style7</a> </li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    {pageLinks.map((page, index) => renderNavItem({
+                                                        ...page,
+                                                        pathname,
+                                                        index
+                                                    }))}
                                                 </ul>
                                             </nav>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
