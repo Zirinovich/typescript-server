@@ -21,8 +21,30 @@ export class Core {
             });
         });
     }
+    static get(request:IAjaxRequest) {
+        Core.getAsync(request).then((response)=>{
+            if(request.callback)
+                request.callback(response);
+        })
+    }
+    static async getAsync(request:IAjaxRequest) {
+        request.method = HttpMethod.GET;
+        return new Promise<IResponseAjax>((resolve) => {
+            Core.sendAsync(request).then(async(response) => {
+                resolve({
+                    isSuccess: response.ok,
+                    errorMessage: response.ok ? undefined : response.statusText,
+                    data: await response.json()
+                });
+            });
+        });
+    }
     static async sendAsync(request:IAjaxRequest) {
-        const body = formData(request.data);
+        var body;
+        if(request.method == HttpMethod.GET)
+            request.url += request.data && ("?"+$.param(request.data));
+        else
+            body = formData(request.data);
         const requestOptions = {
             method: HttpMethod[request.method],
             credentials: 'same-origin'
