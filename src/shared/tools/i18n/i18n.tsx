@@ -3,8 +3,8 @@ import {setCurrentLanguage, setResources} from './i18nActions';
 import {i18nReducer} from './i18nReducer';
 import {Loc} from './loc';
 
-class I18n{
-    t(key){
+class I18n {
+    t(key) {
         return <Loc locKey={key}/>
     }
 

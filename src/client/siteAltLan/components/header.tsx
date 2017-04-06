@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {Link} from 'react-router';
+import {Grid, Clearfix} from 'react-bootstrap';
 const {connect} = require('react-redux');
 
 import {IUser} from '../../../shared/interfaces/authentication/IUser';
@@ -81,9 +82,9 @@ export class Header extends React.Component<IProps, IState> {
             <header className={style.header}>
 
                 <div id="topHeader">
-                    <div className="wrapper">
+                    <div className={style.wrapper}>
                         <div className="top_nav three">
-                            <div className="container">
+                            <Grid>
                                 <ul>
                                     <li><Icon name="phone"/> (888) 123-4567</li>
                                     { user &&
@@ -124,16 +125,16 @@ export class Header extends React.Component<IProps, IState> {
                                     <li><a href="#"><Icon name="plus"/></a></li>
                                     <li className="last"><a href="#"><Icon name="linkedin"/></a></li>
                                 </ul>
-                            </div>
+                            </Grid>
                         </div>
                     </div>
                 </div>
 
-                <div className="clearfix"></div>
+                <Clearfix/>
 
                 <div className={style.trueHeader}>
-                    <div className="wrapper">
-                        <div className="container">
+                    <div className={style.wrapper}>
+                        <Grid>
 
                             <div className={style.logo}>
                                 <Link to="/"/>
@@ -141,7 +142,7 @@ export class Header extends React.Component<IProps, IState> {
 
                             <div className={style.menu_main}>
                                 <div className="navbar yamm">
-                                    <div className="container">
+                                    <Grid>
                                         <div className="navbar-header">
                                             <div className="navbar-toggle .navbar-collapse .pull-right "
                                                  data-toggle="collapse"
@@ -152,24 +153,54 @@ export class Header extends React.Component<IProps, IState> {
                                         <div id="navbar-collapse-1" className="navbar-collapse collapse pull-right">
                                             <nav>
                                                 <ul className="nav navbar-nav">
-                                                    <li className="dropdown"> <a href="http://codelayers.net/foxuhost/layout2/fullwidth/index.html" className="dropdown-toggle"> Layouts</a>
+                                                    <li className="dropdown"><a
+                                                        href="http://codelayers.net/foxuhost/layout2/fullwidth/index.html"
+                                                        className="dropdown-toggle"> Layouts</a>
                                                         <ul className="dropdown-menu" role="menu">
-                                                            <li><a href="http://codelayers.net/foxuhost/layout2/fullwidth/index.html">Layout Light</a> </li>
-                                                            <li><a href="http://codelayers.net/foxuhost/layout3/fullwidth/index.html">Layout Classic</a> </li>
-                                                            <li><a href="http://codelayers.net/foxuhost/layout4/fullwidth/index.html">Layout Light2</a> </li>
-                                                            <li><a href="http://codelayers.net/foxuhost/layout5/fullwidth/index.html">Layout Classic2</a> </li>
-                                                            <li><a href="http://codelayers.net/foxuhost/layout6/fullwidth/index.html">Layout Classic3</a> </li>
-                                                            <li><a href="http://codelayers.net/foxuhost/layout1/fullwidth/index.html">Layout Creative</a> </li>
-                                                            <li><a href="http://codelayers.net/foxuhost/layout7/fullwidth/index.html">Layout One Page</a></li>
-                                                            <li className="dropdown-submenu mul"> <a href="#">Header Styles</a>
+                                                            <li><a
+                                                                href="http://codelayers.net/foxuhost/layout2/fullwidth/index.html">Layout Light</a>
+                                                            </li>
+                                                            <li><a
+                                                                href="http://codelayers.net/foxuhost/layout3/fullwidth/index.html">Layout Classic</a>
+                                                            </li>
+                                                            <li><a
+                                                                href="http://codelayers.net/foxuhost/layout4/fullwidth/index.html">Layout Light2</a>
+                                                            </li>
+                                                            <li><a
+                                                                href="http://codelayers.net/foxuhost/layout5/fullwidth/index.html">Layout Classic2</a>
+                                                            </li>
+                                                            <li><a
+                                                                href="http://codelayers.net/foxuhost/layout6/fullwidth/index.html">Layout Classic3</a>
+                                                            </li>
+                                                            <li><a
+                                                                href="http://codelayers.net/foxuhost/layout1/fullwidth/index.html">Layout Creative</a>
+                                                            </li>
+                                                            <li><a
+                                                                href="http://codelayers.net/foxuhost/layout7/fullwidth/index.html">Layout One Page</a>
+                                                            </li>
+                                                            <li className="dropdown-submenu mul"><a href="#">Header Styles</a>
                                                                 <ul className="dropdown-menu">
-                                                                    <li><a href="http://codelayers.net/foxuhost/layout2/fullwidth/index.html">Header Style1</a> </li>
-                                                                    <li><a href="http://codelayers.net/foxuhost/layout3/fullwidth/index.html">Header Style2</a> </li>
-                                                                    <li><a href="http://codelayers.net/foxuhost/layout4/fullwidth/index.html">Header Style3</a> </li>
-                                                                    <li><a href="http://codelayers.net/foxuhost/layout5/fullwidth/index.html">Header Style4</a> </li>
-                                                                    <li><a href="http://codelayers.net/foxuhost/layout6/fullwidth/index.html">Header Style5</a> </li>
-                                                                    <li><a href="http://codelayers.net/foxuhost/layout1/fullwidth/index.html">Header Style6</a> </li>
-                                                                    <li><a href="http://codelayers.net/foxuhost/layout7/fullwidth/index.html">Header Style7</a> </li>
+                                                                    <li><a
+                                                                        href="http://codelayers.net/foxuhost/layout2/fullwidth/index.html">Header Style1</a>
+                                                                    </li>
+                                                                    <li><a
+                                                                        href="http://codelayers.net/foxuhost/layout3/fullwidth/index.html">Header Style2</a>
+                                                                    </li>
+                                                                    <li><a
+                                                                        href="http://codelayers.net/foxuhost/layout4/fullwidth/index.html">Header Style3</a>
+                                                                    </li>
+                                                                    <li><a
+                                                                        href="http://codelayers.net/foxuhost/layout5/fullwidth/index.html">Header Style4</a>
+                                                                    </li>
+                                                                    <li><a
+                                                                        href="http://codelayers.net/foxuhost/layout6/fullwidth/index.html">Header Style5</a>
+                                                                    </li>
+                                                                    <li><a
+                                                                        href="http://codelayers.net/foxuhost/layout1/fullwidth/index.html">Header Style6</a>
+                                                                    </li>
+                                                                    <li><a
+                                                                        href="http://codelayers.net/foxuhost/layout7/fullwidth/index.html">Header Style7</a>
+                                                                    </li>
                                                                 </ul>
                                                             </li>
                                                         </ul>
@@ -182,10 +213,10 @@ export class Header extends React.Component<IProps, IState> {
                                                 </ul>
                                             </nav>
                                         </div>
-                                    </div>
+                                    </Grid>
                                 </div>
                             </div>
-                        </div>
+                        </Grid>
                     </div>
                 </div>
             </header>
