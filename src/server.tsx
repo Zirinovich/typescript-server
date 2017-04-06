@@ -17,48 +17,31 @@ import HTTP_STATUS_CODES from 'http-status-enum';
 const {ReduxAsyncConnect, loadOnServer} = require('redux-connect');
 
 import {Html} from "./client/common/html";
-const manifest = require('../build/manifest.json');
+const lazyRequire = require('lazy-require');
+const manifest = lazyRequire('../build/manifest.json');
 
 import * as express from 'express';
 import {serverRouter} from './server/serverRouterMiddleware'
 
 import {expressSetup, expressSessionSetup} from './server/expressSetup';
 import {passportSetup} from './server/authenticationPassport';
-import {clientApplication} from './server/clientApplication';
+const {ClientApplication} = require(APP_ENTRY_PATH);
 
 const Chalk = require('chalk');
 
 const app = express();
-// Интерфейсы экшенов правь!!!
+
+
 expressSetup(app);
 expressSessionSetup(app);
 passportSetup(app);
 
-if (process.env.NODE_ENV !== 'production') {
-    const webpack = require('webpack');
-    const webpackConfig = require('../config/webpack/client.webpack.config');
-    const webpackCompiler = webpack(webpackConfig);
-
-    app.use(require('webpack-dev-middleware')(webpackCompiler, {
-        publicPath: webpackConfig.output.publicPath,
-        stats: {colors: true},
-        noInfo: true,
-        hot: true,
-        inline: true,
-        lazy: false,
-        historyApiFallback: true,
-        quiet: true,
-    }));
-
-    app.use(require('webpack-hot-middleware')(webpackCompiler));
-}
-
 app.use(serverRouter);
 
 app.get('*', (req, res) => {
-
     const location = req.url;
     const memoryHistory = createMemoryHistory(req.originalUrl);
+    const clientApplication = new ClientApplication();
     const store = clientApplication.configureStore(memoryHistory, ( req.user ? {user: Object.assign({}, req.user, {password: undefined})} : {}));
     const routes = clientApplication.clientRoutes;
     const history = syncHistoryWithStore(memoryHistory, store);

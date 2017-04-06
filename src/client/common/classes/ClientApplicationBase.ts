@@ -32,14 +32,7 @@ export abstract class ClientApplicationBase<TStoreInterface> implements IClientA
             applyMiddleware(...middlewares),
         ));
 
-        if (appConfig.env === 'development' && (module as any).hot) {
-            (module as any).hot.accept('./../../rootReducer', () => {
-                store.replaceReducer(this.rootReducer);
-            });
-        }
-
         store.dispatch(i18n.setResources(this.localizationResources));
-
         store.dispatch(i18n.setCurrentLanguage(appConfig.language));
 
         return store;
