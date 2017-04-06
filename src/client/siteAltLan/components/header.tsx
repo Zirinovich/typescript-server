@@ -4,7 +4,6 @@ const {connect} = require('react-redux');
 
 import {IUser} from '../../../shared/interfaces/authentication/IUser';
 import {Icon} from '../../common/components/icon/icon';
-//import {Loc} from './loc';
 import {i18n} from '../../../shared/tools/i18n/i18n';
 const style = require('./header.scss');
 
@@ -153,6 +152,28 @@ export class Header extends React.Component<IProps, IState> {
                                         <div id="navbar-collapse-1" className="navbar-collapse collapse pull-right">
                                             <nav>
                                                 <ul className="nav navbar-nav">
+                                                    <li className="dropdown"> <a href="http://codelayers.net/foxuhost/layout2/fullwidth/index.html" className="dropdown-toggle"> Layouts</a>
+                                                        <ul className="dropdown-menu" role="menu">
+                                                            <li><a href="http://codelayers.net/foxuhost/layout2/fullwidth/index.html">Layout Light</a> </li>
+                                                            <li><a href="http://codelayers.net/foxuhost/layout3/fullwidth/index.html">Layout Classic</a> </li>
+                                                            <li><a href="http://codelayers.net/foxuhost/layout4/fullwidth/index.html">Layout Light2</a> </li>
+                                                            <li><a href="http://codelayers.net/foxuhost/layout5/fullwidth/index.html">Layout Classic2</a> </li>
+                                                            <li><a href="http://codelayers.net/foxuhost/layout6/fullwidth/index.html">Layout Classic3</a> </li>
+                                                            <li><a href="http://codelayers.net/foxuhost/layout1/fullwidth/index.html">Layout Creative</a> </li>
+                                                            <li><a href="http://codelayers.net/foxuhost/layout7/fullwidth/index.html">Layout One Page</a></li>
+                                                            <li className="dropdown-submenu mul"> <a href="#">Header Styles</a>
+                                                                <ul className="dropdown-menu">
+                                                                    <li><a href="http://codelayers.net/foxuhost/layout2/fullwidth/index.html">Header Style1</a> </li>
+                                                                    <li><a href="http://codelayers.net/foxuhost/layout3/fullwidth/index.html">Header Style2</a> </li>
+                                                                    <li><a href="http://codelayers.net/foxuhost/layout4/fullwidth/index.html">Header Style3</a> </li>
+                                                                    <li><a href="http://codelayers.net/foxuhost/layout5/fullwidth/index.html">Header Style4</a> </li>
+                                                                    <li><a href="http://codelayers.net/foxuhost/layout6/fullwidth/index.html">Header Style5</a> </li>
+                                                                    <li><a href="http://codelayers.net/foxuhost/layout1/fullwidth/index.html">Header Style6</a> </li>
+                                                                    <li><a href="http://codelayers.net/foxuhost/layout7/fullwidth/index.html">Header Style7</a> </li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
                                                     {pageLinks.map((page, index) => renderNavItem({
                                                         ...page,
                                                         pathname,
