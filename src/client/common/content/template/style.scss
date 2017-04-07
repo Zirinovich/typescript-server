@@ -38,6 +38,10 @@
 	SITE MAIN STRUCTURE
 ------------------------------------------------------*/
 
+img {
+  max-width: 100%;
+}
+
 .site_wrapper {
   width: 100%;
   margin: 0 auto 0 auto;
@@ -53,10 +57,10 @@
   margin-top: -80px;
 }
 
-.container {
+/*.container {
   width: 1170px;
   margin: auto auto auto auto;
-}
+}*/
 
 .content_fullwidth {
   float: left;

@@ -1,5 +1,11 @@
 $color-highlight: #FE7E20; //TODO: Move to variables
 
+$screen-smallest: 320px;
+$screen-small: 480px;
+$screen-medium: 600px;
+$screen-large: 768px;
+$screen-largest: 990px;
+
 @mixin transition($args...) { //TODO: Move to mixins
   transition: $args;
   -khtml-transition: $args;
@@ -29,6 +35,12 @@ $color-highlight: #FE7E20; //TODO: Move to variables
   }
 
   .top_header {
+    @media only screen and (max-width: $screen-largest - 1) {
+      & {
+        display: none;
+      }
+    }
+
     .top_nav {
       float: left;
       width: 100%;
@@ -81,6 +93,12 @@ $color-highlight: #FE7E20; //TODO: Move to variables
     .logo {
       float: left;
       width: 25%;
+      @media only screen and (max-width: $screen-largest - 1) {
+        & {
+          display: none;
+        }
+      }
+
       a {
         float: left;
         display: block;
@@ -96,10 +114,15 @@ $color-highlight: #FE7E20; //TODO: Move to variables
     }
 
     .menu_main {
-      float: right;
-      width: 75%;
       z-index: 9999;
       position: relative;
+
+      @media only screen and (min-width: $screen-largest) {
+        & {
+          float: right;
+          width: 75%;
+        }
+      }
 
       nav {
         background-color: transparent;
@@ -108,9 +131,9 @@ $color-highlight: #FE7E20; //TODO: Move to variables
 
         & > div {
           width: auto;
-          max-width: 1170px;
 
           a {
+            color: #777;
             background: none;
             padding-top: 22px;
             padding-bottom: 22px;
@@ -121,6 +144,7 @@ $color-highlight: #FE7E20; //TODO: Move to variables
             &:hover {
               & > a {
                 color: $color-highlight;
+                background: none;
               }
             }
 
@@ -128,6 +152,41 @@ $color-highlight: #FE7E20; //TODO: Move to variables
               & > a {
                 color: #fff;
                 background-color: $color-highlight;
+              }
+            }
+          }
+
+          .toggle_header {
+            position: relative;
+            background: #272727;
+            cursor: pointer;
+
+            button {
+              border-color: transparent;
+              background: none;
+
+              span {
+                @include transition(background 0.35s ease);
+              }
+
+              &:hover {
+                span {
+                  background: #fff;
+                }
+              }
+            }
+          }
+
+          .collapse_wrapper {
+            position: relative;
+            div {
+              @media only screen and (max-width: $screen-largest - 1) {
+                & {
+                  position: absolute;
+                  background: #1e1e1e;
+                  left: 0;
+                  right: 0;
+                }
               }
             }
           }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Link} from 'react-router';
 import {Grid, Navbar, Nav, NavItem, Clearfix} from 'react-bootstrap';
-import {LinkContainer, IndexLinkContainer} from 'react-router-bootstrap';
+import {LinkContainer} from 'react-router-bootstrap';
 const {connect} = require('react-redux');
 
 import {IUser} from '../../../shared/interfaces/authentication/IUser';
@@ -50,10 +50,6 @@ export class Header extends React.Component<IProps, IState> {
                 label: i18n.t('mainPage')
             },
             {
-                to: '/lab',
-                label: i18n.t('labPage')
-            },
-            {
                 to: '/contacts',
                 label: i18n.t('contactsPage')
             },
@@ -72,7 +68,6 @@ export class Header extends React.Component<IProps, IState> {
         ];
         return (
             <header className={style.header}>
-
                 <div className={style.top_header}>
                     <div className={style.wrapper}>
                         <div className={style.top_nav}>
@@ -124,44 +119,38 @@ export class Header extends React.Component<IProps, IState> {
                         </div>
                     </div>
                 </div>
-
                 <Clearfix/>
-
                 <div className={style.bottom_header}>
                     <div className={style.wrapper}>
                         <Grid>
-
                             <div className={style.logo}>
                                 <Link to="/"/>
                             </div>
-
                             <div className={style.menu_main}>
                                 <Navbar className={style.nav_bar}>
                                     <div>
-                                        <Navbar.Header>
-                                            <div className="navbar-toggle .navbar-collapse .pull-right "
-                                                 data-toggle="collapse"
-                                                 data-target="#navbar-collapse-1"><span>Menu</span>
-                                                <button type="button"><Icon name="bars"/></button>
-                                            </div>
+                                        <Navbar.Header className={style.toggle_header}>
+                                            <Navbar.Toggle/>
                                         </Navbar.Header>
-                                        <Navbar.Collapse>
-                                            <nav>
-                                                <Nav>
-                                                    {pageLinks.map((page, index) => {
-                                                        let activeClassName = style.active;
-                                                        let className = classNames(page.to === pathname && activeClassName);
-                                                        return (
-                                                            <LinkContainer key={index}
-                                                                           to={page.to}>
-                                                                <NavItem
-                                                                    className={className}>{page.label}</NavItem>
-                                                            </LinkContainer>
-                                                        )
-                                                    })}
-                                                </Nav>
-                                            </nav>
-                                        </Navbar.Collapse>
+                                        <div className={style.collapse_wrapper}>
+                                            <Navbar.Collapse>
+                                                <nav>
+                                                    <Nav>
+                                                        {pageLinks.map((page, index) => {
+                                                            let activeClassName = style.active;
+                                                            let className = classNames(page.to === pathname && activeClassName);
+                                                            return (
+                                                                <LinkContainer key={index}
+                                                                               to={page.to}>
+                                                                    <NavItem
+                                                                        className={className}>{page.label}</NavItem>
+                                                                </LinkContainer>
+                                                            )
+                                                        })}
+                                                    </Nav>
+                                                </nav>
+                                            </Navbar.Collapse>
+                                        </div>
                                     </div>
                                 </Navbar>
                             </div>
