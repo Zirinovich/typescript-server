@@ -1,47 +1,138 @@
-.header {
-  margin: 0px 0 0;
+$color-highlight: #FE7E20; //TODO: Move to variables
+
+@mixin transition($args...) { //TODO: Move to mixins
+  transition: $args;
+  -khtml-transition: $args;
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -ms-transition: $args;
+  -o-transition: $args;
 }
 
-.trueHeader {
-  z-index: 8000;
-  left: 0;
-  right: 0;
-  padding: 0px 0;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
-  -khtml-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
-  -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
-  -ms-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
-  -o-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
-  transition: padding 0.35s ease;
-  -khtml-transition: padding 0.35s ease;
-  -webkit-transition: padding 0.35s ease;
-  -moz-transition: padding 0.35s ease;
-  -ms-transition: padding 0.35s ease;
-  -o-transition: padding 0.35s ease;
-  background-color: transparent;
-  zoom: 1;
-  margin-bottom: 20px;
-  .logo {
-    float: left;
-    width: 25%;
-    a {
+@mixin box-shadow($args...) {
+  box-shadow: $args;
+  -khtml-box-shadow: $args;
+  -webkit-box-shadow: $args;
+  -moz-box-shadow: $args;
+  -ms-box-shadow: $args;
+  -o-box-shadow: $args;
+}
+
+.header {
+  margin: 0;
+  height: 104px;
+
+  .wrapper {
+    zoom: 1;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .top_header {
+    .top_nav {
       float: left;
-      display: block;
-      position: relative;
-      text-indent: -999em;
-      width: 64px;
-      height: 64px;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-image: url(./content/logo.jpg);
-      z-index: 1;
+      width: 100%;
+      text-align: left;
+      padding: 5px 0 5px 0;
+      background-color: #272727;
+
+      ul {
+        float: left;
+        padding: 0;
+        margin: 0;
+
+        li {
+          float: left;
+          color: #8d8c8c;
+          font-size: 14px;
+          margin: 0;
+          padding: 0 20px 0 0;
+
+          a {
+            color: #8d8c8c;
+
+            &:hover {
+              color: #fff;
+            }
+          }
+
+          .select {
+            margin-left: 5px;
+            background-color: #272727;
+            color: #8d8c8c;
+            border: 1px solid #8d8c8c;
+          }
+        }
+      }
     }
   }
-}
 
-.wrapper {
-  zoom: 1;
-  width: 100%;
-  margin: 0 auto;
+  .bottom_header {
+    z-index: 8000;
+    left: 0;
+    right: 0;
+    padding: 0;
+    @include box-shadow(0 1px 5px rgba(0, 0, 0, 0.2));
+    @include transition(padding 0.35s ease);
+    background-color: transparent;
+    zoom: 1;
+    margin-bottom: 20px;
+
+    .logo {
+      float: left;
+      width: 25%;
+      a {
+        float: left;
+        display: block;
+        position: relative;
+        text-indent: -999em;
+        width: 64px;
+        height: 64px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-image: url(./content/logo.jpg);
+        z-index: 1;
+      }
+    }
+
+    .menu_main {
+      float: right;
+      width: 75%;
+      z-index: 9999;
+      position: relative;
+
+      nav {
+        background-color: transparent;
+        border: none;
+        margin-bottom: 0;
+
+        & > div {
+          width: auto;
+          max-width: 1170px;
+
+          a {
+            background: none;
+            padding-top: 22px;
+            padding-bottom: 22px;
+            text-transform: uppercase;
+          }
+
+          ul > li {
+            &:hover {
+              & > a {
+                color: $color-highlight;
+              }
+            }
+
+            &.active {
+              & > a {
+                color: #fff;
+                background-color: $color-highlight;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

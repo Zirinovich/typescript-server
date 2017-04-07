@@ -1,6 +1,8 @@
 import * as React from 'react';
 import FontAwesome = require('react-fontawesome');
 
+import '../../content/font-awesome/font-awesome.scss';
+
 interface IProps {
     name: string;
 }

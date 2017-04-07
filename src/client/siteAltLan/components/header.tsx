@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {Link} from 'react-router';
-import {Grid, Clearfix} from 'react-bootstrap';
+import {Grid, Navbar, Nav, NavItem, Clearfix} from 'react-bootstrap';
+import {LinkContainer, IndexLinkContainer} from 'react-router-bootstrap';
 const {connect} = require('react-redux');
 
 import {IUser} from '../../../shared/interfaces/authentication/IUser';
@@ -24,15 +25,6 @@ interface IProps {
 interface IState {
 
 }
-
-const renderNavItem = (page) => {
-    const {to, label, index, pathname} = page;
-    return (
-        <li key={`${index}-page-link`}>
-            <Link to={to} className={classNames(to === pathname && 'active')}>{label}</Link>
-        </li>
-    )
-};
 
 @connect(
     (state) => ({
@@ -81,9 +73,9 @@ export class Header extends React.Component<IProps, IState> {
         return (
             <header className={style.header}>
 
-                <div id="topHeader">
+                <div className={style.top_header}>
                     <div className={style.wrapper}>
-                        <div className="top_nav three">
+                        <div className={style.top_nav}>
                             <Grid>
                                 <ul>
                                     <li><Icon name="phone"/> (888) 123-4567</li>
@@ -106,9 +98,10 @@ export class Header extends React.Component<IProps, IState> {
                                         </li>
                                     }
                                     <li>
-                                        <div className="country_selector">
+                                        <div>
                                             <Icon name="language"/> {i18n.t('language')}
-                                            <select id="source" onChange={this.languageChangeHandler.bind(this)}
+                                            <select className={style.select}
+                                                    onChange={this.languageChangeHandler.bind(this)}
                                                     value={currentLanguage}>
                                                 {
                                                     languages.map((lng, i) => {
@@ -123,7 +116,9 @@ export class Header extends React.Component<IProps, IState> {
                                     <li><a href="#"><Icon name="facebook"/></a></li>
                                     <li><a href="#"><Icon name="twitter"/></a></li>
                                     <li><a href="#"><Icon name="plus"/></a></li>
-                                    <li className="last"><a href="#"><Icon name="linkedin"/></a></li>
+                                    <li>
+                                        <a href="#"><Icon name="linkedin"/></a>
+                                    </li>
                                 </ul>
                             </Grid>
                         </div>
@@ -132,7 +127,7 @@ export class Header extends React.Component<IProps, IState> {
 
                 <Clearfix/>
 
-                <div className={style.trueHeader}>
+                <div className={style.bottom_header}>
                     <div className={style.wrapper}>
                         <Grid>
 
@@ -141,80 +136,34 @@ export class Header extends React.Component<IProps, IState> {
                             </div>
 
                             <div className={style.menu_main}>
-                                <div className="navbar yamm">
-                                    <Grid>
-                                        <div className="navbar-header">
+                                <Navbar className={style.nav_bar}>
+                                    <div>
+                                        <Navbar.Header>
                                             <div className="navbar-toggle .navbar-collapse .pull-right "
                                                  data-toggle="collapse"
                                                  data-target="#navbar-collapse-1"><span>Menu</span>
                                                 <button type="button"><Icon name="bars"/></button>
                                             </div>
-                                        </div>
-                                        <div id="navbar-collapse-1" className="navbar-collapse collapse pull-right">
+                                        </Navbar.Header>
+                                        <Navbar.Collapse>
                                             <nav>
-                                                <ul className="nav navbar-nav">
-                                                    <li className="dropdown"><a
-                                                        href="http://codelayers.net/foxuhost/layout2/fullwidth/index.html"
-                                                        className="dropdown-toggle"> Layouts</a>
-                                                        <ul className="dropdown-menu" role="menu">
-                                                            <li><a
-                                                                href="http://codelayers.net/foxuhost/layout2/fullwidth/index.html">Layout Light</a>
-                                                            </li>
-                                                            <li><a
-                                                                href="http://codelayers.net/foxuhost/layout3/fullwidth/index.html">Layout Classic</a>
-                                                            </li>
-                                                            <li><a
-                                                                href="http://codelayers.net/foxuhost/layout4/fullwidth/index.html">Layout Light2</a>
-                                                            </li>
-                                                            <li><a
-                                                                href="http://codelayers.net/foxuhost/layout5/fullwidth/index.html">Layout Classic2</a>
-                                                            </li>
-                                                            <li><a
-                                                                href="http://codelayers.net/foxuhost/layout6/fullwidth/index.html">Layout Classic3</a>
-                                                            </li>
-                                                            <li><a
-                                                                href="http://codelayers.net/foxuhost/layout1/fullwidth/index.html">Layout Creative</a>
-                                                            </li>
-                                                            <li><a
-                                                                href="http://codelayers.net/foxuhost/layout7/fullwidth/index.html">Layout One Page</a>
-                                                            </li>
-                                                            <li className="dropdown-submenu mul"><a href="#">Header Styles</a>
-                                                                <ul className="dropdown-menu">
-                                                                    <li><a
-                                                                        href="http://codelayers.net/foxuhost/layout2/fullwidth/index.html">Header Style1</a>
-                                                                    </li>
-                                                                    <li><a
-                                                                        href="http://codelayers.net/foxuhost/layout3/fullwidth/index.html">Header Style2</a>
-                                                                    </li>
-                                                                    <li><a
-                                                                        href="http://codelayers.net/foxuhost/layout4/fullwidth/index.html">Header Style3</a>
-                                                                    </li>
-                                                                    <li><a
-                                                                        href="http://codelayers.net/foxuhost/layout5/fullwidth/index.html">Header Style4</a>
-                                                                    </li>
-                                                                    <li><a
-                                                                        href="http://codelayers.net/foxuhost/layout6/fullwidth/index.html">Header Style5</a>
-                                                                    </li>
-                                                                    <li><a
-                                                                        href="http://codelayers.net/foxuhost/layout1/fullwidth/index.html">Header Style6</a>
-                                                                    </li>
-                                                                    <li><a
-                                                                        href="http://codelayers.net/foxuhost/layout7/fullwidth/index.html">Header Style7</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    {pageLinks.map((page, index) => renderNavItem({
-                                                        ...page,
-                                                        pathname,
-                                                        index
-                                                    }))}
-                                                </ul>
+                                                <Nav>
+                                                    {pageLinks.map((page, index) => {
+                                                        let activeClassName = style.active;
+                                                        let className = classNames(page.to === pathname && activeClassName);
+                                                        return (
+                                                            <LinkContainer key={index}
+                                                                           to={page.to}>
+                                                                <NavItem
+                                                                    className={className}>{page.label}</NavItem>
+                                                            </LinkContainer>
+                                                        )
+                                                    })}
+                                                </Nav>
                                             </nav>
-                                        </div>
-                                    </Grid>
-                                </div>
+                                        </Navbar.Collapse>
+                                    </div>
+                                </Navbar>
                             </div>
                         </Grid>
                     </div>
