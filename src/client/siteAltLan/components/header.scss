@@ -1,28 +1,5 @@
-$color-highlight: #FE7E20; //TODO: Move to variables
-
-$screen-smallest: 320px;
-$screen-small: 480px;
-$screen-medium: 600px;
-$screen-large: 768px;
-$screen-largest: 990px;
-
-@mixin transition($args...) { //TODO: Move to mixins
-  transition: $args;
-  -khtml-transition: $args;
-  -webkit-transition: $args;
-  -moz-transition: $args;
-  -ms-transition: $args;
-  -o-transition: $args;
-}
-
-@mixin box-shadow($args...) {
-  box-shadow: $args;
-  -khtml-box-shadow: $args;
-  -webkit-box-shadow: $args;
-  -moz-box-shadow: $args;
-  -ms-box-shadow: $args;
-  -o-box-shadow: $args;
-}
+@import "../../common/content/template/variables";
+@import "../../common/content/template/mixins";
 
 .header {
   margin: 0;
@@ -35,7 +12,7 @@ $screen-largest: 990px;
   }
 
   .top_header {
-    @media only screen and (max-width: $screen-largest - 1) {
+    @media only screen and (max-width: $screen-md - 1) {
       & {
         display: none;
       }
@@ -46,7 +23,7 @@ $screen-largest: 990px;
       width: 100%;
       text-align: left;
       padding: 5px 0 5px 0;
-      background-color: #272727;
+      background-color: $navbar-inverse-bg;
 
       ul {
         float: left;
@@ -55,7 +32,7 @@ $screen-largest: 990px;
 
         li {
           float: left;
-          color: #8d8c8c;
+          color: $text-muted;
           font-size: 14px;
           margin: 0;
           padding: 0 20px 0 0;
@@ -67,18 +44,18 @@ $screen-largest: 990px;
           }
 
           a {
-            color: #8d8c8c;
+            color: $text-muted;
 
             &:hover {
-              color: #fff;
+              color: $component-active-color;
             }
           }
 
           .select {
             margin-left: 5px;
-            background-color: #272727;
-            color: #8d8c8c;
-            border: 1px solid #8d8c8c;
+            background-color: $navbar-inverse-bg;
+            color: $text-muted;
+            border: 1px solid $text-muted;
           }
         }
       }
@@ -90,7 +67,7 @@ $screen-largest: 990px;
     left: 0;
     right: 0;
     padding: 0;
-    background-color: #FFFFFF;
+    background-color: $navbar-default-color;
     zoom: 1;
     margin-bottom: 20px;
     @include box-shadow(0 1px 5px rgba(0, 0, 0, 0.2));
@@ -99,7 +76,7 @@ $screen-largest: 990px;
     .logo {
       float: left;
       width: 25%;
-      @media only screen and (max-width: $screen-largest - 1) {
+      @media only screen and (max-width: $screen-md - 1) {
         & {
           display: none;
         }
@@ -123,7 +100,7 @@ $screen-largest: 990px;
       z-index: 9999;
       position: relative;
 
-      @media only screen and (min-width: $screen-largest) {
+      @media only screen and (min-width: $screen-md) {
         & {
           float: right;
           width: 75%;
@@ -139,7 +116,7 @@ $screen-largest: 990px;
           width: auto;
 
           a {
-            color: #777;
+            color: $navbar-default-link-color;
             background: none;
             padding-top: 22px;
             padding-bottom: 22px;
@@ -149,22 +126,22 @@ $screen-largest: 990px;
           ul > li {
             &:hover {
               & > a {
-                color: $color-highlight;
+                color: $brand-primary;
                 background: none;
               }
             }
 
             &.active {
               & > a {
-                color: #fff;
-                background-color: $color-highlight;
+                color: $navbar-default-link-hover-color;
+                background-color: $brand-primary;
               }
             }
           }
 
           .toggle_header {
             position: relative;
-            background: #272727;
+            background: $navbar-inverse-bg;
             cursor: pointer;
 
             button {
@@ -177,7 +154,7 @@ $screen-largest: 990px;
 
               &:hover {
                 span {
-                  background: #fff;
+                  background: $navbar-default-link-hover-color;
                 }
               }
             }
@@ -186,10 +163,10 @@ $screen-largest: 990px;
           .collapse_wrapper {
             position: relative;
             div {
-              @media only screen and (max-width: $screen-largest - 1) {
+              @media only screen and (max-width: $screen-md - 1) {
                 & {
                   position: absolute;
-                  background: #1e1e1e;
+                  background: $navbar-inverse-bg;
                   left: 0;
                   right: 0;
                 }
