@@ -25,7 +25,7 @@
             ////////////////////////////////
             // SET DEFAULT VALUES OF ITEM //
             ////////////////////////////////
-            defaults = {
+            var defaults = {
                 delay:9000,
                 startheight:600,
                 startwidth:960,

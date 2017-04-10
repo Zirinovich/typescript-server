@@ -1,3 +1,1 @@
-/**
- * Created by Alex on 13.03.2017.
- */
+require('./common/content/template/js/jquery.themepunch.tools.min');
