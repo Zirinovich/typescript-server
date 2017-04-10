@@ -149,6 +149,7 @@
               background: none;
 
               span {
+                background: $navbar-default-link-color;
                 @include transition(background 0.35s ease);
               }
 
