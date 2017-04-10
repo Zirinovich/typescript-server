@@ -28,6 +28,10 @@ var config = {
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx'],
         modules: [path.resolve(__dirname), 'node_modules', 'app', 'app/redux'],
+        alias: {
+            "TweenLite": "gsap/src/uncompressed/TweenLite",
+            "TimelineLite": "gsap/src/uncompressed/TimelineLite"
+        }
     },
 
     entry: './src/server.tsx',
