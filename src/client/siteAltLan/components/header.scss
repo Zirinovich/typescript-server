@@ -60,6 +60,12 @@ $screen-largest: 990px;
           margin: 0;
           padding: 0 20px 0 0;
 
+          span{
+            &:first-child{
+              padding-right: 5px;
+            }
+          }
+
           a {
             color: #8d8c8c;
 
@@ -84,11 +90,11 @@ $screen-largest: 990px;
     left: 0;
     right: 0;
     padding: 0;
-    @include box-shadow(0 1px 5px rgba(0, 0, 0, 0.2));
-    @include transition(padding 0.35s ease);
-    background-color: transparent;
+    background-color: #FFFFFF;
     zoom: 1;
     margin-bottom: 20px;
+    @include box-shadow(0 1px 5px rgba(0, 0, 0, 0.2));
+    @include transition(padding 0.35s ease);
 
     .logo {
       float: left;

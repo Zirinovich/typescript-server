@@ -4,14 +4,12 @@ const appConfig = require('../../../../config/main');
 
 import * as React from 'react';
 import * as Helmet from 'react-helmet';
-//import {Header} from '../components/header';
 import {Header} from '../components/header';
 import {Footer}from '../components/footer';
-//import {Grid}  from 'react-bootstrap';
+import {Clearfix}  from 'react-bootstrap';
 const {connect} = require('react-redux');
 import {IUser} from '../../../shared/interfaces/authentication/IUser';
 
-// import '../../common/content/bootstrap-cerulean_theme/bootstrap.scss';
 import '../../common/content/template/template';
 
 interface IProps {
@@ -32,6 +30,7 @@ class App extends React.Component<IProps, any> {
                 <Helmet {...appConfig.app} {...appConfig.app.head}/>
                 <Header user={user} logout={()=>{logout(dispatch)}} pathname={pathname}/>
                 {this.props.children}
+                <Clearfix/>
                 <Footer/>
             </section>
         );

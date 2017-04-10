@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 import {Grid, Navbar, Nav, NavItem, Clearfix} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 const {connect} = require('react-redux');
+const Sticky = require('sticky-js');
 
 import {IUser} from '../../../shared/interfaces/authentication/IUser';
 import {Icon} from '../../common/components/icon/icon';
@@ -36,6 +37,10 @@ interface IState {
     })
 )
 export class Header extends React.Component<IProps, IState> {
+    componentDidMount(){
+        new Sticky('.' + style.bottom_header);
+    }
+
     languageChangeHandler(e) {
         let language = e.target.value;
         this.props.setCurrentLanguage(language);
@@ -73,28 +78,28 @@ export class Header extends React.Component<IProps, IState> {
                         <div className={style.top_nav}>
                             <Grid>
                                 <ul>
-                                    <li><Icon name="phone"/> (888) 123-4567</li>
+                                    <li><Icon name="phone"/>(888) 123-4567</li>
                                     { user &&
                                     <li>
-                                        <Icon name="user"/> {user.fullName}
+                                        <Icon name="user"/>{user.fullName}
                                     </li>
                                     }
                                     { user ?
                                         <li>
                                             <a href="#" onClick={logout}>
-                                                <Icon name="user"/> {i18n.t('actionLogout')}
+                                                <Icon name="user"/>{i18n.t('actionLogout')}
                                             </a>
                                         </li>
                                         :
                                         <li>
                                             <Link to="/login">
-                                                <Icon name="user"/> {i18n.t('actionLogin')}
+                                                <Icon name="user"/>{i18n.t('actionLogin')}
                                             </Link>
                                         </li>
                                     }
                                     <li>
                                         <div>
-                                            <Icon name="language"/> {i18n.t('language')}
+                                            <Icon name="language"/>{i18n.t('language')}
                                             <select className={style.select}
                                                     onChange={this.languageChangeHandler.bind(this)}
                                                     value={currentLanguage}>
