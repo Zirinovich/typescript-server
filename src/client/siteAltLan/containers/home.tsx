@@ -1,8 +1,9 @@
 import * as React from 'react';
 
+import {Icon} from '../../common/components/icon/icon';
+import {RevolutionSlider} from "../../common/components/revolutionSlider/revolutionSlider";
+import {CardsSection} from '../components/cardsSection';
 const style = require('./home.scss');
-import {RevolutionSlider} from '../../common/components/revolutionSlider/revolutionSlider';
-import {Icon} from "../../common/components/icon/icon";
 
 class Home extends React.Component<any, any> {
     public render() {
@@ -222,103 +223,44 @@ class Home extends React.Component<any, any> {
             }
         ];
 
+        const cardsTitle ='What We Offer';
+        const cardsSubtitle = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Suspendisse et justo. Praesent mattis commodo augue. Aliquam ornare hendrerit augue';
+        const cards = [
+            {
+                title: 'Dedicated Servers',
+                icon: <Icon name="desktop"/>,
+                text: 'Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words'
+            },
+            {
+                title: 'Shared Hosting',
+                icon: <Icon name="desktop"/>,
+                text: 'Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words'
+            },
+            {
+                title: 'Reseller Hosting',
+                icon: <Icon name="desktop"/>,
+                text: 'Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words'
+            },
+            {
+                title: 'Domain Transfer',
+                icon: <Icon name="desktop"/>,
+                text: 'Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words'
+            },
+            {
+                title: 'Linux or Windows',
+                icon: <Icon name="desktop"/>,
+                text: 'Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words'
+            },
+            {
+                title: '24/7 Excellent Support',
+                icon: <Icon name="phone"/>,
+                text: 'Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words'
+            }
+        ];
         return (
-            <div className={style.Home}>
+            <div className={style.home}>
                 <RevolutionSlider slides={slides}/>
-
-                <div className="section_holder38">
-                    <div className="container">
-                        <h1 className="lt_title_big">What We <span>Offer</span></h1>
-                        <div className="cl_title_line"></div>
-                        <p className="lt_title_bottomtext">
-                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Suspendisse et justo. Praesent mattis commodo augue. Aliquam ornare hendrerit augue</p>
-                        <div className="clearfix"></div>
-                        <div className="one_third">
-                            <div className="text_holder">
-                                <div className="icon"><span className="glyph-item mega" aria-hidden="true"
-                                                            data-icon="&#xe03f;"></span>
-                                    <div className="arrow"></div>
-                                </div>
-                                <div className="text">
-                                    <h4 className="lessmar">Dedicated Servers</h4>
-                                    <p>
-                                        Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="one_third">
-                            <div className="text_holder active">
-                                <div className="icon"><span className="glyph-item mega" aria-hidden="true"
-                                                            data-icon="&#xe09b;"></span>
-                                    <div className="arrow"></div>
-                                </div>
-                                <div className="text">
-                                    <h4 className="lessmar">Shared Hosting</h4>
-                                    <p>
-                                        Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="one_third last">
-                            <div className="text_holder">
-                                <div className="icon"><span className="glyph-item mega" aria-hidden="true"
-                                                            data-icon="&#xe001;"></span>
-                                    <div className="arrow"></div>
-                                </div>
-                                <div className="text">
-                                    <h4 className="lessmar">Reseller Hosting</h4>
-                                    <p>
-                                        Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="margin_top1"></div>
-                        <div className="one_third">
-                            <div className="text_holder">
-                                <div className="icon"><span className="glyph-item mega" aria-hidden="true"
-                                                            data-icon="&#xe03f;"></span>
-                                    <div className="arrow"></div>
-                                </div>
-                                <div className="text">
-                                    <h4 className="lessmar">Domain Transfer</h4>
-                                    <p>
-                                        Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="one_third">
-                            <div className="text_holder">
-                                <div className="icon"><span className="glyph-item mega" aria-hidden="true"
-                                                            data-icon="&#xe09b;"></span>
-                                    <div className="arrow"></div>
-                                </div>
-                                <div className="text">
-                                    <h4 className="lessmar">Linux or Windows</h4>
-                                    <p>
-                                        Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="one_third last">
-                            <div className="text_holder">
-                                <div className="icon"><span className="glyph-item mega" aria-hidden="true"
-                                                            data-icon="&#xe001;"></span>
-                                    <div className="arrow"></div>
-                                </div>
-                                <div className="text">
-                                    <h4 className="lessmar">24/7 Excellent Support</h4>
-                                    <p>
-                                        Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <CardsSection title={cardsTitle} subtitle={cardsSubtitle} cards={cards}/>
 
                 <div className="section_holder34">
                     <div className="container">
