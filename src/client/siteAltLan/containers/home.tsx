@@ -1,13 +1,13 @@
 import * as React from 'react';
 
 const style = require('./home.scss');
-import {Slider} from '../components/slider';
+import {RevolutionSlider} from '../../common/components/revolutionSlider/revolutionSlider';
 
 class Home extends React.Component<any, any> {
     public render() {
         return (
             <div className={style.Home}>
-                <Slider/>
+                <RevolutionSlider/>
 
                 <div className="section_holder38">
                     <div className="container">

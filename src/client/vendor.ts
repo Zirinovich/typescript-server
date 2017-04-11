@@ -1,1 +1,0 @@
-require('./common/content/template/js/jquery.themepunch.tools.min');
