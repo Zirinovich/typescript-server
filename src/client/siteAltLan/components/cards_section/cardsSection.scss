@@ -1,5 +1,5 @@
-@import "../../../common/content/template/variables";
-@import "../../../common/content/template/mixins";
+@import "../../variables";
+@import "../../mixins";
 
 .section {
   width: 100%;
@@ -36,7 +36,7 @@
     float: left;
     padding: 10px;
     margin: 0;
-    background-color: #fff;
+    background-color: $component-active-color;
     @include transition(background-color 0.3s ease-out, color 0.3s ease-out);
 
     &:hover {
