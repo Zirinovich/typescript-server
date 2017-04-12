@@ -42,8 +42,17 @@ interface IState {
 }
 
 export class RevolutionSlider extends React.Component<IProps, IState> {
+    static isLoaded = false;
+
+    static loadJsClient() {
+        if (!RevolutionSlider.isLoaded) {
+            require('./jquery.themepunch.tools.min');
+            RevolutionSlider.isLoaded = true;
+        }
+    }
+
     componentDidMount() {
-        require('./jquery.themepunch.tools.min');
+        RevolutionSlider.loadJsClient();
 
         let revapi = $('.tp-banner2').css({opacity: 1}).revolution(
             {

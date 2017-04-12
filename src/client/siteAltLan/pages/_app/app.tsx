@@ -1,16 +1,15 @@
-import {logout} from '../redux/signInActions';
-const appConfig = require('../../../../config/main');
-// TODO: привести в порядок подобные ссылки, каким то образом посредством указания корневых каталогов или типа того
-
 import * as React from 'react';
 import * as Helmet from 'react-helmet';
-import {Header} from '../components/header';
-import {Footer}from '../components/footer';
 import {Clearfix}  from 'react-bootstrap';
 const {connect} = require('react-redux');
-import {IUser} from '../../../shared/interfaces/authentication/IUser';
 
-import '../../common/content/template/template';
+const appConfig = require('../../../../../config/main');
+import '../../../common/content/template/template';
+import {logout} from '../../redux/signInActions';
+// TODO: привести в порядок подобные ссылки, каким то образом посредством указания корневых каталогов или типа того
+import {Header} from './header';
+import {Footer}from './footer';
+import {IUser} from '../../../../shared/interfaces/authentication/IUser';
 
 interface IProps {
     location?: any;

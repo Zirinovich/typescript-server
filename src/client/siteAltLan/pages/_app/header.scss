@@ -1,5 +1,5 @@
-@import "../../common/content/template/variables";
-@import "../../common/content/template/mixins";
+@import "../../../common/content/template/variables";
+@import "../../../common/content/template/mixins";
 
 .header {
   margin: 0;
@@ -90,7 +90,7 @@
         height: 64px;
         background-size: contain;
         background-repeat: no-repeat;
-        background-image: url(../content/logo.jpg);
+        background-image: url(./content/logo.jpg);
         z-index: 1;
       }
     }

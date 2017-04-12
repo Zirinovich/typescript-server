@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {decrement, increment, ICounterAction} from '../redux/counterActions';
-import {ICounter} from '../../../shared/interfaces/defaultModule/ICounter';
+import {decrement, increment, ICounterAction} from '../../redux/counterActions';
+import {ICounter} from '../../../../shared/interfaces/defaultModule/ICounter';
 import {Button} from 'react-bootstrap'
 const {connect} = require('react-redux');
 const style = require('./counter.scss');
