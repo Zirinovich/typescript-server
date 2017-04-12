@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {Button} from 'react-bootstrap';
 
 import {Icon} from '../../common/components/icon/icon';
 import {RevolutionSlider} from "../../common/components/revolutionSlider/revolutionSlider";
@@ -259,14 +260,13 @@ class Home extends React.Component<any, any> {
             }
         ];
 
-        const parallaxSectionTitle = '7 Diffrent';
-        const parallaxSectionSubtitle = 'Hosting Layouts';
-        const parallaxSectionText = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Suspendisse et justo. Praesent mattis commodo augue. Aliquam ornare hendrerit augue. Cras tellus. In pulvinar lectus a est. Curabitur eget orci. Cras laoreet ligula. Etiam sit amet dolor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere.';
+        const parallaxSectionTitle = 'Анализ, проект, качественное решение';
+        const parallaxSectionText = 'Группа компаний ALT-LAN - это лучший опыт по разработке и внедрению OSS, BSS, VAS решений для телекоммуникационных компаний. Мы предлагаем услуги в области Разработки ПО, внедрению собственной линейки OSS-продуктов и системной интеграции проверенных решений.';
         return (
             <div className={style.home}>
                 <RevolutionSlider slides={slides}/>
                 <CardsSection title={cardsSectionTitle} subtitle={cardsSectionSubtitle} cards={cards}/>
-                <ParallaxSection title={parallaxSectionTitle} subtitle={parallaxSectionSubtitle} text={parallaxSectionText}/>
+                <ParallaxSection title={parallaxSectionTitle} text={parallaxSectionText} button={<Button bsStyle="primary">LOL</Button>}/>
             </div>
         );
     }

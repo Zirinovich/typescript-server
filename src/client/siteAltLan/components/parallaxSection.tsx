@@ -7,6 +7,7 @@ interface IProps {
     title?: string;
     subtitle?: string;
     text?: string;
+    button?: JSX.Element;
 }
 
 interface IState {
@@ -15,15 +16,16 @@ interface IState {
 
 export class ParallaxSection extends React.Component<IProps, IState> {
     render() {
-        const {title, subtitle, text} = this.props;
+        const {title, subtitle, text, button} = this.props;
         return (
             <div className={style.section}>
                 <Grid>
-                    <h1 className={style.title}>{title}</h1>
-                    <h1 className={style.subtitle}>{subtitle}</h1>
+                    {title && <h1 className={style.title}>{title}</h1>}
+                    {subtitle && <h1 className={style.subtitle}>{subtitle}</h1>}
                     <br/>
-                    <p className={style.text}>{text}</p>
-                    <a href="#" className={style.button}>Purchase now!</a>
+                    {text && <p className={style.text}>{text}</p>}
+                    {false && <a href="#" className={style.button}>Purchase now!</a>}
+                    {button}
                 </Grid>
             </div>
         )
