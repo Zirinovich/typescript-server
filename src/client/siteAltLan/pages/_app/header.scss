@@ -54,7 +54,6 @@
             margin-left: 5px;
             background-color: $navbar-inverse-bg;
             color: $text-muted;
-            border: 1px solid $text-muted;
           }
         }
       }
@@ -110,6 +109,7 @@
         background-color: transparent;
         border: none;
         margin-bottom: 0;
+        box-shadow: none;
 
         & > div {
           width: auto;
