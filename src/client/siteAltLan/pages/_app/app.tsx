@@ -4,7 +4,7 @@ import {Clearfix}  from 'react-bootstrap';
 const {connect} = require('react-redux');
 
 const appConfig = require('../../../../../config/main');
-import '../../../common/content/template/template';
+import '../../../common/content/template/template.scss';
 import {logout} from '../../redux/signInActions';
 // TODO: привести в порядок подобные ссылки, каким то образом посредством указания корневых каталогов или типа того
 import {Header} from './header';

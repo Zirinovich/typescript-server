@@ -1,9 +1,7 @@
-// 
-
 import * as React from 'react';
 import {Grid} from 'react-bootstrap';
 
-const style = require('./parallaxSection.scss');
+const style = require('./textSection.scss');
 
 interface IProps {
     title?: string;
@@ -16,7 +14,7 @@ interface IState {
 
 }
 
-export class ParallaxSection extends React.Component<IProps, IState> {
+export class TextSection extends React.Component<IProps, IState> {
     render() {
         const {title, subtitle, text, button} = this.props;
         return (

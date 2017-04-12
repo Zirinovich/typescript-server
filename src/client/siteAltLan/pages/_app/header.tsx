@@ -37,7 +37,7 @@ interface IState {
     })
 )
 export class Header extends React.Component<IProps, IState> {
-    componentDidMount(){
+    componentDidMount() {
         new Sticky('.' + style.bottom_header);
     }
 

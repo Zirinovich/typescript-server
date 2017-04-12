@@ -4,7 +4,7 @@ import {Button} from 'react-bootstrap';
 import {Icon} from '../../../common/components/icon/icon';
 import {RevolutionSlider} from "../../../common/components/revolutionSlider/revolutionSlider";
 import {CardsSection} from '../../components/cards_section/cardsSection';
-import {ParallaxSection} from '../../components/parallax_section/parallaxSection';
+import {TextSection} from '../../components/text_section/textSection';
 
 const style = require('./home.scss');
 
@@ -267,7 +267,7 @@ class Home extends React.Component<any, any> {
             <div className={style.home}>
                 <RevolutionSlider slides={slides}/>
                 <CardsSection title={cardsSectionTitle} subtitle={cardsSectionSubtitle} cards={cards}/>
-                <ParallaxSection title={parallaxSectionTitle} text={parallaxSectionText} button={<Button bsStyle="primary">Узнать больше</Button>}/>
+                <TextSection title={parallaxSectionTitle} text={parallaxSectionText} button={<Button bsStyle="primary">Узнать больше</Button>}/>
             </div>
         );
     }

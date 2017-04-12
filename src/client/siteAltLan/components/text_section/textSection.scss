@@ -1,8 +1,11 @@
+@import "../../../common/content/template/variables";
+@import "../../../common/content/template/mixins";
+
 .section {
   width: 100%;
   float: left;
   padding: 100px 0;
-  margin: 0px;
+  margin: 0;
   text-align: center;
   background: url('./content/parallax_bg20.jpg');
   background-attachment: fixed;
@@ -21,7 +24,7 @@
     margin: 0;
     text-transform: uppercase;
     font-weight: 200;
-    color: #fff;
+    color: $component-active-color;
     text-align: center;
   }
 
@@ -31,7 +34,7 @@
     margin: 0;
     text-transform: uppercase;
     font-weight: bold;
-    color: #fff;
+    color: $component-active-color;
     line-height: 50px;
     text-align: center;
   }
@@ -39,16 +42,16 @@
   .text {
     width: 70%;
     padding: 0;
-    color: #fff;
+    color: $component-active-color;
     margin: 0 auto 40px;
   }
 
   .button{
-    color: #fff;
+    color: $component-active-color;
     font-size: 16px;
     text-transform: uppercase;
     padding: 17px 100px;
-    background-color: #fe7e20;
+    background-color: $brand-primary;
     border-radius: 2px;
   }
 }
