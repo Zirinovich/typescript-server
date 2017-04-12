@@ -3,6 +3,7 @@ import * as React from 'react';
 import {Icon} from '../../common/components/icon/icon';
 import {RevolutionSlider} from "../../common/components/revolutionSlider/revolutionSlider";
 import {CardsSection} from '../components/cardsSection';
+import {ParallaxSection} from '../components/parallaxSection';
 const style = require('./home.scss');
 
 class Home extends React.Component<any, any> {
@@ -223,8 +224,8 @@ class Home extends React.Component<any, any> {
             }
         ];
 
-        const cardsTitle ='What We Offer';
-        const cardsSubtitle = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Suspendisse et justo. Praesent mattis commodo augue. Aliquam ornare hendrerit augue';
+        const cardsSectionTitle = 'What We Offer';
+        const cardsSectionSubtitle = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Suspendisse et justo. Praesent mattis commodo augue. Aliquam ornare hendrerit augue';
         const cards = [
             {
                 title: 'Dedicated Servers',
@@ -257,22 +258,15 @@ class Home extends React.Component<any, any> {
                 text: 'Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words'
             }
         ];
+
+        const parallaxSectionTitle = '7 Diffrent';
+        const parallaxSectionSubtitle = 'Hosting Layouts';
+        const parallaxSectionText = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Suspendisse et justo. Praesent mattis commodo augue. Aliquam ornare hendrerit augue. Cras tellus. In pulvinar lectus a est. Curabitur eget orci. Cras laoreet ligula. Etiam sit amet dolor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere.';
         return (
             <div className={style.home}>
                 <RevolutionSlider slides={slides}/>
-                <CardsSection title={cardsTitle} subtitle={cardsSubtitle} cards={cards}/>
-
-                <div className="section_holder34">
-                    <div className="container">
-                        <h1 className="title1">7 Diffrent</h1>
-                        <h1 className="title2"> Hosting Layouts</h1>
-                        <br/>
-                        <p className="cont">
-                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Suspendisse et justo. Praesent mattis commodo augue. Aliquam ornare hendrerit augue. Cras tellus. In pulvinar lectus a est. Curabitur eget orci. Cras laoreet ligula. Etiam sit amet dolor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere.</p>
-                        <div className="margin_top4"></div>
-                        <a href="#" className="readmore_but9">Purchase now!</a>
-                    </div>
-                </div>
+                <CardsSection title={cardsSectionTitle} subtitle={cardsSectionSubtitle} cards={cards}/>
+                <ParallaxSection title={parallaxSectionTitle} subtitle={parallaxSectionSubtitle} text={parallaxSectionText}/>
             </div>
         );
     }

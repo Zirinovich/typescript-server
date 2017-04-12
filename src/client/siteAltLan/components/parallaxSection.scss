@@ -1,0 +1,54 @@
+.section {
+  width: 100%;
+  float: left;
+  padding: 100px 0;
+  margin: 0px;
+  text-align: center;
+  background: url('./content/parallax_bg20.jpg');
+  background-attachment: fixed;
+  background-origin: padding-box;
+  background-origin: initial;
+  background-clip: border-box;
+  background-clip: initial;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 100% 0;
+  background-position: center;
+
+  .title {
+    font-size: 50px;
+    padding: 0 0 10px 0;
+    margin: 0;
+    text-transform: uppercase;
+    font-weight: 200;
+    color: #fff;
+    text-align: center;
+  }
+
+  .subtitle {
+    font-size: 60px;
+    padding: 0;
+    margin: 0;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #fff;
+    line-height: 50px;
+    text-align: center;
+  }
+
+  .text {
+    width: 70%;
+    padding: 0;
+    color: #fff;
+    margin: 0 auto 40px;
+  }
+
+  .button{
+    color: #fff;
+    font-size: 16px;
+    text-transform: uppercase;
+    padding: 17px 100px;
+    background-color: #fe7e20;
+    border-radius: 2px;
+  }
+}

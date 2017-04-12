@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Grid, Row, Col, Clearfix} from 'react-bootstrap';
 
-var style = require('./cardsSection.scss');
+const style = require('./cardsSection.scss');
 
 interface IProps {
     title?: any;

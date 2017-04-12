@@ -1,0 +1,31 @@
+import * as React from 'react';
+import {Grid} from 'react-bootstrap';
+
+const style = require('./parallaxSection.scss');
+
+interface IProps {
+    title?: string;
+    subtitle?: string;
+    text?: string;
+}
+
+interface IState {
+
+}
+
+export class ParallaxSection extends React.Component<IProps, IState> {
+    render() {
+        const {title, subtitle, text} = this.props;
+        return (
+            <div className={style.section}>
+                <Grid>
+                    <h1 className={style.title}>{title}</h1>
+                    <h1 className={style.subtitle}>{subtitle}</h1>
+                    <br/>
+                    <p className={style.text}>{text}</p>
+                    <a href="#" className={style.button}>Purchase now!</a>
+                </Grid>
+            </div>
+        )
+    }
+}
