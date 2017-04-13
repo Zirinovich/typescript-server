@@ -5,14 +5,14 @@ import '../../content/resolution-slider/resolution-slider.scss'
 interface IProps {
     slides: {
         src: string;
-        alt: string;
-        bgposition: string;
-        kenburns: string;
-        duration: number;
-        ease: string;
-        bgfit: number;
-        bgfitend: number;
-        bgpositionend: string;
+        alt?: string;
+        bgposition?: string;
+        kenburns?: string;
+        duration?: number;
+        ease?: string;
+        bgfit?: number;
+        bgfitend?: number;
+        bgpositionend?: string;
 
         captions?: {
             classes?: string;
@@ -89,14 +89,14 @@ export class RevolutionSlider extends React.Component<IProps, IState> {
                                         data-title="Our Workplace">
 
                                         <img src={slide.src}
-                                             alt={slide.bgposition}
-                                             data-bgposition={slide.bgposition}
-                                             data-kenburns={slide.kenburns}
-                                             data-duration={slide.duration}
-                                             data-ease={slide.ease}
-                                             data-bgfit={slide.bgfit}
-                                             data-bgfitend={slide.bgfitend}
-                                             data-bgpositionend={slide.bgpositionend}/>
+                                             alt={slide.alt ? slide.alt : 'image'}
+                                             data-bgposition={slide.bgposition ? slide.bgposition : 'left center'}
+                                             data-kenburns={slide.kenburns ? slide.kenburns : 'off'}
+                                             data-duration={slide.duration ? slide.duration : 14000}
+                                             data-ease={slide.ease ? slide.ease : 'Linear.easeNone'}
+                                             data-bgfit={slide.bgfit ? slide.bgfit : 100}
+                                             data-bgfitend={slide.bgfitend ? slide.bgfitend : 130}
+                                             data-bgpositionend={slide.bgpositionend ? slide.bgpositionend : 'right center'}/>
 
                                         {slide.captions && slide.captions.map((caption, captionIndex) => {
                                             return (

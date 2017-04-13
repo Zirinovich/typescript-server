@@ -13,14 +13,6 @@ class Home extends React.Component<any, any> {
         const slides = [
             {
                 src: 'http://codelayers.net/foxuhost/layout2/fullwidth/images/sliders/slide2_bg.jpg',
-                alt: 'kenburns1',
-                bgposition: 'left center',
-                kenburns: 'off',
-                duration: 14000,
-                ease: 'Linear.easeNone',
-                bgfit: 100,
-                bgfitend: 130,
-                bgpositionend: 'right center',
                 captions: [
                     {
                         classes: 'lfl',
