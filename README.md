@@ -2,7 +2,7 @@
 
 ## Как включать
 
-Работает на [Node.JS](https://nodejs.org/en/)
+Работает на [Node.JS](https://nodejs.org/en/) ver 6.10+
 
     git clone https://github.com/mamontovgrigory/typescript-server
 	cd typescript-server
