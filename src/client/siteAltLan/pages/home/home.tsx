@@ -220,7 +220,7 @@ class Home extends React.Component<any, any> {
                         endspeed: 300,
                         captionhidden: 'off',
                         style: {zIndex: 6},
-                        content: <a href="#">Get started</a>
+                        content: <Button bsStyle="primary">Get started</Button>
                     }
                 ]
             }
@@ -261,13 +261,13 @@ class Home extends React.Component<any, any> {
             }
         ];
 
-        const parallaxSectionTitle = 'Анализ, проект, качественное решение';
-        const parallaxSectionText = 'Группа компаний ALT-LAN - это лучший опыт по разработке и внедрению OSS, BSS, VAS решений для телекоммуникационных компаний. Мы предлагаем услуги в области Разработки ПО, внедрению собственной линейки OSS-продуктов и системной интеграции проверенных решений.';
+        const textSectionTitle = 'Анализ, проект, качественное решение';
+        const textSectionText = 'Группа компаний ALT-LAN - это лучший опыт по разработке и внедрению OSS, BSS, VAS решений для телекоммуникационных компаний. Мы предлагаем услуги в области Разработки ПО, внедрению собственной линейки OSS-продуктов и системной интеграции проверенных решений.';
         return (
             <div className={style.home}>
                 <RevolutionSlider slides={slides}/>
                 <CardsSection title={cardsSectionTitle} subtitle={cardsSectionSubtitle} cards={cards}/>
-                <TextSection title={parallaxSectionTitle} text={parallaxSectionText} button={<Button bsStyle="primary">Узнать больше</Button>}/>
+                <TextSection title={textSectionTitle} text={textSectionText} button={<Button bsStyle="primary">Узнать больше</Button>}/>
             </div>
         );
     }
