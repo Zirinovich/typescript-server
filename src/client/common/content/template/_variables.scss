@@ -8,7 +8,7 @@ $bootstrap-sass-asset-helper: false !default;
 //
 //## Gray and brand colors for use across Bootstrap.
 
-$gray-base: #000 !default;
+$gray-base: #161616 !default;
 $gray-darker: #272727;//lighten($gray-base, 13.5%) !default; // #222
 $gray-dark: lighten($gray-base, 20%) !default; // #333
 $gray: lighten($gray-base, 33.5%) !default; // #555
@@ -328,9 +328,9 @@ $grid-columns:              12 !default;
 $grid-gutter-width:         30px !default;
 // Navbar collapse
 //** Point at which the navbar becomes uncollapsed.
-$grid-float-breakpoint:     $screen-sm-min !default;
+$grid-float-breakpoint:     $screen-md-min !default;
 //** Point at which the navbar begins collapsing.
-$grid-float-breakpoint-max: ($grid-float-breakpoint - 1) !default;
+$grid-float-breakpoint-max: ($grid-float-breakpoint - 2) !default;
 
 
 //== Container sizes

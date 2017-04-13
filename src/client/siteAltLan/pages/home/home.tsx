@@ -4,7 +4,7 @@ import {Button} from 'react-bootstrap';
 import {Icon} from '../../../common/components/icon/icon';
 import {RevolutionSlider} from "../../../common/components/revolutionSlider/revolutionSlider";
 import {CardsSection} from '../../components/cards_section/cardsSection';
-import {ParallaxSection} from '../../components/parallax_section/parallaxSection';
+import {TextSection} from '../../components/text_section/textSection';
 
 const style = require('./home.scss');
 
@@ -13,14 +13,6 @@ class Home extends React.Component<any, any> {
         const slides = [
             {
                 src: 'http://codelayers.net/foxuhost/layout2/fullwidth/images/sliders/slide2_bg.jpg',
-                alt: 'kenburns1',
-                bgposition: 'left center',
-                kenburns: 'off',
-                duration: 14000,
-                ease: 'Linear.easeNone',
-                bgfit: 100,
-                bgfitend: 130,
-                bgpositionend: 'right center',
                 captions: [
                     {
                         classes: 'lfl',
@@ -220,7 +212,7 @@ class Home extends React.Component<any, any> {
                         endspeed: 300,
                         captionhidden: 'off',
                         style: {zIndex: 6},
-                        content: <a href="#">Get started</a>
+                        content: <Button bsStyle="primary">Get started</Button>
                     }
                 ]
             }
@@ -261,13 +253,13 @@ class Home extends React.Component<any, any> {
             }
         ];
 
-        const parallaxSectionTitle = 'Анализ, проект, качественное решение';
-        const parallaxSectionText = 'Группа компаний ALT-LAN - это лучший опыт по разработке и внедрению OSS, BSS, VAS решений для телекоммуникационных компаний. Мы предлагаем услуги в области Разработки ПО, внедрению собственной линейки OSS-продуктов и системной интеграции проверенных решений.';
+        const textSectionTitle = 'Анализ, проект, качественное решение';
+        const textSectionText = 'Группа компаний ALT-LAN - это лучший опыт по разработке и внедрению OSS, BSS, VAS решений для телекоммуникационных компаний. Мы предлагаем услуги в области Разработки ПО, внедрению собственной линейки OSS-продуктов и системной интеграции проверенных решений.';
         return (
             <div className={style.home}>
                 <RevolutionSlider slides={slides}/>
                 <CardsSection title={cardsSectionTitle} subtitle={cardsSectionSubtitle} cards={cards}/>
-                <ParallaxSection title={parallaxSectionTitle} text={parallaxSectionText} button={<Button bsStyle="primary">Узнать больше</Button>}/>
+                <TextSection title={textSectionTitle} text={textSectionText} button={<Button bsStyle="primary">Узнать больше</Button>}/>
             </div>
         );
     }

@@ -1,3 +1,6 @@
+@import "../../variables";
+@import "../../mixins";
+
 .section {
   width: 100%;
   float: left;
@@ -33,26 +36,15 @@
     float: left;
     padding: 10px;
     margin: 0;
-    background-color: #fff;
-    transition-property: background-color, color;
-    transition-duration: 0.3s;
-    transition-timing-function: ease-out;
+    background-color: $component-active-color;
+    @include transition(background-color 0.3s ease-out, color 0.3s ease-out);
 
     &:hover {
-      background-color: #fe7e20;
-      transition-property: background-color, color;
-      transition-duration: 0.3s;
-      transition-timing-function: ease-out;
-
-      .text {
-        color: #fff;
-        h4 {
-          color: #fff;
-        }
-      }
-
-      .icon {
-        color: #fff;
+      background-color: $brand-primary;
+      color: $component-active-color;
+      h4 {
+        color: $component-active-color;
+        @include transition(color 0.3s ease-out);
       }
     }
 

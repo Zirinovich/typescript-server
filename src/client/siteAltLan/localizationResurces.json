@@ -2,6 +2,7 @@
   "ru": {
     "name": "Русский",
     "translation": {
+      "all": "Все",
       "mainPage": "Главная",
       "labPage": "LAB",
       "contactsPage": "Контакты",
@@ -16,6 +17,7 @@
   "en": {
     "name": "English",
     "translation": {
+      "all": "All",
       "mainPage": "Main",
       "labPage": "LAB",
       "contactsPage": "Contacts",

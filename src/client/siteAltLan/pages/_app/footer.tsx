@@ -1,34 +1,65 @@
 import * as React from 'react';
+import {Grid, Col} from 'react-bootstrap';
 
-interface IProps{
+import {Icon} from "../../../common/components/icon/icon";
+const style = require('./footer.scss');
+
+interface IProps {
 
 }
 
-interface IState{
+interface IState {
 
 }
 
-export class Footer extends React.Component<IProps, IState>{
-    render(){
-        return(
-            <div>
-                <div className="copyrights">
-                    <div className="container">
-                        <div className="one_half"><span>Copyright © 2014 l yourdomain.com. All rights reserved.</span></div>
-                        <div className="one_half last">
-                            <ul className="social_icons">
-                                <li><a href="#"><i className="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i className="fa fa-google-plus"></i></a></li>
-                                <li><a href="#"><i className="fa fa-linkedin"></i></a></li>
-                                <li><a href="#"><i className="fa fa-dribbble"></i></a></li>
-                                <li><a href="#"><i className="fa fa-wordpress"></i></a></li>
-                                <li><a href="#"><i className="fa fa-android"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <a href="#" className="scrollup"></a>
+export class Footer extends React.Component<IProps, IState> {
+    render() {
+        const links = [
+            {
+                to: '#',
+                icon: <Icon name="facebook"/>
+            },
+            {
+                to: '#',
+                icon: <Icon name="google-plus"/>
+            },
+            {
+                to: '#',
+                icon: <Icon name="linkedin"/>
+            },
+            {
+                to: '#',
+                icon: <Icon name="dribbble"/>
+            },
+            {
+                to: '#',
+                icon: <Icon name="wordpress"/>
+            },
+            {
+                to: '#',
+                icon: <Icon name="android"/>
+            }
+        ];
+        return (
+            <div className={style.footer}>
+                <Grid>
+                    <Col md={6}>
+                        <a className={style.link} href="mailto:info@alt-lan.ru">info@alt-lan.ru </a>
+                    </Col>
+                    <Col md={6}>
+                        <ul className={style.icons}>
+                            {links.map((link, index) => {
+                                return(
+                                    <li key={index}>
+                                        <a href={link.to}>
+                                            {link.icon}
+                                        </a>
+                                    </li>
+                                )
+                            })}
+                        </ul>
+                    </Col>
+                </Grid>
             </div>
         )
     }
