@@ -1,6 +1,8 @@
 import * as React from 'react';
-import {Grid} from 'react-bootstrap';
+import {Grid, Button} from 'react-bootstrap';
+import {Link} from 'react-router';
 
+import {i18n} from '../../../../shared/tools/i18n/i18n';
 const style = require('./notFound.scss');
 
 interface IProps {
@@ -17,9 +19,12 @@ export class NotFound extends React.Component<IProps, IState> {
             <div className={style.section}>
                 <Grid>
                     <h1 className={style.title}>4<span>0</span>4</h1>
-                    <h1 className={style.subtitle}>Oops... Page Not Found!</h1>
+                    <h1 className={style.subtitle}>{i18n.t('pageNotFound')}</h1>
                     <p>
-                        Sorry the Page Could not be Found here. Try using the button below to go to main page of the site</p>
+                        <Link to="/">
+                            <Button bsStyle="primary">{i18n.t('toMainPage')}</Button>
+                        </Link>
+                    </p>
                 </Grid>
             </div>
         );

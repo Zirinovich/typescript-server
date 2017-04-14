@@ -11,7 +11,9 @@
       "ossPage": "OSS решения",
       "language": "Язык",
       "actionLogin": "Войти",
-      "actionLogout": "Выйти"
+      "actionLogout": "Выйти",
+      "pageNotFound": "Упс... Страница не найдена!",
+      "toMainPage": "На главную"
     }
   },
   "en": {
@@ -26,7 +28,9 @@
       "ossPage": "OSS solutions",
       "language": "Language",
       "actionLogin": "Login",
-      "actionLogout": "Logout"
+      "actionLogout": "Logout",
+      "pageNotFound": "Oops... Page Not Found!",
+      "toMainPage": "To main page"
     }
   }
 }
