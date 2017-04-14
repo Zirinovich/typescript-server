@@ -1,0 +1,29 @@
+@import "../../variables";
+
+.section {
+  width: 100%;
+  float: left;
+  padding: 75px 0 75px 0;
+  margin: 0;
+  text-align: center;
+
+  .title {
+    font-size: 80px;
+    padding: 30px 0 0 0;
+    font-weight: 400;
+    margin: 0;
+    line-height: 65px;
+
+    span {
+      color: $brand-primary;
+    }
+  }
+
+  .subtitle {
+    font-size: 36px;
+    padding: 30px 0 10px 0;
+    font-weight: 300;
+    margin: 0;
+    line-height: 65px;
+  }
+}

@@ -94,23 +94,6 @@ class Home extends React.Component<any, any> {
                         content: <span>ALT-LAN</span>
                     },
                     {
-                        classes: 'lfl',
-                        x: 665,
-                        y: 250,
-                        hoffset: 0,
-                        voffset: -10,
-                        speed: 800,
-                        start: 2500,
-                        easing: 'Power4.easeOut',
-                        endeasing: 'Power1.easeIn',
-                        endspeed: 300,
-                        captionhidden: 'off',
-                        style: {zIndex: 6},
-                        content: <span>
-                            <Icon name="check"/> Точные телеком решения
-                        </span>
-                    },
-                    {
                         classes: 'slide_list sfb',
                         x: 665,
                         y: 280,
