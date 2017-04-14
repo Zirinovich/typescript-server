@@ -9,7 +9,7 @@ interface IHtmlProps {
 }
 
 class Html extends React.Component<IHtmlProps, {}> {
-    static extractTextPluginStyleBundles = fs.readdirSync('.\\build\\public\\css').filter(o => /\.css$/.test(o)).map(file => '/public/css/' + file);
+    static extractTextPluginStyleBundles = fs.readdirSync('./build/public/css').filter(o => /\.css$/.test(o)).map(file => '/public/css/' + file);
 
     private resolve(files) {
         return files.map((src) => {
