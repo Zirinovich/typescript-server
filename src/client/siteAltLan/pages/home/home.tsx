@@ -41,9 +41,7 @@ class Home extends React.Component<any, any> {
                         captionhidden: 'off',
                         style: {zIndex: 6},
                         content: <span>
-                            Up to <br/>
-                            <span className="price">50%</span><br/>
-                            /Offer
+                            15<br/>лет<br/>опыта
                         </span>
                     },
                     {
@@ -60,9 +58,7 @@ class Home extends React.Component<any, any> {
                         captionhidden: 'off',
                         style: {zIndex: 6},
                         content: <span>
-                            Starting at <br/>
-                            <span className="price">$4.99</span><br/>
-                            /mo
+                            Точные<br/>телеком<br/>решения
                         </span>
                     },
                     {
@@ -79,7 +75,7 @@ class Home extends React.Component<any, any> {
                         endelementdelay: 0.08,
                         endspeed: 300,
                         style: {zIndex: 7, maxWidth: 'auto', maxHeight: 'auto', whiteSpace: 'nowrap'},
-                        content: <span>unlimited</span>
+                        content: <span></span>
                     },
                     {
                         classes: 'text12 randomrotate customout tp-resizeme',
@@ -95,7 +91,7 @@ class Home extends React.Component<any, any> {
                         endelementdelay: 0.08,
                         endspeed: 300,
                         style: {zIndex: 7, maxWidth: 'auto', maxHeight: 'auto', whiteSpace: 'nowrap'},
-                        content: <span>Web Hosting</span>
+                        content: <span>ALT-LAN</span>
                     },
                     {
                         classes: 'lfl',
@@ -111,7 +107,7 @@ class Home extends React.Component<any, any> {
                         captionhidden: 'off',
                         style: {zIndex: 6},
                         content: <span>
-                            <Icon name="check"/> Unlimited Disk Space, Bandwidth and Email Addresses
+                            <Icon name="check"/> Точные телеком решения
                         </span>
                     },
                     {
@@ -128,7 +124,7 @@ class Home extends React.Component<any, any> {
                         captionhidden: 'off',
                         style: {zIndex: 6},
                         content: <span>
-                            <Icon name="check"/> FREE Domain Registration
+                            <Icon name="check"/> Лучшая аналитика
                         </span>
                     },
                     {
@@ -145,7 +141,7 @@ class Home extends React.Component<any, any> {
                         captionhidden: 'off',
                         style: {zIndex: 6},
                         content: <span>
-                            <Icon name="check"/> FREE Security Suite
+                            <Icon name="check"/> Качественная разработка
                         </span>
                     },
                     {
@@ -162,7 +158,7 @@ class Home extends React.Component<any, any> {
                         captionhidden: 'off',
                         style: {zIndex: 6},
                         content: <span>
-                            <Icon name="check"/> FREE Site-Building Tools
+                            <Icon name="check"/> Современный дизайн
                         </span>
                     },
                     {
@@ -179,7 +175,7 @@ class Home extends React.Component<any, any> {
                         captionhidden: 'off',
                         style: {zIndex: 6},
                         content: <span>
-                            <Icon name="check"/> FREE Search Engine and Marketing Credits
+                            <Icon name="check"/> Фантастическое юзабилити
                         </span>
                     },
                     {
@@ -196,7 +192,7 @@ class Home extends React.Component<any, any> {
                         captionhidden: 'off',
                         style: {zIndex: 6},
                         content: <span>
-                            <Icon name="check"/> FREE Security Suite
+                            <Icon name="check"/> Анализ, проект, качественное решение
                         </span>
                     },
                     {
@@ -212,7 +208,57 @@ class Home extends React.Component<any, any> {
                         endspeed: 300,
                         captionhidden: 'off',
                         style: {zIndex: 6},
-                        content: <Button bsStyle="primary">Get started</Button>
+                        content: <Button bsStyle="primary">Сделать заказ</Button>
+                    }
+                ]
+            },
+            {
+                src: require('./content/zwalls.ru-35490.jpg'),
+                captions: [
+                    {
+                        classes: 'lfl',
+                        x: 0,
+                        y: 30,
+                        speed: 800,
+                        start: 100,
+                        easing: 'Back.easeOut',
+                        endspeed: 300,
+                        captionhidden: 'on',
+                        style: {zIndex: 5},
+                        content: <img
+                            src={require('./content/halal.png')}/>
+                    },
+                    {
+                        classes: 'text11 randomrotate customout tp-resizeme',
+                        x: 665,
+                        y: 125,
+                        customout: 'x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0;scaleY:0;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;',
+                        speed: 500,
+                        start: 2200,
+                        easing: 'Power3.easeInOut',
+                        splitin: 'chars',
+                        splitout: 'chars',
+                        elementdelay: 0.08,
+                        endelementdelay: 0.08,
+                        endspeed: 300,
+                        style: {zIndex: 7, maxWidth: 'auto', maxHeight: 'auto', whiteSpace: 'nowrap', color: '#fff'},
+                        content: <span>Только Халяль</span>
+                    },
+                    {
+                        classes: 'text12 randomrotate customout tp-resizeme',
+                        x: 665,
+                        y: 185,
+                        customout: 'x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0;scaleY:0;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;',
+                        speed: 500,
+                        start: 2200,
+                        easing: 'Power3.easeInOut',
+                        splitin: 'chars',
+                        splitout: 'chars',
+                        elementdelay: 0.08,
+                        endelementdelay: 0.08,
+                        endspeed: 300,
+                        style: {zIndex: 7, maxWidth: 'auto', maxHeight: 'auto', whiteSpace: 'nowrap', color: '#fff'},
+                        content: <span>ALT-LAN</span>
                     }
                 ]
             }
