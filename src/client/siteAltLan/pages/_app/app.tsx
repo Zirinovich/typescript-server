@@ -40,18 +40,20 @@ class App extends React.Component<IProps, any> {
             <div className={style.app}>
                 <Helmet {...appConfig.app} {...appConfig.app.head}/>
                 <Header user={user} logout={()=>{logout(dispatch)}} pathname={pathname}/>
-                {false && this.props.children}
-                {<ReactCSSTransitionGroup
-                    key={key}
-                    component="div"
-                    transitionName={transitionName}
-                    transitionAppear={true}
-                    transitionAppearTimeout={500}
-                    transitionEnter={true}
-                    transitionEnterTimeout={500}
-                    transitionLeave={false}>
-                    {this.props.children}
-                </ReactCSSTransitionGroup>}
+                <div className={style.content}>
+                    <ReactCSSTransitionGroup
+                        key={key}
+                        component="div"
+                        transitionName={transitionName}
+                        transitionAppear={true}
+                        transitionAppearTimeout={500}
+                        transitionEnter={true}
+                        transitionEnterTimeout={500}
+                        transitionLeave={false}>
+                        {this.props.children}
+                    </ReactCSSTransitionGroup>
+                    <Clearfix/>
+                </div>
                 <Clearfix/>
                 <Footer/>
             </div>

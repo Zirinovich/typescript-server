@@ -41,7 +41,7 @@ export class Footer extends React.Component<IProps, IState> {
             }
         ];
         return (
-            <div className={style.footer}>
+            <footer className={style.footer}>
                 <Grid>
                     <Col md={6}>
                         <a className={style.link} href="mailto:info@alt-lan.ru">info@alt-lan.ru </a>
@@ -60,7 +60,7 @@ export class Footer extends React.Component<IProps, IState> {
                         </ul>
                     </Col>
                 </Grid>
-            </div>
+            </footer>
         )
     }
 }
