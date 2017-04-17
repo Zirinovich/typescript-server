@@ -4,6 +4,7 @@
     "translation": {
       "all": "Все",
       "mainPage": "Главная",
+      "authorizationPage": "Авторизация",
       "labPage": "LAB",
       "contactsPage": "Контакты",
       "presentationsPage": "Презентации решений",
@@ -21,6 +22,7 @@
     "translation": {
       "all": "All",
       "mainPage": "Main",
+      "authorizationPage": "Authorization",
       "labPage": "LAB",
       "contactsPage": "Contacts",
       "presentationsPage": "Presentations of solutions",

@@ -1,17 +1,19 @@
 import * as React from 'react';
 
 import {RevolutionSlider} from '../../../common/components/revolutionSlider/revolutionSlider';
+import {Breadcrumbs} from '../../components/breadcrumbs/breadcrumbs';
 
-interface IProps{
+interface IProps {
+    params?: any;
+    routes?: any;
+}
+
+interface IState {
 
 }
 
-interface IState{
-
-}
-
-export class PresentationDetail extends React.Component<IProps, IState>{
-    render(){
+export class PresentationDetail extends React.Component<IProps, IState> {
+    render() {
         const slides = [
             {
                 src: require('./content/login_page.png'),
@@ -273,9 +275,10 @@ export class PresentationDetail extends React.Component<IProps, IState>{
             }
         ];
 
-        return(
+        return (
             <div>
                 <RevolutionSlider slides={slides}/>
+                <Breadcrumbs params={this.props.params} routes={this.props.routes}/>
             </div>
         )
     }

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {reduxForm, Field} from 'redux-form';
-//import {Button} from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 
 interface IProps {
     handleSubmit?: any, //EventHandler<FormEvent<HTMLFormElement>>,
@@ -27,26 +27,6 @@ export class SignInForm extends React.Component<IProps, any> {
         const {handleSubmit, submitting, method, actionUrl, error} = this.props;
         return (
             <div>
-                <div className="clearfix"></div>
-                <div className="header_medium two">
-                    <div className="container">
-                        <h3 className="bigtext"> We are <span>Foxuhost.</span></h3>
-                        <h3 className="smalltext"><span>Get 7+</span> Unique Layouts</h3>
-                    </div>
-                </div>
-
-                <div className="section_holder18">
-                    <div className="container">
-                        <div className="pagetitle">
-                            <h3>Login form</h3>
-                        </div>
-                        <div className="pagenation">&nbsp;<a href="index.html">Home</a> <i>/</i> <a href="#">Pages</a>
-                            <i>/</i> Login form
-                        </div>
-                    </div>
-                </div>
-                <div className="clearfix"></div>
-
                 <div className="section_holder27">
                     <div className="container">
                         <div className="login_form">

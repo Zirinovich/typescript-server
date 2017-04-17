@@ -1,12 +1,16 @@
 import * as React from 'react';
 import {Grid, Button} from 'react-bootstrap';
 
-import {CubePortfolio} from "../../../common/components/cubePortfolio/cubePortfolio";
-import {TextSection} from "../../components/text_section/textSection";
+import {i18n} from '../../../../shared/tools/i18n/i18n';
+import {CubePortfolio} from '../../../common/components/cubePortfolio/cubePortfolio';
+import {Breadcrumbs} from '../../components/breadcrumbs/breadcrumbs';
+import {TextSection} from '../../components/text_section/textSection';
 const style = require('./presentations.scss');
 
 interface IProps {
-
+    children?: any;
+    params?: any;
+    routes?: any;
 }
 
 interface IState {
@@ -61,8 +65,9 @@ export class Presentations extends React.Component<IProps, IState> {
             }
         ];
         return (
-            <div className={style.presentations}>
+            this.props.children ? this.props.children : <div className={style.presentations}>
                 <TextSection subtitle={textSectionSubtitle} button={<Button bsStyle="primary">Узнать больше</Button>}/>
+                <Breadcrumbs title={i18n.t('presentationsPage')} params={this.props.params} routes={this.props.routes}/>
                 <div className={style.portfolio_section}>
                     <Grid>
                         <CubePortfolio filters={filters} items={items}/>
