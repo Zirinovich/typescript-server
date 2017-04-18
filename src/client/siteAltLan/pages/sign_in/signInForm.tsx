@@ -1,10 +1,9 @@
 import * as React from 'react';
-import {reduxForm, Field} from 'redux-form';
+import {reduxForm} from 'redux-form';
 import {Grid, Row, Col, Button} from 'react-bootstrap';
 
 import {i18n} from '../../../../shared/tools/i18n/i18n';
-import {Icon} from '../../../common/components/icon/icon';
-
+import {IconInput} from '../../components/icon_input/iconInput';
 const style = require('./signInForm.scss');
 
 interface IProps {
@@ -21,15 +20,6 @@ interface IProps {
     form: 'signIn'
 })
 export class SignInForm extends React.Component<IProps, any> {
-    renderField({input, label, type, meta: {touched, error}}) {
-        return (
-            <div>
-                <input {...input} placeholder={label} type={type}/>
-                {touched && error && <span>{error}</span>}
-            </div>
-        )
-    }
-
     public render() {
         const {handleSubmit, submitting, method, actionUrl, error} = this.props;
         return (
@@ -49,14 +39,8 @@ export class SignInForm extends React.Component<IProps, any> {
                                                 <label>{i18n.t('login')}</label>
                                             </Col>
                                             <Col md={8}>
-                                                <label className={style.input}>
-                                                    <Icon name="user"/>
-                                                    <Field
-                                                        name="username"
-                                                        type="text"
-                                                        component={this.renderField}
-                                                    />
-                                                </label>
+                                                <IconInput name="username"
+                                                           iconName="user"/>
                                             </Col>
                                         </Row>
                                     </section>
@@ -67,14 +51,9 @@ export class SignInForm extends React.Component<IProps, any> {
                                                 <label>{i18n.t('password')}</label>
                                             </Col>
                                             <Col md={8}>
-                                                <label className={style.input}>
-                                                    <Icon name="lock"/>
-                                                    <Field
-                                                        name="password"
-                                                        type="password"
-                                                        component={this.renderField}
-                                                    />
-                                                </label>
+                                                <IconInput name="password"
+                                                           type="password"
+                                                           iconName="lock"/>
                                                 <div className={style.note}>
                                                     <a href="#sky-form2"
                                                        className="modal-opener">{i18n.t('forgotPassword')}</a>

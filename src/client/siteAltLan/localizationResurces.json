@@ -1,5 +1,5 @@
 {
-  "ru": {
+  "ru-RU": {
     "name": "Русский",
     "translation": {
       "all": "Все",
@@ -18,10 +18,12 @@
       "loginForm": "Форма авторизации",
       "login": "Логин",
       "password": "Пароль",
-      "forgotPassword": "Забыли пароль?"
+      "forgotPassword": "Забыли пароль?",
+      "sendUsMessage": "Отправить нам сообщение",
+      "actionSend": "Отправить"
     }
   },
-  "en": {
+  "en-EN": {
     "name": "English",
     "translation": {
       "all": "All",
@@ -40,7 +42,9 @@
       "loginForm": "Login form",
       "login": "Login",
       "password": "Password",
-      "forgotPassword": "Forgot password?"
+      "forgotPassword": "Forgot password?",
+      "sendUsMessage": "Send us a message",
+      "actionSend": "Send"
     }
   }
 }

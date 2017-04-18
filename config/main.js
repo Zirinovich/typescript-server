@@ -12,7 +12,7 @@ var config = {
     karmaPort: 9876,
 
     appEntryName: sites.siteAltLan,
-    language: 'ru',
+    language: 'ru-RU',
 
     // This part goes to React-Helmet for Head of our HTML
     app: {

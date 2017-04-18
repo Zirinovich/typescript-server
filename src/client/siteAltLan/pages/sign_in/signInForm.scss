@@ -34,37 +34,6 @@
         section {
           margin-bottom: 20px;
 
-          .input {
-            position: relative;
-            display: block;
-
-            input {
-              display: block;
-              box-sizing: border-box;
-              -moz-box-sizing: border-box;
-              width: 100%;
-              height: 39px;
-              padding: 8px 46px 8px 10px;
-              outline: none;
-              border: 1px solid $blockquote-border-color;
-              border-radius: 0;
-            }
-
-            span {
-              position: absolute;
-              top: 5px;
-              right: 5px;
-              width: 29px;
-              height: 29px;
-              font-size: 15px;
-              line-height: 29px;
-              text-align: center;
-              padding-left: 3px;
-              border-left: 1px solid $blockquote-border-color;
-              color: $blockquote-border-color;
-            }
-          }
-
           .note {
             margin-top: 6px;
             padding: 0 1px;

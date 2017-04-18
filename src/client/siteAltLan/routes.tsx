@@ -23,7 +23,7 @@ export const routes = (
         <IndexRoute component={Home}/>
         <Route path="about" component={About}/>
         <Route name={i18n.t('authorizationPage')} path="login" component={SignIn}/>
-        <Route path="contacts" component={Contacts}/>
+        <Route name={i18n.t('contactsPage')} path="contacts" component={Contacts}/>
         <Route name={i18n.t('presentationsPage')} path="presentations" component={Presentations}>
             <Route path=":id" component={PresentationDetail}/>
         </Route>

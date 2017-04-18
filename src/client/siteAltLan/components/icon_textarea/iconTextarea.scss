@@ -1,0 +1,37 @@
+@import "../../variables";
+@import "../../mixins";
+
+.input {
+  position: relative;
+  display: block;
+
+  textarea {
+    height: auto;
+    resize: none;
+    display: block;
+    width: 100%;
+    padding: 8px 46px 8px 10px;
+    outline: none;
+    border: 1px solid $input-border;
+    border-radius: 0;
+    @include transition(border-color 0.35s ease);
+
+    &:hover, &:focus {
+      border-color: $input-border-focus;
+    }
+  }
+
+  span {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 29px;
+    height: 29px;
+    font-size: 15px;
+    line-height: 29px;
+    text-align: center;
+    padding-left: 3px;
+    border-left: 1px solid $input-border;
+    color: $input-border;
+  }
+}
