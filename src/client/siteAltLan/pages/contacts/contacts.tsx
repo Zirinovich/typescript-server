@@ -2,6 +2,7 @@ import * as React from 'react';
 import {reduxForm} from 'redux-form';
 const {connect} = require('react-redux');
 import {Grid, Row, Col, Button, Checkbox} from 'react-bootstrap';
+import {Link} from 'react-router';
 
 import {GoogleMapContainer} from '../../../common/components/googleMapContainer/googleMapContainer';
 import {i18n} from '../../../../shared/tools/i18n/i18n';
@@ -11,6 +12,16 @@ import {IconInput} from '../../components/icon_input/iconInput';
 import {IconTextarea} from '../../components/icon_textarea/iconTextarea';
 const style = require('./contacts.scss');
 
+interface IProps {
+    currentLanguage?: string;
+    params?: any;
+    routes?: any;
+}
+
+interface IState {
+
+}
+
 @connect(
     (state) => ({
         currentLanguage: state.i18n.currentLanguage
@@ -19,10 +30,18 @@ const style = require('./contacts.scss');
 @reduxForm({
     form: 'feedback'
 })
-export class Contacts extends React.Component<any, any> {
+export class Contacts extends React.Component<IProps, IState> {
     public render() {
         const {currentLanguage} = this.props;
         const textSectionSubtitle = 'Точные телеком решения';
+
+        const company = {
+            name: 'Группа компаний ALT-LAN',
+            phone: '+7(499)641-02-86',
+            address: 'Звездный б-р, 21, Москва, Россия, 129085',
+            email: 'info@alt-lan.ru',
+            website: 'www.alt-lan.ru'
+        };
         return (
             <div>
                 <TextSection subtitle={textSectionSubtitle} button={<Button bsStyle="primary">Узнать больше</Button>}/>
@@ -44,65 +63,68 @@ export class Contacts extends React.Component<any, any> {
                                     {i18n.t('sendUsMessage')}
                                 </h2>
                                 <fieldset>
-                                    <Row>
-                                        <Col md={6}>
-                                            <label className="label">Name</label>
-                                            <IconInput name="name" iconName="user"/>
-                                        </Col>
-                                        <Col md={6}>
-                                            <label className="label">E-mail</label>
-                                            <IconInput name="email" iconName="envelope"/>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col md={12}>
-                                            <label className="label">Subject</label>
-                                            <IconInput name="subject" iconName="tag"/>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col md={12}>
-                                            <label className="label">Message</label>
-                                            <IconTextarea name="message" iconName="comment"/>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col md={12}>
-                                            <label className="checkbox">
-                                                <Checkbox/>
-                                                <i></i>Send a copy to my e-mail address</label>
-                                        </Col>
-                                    </Row>
+                                    <section>
+                                        <Row>
+                                            <Col md={6}>
+                                                <label className={style.label}>{i18n.t('username')}</label>
+                                                <IconInput name="name" iconName="user"/>
+                                            </Col>
+                                            <Col md={6}>
+                                                <label className={style.label}>{i18n.t('email')}</label>
+                                                <IconInput name="email" iconName="envelope"/>
+                                            </Col>
+                                        </Row>
+                                    </section>
+
+                                    <section>
+                                        <Row>
+                                            <Col md={12}>
+                                                <label className={style.label}>{i18n.t('subject')}</label>
+                                                <IconInput name="subject" iconName="tag"/>
+                                            </Col>
+                                        </Row>
+                                    </section>
+
+                                    <section>
+                                        <Row>
+                                            <Col md={12}>
+                                                <label className={style.label}>{i18n.t('message')}</label>
+                                                <IconTextarea name="message" iconName="comment"/>
+                                            </Col>
+                                        </Row>
+                                    </section>
+
+                                    <section>
+                                        <Row>
+                                            <Col md={12}>
+                                                <label className="checkbox">
+                                                    <Checkbox inline={true}/>
+                                                    {i18n.t('sendCopyToMyEmailAddress')}</label>
+                                            </Col>
+                                        </Row>
+                                    </section>
                                 </fieldset>
                                 <footer>
                                     <Button type="submit" bsStyle="primary">{i18n.t('actionSend')}</Button>
                                 </footer>
-                                <div className="message"><i className="icon-ok"></i>
-                                    <p>Your message was successfully sent!</p>
-                                </div>
                             </form>
                         </Col>
 
                         <Col md={4}>
-                            <div className="address_info two">
-                                <h4 className="uppercase"><strong>Address Info</strong></h4>
-                                <p>
-                                    Feel free to talk to our online representative at any time you please using our Live Chat system on our website or one of the below instant messaging programs.</p>
-                                <br />
-                                <p>Please be patient while waiting for response. (24/7 Support!) <strong>Phone General Inquiries: 1-888-123-4567-8900</strong>
-                                </p>
-                                <br />
+                            <div className={style.info}>
+                                <h4 className={style.title}>{i18n.t('phoneNumberForCommunications')}</h4>
+                                <p>{i18n.t('reception')} <strong>{company.phone}</strong></p>
                             </div>
 
-                            <div className="address_info two">
-                                <h4 className="uppercase"><strong>Address Info Two</strong></h4>
+                            <div className={style.info}>
+                                <h4 className={style.title}>{i18n.t('addressInfo')}</h4>
                                 <ul>
-                                    <li><h5>Company Name</h5>
-                                        2901 Marmora Road, Glassgow, Seattle, WA 98122-1090<br />
-                                        Telephone: +1 1234-567-89000<br />
-                                        FAX: +1 0123-4567-8900<br />
-                                        E-mail: <a href="mailto:mail@companyname.com">mail@companyname.com</a><br />
-                                        Website: <a href="index.html">www.yoursitename.com</a></li>
+                                    <li>
+                                        <h5>{company.name}</h5>
+                                        {company.address}<br/>
+                                        {i18n.t('email')}: <a href={company.email}>{company.email}</a><br/>
+                                        {i18n.t('website')}: <Link to="/">{company.website}</Link>
+                                    </li>
                                 </ul>
                             </div>
                         </Col>

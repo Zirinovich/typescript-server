@@ -20,7 +20,16 @@
       "password": "Пароль",
       "forgotPassword": "Забыли пароль?",
       "sendUsMessage": "Отправить нам сообщение",
-      "actionSend": "Отправить"
+      "actionSend": "Отправить",
+      "username": "Имя",
+      "email": "Почта",
+      "subject": "Тема",
+      "message": "Сообщение",
+      "sendCopyToMyEmailAddress": "Отправить копию на мой почтовый адрес",
+      "phoneNumberForCommunications": "Телефон для связи",
+      "reception": "Приемная",
+      "addressInfo": "Контактная информация",
+      "website": "Сайт"
     }
   },
   "en-EN": {
@@ -44,7 +53,16 @@
       "password": "Password",
       "forgotPassword": "Forgot password?",
       "sendUsMessage": "Send us a message",
-      "actionSend": "Send"
+      "actionSend": "Send",
+      "username": "Name",
+      "email": "E-mail",
+      "subject": "Subject",
+      "message": "Message",
+      "sendCopyToMyEmailAddress": "Send a copy to my e-mail address",
+      "phoneNumberForCommunications": "Phone number for communications",
+      "reception": "Reception",
+      "addressInfo": "Address info",
+      "Website": "Website"
     }
   }
 }

@@ -1,9 +1,14 @@
+@import "../../variables";
 @import "../../mixins";
 
 html,
 body,
 main {
   height: 100%;
+
+  label {
+    color: $label-color;
+  }
 }
 
 .app {
