@@ -14,7 +14,11 @@
       "actionLogin": "Войти",
       "actionLogout": "Выйти",
       "pageNotFound": "Упс... Страница не найдена!",
-      "toMainPage": "На главную"
+      "toMainPage": "На главную",
+      "loginForm": "Форма авторизации",
+      "login": "Логин",
+      "password": "Пароль",
+      "forgotPassword": "Забыли пароль?"
     }
   },
   "en": {
@@ -32,7 +36,11 @@
       "actionLogin": "Login",
       "actionLogout": "Logout",
       "pageNotFound": "Oops... Page Not Found!",
-      "toMainPage": "To main page"
+      "toMainPage": "To main page",
+      "loginForm": "Login form",
+      "login": "Login",
+      "password": "Password",
+      "forgotPassword": "Forgot password?"
     }
   }
 }

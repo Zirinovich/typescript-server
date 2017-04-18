@@ -1,9 +1,11 @@
+@import "../../variables";
+
 .section {
   float: left;
   width: 100%;
   padding: 25px 0 10px 0;
   margin: 0;
-  border-bottom: 1px solid #e9e9e9;
+  border-bottom: 1px solid $page-header-border-color;
 
   .title {
     float: left;
@@ -11,7 +13,6 @@
     font-size: 30px;
     text-align: left;
     font-weight: normal;
-    color: #161616;
     margin: 0;
     padding: 0;
   }
@@ -22,7 +23,7 @@
     font-size: 14px;
     text-align: right;
     font-weight: normal;
-    color: #999;
+    color: $text-muted;
     margin: 5px 0 0;
     padding: 0;
 

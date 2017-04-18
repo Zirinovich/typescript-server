@@ -7,7 +7,7 @@ import {App} from './pages/_app/app';
 import {NotFound} from './pages/not_found/notFound';
 import {Home} from './pages/home/home';
 import {About} from './pages/about/about';
-import {SignIn} from './pages/signin/signIn';
+import {SignIn} from './pages/sign_in/signIn';
 import {Contacts} from './pages/contacts/contacts';
 import {Presentations} from './pages/presentations/presentations';
 import {PresentationDetail} from './pages/presentation_detail/presentationDetail';
