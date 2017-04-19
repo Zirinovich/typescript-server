@@ -7,7 +7,7 @@ import {Link} from 'react-router';
 import {GoogleMapContainer} from '../../../common/components/googleMapContainer/googleMapContainer';
 import {i18n} from '../../../../shared/tools/i18n/i18n';
 import {Breadcrumbs} from '../../components/breadcrumbs/breadcrumbs';
-import {TextSection} from '../../components/text_section/textSection';
+import {SectionText} from '../../components/section_text/sectionText';
 import {IconInput} from '../../components/icon_input/iconInput';
 import {IconTextarea} from '../../components/icon_textarea/iconTextarea';
 const style = require('./contacts.scss');
@@ -44,7 +44,7 @@ export class Contacts extends React.Component<IProps, IState> {
         };
         return (
             <div>
-                <TextSection subtitle={textSectionSubtitle} button={<Button bsStyle="primary">Узнать больше</Button>}/>
+                <SectionText subtitle={textSectionSubtitle} button={<Button bsStyle="primary">Узнать больше</Button>}/>
                 <Breadcrumbs title={i18n.t('contactsPage')} params={this.props.params} routes={this.props.routes}/>
 
                 <div className={style.section}>

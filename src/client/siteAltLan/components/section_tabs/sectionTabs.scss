@@ -1,0 +1,126 @@
+@import "../../variables";
+@import "../../mixins";
+
+.section {
+  width: 100%;
+  float: left;
+  padding: 70px 0 35px 0;
+  margin: 0;
+
+  .tabs {
+    & > ul {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+      border: 1px solid $nav-tabs-border-color;
+      border-bottom: none;
+      width: 99%;
+      position: relative;
+      z-index: 4;
+
+      li {
+        border-right: 1px solid $nav-tabs-border-color;
+
+        a {
+          position: relative;
+          float: left;
+          padding: 0 10px;
+          text-align: center;
+          font-weight: normal;
+          text-decoration: none;
+          line-height: 50px;
+          font-size: 14px;
+        }
+      }
+    }
+
+    & > div {
+      float: left;
+      width: 99%;
+      padding: 30px 30px;
+      text-align: left;
+      margin-bottom: 40px;
+      border: 1px solid $nav-tabs-border-color;
+      position: relative;
+      z-index: 3;
+    }
+  }
+
+  .title {
+    margin-bottom: 20px;
+  }
+
+  .block {
+    width: 100%;
+    float: left;
+    padding: 0;
+    margin: 0;
+
+    .icon {
+      width: 70px;
+      height: 70px;
+      float: left;
+      padding: 0;
+      color: $btn-primary-color;
+      text-align: center;
+      margin: 0 15px 0 0;
+      font-size: 24px;
+      line-height: 73px;
+      background-color: $brand-primary;
+      border-radius: 100%;
+      @include transition(background-color 0.3s ease-out, color 0.3s ease-out);
+    }
+
+    .text {
+      width: 75%;
+      float: left;
+      padding: 0;
+      text-align: left;
+      margin: 0;
+
+      .block_title {
+        margin: 0 0 3px;
+        @include transition(color 0.3s ease-out);
+      }
+    }
+
+    &:hover {
+      .block_title {
+        color: $brand-primary;
+      }
+
+      .icon {
+        background-color: $gray-base;
+      }
+    }
+  }
+
+  .accordion {
+    .panel_heading {
+      & > div {
+        padding: 0;
+
+        a {
+          //background: url(../../images/accordion-ico5.png) no-repeat 14px 13px;
+          display: block;
+          padding: 11px 20px 11px 44px;
+          text-decoration: none;
+          text-shadow: none;
+          font-size: 14px;
+          font-weight: 600;
+          color: #727272;
+          background: #fff;
+          border: 1px solid #e3e3e3;
+          border-bottom: 1px solid #e3e3e3;
+          margin: 6px 0 0 0;
+          @include transition(color 0.3s ease-out, border-color 0.3s ease-out);
+
+          &:hover {
+            color: $brand-primary;
+            border-color: $brand-primary;
+          }
+        }
+      }
+    }
+  }
+}

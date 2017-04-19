@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Grid, Row, Col, Clearfix} from 'react-bootstrap';
 
-const style = require('./cardsSection.scss');
+const style = require('./sectionCards.scss');
 
 interface IProps {
     title?: any;
@@ -17,18 +17,15 @@ interface IState {
 
 }
 
-export class CardsSection extends React.Component<IProps, IState> {
+export class SectionCards extends React.Component<IProps, IState> {
     render() {
         const {title, subtitle, cards} = this.props;
         return (
             <div className={style.section}>
                 <Grid>
                     <h1 className={style.title}>{title}</h1>
-                    <Clearfix/>
                     <div className={style.line}></div>
-                    <Clearfix/>
                     <p className={style.subtitle}>{subtitle}</p>
-                    <Clearfix/>
 
                     <Row>
                         {cards && cards.map((card, i) => {
@@ -47,9 +44,7 @@ export class CardsSection extends React.Component<IProps, IState> {
                             )
                         })}
                     </Row>
-                    <Clearfix/>
                 </Grid>
-                <Clearfix/>
             </div>
         )
     }

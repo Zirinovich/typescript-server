@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Grid} from 'react-bootstrap';
 
-const style = require('./textSection.scss');
+const style = require('./sectionText.scss');
 
 interface IProps {
     title?: string;
@@ -14,7 +14,7 @@ interface IState {
 
 }
 
-export class TextSection extends React.Component<IProps, IState> {
+export class SectionText extends React.Component<IProps, IState> {
     render() {
         const {title, subtitle, text, button} = this.props;
         return (
