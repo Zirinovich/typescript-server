@@ -1,8 +1,4 @@
 $bootstrap-sass-asset-helper: true;
-@import './_variables';
-@import '~bootstrap-sass/assets/stylesheets/bootstrap';
+@import "./_variables";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
 @import "./bootswatch";
-
-@import "./reset";
-@import "./style";
-@import "./sky-form";

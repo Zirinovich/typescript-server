@@ -24,7 +24,9 @@ export class CardsSection extends React.Component<IProps, IState> {
             <div className={style.section}>
                 <Grid>
                     <h1 className={style.title}>{title}</h1>
+                    <Clearfix/>
                     <div className={style.line}></div>
+                    <Clearfix/>
                     <p className={style.subtitle}>{subtitle}</p>
                     <Clearfix/>
 
@@ -45,7 +47,9 @@ export class CardsSection extends React.Component<IProps, IState> {
                             )
                         })}
                     </Row>
+                    <Clearfix/>
                 </Grid>
+                <Clearfix/>
             </div>
         )
     }

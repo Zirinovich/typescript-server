@@ -41,7 +41,7 @@ class Home extends React.Component<any, any> {
                         captionhidden: 'off',
                         style: {zIndex: 6},
                         content: <span>
-                            15<br/>лет<br/>опыта
+                            15 лет<br/>опыта
                         </span>
                     },
                     {
