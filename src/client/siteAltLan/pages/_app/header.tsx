@@ -129,7 +129,9 @@ export class Header extends React.Component<IProps, IState> {
                     <div className={style.wrapper}>
                         <Grid>
                             <div className={style.logo}>
-                                <Link to="/"/>
+                                <Link to="/">
+                                    <img src={require('./content/logo.svg')} height={64}/>
+                                </Link>
                             </div>
                             <div className={style.menu_main}>
                                 <Navbar className={style.nav_bar}>

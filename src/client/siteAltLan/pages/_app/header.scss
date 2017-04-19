@@ -80,19 +80,6 @@
           display: none;
         }
       }
-
-      a {
-        float: left;
-        display: block;
-        position: relative;
-        text-indent: -999em;
-        width: 64px;
-        height: 64px;
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-image: url(./content/logo.jpg);
-        z-index: 1;
-      }
     }
 
     .menu_main {
