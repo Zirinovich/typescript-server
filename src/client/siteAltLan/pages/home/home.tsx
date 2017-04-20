@@ -24,9 +24,9 @@ class Home extends React.Component<any, any> {
                         easing: 'Back.easeOut',
                         endspeed: 300,
                         captionhidden: 'on',
-                        style: {zIndex: 5},
+                        style: {zIndex: 5, width: 500},
                         content: <img
-                            src="http://codelayers.net/foxuhost/layout2/fullwidth/images/sliders/slide2_img1.png"/>
+                            src={require('../_app/content/logo.svg')}/>
                     },
                     {
                         classes: 'offerbadge5 two sft',
@@ -76,7 +76,7 @@ class Home extends React.Component<any, any> {
                         endelementdelay: 0.08,
                         endspeed: 300,
                         style: {zIndex: 7, maxWidth: 'auto', maxHeight: 'auto', whiteSpace: 'nowrap'},
-                        content: <span></span>
+                        content: <span>Группа компаний</span>
                     },
                     {
                         classes: 'text12 randomrotate customout tp-resizeme',
