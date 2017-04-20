@@ -1,11 +1,12 @@
 @import "../../variables";
 @import "../../mixins";
 
+$header-height: 102px;
+$footer-height: 75px;
+
 html,
 body,
 main {
-  height: 100%;
-
   h1,
   h2,
   h3,
@@ -87,8 +88,18 @@ main {
   min-height: 100%;
   position: relative;
 
+  & > header {
+    height: $header-height;
+  }
+
+
   .content {
-    padding-bottom: 75px;
+    padding-bottom: $footer-height;
+    min-height: calc(100vh - 102px); //100vh - $header-height
+  }
+
+  & > footer {
+    height: $footer-height;
   }
 
   .page_transition_enter {
