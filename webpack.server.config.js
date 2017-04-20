@@ -68,8 +68,12 @@ var config = {
                 loader: "file-loader?name=fonts/[hash].[ext]"
             },
             {
-                test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                test: /\.(ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                 loader: "file-loader?name=fonts/[hash].[ext]"
+            },
+            {
+                test: /\.svg(\?.*)?$/,
+                loader: 'url-loader?limit=10000&mimetype=image/svg+xml&name=fonts/[hash].[ext]'
             },
             {
                 test: /\.css$/,
