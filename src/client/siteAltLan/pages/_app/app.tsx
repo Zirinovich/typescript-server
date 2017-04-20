@@ -11,6 +11,7 @@ import {logout} from '../../redux/signInActions';
 // TODO: привести в порядок подобные ссылки, каким то образом посредством указания корневых каталогов или типа того
 import {IUser} from '../../../../shared/interfaces/authentication/IUser';
 import {Header} from './header';
+import {ScrollUp} from './scrollUp';
 import {Footer}from './footer';
 const style = require('./app.scss');
 
@@ -55,6 +56,7 @@ class App extends React.Component<IProps, any> {
                     <Clearfix/>
                 </div>
                 <Clearfix/>
+                <ScrollUp/>
                 <Footer/>
             </div>
         );
