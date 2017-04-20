@@ -134,9 +134,12 @@ export class Header extends React.Component<IProps, IState> {
                                 </Link>
                             </div>
                             <div className={style.menu_main}>
-                                <Navbar className={style.nav_bar}>
+                                <Navbar className={style.nav_bar} collapseOnSelect={true}>
                                     <div>
                                         <Navbar.Header className={style.toggle_header}>
+                                            <Link to="/">
+                                                <img src={require('./content/logo_inverse.svg')} height={64}/>
+                                            </Link>
                                             <Navbar.Toggle/>
                                         </Navbar.Header>
                                         <div className={style.collapse_wrapper}>
