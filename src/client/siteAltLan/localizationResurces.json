@@ -29,7 +29,8 @@
       "phoneNumberForCommunications": "Телефон для связи",
       "reception": "Приемная",
       "addressInfo": "Контактная информация",
-      "website": "Сайт"
+      "website": "Сайт",
+      "adminPanel": "Административная панель"
     }
   },
   "en-EN": {
@@ -62,7 +63,8 @@
       "phoneNumberForCommunications": "Phone number for communications",
       "reception": "Reception",
       "addressInfo": "Address info",
-      "Website": "Website"
+      "website": "Website",
+      "adminPanel": "Admin panel"
     }
   }
 }

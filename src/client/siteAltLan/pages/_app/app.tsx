@@ -17,6 +17,7 @@ const style = require('./app.scss');
 
 interface IProps {
     location?: any;
+    routes?: any;
 
     user: IUser;
     dispatch: ()=>void;
@@ -27,7 +28,7 @@ interface IProps {
 )
 class App extends React.Component<IProps, any> {
     public render() {
-        const {user, dispatch, location: {pathname}} = this.props;
+        const {user, dispatch, location: {pathname}, routes} = this.props;
         const key = getMD5base64(pathname);
         const transitionName = {
             enter: style.page_transition_enter,
@@ -37,10 +38,11 @@ class App extends React.Component<IProps, any> {
             appear: style.page_transition_appear,
             appearActive: style.page_transition_appear_active
         };
+        const isAdminPanel = routes && routes[1] && routes[1].path === 'admin';
         return (
             <div className={style.app}>
                 <Helmet {...appConfig.app} {...appConfig.app.head}/>
-                <Header user={user} logout={()=>{logout(dispatch)}} pathname={pathname}/>
+                {!isAdminPanel && <Header user={user} logout={()=>{logout(dispatch)}} pathname={pathname}/>}
                 <div className={style.content}>
                     <ReactCSSTransitionGroup
                         key={key}
@@ -55,9 +57,11 @@ class App extends React.Component<IProps, any> {
                     </ReactCSSTransitionGroup>
                     <Clearfix/>
                 </div>
-                <Clearfix/>
-                <ScrollUp/>
-                <Footer/>
+                {!isAdminPanel && <div>
+                    <Clearfix/>
+                    <ScrollUp/>
+                    <Footer/>
+                </div>}
             </div>
         );
     }

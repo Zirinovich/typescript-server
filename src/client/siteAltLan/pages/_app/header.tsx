@@ -84,6 +84,13 @@ export class Header extends React.Component<IProps, IState> {
                                         <Icon name="user"/>{user.fullName}
                                     </li>
                                     }
+                                    { user &&
+                                    <li>
+                                        <Link to="/admin">
+                                            <Icon name="gears"/>{i18n.t('adminPanel')}
+                                        </Link>
+                                    </li>
+                                    }
                                     { user ?
                                         <li>
                                             <a href="#" onClick={logout}>
@@ -134,7 +141,7 @@ export class Header extends React.Component<IProps, IState> {
                                 </Link>
                             </div>
                             <div className={style.menu_main}>
-                                <Navbar className={style.nav_bar} collapseOnSelect={true}>
+                                <Navbar className={style.nav_bar} collapseOnSelect>
                                     <div>
                                         <Navbar.Header className={style.toggle_header}>
                                             <Link to="/">
