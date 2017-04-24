@@ -96,9 +96,11 @@
     "cross-env": "^3.1.4",
     "css-loader": "^0.26.1",
     "enzyme": "^2.7.0",
+    "exports-loader": "^0.6.4",
     "extract-text-webpack-plugin": "^2.1.0",
     "fetch-mock": "^5.8.1",
     "file-loader": "^0.9.0",
+    "imports-loader": "^0.7.1",
     "isomorphic-style-loader": "^1.1.0",
     "istanbul-instrumenter-loader": "^0.2.0",
     "json-loader": "^0.5.4",
@@ -190,6 +192,7 @@
     "redux-thunk": "^2.2.0",
     "serve-favicon": "^2.3.2",
     "session-memory-store": "^0.2.2",
-    "sticky-js": "^1.1.9"
+    "sticky-js": "^1.1.9",
+    "tinymce": "^4.5.6"
   }
 }

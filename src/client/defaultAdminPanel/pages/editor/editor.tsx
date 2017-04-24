@@ -1,6 +1,8 @@
 import * as React from 'react';
 import {Grid} from 'react-bootstrap';
 
+import {Tinymce} from '../../../common/components/tinymce/tinymce';
+
 interface IProps {
 
 }
@@ -13,7 +15,7 @@ export class Editor extends React.Component<IProps, IState> {
     render() {
         return (
             <Grid>
-                Editor
+                <Tinymce/>
             </Grid>
         )
     }
