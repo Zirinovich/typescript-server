@@ -4,6 +4,7 @@ var webpack = require('webpack');
 var postcssAssets = require('postcss-assets');
 var postcssNext = require('postcss-cssnext');
 // var stylelint = require('stylelint');
+var copyWebpackPlugin = require('copy-webpack-plugin');
 var ManifestPlugin = require('webpack-manifest-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var helpers = require('./config/helpers');
@@ -18,7 +19,7 @@ var config = {
         extensions: ['.ts', '.tsx', '.js', '.jsx'],
         modules: [path.resolve(__dirname), 'node_modules', 'app', 'app/redux'],
         alias: {
-            "TweenLite": "gsap/src/uncompressed/TweenLite",
+            "TweenLite": "gsap/src/uncompressed/TweenLite", //TODO: Fix it inside resolution slider
             "TimelineLite": "gsap/src/uncompressed/TimelineLite"
         }
     },
@@ -137,6 +138,9 @@ var config = {
             _: "lodash",
             classNames: "classnames"
         }),
+        new copyWebpackPlugin([
+            { from: './node_modules/tinymce/skins', to: './js/skins' } //TODO: Move import to TinyMCE component
+        ]),
         new webpack.LoaderOptionsPlugin({
             debug: true,
             options: {

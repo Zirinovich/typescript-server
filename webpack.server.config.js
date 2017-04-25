@@ -5,6 +5,7 @@ var postcssAssets = require('postcss-assets');
 var postcssNext = require('postcss-cssnext');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var WebpackShellPlugin = require('webpack-shell-plugin');
+var copyWebpackPlugin = require('copy-webpack-plugin');
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 var ExtractPlugin = new ExtractTextPlugin(IS_PRODUCTION ? 'css/styles-[hash].css' : 'css/styles.css');
 var helpers = require('./config/helpers');
@@ -29,7 +30,7 @@ var config = {
         extensions: ['.ts', '.tsx', '.js', '.jsx'],
         modules: [path.resolve(__dirname), 'node_modules', 'app', 'app/redux'],
         alias: {
-            "TweenLite": "gsap/src/uncompressed/TweenLite",
+            "TweenLite": "gsap/src/uncompressed/TweenLite", //TODO: Fix it inside resolution slider
             "TimelineLite": "gsap/src/uncompressed/TimelineLite"
         }
     },
@@ -176,6 +177,9 @@ var config = {
             _: 'lodash',
             classNames: "classnames"
         }),
+        new copyWebpackPlugin([
+            { from: './node_modules/tinymce/skins', to: './js/skins' } //TODO: Move import to TinyMCE component
+        ]),
         new webpack.DefinePlugin({
             APP_ENTRY_PATH: JSON.stringify(helpers.getFullPath(appConfig.appEntryName)),
             APP_ENTRY_NAME: JSON.stringify(appConfig.appEntryName)

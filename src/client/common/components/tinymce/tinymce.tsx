@@ -23,23 +23,47 @@ export class Tinymce extends React.Component<IProps, IState> {
             require('tinymce/themes/modern/theme');
 
             require('tinymce/plugins/advlist');
-            require('tinymce/plugins/autolink');
-            require('tinymce/plugins/lists');
-            require('tinymce/plugins/link');
-            require('tinymce/plugins/image');
-            require('tinymce/plugins/charmap');
-            require('tinymce/plugins/print');
-            require('tinymce/plugins/preview');
             require('tinymce/plugins/anchor');
-            require('tinymce/plugins/searchreplace');
-            require('tinymce/plugins/visualblocks');
-            require('tinymce/plugins/code');
-            require('tinymce/plugins/fullscreen');
-            require('tinymce/plugins/insertdatetime');
-            require('tinymce/plugins/media');
+            require('tinymce/plugins/autolink');
+            //require('tinymce/plugins/autoresize');
+            //require('tinymce/plugins/autosave');
+            //require('tinymce/plugins/bbcode');
+            require('tinymce/plugins/charmap');
+            //require('tinymce/plugins/code');
+            //require('tinymce/plugins/codesample');
+            require('tinymce/plugins/colorpicker');
+            //require('tinymce/plugins/contextmenu');
+            //require('tinymce/plugins/directionality');
+            //require('tinymce/plugins/emoticons');
+            //require('tinymce/plugins/fullpage');
+            //require('tinymce/plugins/fullscreen');
+            require('tinymce/plugins/image');
+            //require('tinymce/plugins/imagetools');
+            //require('tinymce/plugins/importcss');
+            //require('tinymce/plugins/insertdatetime');
+            //require('tinymce/plugins/layer');
+            //require('tinymce/plugins/legacyoutput');
+            require('tinymce/plugins/link');
+            require('tinymce/plugins/lists');
+            //require('tinymce/plugins/media');
+            //require('tinymce/plugins/nonbreaking');
+            //require('tinymce/plugins/noneditable');
+            //require('tinymce/plugins/pagebreak');
+            //require('tinymce/plugins/paste');
+            require('tinymce/plugins/preview');
+            require('tinymce/plugins/print');
+            //require('tinymce/plugins/save');
+            //require('tinymce/plugins/searchreplace');
+            //require('tinymce/plugins/spellchecker');
+            //require('tinymce/plugins/tabfocus');
             require('tinymce/plugins/table');
-            require('tinymce/plugins/contextmenu');
-            require('tinymce/plugins/paste');
+            //require('tinymce/plugins/template');
+            require('tinymce/plugins/textcolor');
+            //require('tinymce/plugins/textpattern');
+            //require('tinymce/plugins/toc');
+            //require('tinymce/plugins/visualblocks');
+            //require('tinymce/plugins/visualchars');
+            //require('tinymce/plugins/wordcount');
 
             Tinymce.isLoaded = true;
         }
@@ -53,20 +77,22 @@ export class Tinymce extends React.Component<IProps, IState> {
 
         tinymce.init({
             selector: '#' + id,
-            height: 300,
-            menubar: false,
+            height: 500,
             plugins: [
-                'advlist autolink lists link image charmap print preview anchor',
-                'searchreplace visualblocks code fullscreen',
-                'insertdatetime media table contextmenu paste code'
+                'advlist autolink link image lists charmap print preview anchor',
+                'table textcolor colorpicker'
+                //"advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+                //"searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                //"table contextmenu directionality emoticons template textcolor paste fullpage textcolor colorpicker textpattern"
             ],
-            toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-            toolbar2: 'table | styleselect formatselect fontselect fontsizeselect',
-            paste_data_images: true,
-            content_css: [
-                '//cdn.tinymce.com/4/skins/lightgray/content.min.css',
-                //'//www.tinymce.com/css/codepen.min.css'
-            ]
+
+            toolbar1: "newdocument fullpage | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
+            toolbar2: "searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | insertdatetime preview | forecolor backcolor",
+            toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | spellchecker | visualchars visualblocks nonbreaking template pagebreak restoredraft",
+
+            menubar: false,
+            toolbar_items_size: 'small',
+            paste_data_images: true
         });
     }
 
