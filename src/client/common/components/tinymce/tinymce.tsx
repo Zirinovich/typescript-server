@@ -3,7 +3,7 @@ import * as React from 'react';
 import {generator} from '../../../../shared/tools/generator';
 
 interface IProps {
-
+    handleChange?:Function;
 }
 
 interface IState {
@@ -70,13 +70,25 @@ export class Tinymce extends React.Component<IProps, IState> {
         return Tinymce.tinymce;
     }
 
+    handleChange(content){
+        const {handleChange} = this.props;
+
+        if(handleChange) handleChange(content);
+    }
+
     componentDidMount() {
         var tinymce = Tinymce.loadJsClient();
 
         const id = this.id;
+        const handleChange = this.handleChange.bind(this);
 
         tinymce.init({
             selector: '#' + id,
+            setup:function(ed) {
+                ed.on('change', function(e) {
+                    handleChange(ed.getContent());
+                });
+            },
             height: 500,
             plugins: [
                 'advlist autolink link image lists charmap print preview anchor',
