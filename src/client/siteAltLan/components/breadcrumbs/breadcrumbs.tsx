@@ -21,9 +21,7 @@ export class Breadcrumbs extends React.Component<IProps, IState> {
         return (
             <div className={style.section}>
                 <Grid>
-                    <div className={style.title}>
-                        <h3>{title}</h3>
-                    </div>
+                    <h3 className={style.title}>{title}</h3>
                     <div className={style.path}>
                         <ReactBreadcrumbs
                             routes={routes}
