@@ -18,6 +18,8 @@ export class Tinymce extends React.Component<IProps, IState> {
 
     static loadJsClient() {
         if (!Tinymce.isLoaded) {
+            console.log('loadJsClient');
+
             Tinymce.tinymce = require('tinymce/tinymce');
 
             require('tinymce/themes/modern/theme');
