@@ -1,8 +1,8 @@
-import {IUserStore} from "../../shared/interfaces/authentication/IUserStore";
-import {AuthenticationErrorEnum} from '../../shared/interfaces/authentication/AuthenticationErrorEnum';
+import {IUserStore} from "../../shared/ajaxDto/authentication/IUserStore";
+import {AuthenticationErrorEnum} from '../../shared/ajaxDto/authentication/AuthenticationErrorEnum';
 import {PgClient} from './PgClient';
 import {IVerifyOptions} from 'passport-local';
-import {IAccount} from '../../shared/interfaces/authentication/IAccount';
+import {IAccount} from '../../shared/ajaxDto/authentication/IAccount';
 
 export class UserStore implements IUserStore {
     FindUser(username: string, password: string, callback: (error: any, user?: IAccount, options?: IVerifyOptions) => void): void {

@@ -1,6 +1,6 @@
 import {LOGOUT, LOGIN_SUCCESS, ISignInAction} from './signInActions';
-import {IAction} from "../../../shared/interfaces/common/IAction";
-import {IUser} from "../../../shared/interfaces/authentication/IUser";
+import {IAction} from "../../common/interfaces/IAction";
+import {IUser} from "../../../shared/ajaxDto/authentication/IUser";
 
 const initialState = null;
 

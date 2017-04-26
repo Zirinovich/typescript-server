@@ -5,7 +5,7 @@ import {LinkContainer} from 'react-router-bootstrap';
 const {connect} = require('react-redux');
 const Sticky = require('sticky-js');
 
-import {IUser} from '../../../../shared/interfaces/authentication/IUser';
+import {IUser} from '../../../../shared/ajaxDto/authentication/IUser';
 import {i18n} from '../../../../shared/tools/i18n/i18n';
 import {Icon} from '../../../common/components/icon/icon';
 const style = require('./header.scss');

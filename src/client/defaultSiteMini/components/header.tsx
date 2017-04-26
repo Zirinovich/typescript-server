@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Link} from 'react-router';
 import {Nav, Navbar, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
-import {IUser} from '../../../shared/interfaces/authentication/IUser';
+import {IUser} from '../../../shared/ajaxDto/authentication/IUser';
 
 export const Header = (props: {user: IUser, logout: ()=>void}) => (
     <Navbar>

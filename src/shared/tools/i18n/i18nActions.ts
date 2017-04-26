@@ -1,4 +1,4 @@
-import {IAction} from '../../../shared/interfaces/common/IAction';
+import {IAction} from '../../../client/common/interfaces/IAction';
 
 export const SET_CURRENT_LANGUAGE = 'i18n/SET_CURRENT_LANGUAGE';
 export const SET_LANGUAGES = 'i18n/SET_LANGUAGES';

@@ -2,7 +2,7 @@ import {createStore, applyMiddleware, compose} from 'redux';
 import {routerMiddleware} from 'react-router-redux';
 import thunk from 'redux-thunk';
 
-import {IClientApplication} from '../../../shared/interfaces/common/IClientApplication';
+import {IClientApplication} from '../interfaces/IClientApplication';
 const appConfig = require('./../../../../config/main');
 import {i18n} from '../../../shared/tools/i18n/i18n';
 

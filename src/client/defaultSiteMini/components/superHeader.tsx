@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 import {Nav, NavItem} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 
-import {IUser} from "../../../shared/interfaces/authentication/IUser";
+import {IUser} from "../../../shared/ajaxDto/authentication/IUser";
 const style = require('./superHeader.scss');
 
 interface IProps {

@@ -1,4 +1,3 @@
-import {IAjaxRequest, HttpMethod, IResponseAjax} from "../interfaces/core/dto/AjaxDTOs";
 const formData = require('form-urlencoded');
 
 export class Core {
@@ -59,4 +58,19 @@ export class Core {
             throw error;
         }
     }
+}
+export enum HttpMethod{
+    GET,
+    POST
+}
+export interface IAjaxRequest {
+    url:string,
+    method?:HttpMethod,
+    data?:any,
+    callback?:(response)=>void
+}
+export interface IResponseAjax{
+    isSuccess:boolean,
+    errorMessage?:string,
+    data:any
 }
