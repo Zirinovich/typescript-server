@@ -21,12 +21,12 @@ const lazyRequire = require('lazy-require');
 const manifest = lazyRequire('../build/manifest.json');
 
 import * as express from 'express';
-import {serverRouter} from './server/serverRouterMiddleware'
 
 const {ClientApplication} = require(APP_ENTRY_PATH);
 import {ExpressCommonTuner} from "./server/_engine/middlewares/common/ExpressCommonTuner";
 import {ExpressSessionTuner} from "./server/_engine/middlewares/common/ExpressSessionTuner";
 import {PassportLocalStrategyTuner} from "./server/_engine/middlewares/authenticationPassport/PassportLocalStrategyTuner";
+import {serverRouter} from "./server/_engine/routers/serverRouter";
 
 const Chalk = require('chalk');
 

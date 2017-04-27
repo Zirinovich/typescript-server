@@ -10,12 +10,12 @@ const config = {
     idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
 };
 
-export class PgClient {
+export class PostgreEngine {
     static pool = new Pool(config);
 
     static executeQuery(query: QueryConfig, doneCallback: (error, result)=>any) {
 
-        PgClient.pool.connect()
+        PostgreEngine.pool.connect()
             .then(client => {
                 client.query(query)
                     .then(result => {

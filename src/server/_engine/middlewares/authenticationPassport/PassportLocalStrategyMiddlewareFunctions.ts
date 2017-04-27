@@ -49,7 +49,8 @@ export class PassportLocalStrategyMiddlewareFunctions implements IAuthentication
     }
 
     logout(req, res) {
-        req.logout();
+        if(req.isAuthenticated())
+            req.logout();
         return res.json({result: 'ok'});
     }
 

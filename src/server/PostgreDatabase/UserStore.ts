@@ -1,13 +1,13 @@
 import {IUserStore} from "../../shared/ajaxDto/authentication/IUserStore";
 import {AuthenticationErrorEnum} from '../../shared/ajaxDto/authentication/AuthenticationErrorEnum';
-import {PgClient} from './PgClient';
+import {PostgreEngine} from '../_engine/database/PostgreEngine';
 import {IVerifyOptions} from 'passport-local';
 import {IAccount} from '../../shared/ajaxDto/authentication/IAccount';
 
 export class UserStore implements IUserStore {
     FindUser(username: string, password: string, callback: (error: any, user?: IAccount, options?: IVerifyOptions) => void): void {
 
-        PgClient.executeQuery({
+        PostgreEngine.executeQuery({
             text: `SELECT
                         user_accounts_id as id,
                         username,
@@ -50,7 +50,7 @@ export class UserStore implements IUserStore {
 
     FindUserById(id: string, callback: (error, user?: IAccount)=> void): void {
 
-        PgClient.executeQuery({
+        PostgreEngine.executeQuery({
             text: `SELECT user_accounts_id as id,
                         username,
                         password,

@@ -1,1 +1,0 @@
-export {serverRouter} from "./serverRouter";
