@@ -7,12 +7,12 @@ import * as Helmet from 'react-helmet';
 import {Header} from '../components/header';
 import {Grid}  from 'react-bootstrap';
 const {connect} = require('react-redux');
-import {IUser} from '../../../shared/ajaxDto/authentication/IUser';
+import {IUserDto} from '../../../shared/ajaxDto/authentication/IUserDto';
 
 import '../../common/content/bootstrap-cerulean_theme/bootstrap.scss';
 
 interface IProps {
-    user: IUser;
+    user: IUserDto;
     dispatch: ()=>void;
     children?: any;
 }

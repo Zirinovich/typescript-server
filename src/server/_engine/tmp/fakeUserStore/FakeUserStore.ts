@@ -1,8 +1,8 @@
 import {IVerifyOptions} from 'passport-local';
 import {UserRoleEnum} from "../../../../shared/ajaxDto/authentication/UserRoleEnum";
-import {IUserStore} from "../../../../shared/ajaxDto/authentication/IUserStore";
-import {IAccount} from "../../../../shared/ajaxDto/authentication/IAccount";
+import {IAccountDto} from "../../../_interfaces/engine/dto/IAccountDto";
 import {AuthenticationErrorEnum} from "../../../../shared/ajaxDto/authentication/AuthenticationErrorEnum";
+import {IUsersDatabase} from "../../../_interfaces/main/IUsersDatabase";
 
 const constUsers: Array<any> = [{
     Id: 2,
@@ -18,8 +18,8 @@ const constUsers: Array<any> = [{
     role: UserRoleEnum.User
 }];
 
-export class FakeUserStore implements IUserStore {
-    FindUser(username: string, password: string, callback: (error: any, user?: IAccount, options?: IVerifyOptions) => void): void {
+export class FakeUserStore implements IUsersDatabase {
+    FindUser(username: string, password: string, callback: (error: any, user?: IAccountDto, options?: IVerifyOptions) => void): void {
         if (!username) { // NOTE: в данном случае при не переданном параметре username текст ошибки произвольный для примера, при поиске в реальном хранилище ошибки могут быть разными
             callback({
                 errorType: AuthenticationErrorEnum.SystemError,
@@ -53,7 +53,7 @@ export class FakeUserStore implements IUserStore {
         }
     }
 
-    FindUserById(id: string, callback: (error, user?: IAccount)=> void): void {
+    FindUserById(id: string, callback: (error, user?: IAccountDto)=> void): void {
         if (!id) {
             callback({
                 errorType: AuthenticationErrorEnum.SystemError,

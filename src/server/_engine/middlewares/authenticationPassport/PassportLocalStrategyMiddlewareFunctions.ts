@@ -1,13 +1,13 @@
 import * as passportStatic  from "passport";
 import HTTP_STATUS_CODES from 'http-status-enum';
-import {IAuthenticationMiddleware} from "../../../../shared/ajaxDto/authentication/IAuthenticationMiddleware";
-import {IAuthenticationError} from "../../../../shared/ajaxDto/authentication/IAuthenticationError";
-import {IAccount} from "../../../../shared/ajaxDto/authentication/IAccount";
+import {IAuthenticationMiddleware} from "../../../_interfaces/engine/IAuthenticationMiddleware";
+import {IAuthenticationErrorDto} from "../../../../shared/ajaxDto/authentication/IAuthenticationErrorDto";
+import {IAccountDto} from "../../../_interfaces/engine/dto/IAccountDto";
 import {AuthenticationErrorEnum} from "../../../../shared/ajaxDto/authentication/AuthenticationErrorEnum";
 
 export class PassportLocalStrategyMiddlewareFunctions implements IAuthenticationMiddleware {
     login(req, res, next) {
-        passportStatic.authenticate('local', (err: IAuthenticationError, account: IAccount) => {
+        passportStatic.authenticate('local', (err: IAuthenticationErrorDto, account: IAccountDto) => {
             if (err) {
                 switch (err.errorType) {
                     case AuthenticationErrorEnum.SystemError:

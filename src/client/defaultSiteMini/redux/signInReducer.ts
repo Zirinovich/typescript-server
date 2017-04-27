@@ -1,10 +1,10 @@
 import {LOGOUT, LOGIN_SUCCESS, ISignInAction} from './signInActions';
 import {IAction} from "../../common/interfaces/IAction";
-import {IUser} from "../../../shared/ajaxDto/authentication/IUser";
+import {IUserDto} from "../../../shared/ajaxDto/authentication/IUserDto";
 
 const initialState = null;
 
-export function signInReducer(state: IUser = initialState, action: IAction) {
+export function signInReducer(state: IUserDto = initialState, action: IAction) {
     switch (action.type) {
         case LOGIN_SUCCESS:
             let {user} = <ISignInAction>action;

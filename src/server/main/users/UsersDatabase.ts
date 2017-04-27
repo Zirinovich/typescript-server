@@ -1,11 +1,12 @@
-import {IUserStore} from "../../shared/ajaxDto/authentication/IUserStore";
-import {AuthenticationErrorEnum} from '../../shared/ajaxDto/authentication/AuthenticationErrorEnum';
-import {PostgreEngine} from '../_engine/database/PostgreEngine';
-import {IVerifyOptions} from 'passport-local';
-import {IAccount} from '../../shared/ajaxDto/authentication/IAccount';
 
-export class UserStore implements IUserStore {
-    FindUser(username: string, password: string, callback: (error: any, user?: IAccount, options?: IVerifyOptions) => void): void {
+import {PostgreEngine} from "../../_engine/database/postgreEngine";
+import {IVerifyOptions} from "passport-local";
+import {IAccountDto} from "../../_interfaces/engine/dto/IAccountDto";
+import {AuthenticationErrorEnum} from "../../../shared/ajaxDto/authentication/AuthenticationErrorEnum";
+import {IUsersDatabase} from "../../_interfaces/main/IUsersDatabase";
+
+export class UsersDatabase implements IUsersDatabase {
+    FindUser(username: string, password: string, callback: (error: any, user?: IAccountDto, options?: IVerifyOptions) => void): void {
 
         PostgreEngine.executeQuery({
             text: `SELECT
@@ -48,7 +49,7 @@ export class UserStore implements IUserStore {
         });
     }
 
-    FindUserById(id: string, callback: (error, user?: IAccount)=> void): void {
+    FindUserById(id: string, callback: (error, user?: IAccountDto)=> void): void {
 
         PostgreEngine.executeQuery({
             text: `SELECT user_accounts_id as id,

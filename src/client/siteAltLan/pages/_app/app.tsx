@@ -9,7 +9,7 @@ import '../../../common/content/template/template.scss';
 import {getMD5base64} from '../../../../shared/tools/index';
 import {logout} from '../../redux/signInActions';
 // TODO: привести в порядок подобные ссылки, каким то образом посредством указания корневых каталогов или типа того
-import {IUser} from '../../../../shared/ajaxDto/authentication/IUser';
+import {IUserDto} from '../../../../shared/ajaxDto/authentication/IUserDto';
 import {Header} from './header';
 import {ScrollUp} from './scrollUp';
 import {Footer}from './footer';
@@ -19,7 +19,7 @@ interface IProps {
     location?: any;
     routes?: any;
 
-    user: IUser;
+    user: IUserDto;
     dispatch: ()=>void;
 }
 

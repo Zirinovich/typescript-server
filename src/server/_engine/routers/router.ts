@@ -1,11 +1,10 @@
 import {RequestHandlerParams, PathParams, RequestHandler} from "express-serve-static-core";
-import Ioc from "../../../shared/classes/ioc";
-import {IAuthenticationMiddleware} from "../../../shared/ajaxDto/authentication/IAuthenticationMiddleware";
+import {IAuthenticationMiddleware} from "../../_interfaces/engine/IAuthenticationMiddleware";
 import {apiRouter} from "./serverRouter";
+import {authenticationMiddleware} from "../../registration";
 export class router {
     static handlersAnonymous = [];
     static handlersAuthenticated = [];
-    private static authenticationMiddleware = Ioc.resolve<IAuthenticationMiddleware>("IAuthenticationMiddleware");
 
     static all(path: PathParams, handler: RequestHandler, claim?: AuthClaims) {
         router.push(HttpMethods.ALL, path, handler, claim);
@@ -37,7 +36,7 @@ export class router {
             if (h.method == HttpMethods.GET)
                 apiRouter.get(h.path, h.handler);
         });
-        apiRouter.all('/*', router.authenticationMiddleware.mustAuthenticate); // все последующие маршруты требуют аутентификацию
+        apiRouter.all('/*', authenticationMiddleware.mustAuthenticate); // все последующие маршруты требуют аутентификацию
         _.forEach(this.handlersAuthenticated, (h: any) => {
             if (h.method == HttpMethods.ALL)
                 apiRouter.all(h.path, h.handler);

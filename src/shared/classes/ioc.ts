@@ -3,8 +3,8 @@ import * as _ from 'lodash';
 export default class Ioc {
     private static bindings: Bind[] = [];
 
-    public static register(name: string, isSingletone: boolean, obj: any, params?: any) {
-        this.registerMany([name], isSingletone, obj, params);
+    public static register<T>(name: string, isSingletone: boolean, obj: any, params?: any):T {
+        return this.registerMany<T>([name], isSingletone, obj, params);
     }
 
     public static registerMany<T>(name: string[], isSingletone: boolean, obj: T, params?: any, removeRegistrations: boolean = true): T {

@@ -1,6 +1,6 @@
 import {UserRoleEnum} from "./UserRoleEnum";
 
-export interface IUser {
+export interface IUserDto {
     fullName: string,
     username: string,
     role: UserRoleEnum
