@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {BootstrapTable, TableHeaderColumn, SelectRowMode, SortOrder} from 'react-bootstrap-table';
-import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
+
+import '../../../common/content/react-bootstrap-table/react-bootstrap-table.scss';
 
 interface IProps {
     headers: {
@@ -46,7 +47,8 @@ export class ReactBootstrapTable extends React.Component<IProps, IState> {
         };
 
         return (
-            <BootstrapTable ref='table' data={ data }
+            <BootstrapTable ref='table'
+                            data={ data }
                             pagination={ true }
                             selectRow={ selectRowProp }
                             options={ options }>
