@@ -1,9 +1,14 @@
 import * as React from 'react';
-import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+import {BootstrapTable, TableHeaderColumn, SelectRowMode, SortOrder} from 'react-bootstrap-table';
 import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 
 interface IProps {
-
+    headers: {
+        name: string;
+        label: string;
+        key?: boolean;
+    }[];
+    data: Object[];
 }
 
 interface IState {
@@ -21,26 +26,15 @@ export class ReactBootstrapTable extends React.Component<IProps, IState> {
     }
 
     render() {
-        const {
-            currPage
-        } = this.state;
-        const onRowSelect = ({id}, isSelected) => {
-            if (isSelected && this.state.selected.length !== 2) {
-                this.setState({
-                    selected: [...this.state.selected, id].sort(),
-                    currPage: this.state.currPage
-                });
-            } else {
-                this.setState({selected: this.state.selected.filter(it => it !== id)});
-            }
-            return false;
-        };
+        const {headers, data} = this.props;
+        const {currPage} = this.state;
+
+        const mode: SelectRowMode = 'checkbox';
+        const sortOrder: SortOrder = 'desc';
 
         const selectRowProp = {
-            mode: 'checkbox',
-            clickToSelect: true,
-            onSelect: onRowSelect,
-            selected: this.state.selected
+            mode: mode,
+            clickToSelect: true
         };
 
         const options = {
@@ -48,71 +42,21 @@ export class ReactBootstrapTable extends React.Component<IProps, IState> {
             sizePerPage: 10,
             page: currPage,
             sortName: 'id',
-            //sortOrder: 'desc'
+            sortOrder: sortOrder
         };
 
-        const products = [
-            {
-                id: '1',
-                name: 'test',
-                price: '100500'
-            },
-            {
-                id: '2',
-                name: 'test 2',
-                price: '100500'
-            },
-            {
-                id: '3',
-                name: 'test 3',
-                price: '100500'
-            },
-            {
-                id: '4',
-                name: 'test 4',
-                price: '100500'
-            },
-            {
-                id: '5',
-                name: 'test 5',
-                price: '100500'
-            },
-            {
-                id: '6',
-                name: 'test 6',
-                price: '100500'
-            },
-            {
-                id: '7',
-                name: 'test 7',
-                price: '100500'
-            }
-        ];
-
-        const headers = [
-            {
-                name: 'id',
-                label: 'ID',
-                key: true
-            },
-            {
-                name: 'name',
-                label: 'Product Name',
-                key: false
-            },
-            {
-                name: 'price',
-                label: 'Product Price',
-                key: false
-            }
-        ];
-
         return (
-            <BootstrapTable ref='table' data={ products } pagination={ true }
+            <BootstrapTable ref='table' data={ data }
+                            pagination={ true }
+                            selectRow={ selectRowProp }
                             options={ options }>
-                {headers.map((header) => {
+                {headers.map((header, index) => {
                     return (
-                        <TableHeaderColumn dataField={header.name} isKey={header.key}>{header.label}</TableHeaderColumn>
+                        <TableHeaderColumn key={index}
+                                           dataField={header.name}
+                                           filter={{ type: 'TextFilter', delay: 100 }}
+                                           isKey={header.key}
+                                           dataSort={ true }>{header.label}</TableHeaderColumn>
                     )
                 })}
             </BootstrapTable>
