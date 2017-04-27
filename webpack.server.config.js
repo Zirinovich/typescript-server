@@ -77,25 +77,6 @@ var config = {
                 loader: 'url-loader?limit=10000&mimetype=image/svg+xml&name=fonts/[hash].[ext]'
             },
             {
-                test: /\.css$/,
-                include: path.resolve('./src'),
-                exclude: path.resolve('./src/client/common/content'),
-                loader: ExtractPlugin.extract({
-                    fallback: [{
-                        loader: 'isomorphic-style-loader',
-                    }],
-                    use: [{
-                        loader: 'css-loader',
-                        options: {
-                            modules: true,
-                            localIdentName: '[local]___[hash:base64:5]',
-                        },
-                    }, {
-                        loader: 'postcss-loader',
-                    }]
-                })
-            },
-            {
                 test: /\.scss$/,
                 include: path.resolve('./src'),
                 exclude: path.resolve('./src/client/common/content'),
@@ -118,7 +99,6 @@ var config = {
             },
             {
                 test: /\.css$/,
-                include: path.resolve('./src/client/common/content'),
                 loader: ExtractPlugin.extract({
                     fallback: [{
                         loader: 'isomorphic-style-loader',
