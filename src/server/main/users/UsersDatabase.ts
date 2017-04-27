@@ -48,7 +48,6 @@ export class UsersDatabase implements IUsersDatabase {
             });
         });
     }
-
     FindUserById(id: string, callback: (error, user?: IAccountDto)=> void): void {
 
         PostgreEngine.executeQuery({
@@ -82,5 +81,9 @@ export class UsersDatabase implements IUsersDatabase {
                 role: account.role
             });
         });
+    }
+
+    getList(){
+
     }
 }

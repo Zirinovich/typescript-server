@@ -1,3 +1,4 @@
+/*
 import {IVerifyOptions} from 'passport-local';
 import {UserRoleEnum} from "../../../../shared/ajaxDto/authentication/UserRoleEnum";
 import {IAccountDto} from "../../../_interfaces/engine/dto/IAccountDto";
@@ -80,3 +81,4 @@ export class FakeUserStore implements IUsersDatabase {
         }
     }
 }
+    */

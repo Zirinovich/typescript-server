@@ -1,7 +1,7 @@
 /** General Configurations Like PORT, HOST names and etc... */
 var sites ={
-    siteAltLan:'siteAltLan',
-    defaultSiteMini:'defaultSiteMini'
+    main:'main',
+    tmp:'tmp'
 }
 
 
@@ -11,7 +11,7 @@ var config = {
     port: process.env.PORT || 8889,
     karmaPort: 9876,
 
-    appEntryName: sites.siteAltLan,
+    appEntryName: sites.main,
     language: 'ru-RU',
 
     // This part goes to React-Helmet for Head of our HTML

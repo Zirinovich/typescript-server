@@ -1,4 +1,4 @@
-import {IArticle} from '../../defaultSiteMini/interfaces/IArticle';
+import {IArticle} from '../../tmp/interfaces/IArticle';
 import {IAction} from '../../common/interfaces/IAction';
 import {ARTICLE_GET_REQUEST, ARTICLE_GET_SUCCESS, IArticleAction, ARTICLE_GET_FAILURE} from './serverRenderActions';
 

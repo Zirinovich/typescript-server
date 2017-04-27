@@ -4,7 +4,7 @@ import {RouteProps} from '@types/react-router';
 
 import {i18n} from '../../shared/tools/i18n/i18n';
 import {App} from './pages/_app/app';
-import {routes as AdminPanelRoutes} from '../defaultAdminPanel/routes';
+import {routes as AdminPanelRoutes} from '../administration/routes';
 import {NotFound} from './pages/not_found/notFound';
 import {Home} from './pages/home/home';
 import {About} from './pages/about/about';

@@ -1,4 +1,5 @@
 import {IUsersLogic} from "../../_interfaces/main/IUsersLogic";
+import {usersDatabase} from "../../registration";
 export class UsersLogic implements IUsersLogic {
 
     public i:number = 0;
@@ -13,6 +14,9 @@ export class UsersLogic implements IUsersLogic {
         setTimeout(()=>{
             this.i++;
         },2000);
+    }
+    getList(){
+        return usersDatabase.getList();
     }
 
 }

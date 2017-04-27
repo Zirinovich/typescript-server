@@ -1,5 +1,5 @@
-import {ICounter} from "../../../client/defaultSiteMini/interfaces/ICounter";
-import {IStars} from "../../../client/defaultSiteMini/interfaces/IStars";
+import {ICounter} from "../../../client/tmp/interfaces/ICounter";
+import {IStars} from "../../../client/tmp/interfaces/IStars";
 import {II18n} from "../../common/interfaces/II18n";
 import {IScript} from '../../../client/common/interfaces/IScript';
 import {IUserDto} from "../../../shared/ajaxDto/authentication/IUserDto";
