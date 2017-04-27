@@ -23,21 +23,21 @@ const manifest = lazyRequire('../build/manifest.json');
 import * as express from 'express';
 import {serverRouter} from './server/serverRouterMiddleware'
 
-import {expressSetup, expressSessionSetup} from './server/expressSetup';
-import {passportSetup} from './server/authenticationPassport';
 const {ClientApplication} = require(APP_ENTRY_PATH);
+import {ExpressCommonTuner} from "./server/_engine/middlewares/common/ExpressCommonTuner";
+import {ExpressSessionTuner} from "./server/_engine/middlewares/common/ExpressSessionTuner";
+import {PassportLocalStrategyTuner} from "./server/_engine/middlewares/authenticationPassport/PassportLocalStrategyTuner";
 
 const Chalk = require('chalk');
 
 const app = express();
 
 
-expressSetup(app);
-expressSessionSetup(app);
-passportSetup(app);
+ExpressCommonTuner.Setup(app);
+ExpressSessionTuner.Setup(app);
+PassportLocalStrategyTuner.Setup(app);
 
 app.use(serverRouter);
-
 app.get('*', (req, res) => {
     const location = req.url;
     const memoryHistory = createMemoryHistory(req.originalUrl);

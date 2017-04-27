@@ -1,7 +1,7 @@
-import {UserRoleEnum} from "../../shared/interfaces/authentication/UserRoleEnum";
-import {IAccount} from '../../shared/interfaces/authentication/IAccount';
-import {IUserStore} from "../../shared/interfaces/authentication/IUserStore";
-import {AuthenticationErrorEnum} from "../../shared/interfaces/authentication/AuthenticationErrorEnum";
+import {UserRoleEnum} from "../../shared/ajaxDto/authentication/UserRoleEnum";
+import {IAccount} from '../../shared/ajaxDto/authentication/IAccount';
+import {IUserStore} from "../../shared/ajaxDto/authentication/IUserStore";
+import {AuthenticationErrorEnum} from "../../shared/ajaxDto/authentication/AuthenticationErrorEnum";
 import {IVerifyOptions} from 'passport-local';
 
 const constUsers: Array<any> = [{

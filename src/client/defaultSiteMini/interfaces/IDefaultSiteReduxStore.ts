@@ -1,8 +1,8 @@
 import {ICounter} from "./ICounter";
 import {IStars} from "./IStars";
-import {II18n} from "./II18n";
-import {IUser} from '../authentication/IUser';
-import {IScript} from '../common/IScript';
+import {IUser} from '../../../shared/ajaxDto/authentication/IUser';
+import {IScript} from '../../common/interfaces/IScript';
+import {II18n} from "../../common/interfaces/II18n";
 
 export interface IDefaultSiteReduxStore {
     counter?: ICounter;

@@ -7,7 +7,7 @@ import * as Helmet from 'react-helmet';
 import {Header} from '../components/header';
 import {Grid}  from 'react-bootstrap';
 const {connect} = require('react-redux');
-import {IUser} from '../../../shared/interfaces/authentication/IUser';
+import {IUser} from '../../../shared/ajaxDto/authentication/IUser';
 
 import '../../common/content/bootstrap-cerulean_theme/bootstrap.scss';
 

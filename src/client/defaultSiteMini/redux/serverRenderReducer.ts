@@ -1,5 +1,5 @@
-import {IArticle} from '../../../shared/interfaces/defaultModule/IArticle';
-import {IAction} from '../../../shared/interfaces/common/IAction';
+import {IArticle} from '../interfaces/IArticle';
+import {IAction} from '../../common/interfaces/IAction';
 import {ARTICLE_GET_REQUEST, ARTICLE_GET_SUCCESS, IArticleAction, ARTICLE_GET_FAILURE} from './serverRenderActions';
 
 const initialState: IArticle = {

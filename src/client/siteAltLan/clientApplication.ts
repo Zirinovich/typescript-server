@@ -3,7 +3,7 @@ import {combineReducers} from 'redux';
 import {reducer as formReducer} from 'redux-form'
 import {routerReducer} from 'react-router-redux';
 
-import {IDefaultSiteReduxStore} from '../../shared/interfaces/defaultModule/IDefaultSiteReduxStore';
+import {IDefaultSiteReduxStore} from '../defaultSiteMini/interfaces/IDefaultSiteReduxStore';
 import {ClientApplicationBase} from '../common/classes/ClientApplicationBase';
 import {signInReducer} from './redux/signInReducer';
 import {articleReducer} from './redux/serverRenderReducer';

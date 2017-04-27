@@ -1,7 +1,7 @@
 import * as express from 'express';
 import HTTP_STATUS_CODES from 'http-status-enum';
 import Ioc from '../../shared/classes/ioc';
-import {IAuthenticationMiddleware} from '../../shared/interfaces/authentication/IAuthenticationMiddleware';
+import {IAuthenticationMiddleware} from '../../shared/ajaxDto/authentication/IAuthenticationMiddleware';
 import {router as apiRouterPublic} from './apiRouterPublic';
 
 export const apiRouter = express.Router();

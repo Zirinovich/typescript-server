@@ -1,8 +1,8 @@
-import {IAction} from "../../../shared/interfaces/common/IAction";
+import {IAction} from "../../common/interfaces/IAction";
 //import {SubmissionError} from 'redux-form';
 import {browserHistory} from 'react-router';
 import {getMD5base64} from '../../../shared/tools/index';
-import {IUser} from '../../../shared/interfaces/authentication/IUser';
+import {IUser} from '../../../shared/ajaxDto/authentication/IUser';
 import {Core} from '../../../shared/classes/core';
 
 

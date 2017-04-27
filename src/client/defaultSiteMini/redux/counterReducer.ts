@@ -1,6 +1,6 @@
-import {ICounter} from '../../../shared/interfaces/defaultModule/ICounter';
+import {ICounter} from '../interfaces/ICounter';
 import {INCREMENT, DECREMENT, ICounterAction} from './counterActions';
-import {IAction} from "../../../shared/interfaces/common/IAction";
+import {IAction} from "../../common/interfaces/IAction";
 
 const initialState: ICounter = {
     count: 0,

@@ -3,7 +3,7 @@ import {combineReducers} from 'redux';
 import {reducer as formReducer} from 'redux-form'
 import {routerReducer} from 'react-router-redux';
 
-import {IDefaultSiteReduxStore} from '../../shared/interfaces/defaultModule/IDefaultSiteReduxStore';
+import {IDefaultSiteReduxStore} from './interfaces/IDefaultSiteReduxStore';
 import {counterReducer} from './redux/counterReducer';
 import {starsReducer} from './redux/starsReducer';
 import {signInReducer} from './redux/signInReducer';

@@ -1,11 +1,11 @@
 import {Strategy, IVerifyOptions} from 'passport-local'
 import * as passport  from "passport";
 import {Express} from "express-serve-static-core";
+import Ioc from "../../../../shared/classes/ioc";
+import {IUserStore} from "../../../../shared/ajaxDto/authentication/IUserStore";
+import {IAccount} from "../../../../shared/ajaxDto/authentication/IAccount";
+import {IAuthenticationError} from "../../../../shared/ajaxDto/authentication/IAuthenticationError";
 
-import {IAuthenticationError} from '../../shared/interfaces/authentication/IAuthenticationError';
-import {IAccount} from '../../shared/interfaces/authentication/IAccount';
-import {IUserStore} from '../../shared/interfaces/authentication/IUserStore';
-import Ioc from '../../shared/classes/ioc';
 
 export class PassportLocalStrategyTuner {
     private static store = Ioc.resolve<IUserStore>('IUserStore');
