@@ -3,10 +3,11 @@ import {combineReducers} from 'redux';
 import {reducer as formReducer} from 'redux-form'
 import {routerReducer} from 'react-router-redux';
 
-import {IDefaultSiteReduxStore} from '../tmp/interfaces/IDefaultSiteReduxStore';
+import {IDefaultSiteReduxStore} from './interfaces/IDefaultSiteReduxStore';
 import {ClientApplicationBase} from '../common/classes/ClientApplicationBase';
 import {signInReducer} from './redux/signInReducer';
 import {articleReducer} from './redux/serverRenderReducer';
+import {usersReducer} from '../administration/reducers'; //TODO: Create universal redux export
 import {i18n} from '../../shared/tools/i18n/i18n';
 import {routes} from './routes'
 
@@ -17,6 +18,7 @@ export class ClientApplication extends ClientApplicationBase<IDefaultSiteReduxSt
         i18n: i18n.getReducer(),
         form: formReducer,
         user: signInReducer,
+        users: usersReducer,
         articles: articleReducer,
         reduxAsyncConnect: reducer
     });

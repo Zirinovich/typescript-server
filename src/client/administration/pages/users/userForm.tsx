@@ -6,6 +6,10 @@ import {generator} from '../../../../shared/tools/generator';
 interface IProps {
     show: boolean;
     onHide: any;
+    id?: number;
+    name?: string;
+    login?: string;
+    password?: string;
 }
 
 interface IState {
@@ -24,25 +28,35 @@ export class UserForm extends React.Component<IProps, IState> {
 
     id = generator.genId();
 
-    loginChangeHandler(e){
+    componentDidUpdate() {
+        //console.log(this.props);
+        /*this.setState({
+         id: this.props.id,
+         name: this.props.name,
+         login: this.props.login,
+         password: this.props.password
+         });*/
+    }
+
+    loginChangeHandler(e) {
         this.setState({
-           login: e.target.value
+            login: e.target.value
         });
     }
 
-    passwordChangeHandler(e){
+    passwordChangeHandler(e) {
         this.setState({
             password: e.target.value
         });
     }
 
-    nameChangeHandler(e){
+    nameChangeHandler(e) {
         this.setState({
             name: e.target.value
         });
     }
 
-    saveClickHandler(){
+    saveClickHandler() {
         console.log(this.state);
     }
 
@@ -52,7 +66,7 @@ export class UserForm extends React.Component<IProps, IState> {
             <Modal show={show} onHide={onHide} bsSize="large" aria-labelledby={this.id}>
                 <Modal.Header closeButton>
                     <Modal.Title id={this.id}>
-                        Add User
+                        {this.props.id ? 'Edit user' : 'Add user'}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
