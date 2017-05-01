@@ -4,6 +4,7 @@ const {asyncConnect} = require('redux-connect');
 import {Grid, Row, Col, Button} from 'react-bootstrap';
 
 import {ReactBootstrapTable} from '../../../common/components/reactBootstrapTable/reactBootstrapTable';
+import {Alert, Confirm} from '../../../common/components/dialog/dialog';
 import {getUsers} from '../../redux/usersActions';
 import {UserForm} from './userForm';
 const style = require('./users.scss');
@@ -14,12 +15,16 @@ interface IProps {
 
 interface IState {
     modalShow: boolean;
+    alertShow: boolean;
+    alertText?: any;
+    confirmShow: boolean;
+    confirmText?: any;
     selected: any[];
-    currentUser: {
-        id?: number;
-        name?: string;
-        login?: string;
-        password?: string;
+    selectedUser?: {
+        id: string;
+        fullName: string;
+        username: string;
+        role: string;
     }
 }
 
@@ -37,33 +42,84 @@ export class Users extends React.Component<IProps, IState> {
 
         this.state = {
             modalShow: false,
-            selected: [],
-            currentUser: {}
+            alertShow: false,
+            confirmShow: false,
+            selected: []
         }
     }
 
     addClickHandler() {
-        this.setState({modalShow: true, currentUser: {}});
+        this.setState({modalShow: true});
     }
 
     editClickHandler() {
         const {selected} = this.state;
-        console.log('selected', selected);
-        if(selected.length === 1){
+        if (selected.length === 1) {
             this.setState({
                 modalShow: true,
-                currentUser: _.first(selected)
+                selectedUser: _.first(selected)
             });
+        } else {
+            this.alertShow('Choose one row to edit');
         }
     }
 
+    deleteClickHandler() {
+        const {selected} = this.state;
+        const length = selected.length;
+        if (length > 0) {
+            this.confirmShow('Delete ' + length + ' rows?');
+        } else {
+            this.alertShow('Choose rows to delete');
+        }
+    }
+
+    deleteConfirmClickHandler() {
+
+    }
+
     rowSelectHandler(selected) {
-        console.log('setState', selected);
         this.setState({selected});
+    }
+
+    modalClose() {
+        this.setState({
+            modalShow: false,
+            selectedUser: null
+        });
+    }
+
+    alertShow(text) {
+        this.setState({
+            alertShow: true,
+            alertText: text
+        });
+    }
+
+    alertHide() {
+        this.setState({
+            alertShow: false,
+            alertText: ''
+        });
+    }
+
+    confirmShow(text) {
+        this.setState({
+            confirmShow: true,
+            confirmText: text
+        });
+    }
+
+    confirmHide() {
+        this.setState({
+            confirmShow: false,
+            confirmText: ''
+        });
     }
 
     render() {
         const {users} = this.props;
+        const {selectedUser, modalShow, alertShow, alertText, confirmShow, confirmText} = this.state;
 
         const headers = [
             {
@@ -85,16 +141,6 @@ export class Users extends React.Component<IProps, IState> {
             }
         ];
 
-        const data = [];
-        for (let i = 0; i < 100; i++) {
-            data.push({
-                id: i,
-                name: 'user ' + i,
-                money: i * 100500
-            });
-        }
-
-        let modalClose = () => this.setState({modalShow: false});
         return (
             <Grid className={style.section}>
                 <Row>
@@ -105,14 +151,24 @@ export class Users extends React.Component<IProps, IState> {
                         <Button bsStyle="primary" onClick={this.editClickHandler.bind(this)}>
                             Edit
                         </Button>
-                        <Button bsStyle="primary">Delete</Button>
+                        <Button bsStyle="primary" onClick={this.deleteClickHandler.bind(this)}>
+                            Delete
+                        </Button>
 
-                        <UserForm show={this.state.modalShow}
-                                  onHide={modalClose}
-                                  id={this.state.currentUser.id}
-                                  login={this.state.currentUser.login}
-                                  password={this.state.currentUser.password}
-                                  name={this.state.currentUser.name}/>
+                        <UserForm show={modalShow}
+                                  onHide={this.modalClose.bind(this)}
+                                  id={selectedUser ? selectedUser.id : ''}
+                                  username={selectedUser ? selectedUser.username : ''}
+                                  fullName={selectedUser ? selectedUser.fullName : ''}/>
+                        <Alert show={alertShow}
+                               onHide={this.alertHide.bind(this)}>
+                            {alertText}
+                        </Alert>
+                        <Confirm show={confirmShow}
+                                 onHide={this.confirmHide.bind(this)}
+                                 onConfirm={this.deleteConfirmClickHandler.bind(this)}>
+                            {confirmText}
+                        </Confirm>
                     </Col>
                 </Row>
                 <Row>

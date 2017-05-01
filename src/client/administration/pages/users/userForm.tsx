@@ -1,21 +1,20 @@
 import * as React from 'react';
-import {Modal, Button, Row, Col} from 'react-bootstrap';
+import {Modal, Button, Row, Col, FormControl, ControlLabel} from 'react-bootstrap';
 
 import {generator} from '../../../../shared/tools/generator';
 
 interface IProps {
     show: boolean;
     onHide: any;
-    id?: number;
-    name?: string;
-    login?: string;
-    password?: string;
+    id?: any;
+    fullName?: string;
+    username?: string;
 }
 
 interface IState {
-    id?: number;
-    name?: string;
-    login?: string;
+    id?: any;
+    fullName?: string;
+    username?: string;
     password?: string;
 }
 
@@ -29,18 +28,20 @@ export class UserForm extends React.Component<IProps, IState> {
     id = generator.genId();
 
     componentDidUpdate() {
-        //console.log(this.props);
-        /*this.setState({
-         id: this.props.id,
-         name: this.props.name,
-         login: this.props.login,
-         password: this.props.password
-         });*/
+        const {id, fullName, username} = this.props;
+        if (id !== this.state.id) {
+            this.setState({
+                id: id,
+                fullName: fullName,
+                username: username,
+                password: ''
+            });
+        }
     }
 
-    loginChangeHandler(e) {
+    usernameChangeHandler(e) {
         this.setState({
-            login: e.target.value
+            username: e.target.value
         });
     }
 
@@ -50,9 +51,9 @@ export class UserForm extends React.Component<IProps, IState> {
         });
     }
 
-    nameChangeHandler(e) {
+    fullNameChangeHandler(e) {
         this.setState({
-            name: e.target.value
+            fullName: e.target.value
         });
     }
 
@@ -62,44 +63,39 @@ export class UserForm extends React.Component<IProps, IState> {
 
     render() {
         const {show, onHide} = this.props;
+        const {id, username, password, fullName} = this.state;
         return (
             <Modal show={show} onHide={onHide} bsSize="large" aria-labelledby={this.id}>
                 <Modal.Header closeButton>
                     <Modal.Title id={this.id}>
-                        {this.props.id ? 'Edit user' : 'Add user'}
+                        {id ? 'Edit user' : 'Add user'}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Row>
                         <Col md={4}>
-                            <label>
-                            <span>
-                                Login
-                            </span>
-                                <input type="text"
-                                       value={this.state.login}
-                                       onChange={this.loginChangeHandler.bind(this)}/>
-                            </label>
+                            <ControlLabel>Login</ControlLabel>
+                            <FormControl
+                                type="text"
+                                value={username}
+                                onChange={this.usernameChangeHandler.bind(this)}
+                            />
                         </Col>
                         <Col md={4}>
-                            <label>
-                            <span>
-                                Password
-                            </span>
-                                <input type="password"
-                                       value={this.state.password}
-                                       onChange={this.passwordChangeHandler.bind(this)}/>
-                            </label>
+                            <ControlLabel>Password</ControlLabel>
+                            <FormControl
+                                type="text"
+                                value={password}
+                                onChange={this.passwordChangeHandler.bind(this)}
+                            />
                         </Col>
                         <Col md={4}>
-                            <label>
-                            <span>
-                                Name
-                            </span>
-                                <input type="text"
-                                       value={this.state.name}
-                                       onChange={this.nameChangeHandler.bind(this)}/>
-                            </label>
+                            <ControlLabel>Name</ControlLabel>
+                            <FormControl
+                                type="text"
+                                value={fullName}
+                                onChange={this.fullNameChangeHandler.bind(this)}
+                            />
                         </Col>
                     </Row>
                 </Modal.Body>
