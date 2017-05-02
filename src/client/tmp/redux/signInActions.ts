@@ -1,4 +1,4 @@
-import {IAction} from "../../common/interfaces/IAction";
+import {IAction} from "../../_common/interfaces/IAction";
 //import {SubmissionError} from 'redux-form';
 import {browserHistory} from 'react-router';
 import {getMD5base64} from '../../../shared/tools/index';

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Grid, Row, Col, Tabs, Tab, Button, PanelGroup, Panel} from 'react-bootstrap';
-import {Icon} from '../../../common/components/icon/icon';
+import {Icon} from '../../../_common/components/icon/icon';
 
 const style = require('./sectionTabs.scss');
 

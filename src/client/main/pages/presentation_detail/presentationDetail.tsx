@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import {RevolutionSlider} from '../../../common/components/revolutionSlider/revolutionSlider';
+import {RevolutionSlider} from '../../../_common/components/revolutionSlider/revolutionSlider';
 import {Breadcrumbs} from '../../components/breadcrumbs/breadcrumbs';
 
 interface IProps {

@@ -1,6 +1,6 @@
 import {IStars} from '../interfaces/IStars';
 import {GET_REQUEST, GET_SUCCESS, GET_FAILURE, IStarsAction} from './starsActions';
-import {IAction} from "../../common/interfaces/IAction";
+import {IAction} from "../../_common/interfaces/IAction";
 
 const initialState: IStars = {
     isFetching: false,

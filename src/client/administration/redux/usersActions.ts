@@ -1,4 +1,4 @@
-import {IAction} from '../../common/interfaces/IAction';
+import {IAction} from '../../_common/interfaces/IAction';
 import {IUserDto} from '../../../shared/ajaxDto/authentication/IUserDto';
 
 export const GET_USERS_REQUEST: string = 'users/GET_USERS_REQUEST';

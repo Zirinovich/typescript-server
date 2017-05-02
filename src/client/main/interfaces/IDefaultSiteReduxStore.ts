@@ -1,5 +1,5 @@
-import {II18n} from '../../common/interfaces/II18n';
-import {IScript} from '../../../client/common/interfaces/IScript';
+import {II18n} from '../../_common/interfaces/II18n';
+import {IScript} from '../../../client/_common/interfaces/IScript';
 import {IUserDto} from '../../../shared/ajaxDto/authentication/IUserDto';
 
 export interface IDefaultSiteReduxStore {

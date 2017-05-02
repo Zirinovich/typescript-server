@@ -1,5 +1,5 @@
 // import {IStarsAction} from '../../../shared/interfaces/defaultModule/IStarsAction';
-import {IAction} from "../../common/interfaces/IAction";
+import {IAction} from "../../_common/interfaces/IAction";
 
 export const GET_REQUEST: string = 'stars/GET_REQUEST';
 export const GET_SUCCESS: string = 'stars/GET_SUCCESS';

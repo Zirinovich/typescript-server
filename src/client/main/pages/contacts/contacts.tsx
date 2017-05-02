@@ -4,7 +4,7 @@ const {connect} = require('react-redux');
 import {Grid, Row, Col, Button, Checkbox} from 'react-bootstrap';
 import {Link} from 'react-router';
 
-import {GoogleMapContainer} from '../../../common/components/googleMapContainer/googleMapContainer';
+import {GoogleMapContainer} from '../../../_common/components/googleMapContainer/googleMapContainer';
 import {i18n} from '../../../../shared/tools/i18n/i18n';
 import {Breadcrumbs} from '../../components/breadcrumbs/breadcrumbs';
 import {SectionText} from '../../components/section_text/sectionText';

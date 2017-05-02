@@ -46,7 +46,7 @@ var config = {
             {
                 test: /\.scss$/,
                 include: path.resolve('./src'),
-                exclude: path.resolve('./src/client/common/content'),
+                exclude: path.resolve('./src/client/_common/content'),
                 loader: ExtractPlugin.extract({
                     use: [{
                         loader: 'css-loader',
@@ -77,7 +77,7 @@ var config = {
             },
             {
                 test: /\.scss$/,
-                include: path.resolve('./src/client/common/content'),
+                include: path.resolve('./src/client/_common/content'),
                 loader: ExtractPlugin.extract({
                     use: [{
                         loader: 'css-loader',

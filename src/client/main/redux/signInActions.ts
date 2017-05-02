@@ -1,4 +1,4 @@
-import {IAction} from "../../common/interfaces/IAction";
+import {IAction} from "../../_common/interfaces/IAction";
 const formData = require('form-urlencoded');
 import {SubmissionError} from 'redux-form';
 import {browserHistory} from 'react-router';

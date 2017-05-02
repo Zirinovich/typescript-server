@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import {Icon} from '../../../common/components/icon/icon';
+import {Icon} from '../../../_common/components/icon/icon';
 const style = require('./scrollUp.scss');
 
 interface IProps {

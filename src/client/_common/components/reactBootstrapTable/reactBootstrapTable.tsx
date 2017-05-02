@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {BootstrapTable, TableHeaderColumn, SelectRowMode, SortOrder} from 'react-bootstrap-table';
 
-import '../../../common/content/react-bootstrap-table/react-bootstrap-table.scss';
+import '../../../_common/content/react-bootstrap-table/react-bootstrap-table.scss';
 
 interface IProps {
     headers: {

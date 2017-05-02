@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {GoogleMapContainer} from '../../common/components/googleMapContainer/googleMapContainer';
+import {GoogleMapContainer} from '../../_common/components/googleMapContainer/googleMapContainer';
 
 export class Contacts extends React.Component<any, any> {
 

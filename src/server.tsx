@@ -2,7 +2,7 @@ import './server/registration';
 
 const appConfig = require('../config/main');
 
-import "babel-polyfill";
+import 'babel-polyfill';
 import * as e6p from 'es6-promise';
 (e6p as any).polyfill();
 import 'isomorphic-fetch';
@@ -16,17 +16,17 @@ import {syncHistoryWithStore} from 'react-router-redux';
 import HTTP_STATUS_CODES from 'http-status-enum';
 const {ReduxAsyncConnect, loadOnServer} = require('redux-connect');
 
-import {Html} from "./client/common/html";
+import {Html} from './client/_common/html';
 const lazyRequire = require('lazy-require');
 const manifest = lazyRequire('../build/manifest.json');
 
 import * as express from 'express';
 
 const {ClientApplication} = require(APP_ENTRY_PATH);
-import {ExpressCommonTuner} from "./server/_engine/middlewares/common/ExpressCommonTuner";
-import {ExpressSessionTuner} from "./server/_engine/middlewares/common/ExpressSessionTuner";
-import {PassportLocalStrategyTuner} from "./server/_engine/middlewares/authenticationPassport/PassportLocalStrategyTuner";
-import {serverRouter} from "./server/_engine/routers/serverRouter";
+import {ExpressCommonTuner} from './server/_engine/middlewares/common/ExpressCommonTuner';
+import {ExpressSessionTuner} from './server/_engine/middlewares/common/ExpressSessionTuner';
+import {PassportLocalStrategyTuner} from './server/_engine/middlewares/authenticationPassport/PassportLocalStrategyTuner';
+import {serverRouter} from './server/_engine/routers/serverRouter';
 
 const Chalk = require('chalk');
 
@@ -59,7 +59,7 @@ app.get('*', (req, res) => {
                     const markup = ReactDOMServer.renderToString(
                         <Provider store={store} key="provider">
                             <ReduxAsyncConnect {...renderProps} />
-                        </Provider>,
+                        </Provider>
                     );
                     res.status(HTTP_STATUS_CODES.OK).send(renderHTML(markup, store));
                 });

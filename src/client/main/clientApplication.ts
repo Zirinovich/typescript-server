@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 
 import {IDefaultSiteReduxStore} from './interfaces/IDefaultSiteReduxStore';
-import {ClientApplicationBase} from '../common/classes/ClientApplicationBase';
+import {ClientApplicationBase} from '../_common/classes/ClientApplicationBase';
 import {reducers} from './reducers'
 import {routes} from './routes'
 

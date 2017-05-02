@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Grid, Button} from 'react-bootstrap';
 
 import {i18n} from '../../../../shared/tools/i18n/i18n';
-import {CubePortfolio} from '../../../common/components/cubePortfolio/cubePortfolio';
+import {CubePortfolio} from '../../../_common/components/cubePortfolio/cubePortfolio';
 import {Breadcrumbs} from '../../components/breadcrumbs/breadcrumbs';
 import {SectionText} from '../../components/section_text/sectionText';
 const style = require('./presentations.scss');

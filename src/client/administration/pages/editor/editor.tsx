@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Grid} from 'react-bootstrap';
 
-import {Tinymce} from '../../../common/components/tinymce/tinymce';
+import {Tinymce} from '../../../_common/components/tinymce/tinymce';
 
 interface IProps {
 

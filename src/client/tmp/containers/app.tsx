@@ -9,7 +9,7 @@ import {Grid}  from 'react-bootstrap';
 const {connect} = require('react-redux');
 import {IUserDto} from '../../../shared/ajaxDto/authentication/IUserDto';
 
-import '../../common/content/bootstrap-cerulean_theme/bootstrap.scss';
+import '../../_common/content/bootstrap-cerulean_theme/bootstrap.scss';
 
 interface IProps {
     user: IUserDto;

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {Button} from 'react-bootstrap';
 
-import {Icon} from '../../../common/components/icon/icon';
-import {RevolutionSlider} from '../../../common/components/revolutionSlider/revolutionSlider';
+import {Icon} from '../../../_common/components/icon/icon';
+import {RevolutionSlider} from '../../../_common/components/revolutionSlider/revolutionSlider';
 import {SectionCards} from '../../components/section_cards/sectionCards';
 import {SectionText} from '../../components/section_text/sectionText';
 import {SectionTabs} from '../../components/section_tabs/sectionTabs';

@@ -3,8 +3,8 @@ const {connect} = require('react-redux');
 const {asyncConnect} = require('redux-connect');
 import {Grid, Row, Col, Button} from 'react-bootstrap';
 
-import {ReactBootstrapTable} from '../../../common/components/reactBootstrapTable/reactBootstrapTable';
-import {Alert, Confirm} from '../../../common/components/dialog/dialog';
+import {ReactBootstrapTable} from '../../../_common/components/reactBootstrapTable/reactBootstrapTable';
+import {Alert, Confirm} from '../../../_common/components/dialog/dialog';
 import {getUsers, saveUser, deleteUsers} from '../../redux/usersActions';
 import {UserForm} from './userForm';
 import {IUserDto} from '../../../../shared/ajaxDto/authentication/IUserDto';

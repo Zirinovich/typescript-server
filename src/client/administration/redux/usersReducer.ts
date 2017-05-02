@@ -1,5 +1,5 @@
 import {GET_USERS_SUCCESS, IGetUsersSuccessAction} from './usersActions';
-import {IAction} from '../../common/interfaces/IAction';
+import {IAction} from '../../_common/interfaces/IAction';
 import {IUserDto} from '../../../shared/ajaxDto/authentication/IUserDto';
 
 interface IState {

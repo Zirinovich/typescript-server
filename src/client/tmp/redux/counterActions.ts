@@ -1,4 +1,4 @@
-import {IAction} from '../../common/interfaces/IAction';
+import {IAction} from '../../_common/interfaces/IAction';
 
 /** Action Types */
 export const INCREMENT: string = 'counter/INCREMENT';

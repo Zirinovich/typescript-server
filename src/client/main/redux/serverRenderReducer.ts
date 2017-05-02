@@ -1,5 +1,5 @@
 import {IArticle} from '../../tmp/interfaces/IArticle';
-import {IAction} from '../../common/interfaces/IAction';
+import {IAction} from '../../_common/interfaces/IAction';
 import {ARTICLE_GET_REQUEST, ARTICLE_GET_SUCCESS, IArticleAction, ARTICLE_GET_FAILURE} from './serverRenderActions';
 
 const initialState: IArticle = {

@@ -11,7 +11,7 @@ import {articleReducer} from './redux/serverRenderReducer';
 import {i18n} from '../../shared/tools/i18n/i18n';
 
 import {routes} from './routes'
-import {ClientApplicationBase} from '../common/classes/ClientApplicationBase';
+import {ClientApplicationBase} from '../_common/classes/ClientApplicationBase';
 
 export class ClientApplication extends ClientApplicationBase<IDefaultSiteReduxStore> {
     localizationResources = require('./localizationResurces.json');
