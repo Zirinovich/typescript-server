@@ -5,12 +5,15 @@ import {Grid, Row, Col, Button} from 'react-bootstrap';
 
 import {ReactBootstrapTable} from '../../../common/components/reactBootstrapTable/reactBootstrapTable';
 import {Alert, Confirm} from '../../../common/components/dialog/dialog';
-import {getUsers} from '../../redux/usersActions';
+import {getUsers, saveUser, deleteUsers} from '../../redux/usersActions';
 import {UserForm} from './userForm';
+import {IUserDto} from "../../../../shared/ajaxDto/authentication/IUserDto";
 const style = require('./users.scss');
 
 interface IProps {
     users: any;
+    saveUser: any;
+    deleteUsers: any;
 }
 
 interface IState {
@@ -20,12 +23,7 @@ interface IState {
     confirmShow: boolean;
     confirmText?: any;
     selected: any[];
-    selectedUser?: {
-        id: string;
-        fullName: string;
-        username: string;
-        role: string;
-    }
+    selectedUser?: IUserDto
 }
 
 @asyncConnect([{
@@ -34,7 +32,11 @@ interface IState {
     }
 }])
 @connect(
-    (state) => ({users: state.users})
+    (state) => ({users: state.users}),
+    (dispatch) => ({
+        saveUser: (user) => dispatch(saveUser(user)),
+        deleteUsers: (id) => dispatch(deleteUsers(id))
+    })
 )
 export class Users extends React.Component<IProps, IState> {
     constructor(props) {
@@ -54,10 +56,14 @@ export class Users extends React.Component<IProps, IState> {
 
     editClickHandler() {
         const {selected} = this.state;
+        const {users:{list}} = this.props;
         if (selected.length === 1) {
+            let selectedUser = list.filter((user) => {
+                return user.id === _.first(selected);
+            })[0];
             this.setState({
                 modalShow: true,
-                selectedUser: _.first(selected)
+                selectedUser
             });
         } else {
             this.alertShow('Choose one row to edit');
@@ -75,11 +81,21 @@ export class Users extends React.Component<IProps, IState> {
     }
 
     deleteConfirmClickHandler() {
-
+        const {deleteUsers} = this.props;
+        const {selected} = this.state;
+        this.clearSelected();
+        this.confirmHide();
+        deleteUsers(selected);
     }
 
     rowSelectHandler(selected) {
         this.setState({selected});
+    }
+
+    clearSelected() {
+        this.setState({
+            selected: []
+        });
     }
 
     modalClose() {
@@ -118,9 +134,8 @@ export class Users extends React.Component<IProps, IState> {
     }
 
     render() {
-        const {users} = this.props;
+        const {users, saveUser} = this.props;
         const {selectedUser, modalShow, alertShow, alertText, confirmShow, confirmText} = this.state;
-
         const headers = [
             {
                 name: 'id',
@@ -157,6 +172,7 @@ export class Users extends React.Component<IProps, IState> {
 
                         <UserForm show={modalShow}
                                   onHide={this.modalClose.bind(this)}
+                                  saveUser={saveUser}
                                   id={selectedUser ? selectedUser.id : ''}
                                   username={selectedUser ? selectedUser.username : ''}
                                   fullName={selectedUser ? selectedUser.fullName : ''}/>

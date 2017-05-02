@@ -37,20 +37,20 @@ export class ReactBootstrapTable extends React.Component<IProps, IState> {
     }
 
     selectAllHandler(isSelected, rows) {
-        const {rowSelectHandler} = this.props;
+        const {data, rowSelectHandler} = this.props;
         const {key, selected} = this.state;
 
         let result;
+        let rowIds = rows.map((row) => {
+            return row[key];
+        });
         if (isSelected) {
-            result = _.uniqBy(selected.concat(rows), ((row) => {
-                return row[key];
-            }));
+            result = _.uniq(selected.filter((rowId) => {
+                return data.map(d => d[key]).indexOf(rowId) !== -1;
+            }).concat(rowIds));
         } else {
-            let keys = rows.map((row) => {
-                return row[key];
-            });
-            result = selected.filter((row) => {
-                return keys.indexOf(row[key]) === -1;
+            result = selected.filter((rowId) => {
+                return rowIds.indexOf(rowId) === -1;
             });
         }
 

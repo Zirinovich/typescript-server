@@ -1,11 +1,15 @@
 import * as React from 'react';
 import {Modal, Button, Row, Col, FormControl, ControlLabel} from 'react-bootstrap';
 
+import {UserRoleEnum} from '../../../../shared/ajaxDto/authentication/UserRoleEnum';
+import {saveUser} from '../../redux/usersActions';
+
 import {generator} from '../../../../shared/tools/generator';
 
 interface IProps {
     show: boolean;
     onHide: any;
+    saveUser: any;
     id?: any;
     fullName?: string;
     username?: string;
@@ -13,16 +17,22 @@ interface IProps {
 
 interface IState {
     id?: any;
-    fullName?: string;
-    username?: string;
-    password?: string;
+    fullName: string;
+    username: string;
+    password: string;
+    role: number;
 }
 
 export class UserForm extends React.Component<IProps, IState> {
     constructor(props) {
         super(props);
 
-        this.state = {};
+        this.state = {
+            fullName: '',
+            username: '',
+            password: '',
+            role: 1
+        }
     }
 
     id = generator.genId();
@@ -33,8 +43,7 @@ export class UserForm extends React.Component<IProps, IState> {
             this.setState({
                 id: id,
                 fullName: fullName,
-                username: username,
-                password: ''
+                username: username
             });
         }
     }
@@ -58,7 +67,8 @@ export class UserForm extends React.Component<IProps, IState> {
     }
 
     saveClickHandler() {
-        console.log(this.state);
+        const {saveUser} = this.props;
+        saveUser(this.state);
     }
 
     render() {
