@@ -1,1 +1,5 @@
-export {usersReducer} from './redux/usersReducer';
+import {usersReducer} from './redux/usersReducer';
+
+export const reducers = {
+    users: usersReducer
+};
