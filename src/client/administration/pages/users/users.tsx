@@ -7,7 +7,7 @@ import {ReactBootstrapTable} from '../../../common/components/reactBootstrapTabl
 import {Alert, Confirm} from '../../../common/components/dialog/dialog';
 import {getUsers, saveUser, deleteUsers} from '../../redux/usersActions';
 import {UserForm} from './userForm';
-import {IUserDto} from "../../../../shared/ajaxDto/authentication/IUserDto";
+import {IUserDto} from '../../../../shared/ajaxDto/authentication/IUserDto';
 const style = require('./users.scss');
 
 interface IProps {

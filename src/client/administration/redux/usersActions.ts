@@ -1,12 +1,15 @@
 import {IAction} from '../../common/interfaces/IAction';
 import {IUserDto} from '../../../shared/ajaxDto/authentication/IUserDto';
 
-export const GET_USERS_REQUEST: string = 'stars/GET_USERS_REQUEST';
-export const GET_USERS_SUCCESS: string = 'stars/GET_USERS_SUCCESS';
-export const GET_USERS_FAILURE: string = 'stars/GET_USERS_FAILURE';
-export const SAVE_USER_REQUEST: string = 'stars/SAVE_USER_REQUEST';
-export const SAVE_USER_SUCCESS: string = 'stars/SAVE_USER_SUCCESS';
-export const SAVE_USER_FAILURE: string = 'stars/SAVE_USER_FAILURE';
+export const GET_USERS_REQUEST: string = 'users/GET_USERS_REQUEST';
+export const GET_USERS_SUCCESS: string = 'users/GET_USERS_SUCCESS';
+export const GET_USERS_FAILURE: string = 'users/GET_USERS_FAILURE';
+export const SAVE_USER_REQUEST: string = 'users/SAVE_USER_REQUEST';
+export const SAVE_USER_SUCCESS: string = 'users/SAVE_USER_SUCCESS';
+export const SAVE_USER_FAILURE: string = 'users/SAVE_USER_FAILURE';
+export const DELETE_USER_REQUEST: string = 'users/DELETE_USER_REQUEST';
+export const DELETE_USER_SUCCESS: string = 'users/DELETE_USER_SUCCESS';
+export const DELETE_USER_FAILURE: string = 'users/DELETE_USER_FAILURE';
 
 export interface IGetUsersSuccessAction extends IAction {
     list: IUserDto[];
@@ -17,6 +20,10 @@ export interface IGetUsersFailureAction extends IAction {
 }
 
 export interface ISaveUserFailureAction extends IAction {
+    errorMessage: string;
+}
+
+export interface IDeleteUserFailureAction extends IAction {
     errorMessage: string;
 }
 
@@ -149,19 +156,19 @@ export function deleteUsers(ids: string[]) {
 
 export function deleteUsersRequest(): IAction {
     return {
-        type: SAVE_USER_REQUEST
+        type: DELETE_USER_REQUEST
     };
 }
 
 export function deleteUsersSuccess(): IAction {
     return {
-        type: SAVE_USER_SUCCESS
+        type: DELETE_USER_SUCCESS
     };
 }
 
-export function deleteUsersFailure(message): ISaveUserFailureAction {
+export function deleteUsersFailure(message): IDeleteUserFailureAction {
     return {
-        type: SAVE_USER_FAILURE,
+        type: DELETE_USER_FAILURE,
         errorMessage: message
     };
 }
