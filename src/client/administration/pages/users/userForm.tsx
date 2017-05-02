@@ -67,8 +67,9 @@ export class UserForm extends React.Component<IProps, IState> {
     }
 
     saveClickHandler() {
-        const {saveUser} = this.props;
+        const {saveUser, onHide} = this.props;
         saveUser(this.state);
+        onHide();
     }
 
     render() {
