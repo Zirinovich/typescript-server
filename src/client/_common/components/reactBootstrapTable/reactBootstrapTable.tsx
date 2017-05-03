@@ -6,8 +6,9 @@ import '../../../_common/content/react-bootstrap-table/react-bootstrap-table.scs
 interface IProps {
     headers: {
         name: string;
-        label: string;
+        label?: any;
         key?: boolean;
+        hidden?: boolean;
     }[];
     data: any[];
     rowSelectHandler?: (selected: number[]) => {};
@@ -93,6 +94,7 @@ export class ReactBootstrapTable extends React.Component<IProps, IState> {
                                            dataField={header.name}
                                            filter={{ type: 'TextFilter', delay: 100 }}
                                            isKey={header.key}
+                                           hidden={header.hidden}
                                            dataSort={ true }>{header.label}</TableHeaderColumn>
                     )
                 })}

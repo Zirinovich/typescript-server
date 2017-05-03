@@ -1,14 +1,46 @@
 {
   "ru-RU": {
+    "adminPanel": "Административная панель",
+    "users": "Пользователи",
+    "rules": "Права",
+    "content": "Контент",
+    "textEditor": "Текстовый редактор",
+    "site": "Сайт",
     "create": "Создать",
     "edit": "Редактировать",
     "delete": "Удалить",
-    "save": "Сохранить"
+    "save": "Сохранить",
+    "close": "Закрыть",
+    "login": "Логин",
+    "password": "Пароль",
+    "fullName": "Полное имя",
+    "role": "Роль",
+    "chooseOneRowToEdit": "Выберите 1 строку для редактирования",
+    "deleteRows_question": "Удалить {{count}} строк(у)?",
+    "chooseRowsToDelete": "Выберите строки для удаления",
+    "addUser": "Добавить пользователя",
+    "editUser": "Редактировать пользователя"
   },
   "en-EN": {
+    "adminPanel": "Admin panel",
+    "users": "Users",
+    "rules": "Rules",
+    "content": "Content",
+    "textEditor": "Text editor",
+    "site": "Site",
     "create": "Create",
     "edit": "Edit",
     "delete": "Delete",
-    "save": "Save"
+    "save": "Save",
+    "close": "Close",
+    "login": "Login",
+    "password": "Password",
+    "fullName": "Full name",
+    "role": "Role",
+    "chooseOneRowToEdit": "Choose 1 row to edit",
+    "deleteRows_question": "Delete {{count}} row(s)?",
+    "chooseRowsToDelete": "Choose rows to delete",
+    "addUser": "Add user",
+    "editUser": "Edit user"
   }
 }

@@ -67,7 +67,7 @@ export class Users extends React.Component<IProps, IState> {
                 selectedUser
             });
         } else {
-            this.alertShow('Choose one row to edit');
+            this.alertShow(i18n.t('administration.chooseOneRowToEdit'));
         }
     }
 
@@ -75,9 +75,9 @@ export class Users extends React.Component<IProps, IState> {
         const {selected} = this.state;
         const length = selected.length;
         if (length > 0) {
-            this.confirmShow('Delete ' + length + ' rows?');
+            this.confirmShow(i18n.t('administration.deleteRows', {context: 'question', count: length}));
         } else {
-            this.alertShow('Choose rows to delete');
+            this.alertShow(i18n.t('administration.chooseRowsToDelete'));
         }
     }
 
@@ -140,20 +140,20 @@ export class Users extends React.Component<IProps, IState> {
         const headers = [
             {
                 name: 'id',
-                label: 'ID',
+                hidden: true,
                 key: true
             },
             {
                 name: 'username',
-                label: 'Login'
+                label: i18n.t('administration.login')
             },
             {
                 name: 'fullName',
-                label: 'User Name'
+                label: i18n.t('administration.fullName')
             },
             {
                 name: 'role',
-                label: 'Role'
+                label: i18n.t('administration.role')
             }
         ];
 

@@ -2,6 +2,7 @@ import * as React from 'react';
 import {Modal, Button, Row, Col, FormControl, ControlLabel} from 'react-bootstrap';
 
 import {UserRoleEnum} from '../../../../shared/ajaxDto/authentication/UserRoleEnum';
+import {i18n} from '../../../_common/tools/i18n/i18n';
 import {saveUser} from '../../redux/usersActions';
 
 import {generator} from '../../../../shared/tools/generator';
@@ -79,13 +80,13 @@ export class UserForm extends React.Component<IProps, IState> {
             <Modal show={show} onHide={onHide} bsSize="large" aria-labelledby={this.id}>
                 <Modal.Header closeButton>
                     <Modal.Title id={this.id}>
-                        {id ? 'Edit user' : 'Add user'}
+                        {id ? i18n.t('administration.addUser') : i18n.t('administration.addUser')}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Row>
                         <Col md={4}>
-                            <ControlLabel>Login</ControlLabel>
+                            <ControlLabel>{i18n.t('administration.login')}</ControlLabel>
                             <FormControl
                                 type="text"
                                 value={username}
@@ -93,7 +94,7 @@ export class UserForm extends React.Component<IProps, IState> {
                             />
                         </Col>
                         <Col md={4}>
-                            <ControlLabel>Password</ControlLabel>
+                            <ControlLabel>{i18n.t('administration.password')}</ControlLabel>
                             <FormControl
                                 type="text"
                                 value={password}
@@ -101,7 +102,7 @@ export class UserForm extends React.Component<IProps, IState> {
                             />
                         </Col>
                         <Col md={4}>
-                            <ControlLabel>Name</ControlLabel>
+                            <ControlLabel>{i18n.t('administration.fullName')}</ControlLabel>
                             <FormControl
                                 type="text"
                                 value={fullName}
@@ -111,8 +112,8 @@ export class UserForm extends React.Component<IProps, IState> {
                     </Row>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button bsStyle="primary" onClick={this.saveClickHandler.bind(this)}>Save</Button>
-                    <Button onClick={onHide}>Close</Button>
+                    <Button bsStyle="primary" onClick={this.saveClickHandler.bind(this)}>{i18n.t('administration.save')}</Button>
+                    <Button onClick={onHide}>{i18n.t('administration.close')}</Button>
                 </Modal.Footer>
             </Modal>
         )

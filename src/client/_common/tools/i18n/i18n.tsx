@@ -4,8 +4,8 @@ import {i18nReducer} from './i18nReducer';
 import {Loc} from './loc';
 
 class I18n {
-    t(key) {
-        return <Loc locKey={key}/>
+    t(key: string, options?: any) {
+        return <Loc locKey={key} options={options}/>
     }
 
     getCurrentDictionary(state: any) {
