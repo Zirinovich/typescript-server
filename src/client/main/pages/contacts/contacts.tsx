@@ -5,7 +5,7 @@ import {Grid, Row, Col, Button, Checkbox} from 'react-bootstrap';
 import {Link} from 'react-router';
 
 import {GoogleMapContainer} from '../../../_common/components/googleMapContainer/googleMapContainer';
-import {i18n} from '../../../../shared/tools/i18n/i18n';
+import {i18n} from '../../../_common/tools/i18n/i18n';
 import {Breadcrumbs} from '../../components/breadcrumbs/breadcrumbs';
 import {SectionText} from '../../components/section_text/sectionText';
 import {IconInput} from '../../components/icon_input/iconInput';
@@ -45,7 +45,7 @@ export class Contacts extends React.Component<IProps, IState> {
         return (
             <div>
                 <SectionText subtitle={textSectionSubtitle} button={<Button bsStyle="primary">Узнать больше</Button>}/>
-                <Breadcrumbs title={i18n.t('contactsPage')} params={this.props.params} routes={this.props.routes}/>
+                <Breadcrumbs title={i18n.t('main.contactsPage')} params={this.props.params} routes={this.props.routes}/>
 
                 <div className={style.section}>
                     <Grid>
@@ -60,17 +60,17 @@ export class Contacts extends React.Component<IProps, IState> {
 
                             <form>
                                 <h2 className={style.title}>
-                                    {i18n.t('sendUsMessage')}
+                                    {i18n.t('main.sendUsMessage')}
                                 </h2>
                                 <fieldset>
                                     <section>
                                         <Row>
                                             <Col md={6}>
-                                                <label className={style.label}>{i18n.t('username')}</label>
+                                                <label className={style.label}>{i18n.t('main.username')}</label>
                                                 <IconInput name="name" iconName="user"/>
                                             </Col>
                                             <Col md={6}>
-                                                <label className={style.label}>{i18n.t('email')}</label>
+                                                <label className={style.label}>{i18n.t('main.email')}</label>
                                                 <IconInput name="email" iconName="envelope"/>
                                             </Col>
                                         </Row>
@@ -79,7 +79,7 @@ export class Contacts extends React.Component<IProps, IState> {
                                     <section>
                                         <Row>
                                             <Col md={12}>
-                                                <label className={style.label}>{i18n.t('subject')}</label>
+                                                <label className={style.label}>{i18n.t('main.subject')}</label>
                                                 <IconInput name="subject" iconName="tag"/>
                                             </Col>
                                         </Row>
@@ -88,7 +88,7 @@ export class Contacts extends React.Component<IProps, IState> {
                                     <section>
                                         <Row>
                                             <Col md={12}>
-                                                <label className={style.label}>{i18n.t('message')}</label>
+                                                <label className={style.label}>{i18n.t('main.message')}</label>
                                                 <IconTextarea name="message" iconName="comment"/>
                                             </Col>
                                         </Row>
@@ -99,31 +99,31 @@ export class Contacts extends React.Component<IProps, IState> {
                                             <Col md={12}>
                                                 <label className="checkbox">
                                                     <Checkbox inline={true}/>
-                                                    {i18n.t('sendCopyToMyEmailAddress')}</label>
+                                                    {i18n.t('main.sendCopyToMyEmailAddress')}</label>
                                             </Col>
                                         </Row>
                                     </section>
                                 </fieldset>
                                 <footer>
-                                    <Button type="submit" bsStyle="primary">{i18n.t('actionSend')}</Button>
+                                    <Button type="submit" bsStyle="primary">{i18n.t('main.actionSend')}</Button>
                                 </footer>
                             </form>
                         </Col>
 
                         <Col md={4}>
                             <div className={style.info}>
-                                <h4 className={style.title}>{i18n.t('phoneNumberForCommunications')}</h4>
-                                <p>{i18n.t('reception')} <strong>{company.phone}</strong></p>
+                                <h4 className={style.title}>{i18n.t('main.phoneNumberForCommunications')}</h4>
+                                <p>{i18n.t('main.reception')} <strong>{company.phone}</strong></p>
                             </div>
 
                             <div className={style.info}>
-                                <h4 className={style.title}>{i18n.t('addressInfo')}</h4>
+                                <h4 className={style.title}>{i18n.t('main.addressInfo')}</h4>
                                 <ul>
                                     <li>
                                         <h5>{company.name}</h5>
                                         {company.address}<br/>
-                                        {i18n.t('email')}: <a href={company.email}>{company.email}</a><br/>
-                                        {i18n.t('website')}: <Link to="/">{company.website}</Link>
+                                        {i18n.t('main.email')}: <a href={company.email}>{company.email}</a><br/>
+                                        {i18n.t('main.website')}: <Link to="/">{company.website}</Link>
                                     </li>
                                 </ul>
                             </div>

@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Link} from 'react-router';
 import {Button} from 'react-bootstrap';
 
-import {i18n} from "../../../../shared/tools/i18n/i18n";
+import {i18n} from "../../tools/i18n/i18n";
 import '../../content/cuberportfolio/cuberportfolio.scss';
 
 interface IProps {

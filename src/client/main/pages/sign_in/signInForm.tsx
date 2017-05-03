@@ -2,7 +2,7 @@ import * as React from 'react';
 import {reduxForm} from 'redux-form';
 import {Grid, Row, Col, Button} from 'react-bootstrap';
 
-import {i18n} from '../../../../shared/tools/i18n/i18n';
+import {i18n} from '../../../_common/tools/i18n/i18n';
 import {IconInput} from '../../components/icon_input/iconInput';
 const style = require('./signInForm.scss');
 
@@ -30,13 +30,13 @@ export class SignInForm extends React.Component<IProps, any> {
                             <form action={actionUrl}
                                   method={method}
                                   onSubmit={handleSubmit}>
-                                <header>{i18n.t('loginForm')}</header>
+                                <header>{i18n.t('main.loginForm')}</header>
 
                                 <fieldset>
                                     <section>
                                         <Row>
                                             <Col md={4}>
-                                                <label>{i18n.t('login')}</label>
+                                                <label>{i18n.t('main.login')}</label>
                                             </Col>
                                             <Col md={8}>
                                                 <IconInput name="username"
@@ -48,7 +48,7 @@ export class SignInForm extends React.Component<IProps, any> {
                                     <section>
                                         <Row>
                                             <Col md={4}>
-                                                <label>{i18n.t('password')}</label>
+                                                <label>{i18n.t('main.password')}</label>
                                             </Col>
                                             <Col md={8}>
                                                 <IconInput name="password"
@@ -56,7 +56,7 @@ export class SignInForm extends React.Component<IProps, any> {
                                                            iconName="lock"/>
                                                 <div className={style.note}>
                                                     <a href="#sky-form2"
-                                                       className="modal-opener">{i18n.t('forgotPassword')}</a>
+                                                       className="modal-opener">{i18n.t('main.forgotPassword')}</a>
                                                 </div>
                                             </Col>
                                         </Row>
@@ -74,7 +74,7 @@ export class SignInForm extends React.Component<IProps, any> {
                                 <footer>
                                     <Button type="submit"
                                             bsStyle="primary"
-                                            disabled={submitting}>{i18n.t('actionLogin')}</Button>
+                                            disabled={submitting}>{i18n.t('main.actionLogin')}</Button>
                                 </footer>
                             </form>
                         </div>

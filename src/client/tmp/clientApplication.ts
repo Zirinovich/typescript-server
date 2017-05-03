@@ -8,7 +8,7 @@ import {counterReducer} from './redux/counterReducer';
 import {starsReducer} from './redux/starsReducer';
 import {signInReducer} from './redux/signInReducer';
 import {articleReducer} from './redux/serverRenderReducer';
-import {i18n} from '../../shared/tools/i18n/i18n';
+import {i18n} from '../_common/tools/i18n/i18n';
 
 import {routes} from './routes'
 import {ClientApplicationBase} from '../_common/classes/ClientApplicationBase';

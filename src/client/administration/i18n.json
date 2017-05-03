@@ -1,0 +1,14 @@
+{
+  "ru-RU": {
+    "create": "Создать",
+    "edit": "Редактировать",
+    "delete": "Удалить",
+    "save": "Сохранить"
+  },
+  "en-EN": {
+    "create": "Create",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save"
+  }
+}

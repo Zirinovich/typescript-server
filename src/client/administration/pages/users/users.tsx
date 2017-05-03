@@ -3,11 +3,12 @@ const {connect} = require('react-redux');
 const {asyncConnect} = require('redux-connect');
 import {Grid, Row, Col, Button} from 'react-bootstrap';
 
+import {IUserDto} from '../../../../shared/ajaxDto/authentication/IUserDto';
 import {ReactBootstrapTable} from '../../../_common/components/reactBootstrapTable/reactBootstrapTable';
 import {Alert, Confirm} from '../../../_common/components/dialog/dialog';
+import {i18n} from '../../../_common/tools/i18n/i18n';
 import {getUsers, saveUser, deleteUsers} from '../../redux/usersActions';
 import {UserForm} from './userForm';
-import {IUserDto} from '../../../../shared/ajaxDto/authentication/IUserDto';
 const style = require('./users.scss');
 
 interface IProps {
@@ -161,13 +162,13 @@ export class Users extends React.Component<IProps, IState> {
                 <Row>
                     <Col md={12} className={style.buttons_wrapper}>
                         <Button bsStyle="primary" onClick={this.addClickHandler.bind(this)}>
-                            Add
+                            {i18n.t('administration.create')}
                         </Button>
                         <Button bsStyle="primary" onClick={this.editClickHandler.bind(this)}>
-                            Edit
+                            {i18n.t('administration.edit')}
                         </Button>
                         <Button bsStyle="primary" onClick={this.deleteClickHandler.bind(this)}>
-                            Delete
+                            {i18n.t('administration.delete')}
                         </Button>
 
                         <UserForm show={modalShow}

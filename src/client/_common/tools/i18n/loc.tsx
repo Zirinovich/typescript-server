@@ -3,9 +3,9 @@ import * as i18next from 'i18next';
 const {connect} = require('react-redux');
 
 interface IProps {
-    currentLanguage?:string;
-    resources?:any;
-    locKey:string;
+    currentLanguage?: string;
+    resources?: any;
+    locKey: string;
 }
 
 interface IState {

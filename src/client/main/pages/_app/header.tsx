@@ -6,16 +6,14 @@ const {connect} = require('react-redux');
 const Sticky = require('sticky-js');
 
 import {IUserDto} from '../../../../shared/ajaxDto/authentication/IUserDto';
-import {i18n} from '../../../../shared/tools/i18n/i18n';
+import {i18n} from '../../../_common/tools/i18n/i18n';
+import {ILanguage} from '../../../_common/tools/i18n/II18n';
 import {Icon} from '../../../_common/components/icon/icon';
 const style = require('./header.scss');
 
 interface IProps {
     currentLanguage?: string;
-    languages?: {
-        code: string;
-        name: string;
-    }[]
+    languages?: ILanguage[]
     dictionary?: any;
     user: IUserDto;
     logout: ()=>void;
@@ -42,8 +40,10 @@ export class Header extends React.Component<IProps, IState> {
     }
 
     languageChangeHandler(e) {
-        let language = e.target.value;
-        this.props.setCurrentLanguage(language);
+        const language = e.target.value;
+        const {setCurrentLanguage} = this.props;
+
+        setCurrentLanguage(language);
     }
 
     render() {
@@ -52,23 +52,23 @@ export class Header extends React.Component<IProps, IState> {
         const pageLinks = [
             {
                 to: '/',
-                label: i18n.t('mainPage')
+                label: i18n.t('main.mainPage')
             },
             {
                 to: '/contacts',
-                label: i18n.t('contactsPage')
+                label: i18n.t('main.contactsPage')
             },
             {
                 to: '/presentations',
-                label: i18n.t('presentationsPage')
+                label: i18n.t('main.presentationsPage')
             },
             {
                 to: '/partners',
-                label: i18n.t('partnersPage')
+                label: i18n.t('main.partnersPage')
             },
             {
                 to: '/oss',
-                label: i18n.t('ossPage')
+                label: i18n.t('main.ossPage')
             }
         ];
         return (
@@ -87,26 +87,26 @@ export class Header extends React.Component<IProps, IState> {
                                     { user &&
                                     <li>
                                         <Link to="/admin">
-                                            <Icon name="gears"/>{i18n.t('adminPanel')}
+                                            <Icon name="gears"/>{i18n.t('main.adminPanel')}
                                         </Link>
                                     </li>
                                     }
                                     { user ?
                                         <li>
                                             <a href="#" onClick={logout}>
-                                                <Icon name="user"/>{i18n.t('actionLogout')}
+                                                <Icon name="user"/>{i18n.t('main.actionLogout')}
                                             </a>
                                         </li>
                                         :
                                         <li>
                                             <Link to="/login">
-                                                <Icon name="user"/>{i18n.t('actionLogin')}
+                                                <Icon name="user"/>{i18n.t('main.actionLogin')}
                                             </Link>
                                         </li>
                                     }
                                     <li>
                                         <div>
-                                            <Icon name="language"/>{i18n.t('language')}
+                                            <Icon name="language"/>{i18n.t('main.language')}
                                             <select className={style.select}
                                                     onChange={this.languageChangeHandler.bind(this)}
                                                     value={currentLanguage}>

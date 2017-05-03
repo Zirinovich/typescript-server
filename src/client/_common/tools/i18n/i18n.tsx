@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {setCurrentLanguage, setResources} from './i18nActions';
+import {setCurrentLanguage, setLanguages, setResources} from './i18nActions';
 import {i18nReducer} from './i18nReducer';
 import {Loc} from './loc';
 
@@ -26,6 +26,7 @@ class I18n {
 
     setCurrentLanguage = setCurrentLanguage;
     setResources = setResources;
+    setLanguages = setLanguages;
 }
 
 const i18n = new I18n();

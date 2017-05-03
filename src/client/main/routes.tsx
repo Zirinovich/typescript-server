@@ -2,7 +2,7 @@ import * as React from 'react';
 import {IndexRoute, Route} from 'react-router';
 import {RouteProps} from '@types/react-router';
 
-import {i18n} from '../../shared/tools/i18n/i18n';
+import {i18n} from '../_common/tools/i18n/i18n';
 import {App} from './pages/_app/app';
 import {routes as AdminPanelRoutes} from '../administration/routes';
 import {NotFound} from './pages/not_found/notFound';
