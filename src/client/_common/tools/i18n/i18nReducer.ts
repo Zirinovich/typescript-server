@@ -1,7 +1,11 @@
+import {IAction} from '../../interfaces/IAction';
 import {
     SET_CURRENT_LANGUAGE,
     SET_LANGUAGES,
-    SET_RESOURCES
+    SET_RESOURCES,
+    ISetCurrentLanguageAction,
+    ISetLanguagesAction,
+    ISetResources
 } from './i18nActions';
 import {II18n} from './II18n';
 
@@ -11,30 +15,32 @@ const initialState: II18n = {
     resources: {}
 };
 
-export function i18nReducer(state = initialState, action) {
+export function i18nReducer(state = initialState, action: IAction) {
     switch (action.type) {
         case SET_CURRENT_LANGUAGE: {
+            const {languageCode} = <ISetCurrentLanguageAction>action;
             return Object.assign({}, state, {
-                currentLanguage: action.languageCode
+                currentLanguage: languageCode
             });
         }
 
         case SET_LANGUAGES : {
-            return Object.assign({}, state, {
-                languages: action.languages
-            });
+            const {languages} = <ISetLanguagesAction>action;
+            return Object.assign({}, state, {languages});
         }
 
         case SET_RESOURCES: {
+            const {key, resources} = <ISetResources>action;
             const languages = state.languages;
-            let resources = state.resources;
+            let resourcesObject = state.resources;
+
             const resourcesKey = 'translation';
             languages.map((lang) => {
-                if(!resources[lang.code]) resources[lang.code] = {};
-                if(!resources[lang.code][resourcesKey]) resources[lang.code][resourcesKey] = {};
-                resources[lang.code][resourcesKey][action.key] = action.resources[lang.code];
+                if(!resourcesObject[lang.code]) resourcesObject[lang.code] = {};
+                if(!resourcesObject[lang.code][resourcesKey]) resourcesObject[lang.code][resourcesKey] = {};
+                resourcesObject[lang.code][resourcesKey][key] = resources[lang.code];
             });
-            return Object.assign({}, state, {resources});
+            return Object.assign({}, state, {resources: resourcesObject});
         }
 
         default:
