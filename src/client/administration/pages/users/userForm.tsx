@@ -1,16 +1,14 @@
 import * as React from 'react';
 import {Modal, Button, Row, Col, FormControl, ControlLabel} from 'react-bootstrap';
 
-import {i18n} from '../../../_common/tools/i18n/i18n';
 import {generator} from '../../../../shared/tools/generator';
+import {i18n} from '../../../_common/tools/i18n/i18n';
 
 interface IProps {
     show: boolean;
     onHide: any;
-    saveUser: any;
-    id?: any;
-    fullName?: string;
-    username?: string;
+    save: any;
+    data?: any;
 }
 
 interface IState {
@@ -36,12 +34,13 @@ export class UserForm extends React.Component<IProps, IState> {
     id = generator.genId();
 
     componentDidUpdate() {
-        const {id, fullName, username} = this.props;
-        if (id !== this.state.id) {
+        const {data} = this.props;
+        const {id} = this.state;
+        if (data.id !== id) {
             this.setState({
-                id: id,
-                fullName: fullName,
-                username: username
+                id: data.id,
+                fullName: data.fullName,
+                username: data.username
             });
         }
     }
@@ -65,8 +64,8 @@ export class UserForm extends React.Component<IProps, IState> {
     }
 
     saveClickHandler() {
-        const {saveUser, onHide} = this.props;
-        saveUser(this.state);
+        const {save, onHide} = this.props;
+        save(this.state);
         onHide();
     }
 

@@ -1,15 +1,11 @@
 import * as React from 'react';
 const {connect} = require('react-redux');
 const {asyncConnect} = require('redux-connect');
-import {Grid, Row, Col, Button} from 'react-bootstrap';
 
-import {IUserDto} from '../../../../shared/ajaxDto/authentication/IUserDto';
-import {ReactBootstrapTable} from '../../../_common/components/reactBootstrapTable/reactBootstrapTable';
-import {Alert, Confirm} from '../../../_common/components/dialog/dialog';
 import {i18n} from '../../../_common/tools/i18n/i18n';
+import {Crud} from '../../../_common/components/crud/crud';
 import {getUsers, saveUser, deleteUsers} from '../../redux/usersActions';
 import {UserForm} from './userForm';
-const style = require('./users.scss');
 
 interface IProps {
     users: any;
@@ -18,13 +14,7 @@ interface IProps {
 }
 
 interface IState {
-    modalShow: boolean;
-    alertShow: boolean;
-    alertText?: any;
-    confirmShow: boolean;
-    confirmText?: any;
-    selected: any[];
-    selectedUser?: IUserDto
+
 }
 
 @asyncConnect([{
@@ -40,103 +30,8 @@ interface IState {
     })
 )
 export class Users extends React.Component<IProps, IState> {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            modalShow: false,
-            alertShow: false,
-            confirmShow: false,
-            selected: []
-        }
-    }
-
-    addClickHandler() {
-        this.setState({modalShow: true});
-    }
-
-    editClickHandler() {
-        const {selected} = this.state;
-        const {users:{list}} = this.props;
-        if (selected.length === 1) {
-            let selectedUser = list.filter((user) => {
-                return user.id === _.first(selected);
-            })[0];
-            this.setState({
-                modalShow: true,
-                selectedUser
-            });
-        } else {
-            this.alertShow(i18n.t('administration.chooseOneRowToEdit'));
-        }
-    }
-
-    deleteClickHandler() {
-        const {selected} = this.state;
-        const length = selected.length;
-        if (length > 0) {
-            this.confirmShow(i18n.t('administration.deleteRows', {context: 'question', count: length}));
-        } else {
-            this.alertShow(i18n.t('administration.chooseRowsToDelete'));
-        }
-    }
-
-    deleteConfirmClickHandler() {
-        const {deleteUsers} = this.props;
-        const {selected} = this.state;
-        this.clearSelected();
-        this.confirmHide();
-        deleteUsers(selected);
-    }
-
-    rowSelectHandler(selected) {
-        this.setState({selected});
-    }
-
-    clearSelected() {
-        this.setState({
-            selected: []
-        });
-    }
-
-    modalClose() {
-        this.setState({
-            modalShow: false,
-            selectedUser: null
-        });
-    }
-
-    alertShow(text) {
-        this.setState({
-            alertShow: true,
-            alertText: text
-        });
-    }
-
-    alertHide() {
-        this.setState({
-            alertShow: false,
-            alertText: ''
-        });
-    }
-
-    confirmShow(text) {
-        this.setState({
-            confirmShow: true,
-            confirmText: text
-        });
-    }
-
-    confirmHide() {
-        this.setState({
-            confirmShow: false,
-            confirmText: ''
-        });
-    }
-
     render() {
-        const {users, saveUser} = this.props;
-        const {selectedUser, modalShow, alertShow, alertText, confirmShow, confirmText} = this.state;
+        const {users: {list}, saveUser, deleteUsers} = this.props;
         const headers = [
             {
                 name: 'id',
@@ -156,46 +51,8 @@ export class Users extends React.Component<IProps, IState> {
                 label: i18n.t('administration.role')
             }
         ];
-
         return (
-            <Grid className={style.section}>
-                <Row>
-                    <Col md={12} className={style.buttons_wrapper}>
-                        <Button bsStyle="primary" onClick={this.addClickHandler.bind(this)}>
-                            {i18n.t('administration.create')}
-                        </Button>
-                        <Button bsStyle="primary" onClick={this.editClickHandler.bind(this)}>
-                            {i18n.t('administration.edit')}
-                        </Button>
-                        <Button bsStyle="primary" onClick={this.deleteClickHandler.bind(this)}>
-                            {i18n.t('administration.delete')}
-                        </Button>
-
-                        <UserForm show={modalShow}
-                                  onHide={this.modalClose.bind(this)}
-                                  saveUser={saveUser}
-                                  id={selectedUser ? selectedUser.id : ''}
-                                  username={selectedUser ? selectedUser.username : ''}
-                                  fullName={selectedUser ? selectedUser.fullName : ''}/>
-                        <Alert show={alertShow}
-                               onHide={this.alertHide.bind(this)}>
-                            {alertText}
-                        </Alert>
-                        <Confirm show={confirmShow}
-                                 onHide={this.confirmHide.bind(this)}
-                                 onConfirm={this.deleteConfirmClickHandler.bind(this)}>
-                            {confirmText}
-                        </Confirm>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col md={12}>
-                        <ReactBootstrapTable headers={headers}
-                                             data={users.list}
-                                             rowSelectHandler={this.rowSelectHandler.bind(this)}/>
-                    </Col>
-                </Row>
-            </Grid>
-        );
+            <Crud headers={headers} data={list} save={saveUser} deleteRows={deleteUsers} ModalForm={UserForm}/>
+        )
     }
 }
