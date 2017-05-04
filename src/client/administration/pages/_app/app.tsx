@@ -3,8 +3,8 @@ import {Clearfix}  from 'react-bootstrap';
 const {connect} = require('react-redux');
 
 import {i18n} from '../../../_common/tools/i18n/i18n';
-import {Header} from './header';
 const i18nResources = require('../../i18n.json');
+import {Header} from './header';
 const style = require('./app.scss');
 
 interface IProps {

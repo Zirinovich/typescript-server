@@ -1,13 +1,24 @@
 import * as React from 'react';
 import * as Helmet from 'react-helmet';
 import * as fs from "fs";
+const {connect} = require('react-redux');
+
+import {i18n} from './tools/i18n/i18n';
+const i18nResources = require('./i18n.json');
 
 interface IHtmlProps {
     manifest?: any;
     markup?: string;
     store?: any;
+    setResources?: any;
 }
 
+@connect(
+    (state) => ({user: state.user}),
+    (dispatch) => ({
+        setResources: (resources, key) => dispatch(i18n.setResources(resources, key))
+    })
+)
 class Html extends React.Component<IHtmlProps, {}> {
     static extractTextPluginStyleBundles = fs.readdirSync('./build/public/css').filter(o => /\.css$/.test(o)).map(file => '/public/css/' + file);
 
@@ -18,6 +29,11 @@ class Html extends React.Component<IHtmlProps, {}> {
             }
             return '/public/' + this.props.manifest[src];
         }).filter((file) => file !== undefined);
+    }
+
+    componentWillMount() {
+        const {setResources} = this.props;
+        setResources('_common', i18nResources);
     }
 
     public render() {

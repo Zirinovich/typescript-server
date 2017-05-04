@@ -1,10 +1,7 @@
 import * as React from 'react';
 import {Modal, Button, Row, Col, FormControl, ControlLabel} from 'react-bootstrap';
 
-import {UserRoleEnum} from '../../../../shared/ajaxDto/authentication/UserRoleEnum';
 import {i18n} from '../../../_common/tools/i18n/i18n';
-import {saveUser} from '../../redux/usersActions';
-
 import {generator} from '../../../../shared/tools/generator';
 
 interface IProps {

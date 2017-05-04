@@ -1,0 +1,16 @@
+{
+  "ru-RU": {
+    "close": "Закрыть",
+    "attention": "Внимание",
+    "confirmAction": "Подтвердите действие",
+    "ok": "Ок",
+    "cancel": "Отмена"
+  },
+  "en-EN": {
+    "close": "Close",
+    "attention": "Attention",
+    "confirmAction": "Confirm action",
+    "ok": "Ok",
+    "cancel": "Cancel"
+  }
+}

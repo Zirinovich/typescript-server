@@ -2,6 +2,7 @@ import * as React from 'react';
 import {Modal, Button} from 'react-bootstrap';
 
 import {generator} from '../../../../shared/tools/generator';
+import {i18n} from '../../tools/i18n/i18n';
 
 interface IProps {
     show: boolean;
@@ -22,14 +23,14 @@ export class Alert extends React.Component<IProps, IState> {
             <Modal show={show} onHide={onHide} aria-labelledby={this.id}>
                 <Modal.Header closeButton>
                     <Modal.Title id={this.id}>
-                        {title ? title : 'Attention!'}
+                        {title ? title : i18n.t('_common.attention')}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {children}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={onHide}>Close</Button>
+                    <Button onClick={onHide}>{i18n.t('_common.close')}</Button>
                 </Modal.Footer>
             </Modal>
         )
