@@ -28,7 +28,7 @@ interface IProps {
 }
 
 interface IState {
-    modalShow: boolean;
+    modalsShow: boolean[];
     alertShow: boolean;
     alertText?: any;
     confirmShow: boolean;
@@ -42,7 +42,7 @@ export class Crud extends React.Component<IProps, IState> {
         super(props);
 
         this.state = {
-            modalShow: false,
+            modalsShow: [],
             alertShow: false,
             confirmShow: false,
             selected: [],
@@ -60,25 +60,45 @@ export class Crud extends React.Component<IProps, IState> {
         });
     }
 
+    setModalShow(index, value) {
+        console.log('setModalShow', index, value);
+        let {modalsShow} = this.state;
+        modalsShow[index] = value;
+        this.setState({
+            modalsShow
+        });
+    }
+
     render() {
         const {headers, data, actions} = this.props;
-        const {selected, selectedRowData, modalShow, alertShow, alertText, confirmShow, confirmText} = this.state;
+        const {selected, selectedRowData, modalsShow} = this.state;
 
+        const setModalShow = this.setModalShow.bind(this);
         return (
             <Grid className={style.section}>
                 <Row>
                     <Col md={12} className={style.buttons_wrapper}>
                         {
-                            actions.map((action) => {
+                            actions.map((action, index) => {
                                 return (
                                     React.cloneElement(action.element, {
                                             onClick: function () {
+                                                setModalShow(index, true);
                                                 action.click(selected, function (state) {
-                                                    this.setState(state);
+                                                    //this.setState(state);
                                                 });
                                             }
                                         }
                                     )
+                                )
+                            })
+                        }
+                        {
+                            actions.map((action, index) => {
+                                const {Form} = action;
+                                return (
+                                    Form &&
+                                    <Form show={modalsShow[index]} onHide={setModalShow.bind(this, index, false)}/>
                                 )
                             })
                         }

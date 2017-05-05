@@ -1,18 +1,37 @@
 import * as React from 'react';
+const {connect} = require('react-redux');
+const {asyncConnect} = require('redux-connect');
 import {Button} from 'react-bootstrap';
 
 import {Crud} from './crud';
+import {getRoles, saveRole, deleteRoles} from '../../redux/rolesActions';
+import {RoleForm} from './roleForm';
 
 interface IProps {
-
+    roles: any;
+    saveRole: any;
+    deleteRoles: any;
 }
 
 interface IState {
 
 }
 
+@asyncConnect([{
+    promise: ({store: {dispatch}}) => {
+        return dispatch(getRoles());
+    }
+}])
+@connect(
+    (state) => ({roles: state.roles}),
+    (dispatch) => ({
+        saveRole: (user) => dispatch(saveRole(user)),
+        deleteRoles: (id) => dispatch(deleteRoles(id))
+    })
+)
 export class Rules extends React.Component<IProps, IState> {
     render() {
+        const {roles: {list}} = this.props;
         const headers = [
             {
                 name: 'id',
@@ -28,23 +47,7 @@ export class Rules extends React.Component<IProps, IState> {
                 label: 'Lalala'
             }
         ];
-        const data = [
-            {
-                id: 1,
-                lol: 'LOL 1',
-                lalala: 'УоТакУот'
-            },
-            {
-                id: 2,
-                lol: 'LOL 2',
-                lalala: 'УоТакУот'
-            },
-            {
-                id: 3,
-                lol: 'LOL 3',
-                lalala: 'УоТакУот'
-            }
-        ];
+
         const actions = [
             {
                 element: <Button>Трус</Button>,
@@ -62,11 +65,12 @@ export class Rules extends React.Component<IProps, IState> {
                 element: <Button>Бывалый</Button>,
                 click: (selected) => {
                     console.log('Бывалый', selected);
-                }
+                },
+                Form: RoleForm
             }
         ];
         return (
-            <Crud headers={headers} data={data} actions={actions}/>
+            <Crud headers={headers} data={list} actions={actions}/>
         )
     }
 }
