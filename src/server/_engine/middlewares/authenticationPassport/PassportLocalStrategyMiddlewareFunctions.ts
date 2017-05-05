@@ -13,6 +13,7 @@ export class PassportLocalStrategyMiddlewareFunctions implements IAuthentication
                     case AuthenticationErrorEnum.SystemError:
                         return res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR).send(err.message);
                     case AuthenticationErrorEnum.NoSuchUser:
+                    case AuthenticationErrorEnum.UserAccountDisabled:
                         return res.status(HTTP_STATUS_CODES.OK).json({errors: {username: err.message}});
                     case AuthenticationErrorEnum.WrongPassword:
                         return res.status(HTTP_STATUS_CODES.OK).json({errors: {password: err.message}});

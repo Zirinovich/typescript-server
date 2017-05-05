@@ -1,89 +1,69 @@
-
 import {PostgreEngine} from "../../_engine/database/postgreEngine";
 import {IVerifyOptions} from "passport-local";
 import {IAccountDto} from "../../_interfaces/engine/dto/IAccountDto";
 import {AuthenticationErrorEnum} from "../../../shared/ajaxDto/authentication/AuthenticationErrorEnum";
 import {IUsersDatabase} from "../../_interfaces/main/IUsersDatabase";
+import {UserStatusEnum} from "../../../shared/ajaxDto/authentication/UserStatusEnum";
+import {ILoginDto} from "../../../shared/ajaxDto/authentication/ILoginDto";
 
 export class UsersDatabase implements IUsersDatabase {
-    FindUser(username: string, password: string, callback: (error: any, user?: IAccountDto, options?: IVerifyOptions) => void): void {
+    findUserByLogin(username: string, callback: (error: any, user?: ILoginDto) => void): void {
 
         PostgreEngine.executeQuery({
-            text: `SELECT
-                        user_accounts_id as id,
-                        username,
-                        password,
-                        full_name as fullName,
-                        role
-                    FROM t_user_accounts WHERE username=$1::text`,
+            text: `SELECT idlogin
+                         ,login
+                         ,password
+                         ,status
+                         ,idrole
+                         ,firstname
+                         ,lastname
+                    FROM tlogins
+                    JOIN tusers
+                      ON tlogins.idlogin = tusers.iduser
+                    WHERE login = $1::text`,
             values: [username]
         }, (err, result) => {
             if (err) {
-                callback({
-                    errorType: AuthenticationErrorEnum.SystemError,
-                    message: err
-                }, null);
+                callback(err, null);
                 return;
             }
             if (result.rows.length === 0) {
-                callback({
-                    errorType: AuthenticationErrorEnum.NoSuchUser,
-                    message: "Данный пользователь не зарегистрирован."
-                });
+                callback(null, null);
                 return;
             }
-            const account = result.rows[0];
-            if (account.password !== password) {
-                callback({
-                    errorType: AuthenticationErrorEnum.WrongPassword,
-                    message: "Неверный пароль. Повторите попытку."
-                });
-                return;
-            }
-            callback(null, {
-                id: account.id,
-                fullName: account.fullname, // похоже что драйверу наплевать в каком регистре составлен запрос, возвращаемые поля идут в нижнем регистре
-                username: account.username,
-                role: account.role
-            });
+            callback(null, result.rows[0]);
         });
     }
-    FindUserById(id: string, callback: (error, user?: IAccountDto)=> void): void {
+
+    findUserById(id: string, callback: (error, user?: ILoginDto)=> void): void {
 
         PostgreEngine.executeQuery({
-            text: `SELECT user_accounts_id as id,
-                        username,
-                        password,
-                        full_name as fullName,
-                        role
-                    FROM t_user_accounts WHERE user_accounts_id=$1`,
+            text: `SELECT idlogin
+                         ,login
+                         ,password
+                         ,status
+                         ,idrole
+                         ,firstname
+                         ,lastname
+                    FROM tlogins
+                    JOIN tusers
+                      ON tlogins.idlogin = tusers.iduser
+                    WHERE idlogin=$1`,
             values: [id]
         }, (err, result) => {
             if (err) {
-                callback({
-                    errorType: AuthenticationErrorEnum.SystemError,
-                    message: err
-                }, null);
+                callback(err, null);
                 return;
             }
             if (result.rows.length === 0) {
-                callback({
-                    errorType: AuthenticationErrorEnum.NoSuchUser,
-                    message: "Данный пользователь не зарегистрирован."
-                });
+                callback(null, null);
                 return;
             }
-            const account = result.rows[0];
-            callback(null, {
-                id: account.id,
-                fullName: account.fullname,
-                username: account.username,
-                role: account.role
-            });
+            callback(null, result.rows[0]);
         });
     }
 
-    getList(){
+    getList() {
 
     }
 }
