@@ -68,23 +68,22 @@ export class Crud extends React.Component<IProps, IState> {
             <Grid className={style.section}>
                 <Row>
                     <Col md={12} className={style.buttons_wrapper}>
-                        <Button bsStyle="primary">
-                            {i18n.t('_common.create')}
-                        </Button>
+                        {
+                            actions.map((action) => {
+                                return (
+                                    React.cloneElement(action.element, {
+                                            onClick: function () {
+                                                action.click(selected, function (state) {
+                                                    this.setState(state);
+                                                });
+                                            }
+                                        }
+                                    )
+                                )
+                            })
+                        }
                     </Col>
                 </Row>
-                {
-                    actions.map((action) => {
-                        return React.cloneElement(action.element, {
-                                onClick: function () {
-                                    action.click(selected, function(state){
-                                        this.setState(state);
-                                    });
-                                }
-                            }
-                        )
-                    })
-                }
                 <Row>
                     <Col md={12}>
                         <ReactBootstrapTable headers={headers}
