@@ -29,17 +29,17 @@ export interface IDeleteRoleFailureAction extends IAction {
 let roles = [
     {
         id: 1,
-        lol: 'LOL 1',
+        name: 'LOL 1',
         lalala: 'УоТакУот'
     },
     {
         id: 2,
-        lol: 'LOL 2',
+        name: 'LOL 2',
         lalala: 'УоТакУот'
     },
     {
         id: 3,
-        lol: 'LOL 3',
+        name: 'LOL 3',
         lalala: 'УоТакУот'
     }
 ];
@@ -100,7 +100,7 @@ export function saveRole(role) {
                 if (index > 0) {
                     roles[index] = role;
                 } else {
-                    role.id = JSON.stringify(roles.length + 1);
+                    role.id = roles.length + 1;
                     roles.push(role);
                 }
                 dispatch(saveRoleSuccess());
