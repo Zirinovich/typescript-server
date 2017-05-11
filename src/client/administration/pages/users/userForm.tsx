@@ -1,13 +1,15 @@
 import * as React from 'react';
+const {connect} = require('react-redux');
 import {Modal, Button, Row, Col, FormControl, ControlLabel} from 'react-bootstrap';
 
 import {generator} from '../../../../shared/tools/generator';
 import {i18n} from '../../../_common/tools/i18n/i18n';
+import {saveUser} from '../../redux/usersActions';
 
 interface IProps {
     show: boolean;
     onHide: any;
-    save: any;
+    saveUser: any;
     data?: any;
 }
 
@@ -19,6 +21,12 @@ interface IState {
     role: number;
 }
 
+@connect(
+    (state) => ({users: state.users}),
+    (dispatch) => ({
+        saveUser: (user) => dispatch(saveUser(user))
+    })
+)
 export class UserForm extends React.Component<IProps, IState> {
     constructor(props) {
         super(props);
@@ -64,8 +72,8 @@ export class UserForm extends React.Component<IProps, IState> {
     }
 
     saveClickHandler() {
-        const {save, onHide} = this.props;
-        save(this.state);
+        const {saveUser, onHide} = this.props;
+        saveUser(this.state);
         onHide();
     }
 

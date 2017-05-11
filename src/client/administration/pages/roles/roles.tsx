@@ -3,7 +3,7 @@ const {connect} = require('react-redux');
 const {asyncConnect} = require('redux-connect');
 
 import {i18n} from '../../../_common/tools/i18n/i18n';
-import {Crud} from './crud';
+import {Crud} from '../../../_common/components/crud/crud';
 import {getRoles, deleteRoles} from '../../redux/rolesActions';
 import {RoleForm} from './roleForm';
 
