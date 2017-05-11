@@ -76,7 +76,7 @@ export class UserForm extends React.Component<IProps, IState> {
             <Modal show={show} onHide={onHide} bsSize="large" aria-labelledby={this.id}>
                 <Modal.Header closeButton>
                     <Modal.Title id={this.id}>
-                        {id ? i18n.t('administration.addUser') : i18n.t('administration.addUser')}
+                        {id ? i18n.t('administration.editUser') : i18n.t('administration.createUser')}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>

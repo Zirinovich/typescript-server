@@ -1,10 +1,10 @@
 import * as React from 'react';
 const {connect} = require('react-redux');
 const {asyncConnect} = require('redux-connect');
-import {Button} from 'react-bootstrap';
 
+import {i18n} from '../../../_common/tools/i18n/i18n';
 import {Crud} from './crud';
-import {getRoles, saveRole, deleteRoles} from '../../redux/rolesActions';
+import {getRoles, deleteRoles} from '../../redux/rolesActions';
 import {RoleForm} from './roleForm';
 
 interface IProps {
@@ -25,13 +25,13 @@ interface IState {
 @connect(
     (state) => ({roles: state.roles}),
     (dispatch) => ({
-        saveRole: (user) => dispatch(saveRole(user)),
         deleteRoles: (id) => dispatch(deleteRoles(id))
     })
 )
 export class Rules extends React.Component<IProps, IState> {
+
     render() {
-        const {roles: {list}} = this.props;
+        const {roles: {list}, deleteRoles} = this.props;
         const headers = [
             {
                 name: 'id',
@@ -39,34 +39,35 @@ export class Rules extends React.Component<IProps, IState> {
                 key: true
             },
             {
-                name: 'lol',
-                label: 'LOL'
+                name: 'name',
+                label: 'name'
             },
             {
                 name: 'lalala',
                 label: 'Lalala'
             }
         ];
-
         const actions = [
             {
-                element: <Button>Трус</Button>,
-                click: (selected) => {
-                    console.log('Трус', selected);
+                text: i18n.t('administration.create'),
+                modalForm: RoleForm,
+            },
+            {
+                text: i18n.t('administration.edit'),
+                modalForm: RoleForm,
+                validate: {
+                    isSingleRowSelected: true
                 }
             },
             {
-                element: <Button>Балбес</Button>,
-                click: (selected) => {
-                    console.log('Балбес', selected);
-                }
-            },
-            {
-                element: <Button>Бывалый</Button>,
-                click: (selected) => {
-                    console.log('Бывалый', selected);
+                text: i18n.t('administration.delete'),
+                validate: {
+                    isSelected: true,
+                    confirm: true
                 },
-                Form: RoleForm
+                method: (selected) => {
+                    deleteRoles(selected);
+                }
             }
         ];
         return (

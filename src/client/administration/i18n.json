@@ -18,8 +18,10 @@
     "chooseOneRowToEdit": "Выберите 1 строку для редактирования",
     "deleteRows_question": "Удалить {{count}} строк(у)?",
     "chooseRowsToDelete": "Выберите строки для удаления",
-    "addUser": "Добавить пользователя",
-    "editUser": "Редактировать пользователя"
+    "createUser": "Создать пользователя",
+    "editUser": "Редактировать пользователя",
+    "createRole": "Создать роль",
+    "editRole": "Редактировать роль"
   },
   "en-EN": {
     "adminPanel": "Admin panel",
@@ -40,7 +42,9 @@
     "chooseOneRowToEdit": "Choose 1 row to edit",
     "deleteRows_question": "Delete {{count}} row(s)?",
     "chooseRowsToDelete": "Choose rows to delete",
-    "addUser": "Add user",
-    "editUser": "Edit user"
+    "createUser": "Add user",
+    "editUser": "Edit user",
+    "createRole": "Add role",
+    "editRole": "Create role"
   }
 }
