@@ -5,7 +5,7 @@ const {asyncConnect} = require('redux-connect');
 import {i18n} from '../../../_common/tools/i18n/i18n';
 import {Crud, ICrudHeader} from '../../../_common/components/crud/crud';
 import {getUsers, deleteUsers} from '../../redux/usersActions';
-import {UserForm} from './userForm';
+import {UserForm} from "./userAddChangeModal";
 
 interface IProps {
     users: any;

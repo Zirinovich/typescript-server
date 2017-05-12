@@ -4,9 +4,9 @@ import {RouteProps} from '@types/react-router';
 
 import {App} from './pages/_app/app';
 import {Main} from './pages/main/main';
-import {Users} from './pages/users/users';
 import {Rules} from './pages/roles/roles';
 import {Editor} from './pages/editor/editor';
+import {Users} from "./pages/users/usersPage";
 
 declare module 'react-router/lib/Route' {
     interface RouteProps {

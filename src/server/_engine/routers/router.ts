@@ -1,7 +1,6 @@
 import {RequestHandlerParams, PathParams, RequestHandler} from "express-serve-static-core";
 import {IAuthenticationMiddleware} from "../../_interfaces/engine/IAuthenticationMiddleware";
-import {apiRouter} from "./serverRouter";
-import {authenticationMiddleware} from "../../registration";
+import {authenticationMiddleware, apiRouter} from "../../registration";
 export class router {
     static handlersAnonymous = [];
     static handlersAuthenticated = [];
