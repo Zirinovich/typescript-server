@@ -22,19 +22,19 @@ export class PassportLocalStrategyTuner {
         passport.deserializeUser<IAccountDto,string>(PassportLocalStrategyTuner.deserializeUser);
     }
 
-    private static async verifyFunction(username: string, password: string, done: (error: any, user?: any, options?: IVerifyOptions) => void) {
-        var json = JSON.stringify({
-            login: username,
-            password: password,
-        });
-        let response = await (await fetch(`${API_HTTP_HOST}/api/main/users/finduserbyloginpassword`, {
-            method: 'post',
-            headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
-            },
-            body: json
-        })).json();
+    private static /*async*/ verifyFunction(username: string, password: string, done: (error: any, user?: any, options?: IVerifyOptions) => void) {
+        // var json = JSON.stringify({
+        //     login: username,
+        //     password: password,
+        // });
+        // let response = await (await fetch(`${API_HTTP_HOST}/api/main/users/finduserbyloginpassword`, {
+        //     method: 'post',
+        //     headers: {
+        //         'Accept': 'application/json, text/plain, */*',
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: json
+        // })).json();
 
         usersLogic.findUserByLoginPassword(username, password, (err: IUsersLogicErrorDto, account: IAccountDto) => {
             if (err) {
