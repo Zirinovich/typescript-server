@@ -3,7 +3,7 @@ const {connect} = require('react-redux');
 const {asyncConnect} = require('redux-connect');
 
 import {i18n} from '../../../_common/tools/i18n/i18n';
-import {Crud} from '../../../_common/components/crud/crud';
+import {Crud, ICrudHeader} from '../../../_common/components/crud/crud';
 import {getUsers, deleteUsers} from '../../redux/usersActions';
 import {UserForm} from './userForm';
 
@@ -31,11 +31,11 @@ interface IState {
 export class Users extends React.Component<IProps, IState> {
     render() {
         const {users: {list}, saveUser, deleteUsers} = this.props;
-        const headers = [
+        let headers:ICrudHeader[] = [
             {
                 name: 'id',
                 hidden: true,
-                key: true
+                key:true
             },
             {
                 name: 'username',
