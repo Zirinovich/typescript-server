@@ -162,7 +162,8 @@ var config = {
         ]),
         new webpack.DefinePlugin({
             APP_ENTRY_PATH: JSON.stringify(helpers.getFullPath(appConfig.appEntryName)),
-            APP_ENTRY_NAME: JSON.stringify(appConfig.appEntryName)
+            APP_ENTRY_NAME: JSON.stringify(appConfig.appEntryName),
+            API_HTTP_HOST: JSON.stringify(appConfig.apiHost)
         }),
         ExtractPlugin
     ],
