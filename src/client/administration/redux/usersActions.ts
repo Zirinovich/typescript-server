@@ -1,5 +1,5 @@
 import {IAction} from '../../_common/interfaces/IAction';
-import {IUserDto} from '../../../shared/ajaxDto/authentication/IUserDto';
+import {IAccountDto} from "../../../server/_interfaces/engine/dto/IAccountDto";
 
 export const GET_USERS_REQUEST: string = 'users/GET_USERS_REQUEST';
 export const GET_USERS_SUCCESS: string = 'users/GET_USERS_SUCCESS';
@@ -12,7 +12,7 @@ export const DELETE_USER_SUCCESS: string = 'users/DELETE_USER_SUCCESS';
 export const DELETE_USER_FAILURE: string = 'users/DELETE_USER_FAILURE';
 
 export interface IGetUsersSuccessAction extends IAction {
-    list: IUserDto[];
+    list: IAccountDto[];
 }
 
 export interface IGetUsersFailureAction extends IAction {
@@ -79,7 +79,7 @@ export function getUsersFailure(message): IGetUsersFailureAction {
     };
 }
 
-export function saveUser(user: IUserDto) {
+export function saveUser(user: IAccountDto) {
     return async(dispatch) => {
         dispatch(saveUserRequest());
 

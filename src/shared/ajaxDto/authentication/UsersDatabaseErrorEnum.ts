@@ -1,4 +1,4 @@
-export enum AuthenticationErrorEnum{
+export enum UsersDatabaseErrorEnum{
     SystemError = 1,
     NoSuchUser = 2,
     WrongPassword = 3,

@@ -1,21 +1,21 @@
 import * as passportStatic  from "passport";
 import HTTP_STATUS_CODES from 'http-status-enum';
 import {IAuthenticationMiddleware} from "../../../_interfaces/engine/IAuthenticationMiddleware";
-import {IAuthenticationErrorDto} from "../../../../shared/ajaxDto/authentication/IAuthenticationErrorDto";
+import {IUsersLogicErrorDto} from "../../../../shared/ajaxDto/authentication/IUsersLogicErrorDto";
 import {IAccountDto} from "../../../_interfaces/engine/dto/IAccountDto";
-import {AuthenticationErrorEnum} from "../../../../shared/ajaxDto/authentication/AuthenticationErrorEnum";
+import {UsersDatabaseErrorEnum} from "../../../../shared/ajaxDto/authentication/UsersDatabaseErrorEnum";
 
 export class PassportLocalStrategyMiddlewareFunctions implements IAuthenticationMiddleware {
     login(req, res, next) {
-        passportStatic.authenticate('local', (err: IAuthenticationErrorDto, account: IAccountDto) => {
+        passportStatic.authenticate('local', (err: IUsersLogicErrorDto, account: IAccountDto) => {
             if (err) {
                 switch (err.errorType) {
-                    case AuthenticationErrorEnum.SystemError:
+                    case UsersDatabaseErrorEnum.SystemError:
                         return res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR).send(err.message);
-                    case AuthenticationErrorEnum.NoSuchUser:
-                    case AuthenticationErrorEnum.UserAccountDisabled:
+                    case UsersDatabaseErrorEnum.NoSuchUser:
+                    case UsersDatabaseErrorEnum.UserAccountDisabled:
                         return res.status(HTTP_STATUS_CODES.OK).json({errors: {username: err.message}});
-                    case AuthenticationErrorEnum.WrongPassword:
+                    case UsersDatabaseErrorEnum.WrongPassword:
                         return res.status(HTTP_STATUS_CODES.OK).json({errors: {password: err.message}});
                 }
             }

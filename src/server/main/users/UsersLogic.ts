@@ -1,9 +1,10 @@
 import {IUsersLogic} from "../../_interfaces/main/IUsersLogic";
 import {usersDatabase} from "../../registration";
 import {IAccountDto} from "../../_interfaces/engine/dto/IAccountDto";
-import {AuthenticationErrorEnum} from "../../../shared/ajaxDto/authentication/AuthenticationErrorEnum";
+import {UsersDatabaseErrorEnum} from "../../../shared/ajaxDto/authentication/UsersDatabaseErrorEnum";
 import {UserStatusEnum} from "../../../shared/ajaxDto/authentication/UserStatusEnum";
 import {IVerifyOptions} from "passport-local";
+import {IUsersLogicErrorDto} from "../../../shared/ajaxDto/authentication/IUsersLogicErrorDto";
 export class UsersLogic implements IUsersLogic {
 
     public i: number = 0;
@@ -23,37 +24,65 @@ export class UsersLogic implements IUsersLogic {
         }, 2000);
     }
 
-    getList() {
-        return usersDatabase.getList();
+    getList(callback: (error: IUsersLogicErrorDto, users: IAccountDto[])=>void) {
+        usersDatabase.getList((error, dbLogins) => {
+            if (error) {
+                callback({
+                    errorType: UsersDatabaseErrorEnum.SystemError,
+                    message: error
+                }, null);
+                return;
+            }
+            if (!dbLogins) {
+                callback(null, []);
+                return;
+            }
+            callback(null, _.map(dbLogins, (dbLogin) => {
+                return {
+                    id: dbLogin.idlogin,
+                    username: dbLogin.login,
+                    role: dbLogin.idrole,
+                    fullName: dbLogin.firstname + " " + dbLogin.lastname,
+                    status: dbLogin.status
+                }
+            }));
+        });
     }
 
-    findUserByLogin(login: string, password: string, callback: (error: any, user?: IAccountDto, options?: IVerifyOptions)=>{}) {
+    findUserByLoginPassword(login: string, password: string, callback: (error: IUsersLogicErrorDto, user?: IAccountDto, options?: IVerifyOptions)=>void) {
         usersDatabase.findUserByLogin(login, (error, dbLogin) => {
             if (error) {
                 callback({
-                    errorType: AuthenticationErrorEnum.SystemError,
+                    errorType: UsersDatabaseErrorEnum.SystemError,
                     message: error
                 }, null);
                 return;
             }
             if (dbLogin === null) {
                 callback({
-                    errorType: AuthenticationErrorEnum.NoSuchUser,
+                    errorType: UsersDatabaseErrorEnum.NoSuchUser,
                     message: "Данный пользователь не зарегистрирован."
-                });
-                return;
-            }
-            if (dbLogin.status === UserStatusEnum.Disabled) {
-                callback({
-                    errorType: AuthenticationErrorEnum.UserAccountDisabled,
-                    message: "Аккаунт данного пользователя отключен."
                 });
                 return;
             }
             if (dbLogin.password !== password) {
                 callback({
-                    errorType: AuthenticationErrorEnum.WrongPassword,
+                    errorType: UsersDatabaseErrorEnum.WrongPassword,
                     message: "Неверный пароль."
+                });
+                return;
+            }
+            if (dbLogin.status === UserStatusEnum.Disabled) {
+                callback({
+                    errorType: UsersDatabaseErrorEnum.UserAccountDisabled,
+                    message: "Аккаунт данного пользователя отключен."
+                }, {
+                    id: dbLogin.idlogin,
+                    username: dbLogin.login,
+                    role: dbLogin.idrole,
+                    fullName: dbLogin.firstname + " " + dbLogin.lastname,
+                    status: dbLogin.status
+
                 });
                 return;
             }
@@ -68,37 +97,29 @@ export class UsersLogic implements IUsersLogic {
         });
     }
 
-    findUserById(){
-
-        PostgreEngine.executeQuery({
-            text: `SELECT user_accounts_id as id,
-                        username,
-                        password,
-                        full_name as fullName,
-                        role
-                    FROM t_user_accounts WHERE user_accounts_id=$1`,
-            values: [id]
-        }, (err, result) => {
-            if (err) {
+    findUserById(id: string, callback: (error: IUsersLogicErrorDto, user?: IAccountDto)=>void) {
+        usersDatabase.findUserById(id, (error, dbLogin) => {
+            if (error) {
                 callback({
-                    errorType: AuthenticationErrorEnum.SystemError,
-                    message: err
+                    errorType: UsersDatabaseErrorEnum.SystemError,
+                    message: error
                 }, null);
                 return;
             }
-            if (result.rows.length === 0) {
+            if (dbLogin === null) {
                 callback({
-                    errorType: AuthenticationErrorEnum.NoSuchUser,
+                    errorType: UsersDatabaseErrorEnum.NoSuchUser,
                     message: "Данный пользователь не зарегистрирован."
                 });
                 return;
             }
-            const account = result.rows[0];
             callback(null, {
-                id: account.id,
-                fullName: account.fullname,
-                username: account.username,
-                role: account.role
+                id: dbLogin.idlogin,
+                username: dbLogin.login,
+                role: dbLogin.idrole,
+                fullName: dbLogin.firstname + " " + dbLogin.lastname,
+                status: dbLogin.status
+
             });
         });
     }
