@@ -4,32 +4,34 @@ const {asyncConnect} = require('redux-connect');
 
 import {i18n} from '../../../_common/tools/i18n/i18n';
 import {Crud} from '../../../_common/components/crud/crud';
-import {getUsers, deleteUsers} from '../../redux/usersActions';
-import {UserForm} from './userForm';
+import {getContent, deleteContent} from '../../redux/contentActions';
+import {ContentCreateEditModal} from './contentCreateEditModal';
 
+//#region interfaces
 interface IProps {
-    users: any;
-    deleteUsers: any;
+    content: any;
+    deleteContent: Function;
 }
 
 interface IState {
 
 }
+//#endregion
 
 @asyncConnect([{
     promise: ({store: {dispatch}}) => {
-        return dispatch(getUsers());
+        return dispatch(getContent());
     }
 }])
 @connect(
-    (state) => ({users: state.users}),
+    (state) => ({content: state.content}),
     (dispatch) => ({
-        deleteUsers: (id) => dispatch(deleteUsers(id))
+        deleteUsers: (id) => dispatch(deleteContent(id))
     })
 )
-export class Users extends React.Component<IProps, IState> {
+export class ContentPage extends React.Component<IProps, IState> {
     render() {
-        const {users: {list}, deleteUsers} = this.props;
+        const {content: {list}} = this.props;
         const headers = [
             {
                 name: 'id',
@@ -37,26 +39,26 @@ export class Users extends React.Component<IProps, IState> {
                 key: true
             },
             {
-                name: 'username',
-                label: i18n.t('administration.login')
+                name: 'link',
+                label: i18n.t('administration.link')
             },
             {
-                name: 'fullName',
-                label: i18n.t('administration.fullName')
+                name: 'datetime',
+                label: i18n.t('administration.dateTime')
             },
             {
-                name: 'role',
-                label: i18n.t('administration.role')
+                name: 'content',
+                label: i18n.t('administration.content')
             }
         ];
         const actions = [
             {
                 text: i18n.t('administration.create'),
-                modalForm: UserForm,
+                modalForm: ContentCreateEditModal,
             },
             {
                 text: i18n.t('administration.edit'),
-                modalForm: UserForm,
+                modalForm: ContentCreateEditModal,
                 validate: {
                     isSingleRowSelected: true
                 }
@@ -68,7 +70,7 @@ export class Users extends React.Component<IProps, IState> {
                     confirm: true
                 },
                 method: (selected) => {
-                    deleteUsers(selected);
+
                 }
             }
         ];
