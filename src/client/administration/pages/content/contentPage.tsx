@@ -26,12 +26,12 @@ interface IState {
 @connect(
     (state) => ({content: state.content}),
     (dispatch) => ({
-        deleteUsers: (id) => dispatch(deleteContent(id))
+        deleteContent: (id) => dispatch(deleteContent(id))
     })
 )
 export class ContentPage extends React.Component<IProps, IState> {
     render() {
-        const {content: {list}} = this.props;
+        const {content: {list}, deleteContent} = this.props;
         const headers = [
             {
                 name: 'id',
@@ -70,7 +70,7 @@ export class ContentPage extends React.Component<IProps, IState> {
                     confirm: true
                 },
                 method: (selected) => {
-
+                    deleteContent(selected);
                 }
             }
         ];

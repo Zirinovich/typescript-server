@@ -48,8 +48,8 @@
     "chooseRowsToDelete": "Choose rows to delete",
     "createUser": "Add user",
     "editUser": "Edit user",
-    "createRole": "Add role",
-    "editRole": "Create role",
+    "createRole": "Create role",
+    "editRole": "Edit role",
     "link": "link",
     "dateTime": "Date time"
   }
