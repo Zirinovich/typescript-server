@@ -3,6 +3,7 @@ import * as TinyMCE from 'react-tinymce';
 
 import {generator} from '../../../../shared/tools/generator';
 
+//#region interfaces
 interface IProps {
     onChange?: any;
     value?: string;
@@ -11,6 +12,7 @@ interface IProps {
 interface IState {
 
 }
+//#endregion
 
 export class ContentEditor extends React.Component<IProps, IState> {
     id = generator.genId();

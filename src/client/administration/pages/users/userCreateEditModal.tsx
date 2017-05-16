@@ -6,6 +6,7 @@ import {generator} from '../../../../shared/tools/generator';
 import {i18n} from '../../../_common/tools/i18n/i18n';
 import {saveUser} from '../../redux/usersActions';
 
+//#region interfaces
 interface IProps {
     show: boolean;
     onHide: any;
@@ -20,6 +21,7 @@ interface IState {
     password: string;
     role: number;
 }
+//#endregion
 
 @connect(
     (state) => ({users: state.users}),
@@ -27,7 +29,7 @@ interface IState {
         saveUser: (user) => dispatch(saveUser(user))
     })
 )
-export class UserForm extends React.Component<IProps, IState> {
+export class UserCreateEditModal extends React.Component<IProps, IState> {
     constructor(props) {
         super(props);
 

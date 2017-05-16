@@ -24,7 +24,7 @@ interface IState {
         saveRole: (role) => dispatch(saveRole(role))
     })
 )
-export class RoleForm extends React.Component<IProps, IState> {
+export class RoleCreateEditModal extends React.Component<IProps, IState> {
     constructor(props) {
         super(props);
 

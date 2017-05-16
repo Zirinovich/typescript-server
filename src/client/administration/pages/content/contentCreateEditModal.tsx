@@ -68,13 +68,12 @@ export class ContentCreateEditModal extends React.Component<IProps, IState> {
     }
 
     contentChangeHandler(content) {
-        console.log('contentChangeHandler', content);
         this.setState({content});
     }
 
     render() {
         const {show, onHide} = this.props;
-        const {id, link, datetime, content} = this.state;
+        const {id, link, content} = this.state;
         return (
             <Modal show={show} onHide={onHide} bsSize="large" aria-labelledby={this.id}>
                 <Modal.Header closeButton>

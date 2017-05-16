@@ -4,32 +4,35 @@ const {asyncConnect} = require('redux-connect');
 
 import {i18n} from '../../../_common/tools/i18n/i18n';
 import {Crud} from '../../../_common/components/crud/crud';
-import {getUsers, deleteUsers} from '../../redux/usersActions';
-import {UserForm} from './userForm';
+import {getRoles, deleteRoles} from '../../redux/rolesActions';
+import {RoleCreateEditModal} from './roleCreateEditModal';
 
+//#region interfaces
 interface IProps {
-    users: any;
-    deleteUsers: any;
+    roles: any;
+    saveRole: any;
+    deleteRoles: any;
 }
 
 interface IState {
 
 }
+//#endregion
 
 @asyncConnect([{
     promise: ({store: {dispatch}}) => {
-        return dispatch(getUsers());
+        return dispatch(getRoles());
     }
 }])
 @connect(
-    (state) => ({users: state.users}),
+    (state) => ({roles: state.roles}),
     (dispatch) => ({
-        deleteUsers: (id) => dispatch(deleteUsers(id))
+        deleteRoles: (id) => dispatch(deleteRoles(id))
     })
 )
-export class Users extends React.Component<IProps, IState> {
+export class RolesPage extends React.Component<IProps, IState> {
     render() {
-        const {users: {list}, deleteUsers} = this.props;
+        const {roles: {list}, deleteRoles} = this.props;
         const headers = [
             {
                 name: 'id',
@@ -37,26 +40,18 @@ export class Users extends React.Component<IProps, IState> {
                 key: true
             },
             {
-                name: 'username',
-                label: i18n.t('administration.login')
-            },
-            {
-                name: 'fullName',
-                label: i18n.t('administration.fullName')
-            },
-            {
-                name: 'role',
+                name: 'name',
                 label: i18n.t('administration.role')
             }
         ];
         const actions = [
             {
                 text: i18n.t('administration.create'),
-                modalForm: UserForm,
+                modalForm: RoleCreateEditModal,
             },
             {
                 text: i18n.t('administration.edit'),
-                modalForm: UserForm,
+                modalForm: RoleCreateEditModal,
                 validate: {
                     isSingleRowSelected: true
                 }
@@ -68,7 +63,7 @@ export class Users extends React.Component<IProps, IState> {
                     confirm: true
                 },
                 method: (selected) => {
-                    deleteUsers(selected);
+                    deleteRoles(selected);
                 }
             }
         ];
