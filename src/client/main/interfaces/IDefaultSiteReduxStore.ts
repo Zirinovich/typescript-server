@@ -1,8 +1,8 @@
 import {IScript} from '../../../client/_common/interfaces/IScript';
-import {IUserDto} from '../../../shared/ajaxDto/authentication/IUserDto';
+import {UserDto} from '../../../shared/ajaxDto/authentication/UserDto';
 
 export interface IDefaultSiteReduxStore {
-    user?: IUserDto;
+    user?: UserDto;
     form?: any;
     loadScript?: IScript;
 }

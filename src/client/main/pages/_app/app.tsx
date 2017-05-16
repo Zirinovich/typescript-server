@@ -10,7 +10,7 @@ import {i18n} from '../../../_common/tools/i18n/i18n';
 import '../../../_common/content/template/template.scss';
 import {logout} from '../../redux/signInActions';
 // TODO: привести в порядок подобные ссылки, каким то образом посредством указания корневых каталогов или типа того
-import {IUserDto} from '../../../../shared/ajaxDto/authentication/IUserDto';
+import {UserDto} from '../../../../shared/ajaxDto/authentication/UserDto';
 import {Header} from './header';
 import {ScrollUp} from './scrollUp';
 import {Footer}from './footer';
@@ -22,7 +22,7 @@ interface IProps {
     location?: any;
     routes?: any;
 
-    user: IUserDto;
+    user: UserDto;
     setLanguages: any;
     setResources: any;
     dispatch: ()=>void;

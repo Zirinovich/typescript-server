@@ -3,11 +3,11 @@ import {Link} from 'react-router';
 import {Nav, NavItem} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 
-import {IUserDto} from "../../../shared/ajaxDto/authentication/IUserDto";
+import {UserDto} from "../../../shared/ajaxDto/authentication/UserDto";
 const style = require('./superHeader.scss');
 
 interface IProps {
-  user: IUserDto;
+  user: UserDto;
   logout: ()=>void;
 }
 

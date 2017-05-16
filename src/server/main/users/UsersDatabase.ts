@@ -1,9 +1,9 @@
 import {PostgreEngine} from "../../_engine/database/postgreEngine";
 import {IUsersDatabase} from "../../_interfaces/main/IUsersDatabase";
-import {ILoginDto} from "../../../shared/ajaxDto/authentication/ILoginDto";
+import {LoginDto} from "../../../shared/ajaxDto/authentication/LoginDto";
 
 export class UsersDatabase implements IUsersDatabase {
-    findUserByLogin(username: string, callback: (error: any, user?: ILoginDto) => void): void {
+    findLoginDtoByLogin(username: string, callback: (error: any, user?: LoginDto) => void): void {
 
         PostgreEngine.executeQuery({
             text: `SELECT idlogin
@@ -11,11 +11,9 @@ export class UsersDatabase implements IUsersDatabase {
                          ,password
                          ,status
                          ,idrole
-                         ,firstname
-                         ,lastname
+                         ,logincreated
+                         ,loginupdated
                     FROM tlogins
-                    JOIN tusers
-                      ON tlogins.idlogin = tusers.iduser
                     WHERE login = $1::text`,
             values: [username]
         }, (err, result) => {
@@ -31,7 +29,7 @@ export class UsersDatabase implements IUsersDatabase {
         });
     }
 
-    findUserById(id: string, callback: (error: any, user?: ILoginDto)=> void): void {
+    findLoginDtoById(id: string, callback: (error: any, user?: LoginDto)=> void): void {
 
         PostgreEngine.executeQuery({
             text: `SELECT idlogin
@@ -39,11 +37,9 @@ export class UsersDatabase implements IUsersDatabase {
                          ,password
                          ,status
                          ,idrole
-                         ,firstname
-                         ,lastname
+                         ,logincreated
+                         ,loginupdated
                     FROM tlogins
-                    JOIN tusers
-                      ON tlogins.idlogin = tusers.iduser
                     WHERE idlogin=$1`,
             values: [id]
         }, (err, result) => {
@@ -59,7 +55,7 @@ export class UsersDatabase implements IUsersDatabase {
         });
     }
 
-    getList(callback: (error: any, users: ILoginDto[])=>void): void {
+    getList(callback: (error: any, users: LoginDto[])=>void): void {
         PostgreEngine.executeQuery({
             text: `SELECT idlogin
                          ,login

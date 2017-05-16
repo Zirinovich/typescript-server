@@ -1,6 +1,6 @@
-import {UsersDatabaseErrorEnum} from "./UsersDatabaseErrorEnum";
+import {ErrorCodeEnum} from "../../classes/ErrorCodeEnum";
 
 export interface IUsersLogicErrorDto  {
-    message?: string,
-    errorType: UsersDatabaseErrorEnum
+    errorCode: ErrorCodeEnum,
+    message?: string
 }

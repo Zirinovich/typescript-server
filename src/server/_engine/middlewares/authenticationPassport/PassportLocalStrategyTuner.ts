@@ -4,6 +4,7 @@ import {Express} from "express-serve-static-core";
 import {IAccountDto} from "../../../_interfaces/engine/dto/IAccountDto";
 import {IUsersLogicErrorDto} from "../../../../shared/ajaxDto/authentication/IUsersLogicErrorDto";
 import {usersLogic} from "../../../registration";
+import {ISession} from "../../../../shared/classes/ISession";
 
 export class PassportLocalStrategyTuner {
     static Setup(app: Express) {
@@ -18,8 +19,8 @@ export class PassportLocalStrategyTuner {
                 passwordField: "password"
             }, PassportLocalStrategyTuner.verifyFunction
         ));
-        passport.serializeUser<IAccountDto,string>(PassportLocalStrategyTuner.serializeUser);
-        passport.deserializeUser<IAccountDto,string>(PassportLocalStrategyTuner.deserializeUser);
+        passport.serializeUser<ISession,ISession>(PassportLocalStrategyTuner.serializeUser);
+        passport.deserializeUser<ISession,ISession>(PassportLocalStrategyTuner.deserializeUser);
     }
 
     private static async verifyFunction(username: string, password: string, done: (error: any, user?: any, options?: IVerifyOptions) => void) {
@@ -27,16 +28,8 @@ export class PassportLocalStrategyTuner {
             login: username,
             password: password,
         });
-        let response = await (await fetch(`${API_HTTP_HOST}/api/main/users/finduserbyloginpassword`, {
-            method: 'post',
-            headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
-            },
-            body: json
-        })).json();
 
-        usersLogic.findUserByLoginPassword(username, password, (err: IUsersLogicErrorDto, account: IAccountDto) => {
+        usersLogic.findUserByLogin(username, password, (err: IUsersLogicErrorDto, account: ISession) => {
             if (err) {
                 return done(err, false);
             }
@@ -46,11 +39,11 @@ export class PassportLocalStrategyTuner {
         });
     }
 
-    private static serializeUser(account: IAccountDto, done: (err, id)=> void) {
-        done(null, account.id)
+    private static serializeUser(session: ISession, done: (err, session)=> void) {
+        done(null, session)
     }
 
-    private static deserializeUser(id: string, done: (err, user?)=>void) {
-        usersLogic.findUserById(id, done);
+    private static deserializeUser(session: ISession, done: (err, session?)=>void) {
+        done(null, session);
     }
 }

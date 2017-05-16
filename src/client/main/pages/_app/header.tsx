@@ -5,7 +5,7 @@ import {LinkContainer} from 'react-router-bootstrap';
 const {connect} = require('react-redux');
 const Sticky = require('sticky-js');
 
-import {IUserDto} from '../../../../shared/ajaxDto/authentication/IUserDto';
+import {UserDto} from '../../../../shared/ajaxDto/authentication/UserDto';
 import {i18n} from '../../../_common/tools/i18n/i18n';
 import {ILanguage} from '../../../_common/tools/i18n/II18n';
 import {Icon} from '../../../_common/components/icon/icon';
@@ -15,7 +15,7 @@ interface IProps {
     currentLanguage?: string;
     languages?: ILanguage[]
     dictionary?: any;
-    user: IUserDto;
+    user: UserDto;
     logout: ()=>void;
     pathname: string;
     setCurrentLanguage?: (language: string)=>void;

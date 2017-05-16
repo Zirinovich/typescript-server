@@ -1,7 +1,7 @@
 import {UserRoleEnum} from "./UserRoleEnum";
 import {UserStatusEnum} from "./UserStatusEnum";
 
-export interface ILoginDto {
+export interface LoginDto {
     idlogin: string,
     login: string,
     password: string,

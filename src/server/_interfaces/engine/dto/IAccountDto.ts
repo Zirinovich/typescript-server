@@ -1,8 +1,8 @@
-import {IUserDto} from '../../../../shared/ajaxDto/authentication/IUserDto';
+import {UserDto} from '../../../../shared/ajaxDto/authentication/UserDto';
 import {UserRoleEnum} from "../../../../shared/ajaxDto/authentication/UserRoleEnum";
 import {UserStatusEnum} from "../../../../shared/ajaxDto/authentication/UserStatusEnum";
 
-export interface IAccountDto extends IUserDto {
+export interface IAccountDto extends UserDto {
     id: string,
     username: string,
     role: UserRoleEnum,

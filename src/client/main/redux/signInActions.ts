@@ -3,14 +3,14 @@ const formData = require('form-urlencoded');
 import {SubmissionError} from 'redux-form';
 import {browserHistory} from 'react-router';
 import {getMD5base64} from '../../../shared/tools/index';
-import {IUserDto} from '../../../shared/ajaxDto/authentication/IUserDto';
+import {UserDto} from '../../../shared/ajaxDto/authentication/UserDto';
 
 
 export const LOGIN_SUCCESS = 'LOGIN_REQUEST_FINISHED',
     LOGOUT = 'LOGOUT_REQUEST';
 
 export interface ISignInAction extends IAction {
-    user: IUserDto;
+    user: UserDto;
 }
 
 export function signInRequest(credentials: {username?: string, password?: string}) {

@@ -1,9 +1,9 @@
 import {GET_USERS_SUCCESS, IGetUsersSuccessAction} from './usersActions';
 import {IAction} from '../../_common/interfaces/IAction';
-import {IUserDto} from '../../../shared/ajaxDto/authentication/IUserDto';
+import {UserDto} from '../../../shared/ajaxDto/authentication/UserDto';
 
 interface IState {
-    list: IUserDto[];
+    list: UserDto[];
 }
 
 const initialState = {
