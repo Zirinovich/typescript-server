@@ -61,10 +61,20 @@ export class ContentCreateEditModal extends React.Component<IProps, IState> {
         onHide();
     }
 
+    linkChangeClickHandler(e){
+        this.setState({
+            link: e.target.value
+        });
+    }
+
+    contentChangeHandler(content) {
+        console.log('contentChangeHandler', content);
+        this.setState({content});
+    }
+
     render() {
         const {show, onHide} = this.props;
         const {id, link, datetime, content} = this.state;
-        console.log('render', content);
         return (
             <Modal show={show} onHide={onHide} bsSize="large" aria-labelledby={this.id}>
                 <Modal.Header closeButton>
@@ -75,14 +85,15 @@ export class ContentCreateEditModal extends React.Component<IProps, IState> {
                 <Modal.Body>
                     <FormGroup>
                         <ControlLabel>{i18n.t('administration.link')}</ControlLabel>
-                        <FormControl type="text" value={link}/>
+                        <FormControl type="text" value={link} onChange={this.linkChangeClickHandler.bind(this)}/>
                     </FormGroup>
                     <FormGroup>
-                        <ContentEditor value={content}/>
+                        <ContentEditor value={content} onChange={this.contentChangeHandler.bind(this)}/>
                     </FormGroup>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button bsStyle="primary" onClick={this.saveClickHandler.bind(this)}>{i18n.t('administration.save')}</Button>
+                    <Button bsStyle="primary"
+                            onClick={this.saveClickHandler.bind(this)}>{i18n.t('administration.save')}</Button>
                     <Button onClick={onHide}>{i18n.t('administration.close')}</Button>
                 </Modal.Footer>
             </Modal>

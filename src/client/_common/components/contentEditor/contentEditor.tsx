@@ -4,7 +4,7 @@ import * as TinyMCE from 'react-tinymce';
 import {generator} from '../../../../shared/tools/generator';
 
 interface IProps {
-    handleChange?: Function;
+    onChange?: any;
     value?: string;
 }
 
@@ -73,11 +73,12 @@ export class ContentEditor extends React.Component<IProps, IState> {
     componentDidUpdate() {
         const {value} = this.props;
         const tinymce = ContentEditor.tinymce;
-        if (tinymce) tinymce.get('my_editor').setContent(value ? value : '');
+        if (tinymce) tinymce.get(this.id).setContent(value ? value : '');
     }
 
-    handleEditorChange = (e) => {
-        console.log('Content was updated:', e.target.getContent());
+    handleEditorChange(e) {
+        const {onChange} = this.props;
+        onChange(e.target.getContent());
     }
 
     render() {
@@ -89,10 +90,10 @@ export class ContentEditor extends React.Component<IProps, IState> {
         };
         return (
             <TinyMCE
-                id="my_editor"
+                id={this.id}
                 content={value}
                 config={config}
-                onChange={this.handleEditorChange}
+                onChange={this.handleEditorChange.bind(this)}
             />
         );
     }
