@@ -31,19 +31,19 @@ let content = [
         id: 1,
         link: 'lol1',
         datetime: '12:01 15.05.2017',
-        content: '<h1>Lalala</h1>'
+        content: '<p>This is the initial content of the editor</p>'
     },
     {
         id: 2,
         link: 'lol2',
         datetime: '12:01 15.05.2017',
-        content: '<h1>Lalala</h1>'
+        content: '<p>This is the initial content of the editor</p>'
     },
     {
         id: 3,
         link: 'lol3',
         datetime: '12:01 15.05.2017',
-        content: '<h1>Lalala</h1>'
+        content: '<p>This is the initial content of the editor</p>'
     }
 ];
 

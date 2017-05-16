@@ -1,28 +1,27 @@
 import * as React from 'react';
+import * as TinyMCE from 'react-tinymce';
 
 import {generator} from '../../../../shared/tools/generator';
 
 interface IProps {
-    handleChange?:Function;
+    handleChange?: Function;
+    value?: string;
 }
 
 interface IState {
 
 }
 
-export class Tinymce extends React.Component<IProps, IState> {
+export class ContentEditor extends React.Component<IProps, IState> {
     id = generator.genId();
 
     static isLoaded = false;
     static tinymce;
 
     static loadJsClient() {
-        if (!Tinymce.isLoaded) {
-            console.log('loadJsClient');
-
-            Tinymce.tinymce = require('tinymce/tinymce');
-
-            require('tinymce/themes/modern/theme');
+        if (!ContentEditor.isLoaded) {
+            ContentEditor.tinymce = require('imports-loader?this=>window!exports-loader?window.tinymce!tinymce/tinymce');
+            require('imports-loader?this=>window!tinymce/themes/modern/theme');
 
             require('tinymce/plugins/advlist');
             require('tinymce/plugins/anchor');
@@ -31,7 +30,7 @@ export class Tinymce extends React.Component<IProps, IState> {
             //require('tinymce/plugins/autosave');
             //require('tinymce/plugins/bbcode');
             require('tinymce/plugins/charmap');
-            //require('tinymce/plugins/code');
+            require('tinymce/plugins/code');
             //require('tinymce/plugins/codesample');
             require('tinymce/plugins/colorpicker');
             //require('tinymce/plugins/contextmenu');
@@ -67,52 +66,34 @@ export class Tinymce extends React.Component<IProps, IState> {
             //require('tinymce/plugins/visualchars');
             //require('tinymce/plugins/wordcount');
 
-            Tinymce.isLoaded = true;
+            ContentEditor.isLoaded = true;
         }
-        return Tinymce.tinymce;
     }
 
-    handleChange(content){
-        const {handleChange} = this.props;
-
-        if(handleChange) handleChange(content);
+    componentDidUpdate() {
+        const {value} = this.props;
+        const tinymce = ContentEditor.tinymce;
+        if (tinymce) tinymce.get('my_editor').setContent(value ? value : '');
     }
 
-    componentDidMount() {
-        var tinymce = Tinymce.loadJsClient();
-
-        const id = this.id;
-        const handleChange = this.handleChange.bind(this);
-
-        tinymce.init({
-            selector: '#' + id,
-            setup:function(ed) {
-                ed.on('change', function(e) {
-                    handleChange(ed.getContent());
-                });
-            },
-            height: 500,
-            plugins: [
-                'advlist autolink link image lists charmap print preview anchor',
-                'table textcolor colorpicker'
-                //"advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
-                //"searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-                //"table contextmenu directionality emoticons template textcolor paste fullpage textcolor colorpicker textpattern"
-            ],
-
-            toolbar1: "newdocument fullpage | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
-            toolbar2: "searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | insertdatetime preview | forecolor backcolor",
-            toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | spellchecker | visualchars visualblocks nonbreaking template pagebreak restoredraft",
-
-            menubar: false,
-            toolbar_items_size: 'small',
-            paste_data_images: true
-        });
+    handleEditorChange = (e) => {
+        console.log('Content was updated:', e.target.getContent());
     }
 
     render() {
+        const {value} = this.props;
+        ContentEditor.loadJsClient();
+        const config = {
+            plugins: 'link image code',
+            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
+        };
         return (
-            <div id={this.id}/>
-        )
+            <TinyMCE
+                id="my_editor"
+                content={value}
+                config={config}
+                onChange={this.handleEditorChange}
+            />
+        );
     }
 }

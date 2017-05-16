@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Grid} from 'react-bootstrap';
 
-import {Tinymce} from '../../../_common/components/tinymce/tinymce';
+import {ContentEditor} from '../../../_common/components/contentEditor/contentEditor';
 
 interface IProps {
 
@@ -15,7 +15,7 @@ export class Editor extends React.Component<IProps, IState> {
     render() {
         return (
             <Grid>
-                <Tinymce/>
+                <ContentEditor/>
             </Grid>
         )
     }

@@ -3,7 +3,7 @@ const {connect} = require('react-redux');
 import {Modal, Button, FormGroup, FormControl, ControlLabel} from 'react-bootstrap';
 
 import {generator} from '../../../../shared/tools/generator';
-import {Tinymce} from '../../../_common/components/tinymce/tinymce';
+import {ContentEditor} from '../../../_common/components/contentEditor/contentEditor';
 import {i18n} from '../../../_common/tools/i18n/i18n';
 import {saveRole} from '../../redux/contentActions';
 
@@ -44,7 +44,6 @@ export class ContentCreateEditModal extends React.Component<IProps, IState> {
 
     componentDidUpdate() {
         const {data} = this.props;
-        console.log('componentDidUpdate', data);
         const {id} = this.state;
         if (data.id !== id) {
             this.setState({
@@ -65,11 +64,12 @@ export class ContentCreateEditModal extends React.Component<IProps, IState> {
     render() {
         const {show, onHide} = this.props;
         const {id, link, datetime, content} = this.state;
+        console.log('render', content);
         return (
             <Modal show={show} onHide={onHide} bsSize="large" aria-labelledby={this.id}>
                 <Modal.Header closeButton>
                     <Modal.Title id={this.id}>
-                        {i18n.t(id ? 'administration.editRole' : 'administration.createRole')}
+                        {i18n.t(id ? 'administration.editContent' : 'administration.createContent')}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -78,7 +78,7 @@ export class ContentCreateEditModal extends React.Component<IProps, IState> {
                         <FormControl type="text" value={link}/>
                     </FormGroup>
                     <FormGroup>
-                        <Tinymce/>
+                        <ContentEditor value={content}/>
                     </FormGroup>
                 </Modal.Body>
                 <Modal.Footer>

@@ -24,7 +24,9 @@
     "createRole": "Создать роль",
     "editRole": "Редактировать роль",
     "link": "Ссылка",
-    "dateTime": "Дата и время"
+    "dateTime": "Дата и время",
+    "createContent": "Создать контент",
+    "editContent": "Редактировать контент"
   },
   "en-EN": {
     "adminPanel": "Admin panel",
@@ -51,6 +53,8 @@
     "createRole": "Create role",
     "editRole": "Edit role",
     "link": "link",
-    "dateTime": "Date time"
+    "dateTime": "Date time",
+    "createContent": "Create content",
+    "editContent": "Edit content"
   }
 }
