@@ -7,8 +7,8 @@ import {ErrorCodeEnum} from "../../../shared/classes/ErrorCodeEnum";
 export class UsersDatabase implements IUsersDatabase {
     async findLoginDtoByLoginAsync(login: string): Promise<IDatabaseResult<LoginDto>> {
 
-        return new Promise<IDatabaseResult<LoginDto>>(resolve => {
-            PostgreEngine.executeQueryAsync<LoginDto>({
+        return new Promise<IDatabaseResult<LoginDto>>(async resolve => {
+            let res = await PostgreEngine.executeQueryAsync<LoginDto>({
                 text: `SELECT idlogin
                          ,login
                          ,password
@@ -20,12 +20,16 @@ export class UsersDatabase implements IUsersDatabase {
                     WHERE login = @login::text`,
                 values: {login}
             });
-
+            resolve({
+                errorCode: res.errorCode,
+                errorMessage: res.errorMessage,
+                data: res.data.length>0 && res.data[0]
+            })
         });
         /*
          if (result.data.length === 0) {
          resolve({
-         errorCode: ErrorCodeEnum.DatabaseNoEntryError,
+
          errorMessage: '(0 rows affected)'
          })
          )
