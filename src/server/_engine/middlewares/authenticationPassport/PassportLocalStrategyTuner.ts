@@ -1,10 +1,9 @@
 import {Strategy, IVerifyOptions} from 'passport-local'
 import * as passport  from "passport";
 import {Express} from "express-serve-static-core";
-import {IAccountDto} from "../../../_interfaces/engine/dto/IAccountDto";
-import {IUsersLogicErrorDto} from "../../../../shared/ajaxDto/authentication/IUsersLogicErrorDto";
 import {usersLogic} from "../../../registration";
-import {ISession} from "../../../../shared/classes/ISession";
+import {ISession} from "../../../_interfaces/engine/ISession";
+import {IAuthenticationError} from "../../../../shared/ajaxDto/authentication/IAuthenticationError";
 
 export class PassportLocalStrategyTuner {
     static Setup(app: Express) {
@@ -23,18 +22,14 @@ export class PassportLocalStrategyTuner {
         passport.deserializeUser<ISession,ISession>(PassportLocalStrategyTuner.deserializeUser);
     }
 
-    private static async verifyFunction(username: string, password: string, done: (error: any, user?: any, options?: IVerifyOptions) => void) {
-        var json = JSON.stringify({
-            login: username,
-            password: password,
-        });
+    private static verifyFunction(username: string, password: string, done: (error: any, user?: any, options?: IVerifyOptions) => void) {
 
-        usersLogic.findUserByLogin(username, password, (err: IUsersLogicErrorDto, account: ISession) => {
-            if (err) {
-                return done(err, false);
+        usersLogic.checkUserAndFillSessionAsync(username, password, (error: IAuthenticationError, session: ISession) => {
+            if (error) {
+                return done(error, false);
             }
             else {
-                return done(null, account);
+                return done(null, session);
             }
         });
     }

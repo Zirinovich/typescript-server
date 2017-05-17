@@ -1,8 +1,6 @@
-import {Pool, QueryConfig, QueryResult} from 'pg';
+import {Pool, QueryConfig} from 'pg';
 import {ErrorCodeEnum} from "../../../shared/classes/ErrorCodeEnum";
 import {IDbQuery} from "../../_interfaces/engine/database/IDbQuery";
-import {IQueryResult} from "../../_interfaces/engine/database/IQueryResult";
-import {IDbEngineError} from "../../_interfaces/engine/database/IDbEngineError";
 import {IDatabaseResult} from "../../_interfaces/engine/database/IDatabaseResult";
 var config = require('./../../../../config/database');
 

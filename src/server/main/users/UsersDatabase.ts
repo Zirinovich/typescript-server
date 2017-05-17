@@ -1,14 +1,14 @@
-import {PostgreEngine} from "../../_engine/database/postgreEngine";
+import {PostgreEngine} from "../../_engine/database/PostgreEngine";
 import {IUsersDatabase} from "../../_interfaces/main/IUsersDatabase";
 import {LoginDto} from "../../../shared/ajaxDto/authentication/LoginDto";
 import {IDatabaseResult} from "../../_interfaces/engine/database/IDatabaseResult";
 import {UserDto} from "../../../shared/ajaxDto/authentication/UserDto";
+import {RoleDto} from "../../../shared/ajaxDto/authentication/RoleDto";
+import {PostgreEngineHelpers} from "../../_engine/database/PostgreEngineHelpers";
 
 export class UsersDatabase implements IUsersDatabase {
     async findLoginDtoByLoginAsync(login: string): Promise<IDatabaseResult<LoginDto>> {
-        return new Promise<IDatabaseResult<LoginDto>>(async resolve => {
-            let res = await PostgreEngine.executeQueryAsync<LoginDto>({
-                text: `SELECT idlogin
+        let query = `SELECT idlogin
                          ,login
                          ,password
                          ,status
@@ -16,22 +16,12 @@ export class UsersDatabase implements IUsersDatabase {
                          ,logincreated
                          ,loginupdated
                     FROM tlogins
-                    WHERE login = @login::text`,
-                values: {login}
-            });
-            resolve({
-                errorCode: res.errorCode,
-                errorMessage: res.errorMessage,
-                data: res.data.length > 0 && res.data[0]
-            });
-        });
+                    WHERE login = @login::text`;
+        return PostgreEngineHelpers.getSingleEntity<LoginDto>(query, {login});
     }
 
     async findLoginDtoByIdAsync(idlogin: string): Promise<IDatabaseResult<LoginDto>> {
-
-        return new Promise<IDatabaseResult<LoginDto>>(async resolve => {
-            let res = await PostgreEngine.executeQueryAsync<LoginDto>({
-                text: `SELECT idlogin
+        let query = `SELECT idlogin
                          ,login
                          ,password
                          ,status
@@ -39,21 +29,12 @@ export class UsersDatabase implements IUsersDatabase {
                          ,logincreated
                          ,loginupdated
                     FROM tlogins
-                    WHERE idlogin=@idlogin`,
-                values: {idlogin}
-            });
-            resolve({
-                errorCode: res.errorCode,
-                errorMessage: res.errorMessage,
-                data: res.data.length > 0 && res.data[0]
-            });
-        });
+                    WHERE idlogin=@idlogin`;
+        return PostgreEngineHelpers.getSingleEntity<LoginDto>(query, {idlogin});
     }
 
-    getLoginListAsync(): Promise<IDatabaseResult<LoginDto[]>> {
-        return new Promise<IDatabaseResult<LoginDto[]>>(async resolve => {
-            let result = await PostgreEngine.executeQueryAsync<LoginDto>({
-                text: `SELECT idlogin
+    async getLoginListAsync(): Promise<IDatabaseResult<LoginDto[]>> {
+        let query = `SELECT idlogin
                          ,login
                          ,password
                          ,status
@@ -61,49 +42,23 @@ export class UsersDatabase implements IUsersDatabase {
                          ,firstname
                          ,lastname
                     FROM tlogins
-                    ORDER BY login`
-            });
-            resolve({
-                errorCode: result.errorCode,
-                errorMessage: result.errorMessage,
-                data: result.data.length > 0 && result.data
-            });
-        });
+                    ORDER BY login`;
+        return PostgreEngineHelpers.getMultipleEntities<LoginDto>(query);
     }
 
-    getUserByIdAsync(iduser: number): Promise<IDatabaseResult<UserDto>> {
-        return new Promise<IDatabaseResult<UserDto>>(async resolve => {
-            let result = await PostgreEngine.executeQueryAsync<UserDto>({
-                text: `SELECT iduser
+    async findUserByIdAsync(iduser: number): Promise<IDatabaseResult<UserDto>> {
+        let query = `SELECT iduser
                             ,username
                        FROM tusers
-                       WHERE iduser=@iduser`,
-                values: {iduser}
-            });
-            resolve({
-                errorCode: result.errorCode,
-                errorMessage: result.errorMessage,
-                data: result.data.length > 0 && result.data[0]
-            });
-        })
+                       WHERE iduser=@iduser`;
+        return PostgreEngineHelpers.getSingleEntity<UserDto>(query, {iduser});
     }
 
-    getRoleByIdAsync(idrole: number): Promise<IDatabaseResult<UserDto>> {
-        return new Promise<IDatabaseResult<UserDto>>(async resolve => {
-            let result = await PostgreEngine.executeQueryAsync<UserDto>({
-                text: `SELECT idroe
+    async findRoleByIdAsync(idrole: number): Promise<IDatabaseResult<RoleDto>> {
+        let query = `SELECT idroe
                             ,rolename
                        FROM troles
-                       WHERE idrole=@idrole`,
-                values: {idrole}
-            });
-            resolve({
-                errorCode: result.errorCode,
-                errorMessage: result.errorMessage,
-                data: result.data.length > 0 && result.data[0]
-            });
-        })
+                       WHERE idrole=@idrole`;
+        return PostgreEngineHelpers.getSingleEntity<RoleDto>(query, {idrole});
     }
-
-    get
 }

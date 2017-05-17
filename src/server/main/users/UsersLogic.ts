@@ -1,10 +1,13 @@
 import {IUsersLogic} from "../../_interfaces/main/IUsersLogic";
 import {usersDatabase} from "../../registration";
 import {IAccountDto} from "../../_interfaces/engine/dto/IAccountDto";
-import {UserStatusEnum} from "../../../shared/ajaxDto/authentication/UserStatusEnum";
+import {LoginStatusEnum} from "../../../shared/ajaxDto/authentication/LoginStatusEnum";
 import {IVerifyOptions} from "passport-local";
 import {IUsersLogicErrorDto} from "../../../shared/ajaxDto/authentication/IUsersLogicErrorDto";
 import {ErrorCodeEnum} from "../../../shared/classes/ErrorCodeEnum";
+import {ISession} from "../../_interfaces/engine/ISession";
+import {IAuthenticationError} from "../../../shared/ajaxDto/authentication/IAuthenticationError";
+
 export class UsersLogic implements IUsersLogic {
 
     public i: number = 0;
@@ -46,6 +49,42 @@ export class UsersLogic implements IUsersLogic {
                     status: dbLogin.status
                 }
             }));
+        });
+    }
+
+    async checkUserAndFillSessionAsync(login: string, password: string, callback: (error: IAuthenticationError, session: ISession)=>void) {
+
+        let loginResult = await usersDatabase.findLoginDtoByLoginAsync(login);
+        if (loginResult.errorCode !== ErrorCodeEnum.NoErrors) {
+            return callback({
+                errorCode: loginResult.errorCode,
+                errorMessage: loginResult.errorMessage || "InternalDatabaseError"
+            }, null);
+        }
+        if (!loginResult.data) {
+            return callback({
+                errorCode: ErrorCodeEnum.AuthNoSuchLoginError,
+                errorMessage: "IncorrectLogin"
+            }, null);
+        }
+        if (loginResult.data.status === LoginStatusEnum.Disabled) {
+            return callback({
+                errorCode: ErrorCodeEnum.AuthLoginDisabledError,
+                errorMessage: "LoginDisabled"
+            }, null);
+        }
+        if (loginResult.data.password !== password) {
+            return callback({
+                errorCode: ErrorCodeEnum.AuthWrongPasswordError,
+                errorMessage: "WrongPassword"
+            }, null);
+        }
+        let userResult = await usersDatabase.findUserByIdAsync(loginResult.data.idlogin);
+        let roleResult = await usersDatabase.findRoleByIdAsync(loginResult.data.idrole);
+        return callback(null, {
+            login: loginResult.data,
+            user: userResult.errorCode === ErrorCodeEnum.NoErrors && userResult.data,
+            role: roleResult.errorCode === ErrorCodeEnum.NoErrors && roleResult.data
         });
     }
 

@@ -27,17 +27,6 @@ router.post('/main/users/getlist', (req, res) => {
         res.json(users);
     });
 }, AuthClaims.Authenticated);
-router.post('/main/users/finduserbyloginpassword', (req, res) => {
-    const {login, password} = req.body;
-    usersLogic.findUserByLoginPassword(login, password, (error, user) => {
-        if (error) {
-            res.json(error);
-        }
-        else {
-            res.json(user);
-        }
-    })
-});
 router.post('/main/users/finduserbyid', (req, res) => {
     const {id} = req.params;
     usersLogic.findUserById(id, (error, user) => {

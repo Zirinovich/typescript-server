@@ -1,56 +1,39 @@
 import * as passportStatic  from "passport";
 import HTTP_STATUS_CODES from 'http-status-enum';
 import {IAuthenticationMiddleware} from "../../../_interfaces/engine/IAuthenticationMiddleware";
-import {IUsersLogicErrorDto} from "../../../../shared/ajaxDto/authentication/IUsersLogicErrorDto";
-import {IAccountDto} from "../../../_interfaces/engine/dto/IAccountDto";
-import {UsersDatabaseErrorEnum} from "../../../../shared/ajaxDto/authentication/UsersDatabaseErrorEnum";
+import {ErrorCodeEnum} from "../../../../shared/classes/ErrorCodeEnum";
+import {ISession} from "../../../_interfaces/engine/ISession";
+import {IAuthenticationError} from "../../../../shared/ajaxDto/authentication/IAuthenticationError";
 
 export class PassportLocalStrategyMiddlewareFunctions implements IAuthenticationMiddleware {
     login(req, res, next) {
-        passportStatic.authenticate('local', (err: IUsersLogicErrorDto, account: IAccountDto) => {
+        passportStatic.authenticate('local', (err: IAuthenticationError, session: ISession) => {
             if (err) {
-                switch (err.errorType) {
-                    case UsersDatabaseErrorEnum.SystemError:
-                        return res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR).send(err.message);
-                    case UsersDatabaseErrorEnum.NoSuchUser:
-                    case UsersDatabaseErrorEnum.UserAccountDisabled:
-                        return res.status(HTTP_STATUS_CODES.OK).json({errors: {username: err.message}});
-                    case UsersDatabaseErrorEnum.WrongPassword:
-                        return res.status(HTTP_STATUS_CODES.OK).json({errors: {password: err.message}});
+                switch (err.errorCode) {
+                    case ErrorCodeEnum.DataBaseConnectionError:
+                    case ErrorCodeEnum.DataBaseQueryError:
+                        return res.status(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR).send(err.errorMessage);
+                    case ErrorCodeEnum.AuthNoSuchLoginError:
+                    case ErrorCodeEnum.AuthLoginDisabledError:
+                        return res.status(HTTP_STATUS_CODES.OK).json({errors: {username: err.errorMessage}});
+                    case ErrorCodeEnum.AuthWrongPasswordError:
+                        return res.status(HTTP_STATUS_CODES.OK).json({errors: {password: err.errorMessage}});
                 }
             }
-            if (!account) {
-                if (err === null) {
-                    let errors: any = {};
-                    let message = "Поле обязательно для заполнения!";
-                    let body = req.body;
-                    if (!body.username) {
-                        errors.username = message;
-                    }
-                    if (!body.password) {
-                        errors.password = message;
-                    }
-                    return res.status(HTTP_STATUS_CODES.OK).json({errors});
-                }
-                return res.status(HTTP_STATUS_CODES.OK).json({errors: {username: err.message}});
-            }
-            req.logIn(account, (error) => {
-                const user = {
-                    fullName: account.fullName,
-                    username: account.username,
-                    role: account.role
-                };
+
+            let responseSession = Object.assign({}, {...session}, {password: undefined});
+            req.logIn(session, (error) => {
                 if (error) {
                     return next(error);
                 }
-                return res.json({user})
+                return res.json(responseSession)
             });
 
         })(req, res, next)
     }
 
     logout(req, res) {
-        if(req.isAuthenticated())
+        if (req.isAuthenticated())
             req.logout();
         return res.json({result: 'ok'});
     }

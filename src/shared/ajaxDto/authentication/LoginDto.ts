@@ -1,12 +1,12 @@
 import {UserRoleEnum} from "./UserRoleEnum";
-import {UserStatusEnum} from "./UserStatusEnum";
+import {LoginStatusEnum} from "./LoginStatusEnum";
 
 export interface LoginDto {
-    idlogin: string,
+    idlogin: number,
     login: string,
     password: string,
-    status: UserStatusEnum,
-    idrole: UserRoleEnum,
-    firstname: string,
-    lastname: string
+    status: LoginStatusEnum,
+    idrole: number,
+    logincreated?: string,
+    loginupdated?: string
 }
