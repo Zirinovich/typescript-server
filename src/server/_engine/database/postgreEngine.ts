@@ -1,66 +1,77 @@
-import {Pool, QueryConfig} from 'pg';
+import {Pool, QueryConfig, QueryResult} from 'pg';
 import {ErrorCodeEnum} from "../../../shared/classes/ErrorCodeEnum";
+import {IDbQuery} from "../../_interfaces/engine/database/IDbQuery";
+import {IQueryResult} from "../../_interfaces/engine/database/IQueryResult";
+import {IDbEngineError} from "../../_interfaces/engine/database/IDbEngineError";
+import {IDatabaseResult} from "../../_interfaces/engine/database/IDatabaseResult";
 var config = require('./../../../../config/database');
-
-interface IDatabaseResult {
-    ErrorCode: ErrorCodeEnum,
-    ErrorMessage: string,
-    Data: any
-}
-
-interface IDbQuery{
-    name?: string;
-    text: string;
-    values?: any;
-}
 
 export class PostgreEngine {
     static pool = new Pool(config);
 
-    static executeQuery(query: IDbQuery, doneCallback: (error, result)=>any) {
+    private static transformQuery(query: IDbQuery): QueryConfig {
+        if (query.values) {
+            let queryText = query.text;
+            let queryParams = query.values;
+            let newParams = [];
 
-        let queryText = query.text;
-        let queryParams = query.values;
-
-        Object.keys(queryParams).forEach((propName, i)=>{
-            queryText = queryText.replace(new RegExp(`\@${propName}`,'g'))
-        });
-
-
-        for(let key in queryParams){
-
+            Object.keys(queryParams).forEach((paramName, i) => {
+                queryText = queryText.replace(new RegExp(`(@${paramName})($|:|\\s+|\\)|^_|^-)`, 'g'), `$$${i + 1}$2`);
+                newParams.push(queryParams[paramName]);
+            });
+            return {
+                name: query.name && query.name,
+                text: queryText,
+                values: newParams
+            }
         }
+        else {
+            return {
+                name: query.name && query.name,
+                text: query.text
+            }
+        }
+    }
+
+    static executeQuery<T>(query: IDbQuery, doneCallback: (result: IDatabaseResult<Array<T>>)=>void) {
+
+        let pgQuery = PostgreEngine.transformQuery(query);
 
         PostgreEngine.pool.connect()
             .then(client => {
-                client.query(query)
-                    .then(result => {
-                        doneCallback(null, result);
+                client.query(pgQuery)
+                    .then(dbResult => {
+                        if (dbResult.rowCount) {
+                            doneCallback({
+                                errorCode: ErrorCodeEnum.NoErrors,
+                                data: <Array<T>>dbResult.rows
+                            });
+                        }
+                        doneCallback({
+                            errorCode: ErrorCodeEnum.NoErrors,
+                            data: []
+                        });
                     })
                     .catch(queryError => {
-                        doneCallback(queryError, null);
+                        doneCallback({
+                            errorCode: ErrorCodeEnum.DataBaseQueryError,
+                            errorMessage: queryError.toString()
+                        });
                     })
             })
             .catch(connectionError => {
-                doneCallback(connectionError, null);
+                doneCallback({
+                    errorCode: ErrorCodeEnum.DataBaseConnectionError,
+                    errorMessage: connectionError.toString()
+                });
             });
     }
 
-    static async executeQueryAsync(query: QueryConfig) {
-        try {
-            return {
-                ErrorCode: null,
-                ErrorMessage: null,
-                Data: await (await PostgreEngine.pool.connect()).query(query)
-            }
-        }
-        catch (e) {
-            return {
-                ErrorCode: ErrorCodeEnum.DataBaseSystemError,
-                ErrorMessage: e.data.message,
-                Data: null
-            }
-        }
-
+    static async executeQueryAsync<T>(query: IDbQuery): Promise<IDatabaseResult<Array<T>>> {
+        return new Promise<IDatabaseResult<Array<T>>>((resolve, reject) => {
+            PostgreEngine.executeQuery(query, (dbResult: IDatabaseResult<Array<T>>) => {
+                resolve(dbResult);
+            });
+        });
     }
 }
