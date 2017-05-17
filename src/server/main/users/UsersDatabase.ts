@@ -7,8 +7,9 @@ import {ErrorCodeEnum} from "../../../shared/classes/ErrorCodeEnum";
 export class UsersDatabase implements IUsersDatabase {
     async findLoginDtoByLoginAsync(login: string): Promise<IDatabaseResult<LoginDto>> {
 
-        let result = await PostgreEngine.executeQueryAsync<LoginDto>({
-            text: `SELECT idlogin
+        return new Promise<IDatabaseResult<LoginDto>>(resolve => {
+            PostgreEngine.executeQueryAsync<LoginDto>({
+                text: `SELECT idlogin
                          ,login
                          ,password
                          ,status
@@ -17,24 +18,27 @@ export class UsersDatabase implements IUsersDatabase {
                          ,loginupdated
                     FROM tlogins
                     WHERE login = @login::text`,
-            values: {login}
+                values: {login}
+            });
+
         });
-        if (result.data.length === 0) {
-            return new Promise<IDatabaseResult<LoginDto>>(resolve =>
-                resolve({
-                    errorCode: ErrorCodeEnum.DatabaseNoEntryError,
-                    errorMessage: '(0 rows affected)'
-                })
-            )
-        }
-        else {
-            return new Promise<IDatabaseResult<LoginDto>>(resolve =>
-                resolve({
-                    errorCode: ErrorCodeEnum.NoErrors,
-                    data: result[0]
-                })
-            )
-        }
+        /*
+         if (result.data.length === 0) {
+         resolve({
+         errorCode: ErrorCodeEnum.DatabaseNoEntryError,
+         errorMessage: '(0 rows affected)'
+         })
+         )
+         }
+         else {
+         return new Promise<IDatabaseResult<LoginDto>>(resolve =>
+         resolve({
+         errorCode: ErrorCodeEnum.NoErrors,
+         data: result[0]
+         })
+         )
+         }
+         */
     }
 
     async findLoginDtoByIdAsync(idlogin: string): Promise<IDatabaseResult<LoginDto>> {
