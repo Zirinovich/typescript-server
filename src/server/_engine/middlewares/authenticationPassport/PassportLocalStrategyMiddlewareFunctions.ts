@@ -2,12 +2,12 @@ import * as passportStatic  from "passport";
 import HTTP_STATUS_CODES from 'http-status-enum';
 import {IAuthenticationMiddleware} from "../../../_interfaces/engine/IAuthenticationMiddleware";
 import {ErrorCodeEnum} from "../../../../shared/classes/ErrorCodeEnum";
-import {IAuthenticationError} from "../../../../shared/ajaxDto/authentication/IAuthenticationError";
 import {SessionDto} from "../../../_interfaces/engine/dto/SessionDto";
+import {IAjaxResponse} from "../../../../shared/classes/IAjaxResponse";
 
 export class PassportLocalStrategyMiddlewareFunctions implements IAuthenticationMiddleware {
     login(req, res, next) {
-        passportStatic.authenticate('local', (err: IAuthenticationError, session: SessionDto) => {
+        passportStatic.authenticate('local', (err: IAjaxResponse<SessionDto>, sessionResponse: IAjaxResponse<SessionDto>) => {
             if (err) {
                 switch (err.errorCode) {
                     case ErrorCodeEnum.DataBaseConnectionError:
@@ -21,12 +21,14 @@ export class PassportLocalStrategyMiddlewareFunctions implements IAuthentication
                 }
             }
 
-            let responseSession = Object.assign({}, {...session}, {password: undefined});
+            let session = _.cloneDeep(sessionResponse.data);
+            sessionResponse.data.login.password = undefined; // NOTE: Это необходимо для того, что б пароль не попал на клиентскую сторону, хотя возможно лучше перенести сразу в UsersLogic после проверки пароля.
+
             req.logIn(session, (error) => {
                 if (error) {
                     return next(error);
                 }
-                return res.json(responseSession)
+                return res.json(sessionResponse)
             });
 
         })(req, res, next)
@@ -35,10 +37,10 @@ export class PassportLocalStrategyMiddlewareFunctions implements IAuthentication
     logout(req, res) {
         if (req.isAuthenticated())
             req.logout();
-        return res.json({result: 'ok'});
+        return res.json({errorCode: ErrorCodeEnum.NoErrors});
     }
 
     mustAuthenticate(req, res, next) {
-        req.isAuthenticated() ? next() : res.status(HTTP_STATUS_CODES.UNAUTHORIZED).json({message: "Authorization required!"});
+        req.isAuthenticated() ? next() : res.status(HTTP_STATUS_CODES.UNAUTHORIZED).json({errorCode: ErrorCodeEnum.AuthorizationRequiredError});
     }
 }

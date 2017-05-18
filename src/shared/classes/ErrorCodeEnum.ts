@@ -1,10 +1,12 @@
 export enum ErrorCodeEnum{
     NoErrors,
-
+//------ Database errors
     DataBaseQueryError,
     DataBaseConnectionError,
-
+//------ Authentication errors
     AuthNoSuchLoginError,
     AuthWrongPasswordError,
-    AuthLoginDisabledError
+    AuthLoginDisabledError,
+//------ Authorization errors
+    AuthorizationRequiredError
 }

@@ -1,13 +1,10 @@
-import {IUsersLogicErrorDto} from "../../../shared/ajaxDto/authentication/IUsersLogicErrorDto";
-import {IAccountDto} from "../engine/dto/IAccountDto";
-import {ISession} from "../engine/dto/SessionDto";
-import {IAuthenticationError} from "../../../shared/ajaxDto/authentication/IAuthenticationError";
+import {SessionDto} from "../engine/dto/SessionDto";
+import {LoginDto} from "../../../shared/ajaxDto/authentication/LoginDto";
+import {IDatabaseResult} from "../engine/database/IDatabaseResult";
 
 export interface IUsersLogic {
-    i: number;
-    test(j: number);
-    getList(callback: (error: IUsersLogicErrorDto, users: IAccountDto[])=>void): void;
-    findUserByLogin(login: string, password: string, callback: Function): void;
-    findUserById(id: string, callback: Function): void;
-    checkUserAndFillSessionAsync(login: string, password: string, callback: (error: IAuthenticationError, session: ISession)=>void): void;
+    getLoginListAsync(): Promise<IDatabaseResult<LoginDto[]>>;
+    findLoginByLoginAsync(login: string): Promise<IDatabaseResult<LoginDto>>;
+    findLoginByIdAsync(id: number): Promise<IDatabaseResult<LoginDto>>;
+    checkLoginAndFillSessionAsync(login: string, password: string, callback: (response: IDatabaseResult<SessionDto>)=>void): void;
 }

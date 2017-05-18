@@ -2,8 +2,9 @@ import {Strategy, IVerifyOptions} from 'passport-local'
 import * as passport  from "passport";
 import {Express} from "express-serve-static-core";
 import {usersLogic} from "../../../registration";
-import {IAuthenticationError} from "../../../../shared/ajaxDto/authentication/IAuthenticationError";
 import {SessionDto} from "../../../_interfaces/engine/dto/SessionDto";
+import {ErrorCodeEnum} from "../../../../shared/classes/ErrorCodeEnum";
+import {IDatabaseResult} from "../../../_interfaces/engine/database/IDatabaseResult";
 
 export class PassportLocalStrategyTuner {
     static Setup(app: Express) {
@@ -24,12 +25,12 @@ export class PassportLocalStrategyTuner {
 
     private static verifyFunction(username: string, password: string, done: (error: any, user?: any, options?: IVerifyOptions) => void) {
 
-        usersLogic.checkUserAndFillSessionAsync(username, password, (error: IAuthenticationError, session: SessionDto) => {
-            if (error) {
-                return done(error, false);
+        usersLogic.checkLoginAndFillSessionAsync(username, password, (response: IDatabaseResult<SessionDto>) => {
+            if (response.errorCode === ErrorCodeEnum.NoErrors) {
+                return done(null, response);
             }
             else {
-                return done(null, session);
+                return done(response, false);
             }
         });
     }

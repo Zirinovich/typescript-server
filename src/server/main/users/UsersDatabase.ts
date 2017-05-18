@@ -6,6 +6,8 @@ import {RoleDto} from "../../../shared/ajaxDto/authentication/RoleDto";
 import {dbEngine} from "../../registration";
 
 export class UsersDatabase implements IUsersDatabase {
+    // TODO: Может во всех методах где возвращается LoginDto вместо пароля возвращать пустую строку или null
+    // для всех методов кроме findLoginDtoByLoginAsyn или сделать это в UsersLogic
     async findLoginDtoByLoginAsync(login: string): Promise<IDatabaseResult<LoginDto>> {
         let query = `SELECT idlogin
                          ,login
@@ -19,7 +21,7 @@ export class UsersDatabase implements IUsersDatabase {
         return dbEngine.querySingleAsync<LoginDto>({text: query, values: {login}});
     }
 
-    async findLoginDtoByIdAsync(idlogin: string): Promise<IDatabaseResult<LoginDto>> {
+    async findLoginDtoByIdAsync(idlogin: number): Promise<IDatabaseResult<LoginDto>> {
         let query = `SELECT idlogin
                          ,login
                          ,password

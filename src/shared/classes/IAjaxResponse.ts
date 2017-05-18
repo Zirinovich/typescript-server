@@ -1,6 +1,6 @@
 import {ErrorCodeEnum} from "./ErrorCodeEnum";
-export interface IAjaxResponse {
-    ErrorCode: ErrorCodeEnum,
-    ErrorMessage: string,
-    Data: any
+export interface IAjaxResponse<T> {
+    errorCode: ErrorCodeEnum,
+    errorMessage?: string,
+    data?: T
 }
