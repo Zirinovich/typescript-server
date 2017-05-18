@@ -2,10 +2,14 @@ import {Pool, QueryConfig} from 'pg';
 import {ErrorCodeEnum} from "../../../shared/classes/ErrorCodeEnum";
 import {IDbQuery} from "../../_interfaces/engine/database/IDbQuery";
 import {IDatabaseResult} from "../../_interfaces/engine/database/IDatabaseResult";
-var config = require('./../../../../config/database');
+import {IDatabaseEngine} from "../../_interfaces/engine/database/IDatabaseEngine";
 
-export class PostgreEngine {
-    static pool = new Pool(config);
+export class PostgreEngine implements IDatabaseEngine {
+    private pool: Pool;
+
+    constructor(config) {
+        this.pool = new Pool(config);
+    }
 
     private static transformQuery(query: IDbQuery): QueryConfig {
         if (query.values) {
@@ -31,9 +35,9 @@ export class PostgreEngine {
         }
     }
 
-    static async querySingleAsync<T>(query: IDbQuery): Promise<IDatabaseResult<T>> {
-        return new Promise<IDatabaseResult<T>>((resolve, reject) => {
-            PostgreEngine.query(query, (dbResult: IDatabaseResult<Array<T>>) => {
+    async querySingleAsync<T>(query: IDbQuery): Promise<IDatabaseResult<T>> {
+        return new Promise<IDatabaseResult<T>>((resolve) => {
+            this.query(query, (dbResult: IDatabaseResult<Array<T>>) => {
                 let res: IDatabaseResult<T> = {
                     errorCode: dbResult.errorCode,
                     errorMessage: dbResult.errorMessage,
@@ -44,17 +48,17 @@ export class PostgreEngine {
         });
     }
 
-    static async queryAsync<T>(query: IDbQuery): Promise<IDatabaseResult<Array<T>>> {
+    async queryAsync<T>(query: IDbQuery): Promise<IDatabaseResult<Array<T>>> {
         return new Promise<IDatabaseResult<Array<T>>>((resolve, reject) => {
-            PostgreEngine.query(query, (dbResult: IDatabaseResult<Array<T>>) => {
+            this.query(query, (dbResult: IDatabaseResult<Array<T>>) => {
                 resolve(dbResult);
             });
         });
     }
 
-    private static query<T>(query: IDbQuery, doneCallback: (result: IDatabaseResult<Array<T>>) => void) {
+    private query<T>(query: IDbQuery, doneCallback: (result: IDatabaseResult<Array<T>>) => void) {
         let pgQuery = PostgreEngine.transformQuery(query);
-        PostgreEngine.pool.connect()
+        this.pool.connect()
             .then(client => {
                 client.query(pgQuery)
                     .then(dbResult => {

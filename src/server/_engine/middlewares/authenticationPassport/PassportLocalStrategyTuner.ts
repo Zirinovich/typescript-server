@@ -2,8 +2,8 @@ import {Strategy, IVerifyOptions} from 'passport-local'
 import * as passport  from "passport";
 import {Express} from "express-serve-static-core";
 import {usersLogic} from "../../../registration";
-import {ISession} from "../../../_interfaces/engine/ISession";
 import {IAuthenticationError} from "../../../../shared/ajaxDto/authentication/IAuthenticationError";
+import {SessionDto} from "../../../_interfaces/engine/dto/SessionDto";
 
 export class PassportLocalStrategyTuner {
     static Setup(app: Express) {
@@ -18,13 +18,13 @@ export class PassportLocalStrategyTuner {
                 passwordField: "password"
             }, PassportLocalStrategyTuner.verifyFunction
         ));
-        passport.serializeUser<ISession,ISession>(PassportLocalStrategyTuner.serializeUser);
-        passport.deserializeUser<ISession,ISession>(PassportLocalStrategyTuner.deserializeUser);
+        passport.serializeUser<SessionDto,SessionDto>(PassportLocalStrategyTuner.serializeUser);
+        passport.deserializeUser<SessionDto,SessionDto>(PassportLocalStrategyTuner.deserializeUser);
     }
 
     private static verifyFunction(username: string, password: string, done: (error: any, user?: any, options?: IVerifyOptions) => void) {
 
-        usersLogic.checkUserAndFillSessionAsync(username, password, (error: IAuthenticationError, session: ISession) => {
+        usersLogic.checkUserAndFillSessionAsync(username, password, (error: IAuthenticationError, session: SessionDto) => {
             if (error) {
                 return done(error, false);
             }
@@ -34,11 +34,11 @@ export class PassportLocalStrategyTuner {
         });
     }
 
-    private static serializeUser(session: ISession, done: (err, session)=> void) {
+    private static serializeUser(session: SessionDto, done: (err, session)=> void) {
         done(null, session)
     }
 
-    private static deserializeUser(session: ISession, done: (err, session?)=>void) {
+    private static deserializeUser(session: SessionDto, done: (err, session?)=>void) {
         done(null, session);
     }
 }

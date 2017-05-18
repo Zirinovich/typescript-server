@@ -5,8 +5,8 @@ import {LoginStatusEnum} from "../../../shared/ajaxDto/authentication/LoginStatu
 import {IVerifyOptions} from "passport-local";
 import {IUsersLogicErrorDto} from "../../../shared/ajaxDto/authentication/IUsersLogicErrorDto";
 import {ErrorCodeEnum} from "../../../shared/classes/ErrorCodeEnum";
-import {ISession} from "../../_interfaces/engine/ISession";
 import {IAuthenticationError} from "../../../shared/ajaxDto/authentication/IAuthenticationError";
+import {SessionDto} from "../../_interfaces/engine/dto/SessionDto";
 
 export class UsersLogic implements IUsersLogic {
     getList(callback: (error: UsersLogicErrorDto, users: AccountDto[])=>void) {
@@ -34,7 +34,7 @@ export class UsersLogic implements IUsersLogic {
         });
     }
 
-    async checkUserAndFillSessionAsync(login: string, password: string, callback: (error: IAuthenticationError, session: ISession)=>void) {
+    async checkUserAndFillSessionAsync(login: string, password: string, callback: (error: IAuthenticationError, session: SessionDto)=>void) {
 
         let loginResult = await usersDatabase.findLoginDtoByLoginAsync(login);
         if (loginResult.errorCode !== ErrorCodeEnum.NoErrors) {

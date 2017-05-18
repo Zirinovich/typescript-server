@@ -1,6 +1,6 @@
 import {IUsersLogicErrorDto} from "../../../shared/ajaxDto/authentication/IUsersLogicErrorDto";
 import {IAccountDto} from "../engine/dto/IAccountDto";
-import {ISession} from "../engine/ISession";
+import {ISession} from "../engine/dto/SessionDto";
 import {IAuthenticationError} from "../../../shared/ajaxDto/authentication/IAuthenticationError";
 
 export interface IUsersLogic {

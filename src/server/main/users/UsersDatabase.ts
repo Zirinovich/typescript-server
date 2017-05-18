@@ -1,9 +1,9 @@
-import {PostgreEngine} from "../../_engine/database/PostgreEngine";
 import {IUsersDatabase} from "../../_interfaces/main/IUsersDatabase";
 import {LoginDto} from "../../../shared/ajaxDto/authentication/LoginDto";
 import {IDatabaseResult} from "../../_interfaces/engine/database/IDatabaseResult";
 import {UserDto} from "../../../shared/ajaxDto/authentication/UserDto";
 import {RoleDto} from "../../../shared/ajaxDto/authentication/RoleDto";
+import {dbEngine} from "../../registration";
 
 export class UsersDatabase implements IUsersDatabase {
     async findLoginDtoByLoginAsync(login: string): Promise<IDatabaseResult<LoginDto>> {
@@ -16,7 +16,7 @@ export class UsersDatabase implements IUsersDatabase {
                          ,loginupdated
                     FROM tlogins
                     WHERE login = @login`;
-        return PostgreEngine.getSingleEntity<LoginDto>(query, {login});
+        return dbEngine.querySingleAsync<LoginDto>({text: query, values: {login}});
     }
 
     async findLoginDtoByIdAsync(idlogin: string): Promise<IDatabaseResult<LoginDto>> {
@@ -29,7 +29,7 @@ export class UsersDatabase implements IUsersDatabase {
                          ,loginupdated
                     FROM tlogins
                     WHERE idlogin=@idlogin`;
-        return PostgreEngineHelpers.getSingleEntity<LoginDto>(query, {idlogin});
+        return dbEngine.querySingleAsync<LoginDto>({text: query, values: {idlogin}});
     }
 
     async getLoginListAsync(): Promise<IDatabaseResult<LoginDto[]>> {
@@ -42,7 +42,7 @@ export class UsersDatabase implements IUsersDatabase {
                          ,lastname
                     FROM tlogins
                     ORDER BY login`;
-        return PostgreEngineHelpers.getMultipleEntities<LoginDto>(query);
+        return dbEngine.queryAsync<LoginDto>({text: query});
     }
 
     async findUserByIdAsync(iduser: number): Promise<IDatabaseResult<UserDto>> {
@@ -50,7 +50,7 @@ export class UsersDatabase implements IUsersDatabase {
                             ,username
                        FROM tusers
                        WHERE iduser=@iduser`;
-        return PostgreEngineHelpers.getSingleEntity<UserDto>(query, {iduser});
+        return dbEngine.querySingleAsync<UserDto>({text: query, values: {iduser}});
     }
 
     async findRoleByIdAsync(idrole: number): Promise<IDatabaseResult<RoleDto>> {
@@ -58,6 +58,6 @@ export class UsersDatabase implements IUsersDatabase {
                             ,rolename
                        FROM troles
                        WHERE idrole=@idrole`;
-        return PostgreEngineHelpers.getSingleEntity<RoleDto>(query, {idrole});
+        return dbEngine.querySingleAsync<RoleDto>({text: query, values: {idrole}});
     }
 }
