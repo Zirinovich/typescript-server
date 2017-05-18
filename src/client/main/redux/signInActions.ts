@@ -14,7 +14,7 @@ export interface ISignInAction extends IAction {
 }
 
 export function signInRequest(credentials: {username?: string, password?: string}) {
-    const data = {username: credentials.username, password: getMD5base64(credentials.password)}
+    const data = {username: credentials.username, password: getMD5base64(credentials.password)};
 
     return fetch('/api/login', {
         method: 'POST',

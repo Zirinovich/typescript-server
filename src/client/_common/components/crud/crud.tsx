@@ -9,6 +9,7 @@ const style = require('./crud.scss');
 interface IModalFormProps {
     show: boolean;
     onHide: Function;
+    onSubmit?: any;
     data?: any;
 }
 
@@ -27,6 +28,7 @@ interface IProps {
             isSingleRowSelected?: boolean;
             confirm?: boolean;
         };
+        handleSubmit?: any;
         method?: (selected: any[])=>void;
     }[];
 }
@@ -69,7 +71,7 @@ export class Crud extends React.Component<IProps, IState> {
             return dataKeys.indexOf(selectedKey) !== -1;
         });
 
-        if(selected.length !== actualSelected.length){
+        if (selected.length !== actualSelected.length) {
             this.setState({
                 selected: actualSelected
             });
@@ -189,14 +191,17 @@ export class Crud extends React.Component<IProps, IState> {
                     <Col md={12} className={style.buttons_wrapper}>
                         {
                             actions.map((action, index) => {
+                                const {text, handleSubmit} = action;
                                 const ModalForm = action.modalForm;
                                 return (
                                     <span key={index}>
                                         <Button bsStyle="primary" onClick={() => actionClickHandler(index)}>
-                                            {action.text}
+                                            {text}
                                         </Button>
                                         {ModalForm &&
-                                        <ModalForm show={modalsShow[index]} onHide={() => modalClose(index)}
+                                        <ModalForm show={modalsShow[index]}
+                                                   onSubmit={handleSubmit ? handleSubmit : function(){}}
+                                                   onHide={() => modalClose(index)}
                                                    data={selectedRowData}/>}
                                     </span>
                                 )

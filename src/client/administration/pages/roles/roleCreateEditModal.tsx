@@ -1,15 +1,20 @@
 import * as React from 'react';
 const {connect} = require('react-redux');
-import {Modal, Button, Row, Col, FormControl, ControlLabel} from 'react-bootstrap';
+import {Field, reduxForm, change as fieldChange} from 'redux-form';
+import {Modal, Form, Button, Row, Col, FormControl, ControlLabel} from 'react-bootstrap';
 
 import {generator} from '../../../../shared/tools/generator';
 import {i18n} from '../../../_common/tools/i18n/i18n';
+import {Input} from '../../components/input/input';
 import {saveRole} from '../../redux/rolesActions';
 
+//#region interfaces
 interface IProps {
     show: boolean;
     onHide: any;
+    handleSubmit: any;
     data?: any;
+    roles: any;
     saveRole?: any;
 }
 
@@ -17,9 +22,10 @@ interface IState {
     id?: any;
     name?: string;
 }
+//#endregion
 
 @connect(
-    (state) => ({roles: state.roles}),
+    (state) => ({}),
     (dispatch) => ({
         saveRole: (role) => dispatch(saveRole(role))
     })
@@ -39,23 +45,27 @@ export class RoleCreateEditModal extends React.Component<IProps, IState> {
         const {data} = this.props;
         const {id} = this.state;
         if (data.id !== id) {
-            this.setState({
+            const state = {
                 id: data.id,
                 name: data.name
-            });
+            };
+            this.setState(state);
         }
     }
 
-    nameChangeHandler(e) {
-        this.setState({
-            name: e.target.value
-        });
+    fieldChangeHandler(e, name, value) {
+        console.log('onEvent', e, name);
+        let state = {};
+        state[name] = value;
+        this.setState(state);
     }
 
-    saveClickHandler() {
-        const {saveRole, onHide} = this.props;
+    submitHandler(e) {
+        const {onHide, saveRole} = this.props;
+        //handleSubmit(e);
         saveRole(this.state);
         onHide();
+        e.preventDefault();
     }
 
     render() {
@@ -63,28 +73,25 @@ export class RoleCreateEditModal extends React.Component<IProps, IState> {
         const {id, name} = this.state;
         return (
             <Modal show={show} onHide={onHide} bsSize="large" aria-labelledby={this.id}>
-                <Modal.Header closeButton>
-                    <Modal.Title id={this.id}>
-                        {id ? i18n.t('administration.editRole') : i18n.t('administration.createRole')}
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Row>
-                        <Col md={4}>
-                            <ControlLabel>{i18n.t('administration.role')}</ControlLabel>
-                            <FormControl
-                                type="text"
-                                value={name}
-                                onChange={this.nameChangeHandler.bind(this)}
-                            />
-                        </Col>
-                    </Row>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button bsStyle="primary"
-                            onClick={this.saveClickHandler.bind(this)}>{i18n.t('administration.save')}</Button>
-                    <Button onClick={onHide}>{i18n.t('administration.close')}</Button>
-                </Modal.Footer>
+                <Form onSubmit={this.submitHandler.bind(this)}>
+                    <Modal.Header closeButton>
+                        <Modal.Title id={this.id}>
+                            {i18n.t(id ? 'administration.editRole' : 'administration.createRole')}
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Row>
+                            <Col md={4}>
+                                <ControlLabel>{i18n.t('administration.role')}</ControlLabel>
+                                <Input name="name" value={name} onEvent={this.fieldChangeHandler.bind(this)}/>
+                            </Col>
+                        </Row>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button type="submit" bsStyle="primary">{i18n.t('administration.save')}</Button>
+                        <Button onClick={onHide}>{i18n.t('administration.close')}</Button>
+                    </Modal.Footer>
+                </Form>
             </Modal>
         )
     }
