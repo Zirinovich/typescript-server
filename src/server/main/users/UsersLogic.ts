@@ -9,25 +9,7 @@ import {ISession} from "../../_interfaces/engine/ISession";
 import {IAuthenticationError} from "../../../shared/ajaxDto/authentication/IAuthenticationError";
 
 export class UsersLogic implements IUsersLogic {
-
-    public i: number = 0;
-
-    login(userName, password) {
-        //authenticationMiddleware.login
-    }
-
-    logout() {
-        //authenticationMiddleware.logout
-    }
-
-    test(j: number) {
-        console.log(`i=${this.i}   j=${j}`);
-        setTimeout(() => {
-            this.i++;
-        }, 2000);
-    }
-
-    getList(callback: (error: IUsersLogicErrorDto, users: IAccountDto[])=>void) {
+    getList(callback: (error: UsersLogicErrorDto, users: AccountDto[])=>void) {
         usersDatabase.getList((error, dbLogins) => {
             if (error) {
                 callback({

@@ -31,10 +31,29 @@ export class PostgreEngine {
         }
     }
 
-    static executeQuery<T>(query: IDbQuery, doneCallback: (result: IDatabaseResult<Array<T>>)=>void) {
+    static async querySingleAsync<T>(query: IDbQuery): Promise<IDatabaseResult<T>> {
+        return new Promise<IDatabaseResult<T>>((resolve, reject) => {
+            PostgreEngine.query(query, (dbResult: IDatabaseResult<Array<T>>) => {
+                let res: IDatabaseResult<T> = {
+                    errorCode: dbResult.errorCode,
+                    errorMessage: dbResult.errorMessage,
+                    data: dbResult.data.length > 0 && dbResult.data[0]
+                };
+                resolve(res);
+            });
+        });
+    }
 
+    static async queryAsync<T>(query: IDbQuery): Promise<IDatabaseResult<Array<T>>> {
+        return new Promise<IDatabaseResult<Array<T>>>((resolve, reject) => {
+            PostgreEngine.query(query, (dbResult: IDatabaseResult<Array<T>>) => {
+                resolve(dbResult);
+            });
+        });
+    }
+
+    private static query<T>(query: IDbQuery, doneCallback: (result: IDatabaseResult<Array<T>>) => void) {
         let pgQuery = PostgreEngine.transformQuery(query);
-
         PostgreEngine.pool.connect()
             .then(client => {
                 client.query(pgQuery)
@@ -63,13 +82,5 @@ export class PostgreEngine {
                     errorMessage: connectionError.toString()
                 });
             });
-    }
-
-    static async executeQueryAsync<T>(query: IDbQuery): Promise<IDatabaseResult<Array<T>>> {
-        return new Promise<IDatabaseResult<Array<T>>>((resolve, reject) => {
-            PostgreEngine.executeQuery(query, (dbResult: IDatabaseResult<Array<T>>) => {
-                resolve(dbResult);
-            });
-        });
     }
 }

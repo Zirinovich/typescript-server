@@ -4,7 +4,6 @@ import {LoginDto} from "../../../shared/ajaxDto/authentication/LoginDto";
 import {IDatabaseResult} from "../../_interfaces/engine/database/IDatabaseResult";
 import {UserDto} from "../../../shared/ajaxDto/authentication/UserDto";
 import {RoleDto} from "../../../shared/ajaxDto/authentication/RoleDto";
-import {PostgreEngineHelpers} from "../../_engine/database/PostgreEngineHelpers";
 
 export class UsersDatabase implements IUsersDatabase {
     async findLoginDtoByLoginAsync(login: string): Promise<IDatabaseResult<LoginDto>> {
@@ -16,8 +15,8 @@ export class UsersDatabase implements IUsersDatabase {
                          ,logincreated
                          ,loginupdated
                     FROM tlogins
-                    WHERE login = @login::text`;
-        return PostgreEngineHelpers.getSingleEntity<LoginDto>(query, {login});
+                    WHERE login = @login`;
+        return PostgreEngine.getSingleEntity<LoginDto>(query, {login});
     }
 
     async findLoginDtoByIdAsync(idlogin: string): Promise<IDatabaseResult<LoginDto>> {
