@@ -5,6 +5,7 @@ import {Navbar, Nav, NavItem} from 'react-bootstrap';
 
 import {i18n} from '../../../_common/tools/i18n/i18n';
 
+//#region interfaces
 interface IProps {
 
 }
@@ -12,6 +13,7 @@ interface IProps {
 interface IState {
 
 }
+//#endregion
 
 export class Header extends React.Component<IProps, IState> {
     render(){
@@ -25,14 +27,14 @@ export class Header extends React.Component<IProps, IState> {
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <Nav>
+                        <LinkContainer to="/admin/content">
+                            <NavItem eventKey={1}>{i18n.t('administration.content')}</NavItem>
+                        </LinkContainer>
                         <LinkContainer to="/admin/users">
-                            <NavItem eventKey={1}>{i18n.t('administration.users')}</NavItem>
+                            <NavItem eventKey={2}>{i18n.t('administration.users')}</NavItem>
                         </LinkContainer>
-                        <LinkContainer to="/admin/rules">
-                            <NavItem eventKey={2}>{i18n.t('administration.rules')}</NavItem>
-                        </LinkContainer>
-                        <LinkContainer to="/admin/editor">
-                            <NavItem eventKey={4}>{i18n.t('administration.textEditor')}</NavItem>
+                        <LinkContainer to="/admin/roles">
+                            <NavItem eventKey={3}>{i18n.t('administration.roles')}</NavItem>
                         </LinkContainer>
                     </Nav>
                     <Nav pullRight>

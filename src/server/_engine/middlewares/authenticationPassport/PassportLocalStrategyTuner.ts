@@ -24,7 +24,6 @@ export class PassportLocalStrategyTuner {
     }
 
     private static verifyFunction(username: string, password: string, done: (error: any, user?: any, options?: IVerifyOptions) => void) {
-
         usersLogic.checkLoginAndFillSessionAsync(username, password, (response: IDatabaseResult<SessionDto>) => {
             if (response.errorCode === ErrorCodeEnum.NoErrors) {
                 return done(null, response);

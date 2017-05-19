@@ -15,11 +15,18 @@
     "password": "Пароль",
     "fullName": "Полное имя",
     "role": "Роль",
+    "roles": "Роли",
     "chooseOneRowToEdit": "Выберите 1 строку для редактирования",
     "deleteRows_question": "Удалить {{count}} строк(у)?",
     "chooseRowsToDelete": "Выберите строки для удаления",
-    "addUser": "Добавить пользователя",
-    "editUser": "Редактировать пользователя"
+    "createUser": "Создать пользователя",
+    "editUser": "Редактировать пользователя",
+    "createRole": "Создать роль",
+    "editRole": "Редактировать роль",
+    "link": "Ссылка",
+    "dateTime": "Дата и время",
+    "createContent": "Создать контент",
+    "editContent": "Редактировать контент"
   },
   "en-EN": {
     "adminPanel": "Admin panel",
@@ -37,10 +44,17 @@
     "password": "Password",
     "fullName": "Full name",
     "role": "Role",
+    "roles": "Roles",
     "chooseOneRowToEdit": "Choose 1 row to edit",
     "deleteRows_question": "Delete {{count}} row(s)?",
     "chooseRowsToDelete": "Choose rows to delete",
-    "addUser": "Add user",
-    "editUser": "Edit user"
+    "createUser": "Add user",
+    "editUser": "Edit user",
+    "createRole": "Create role",
+    "editRole": "Edit role",
+    "link": "link",
+    "dateTime": "Date time",
+    "createContent": "Create content",
+    "editContent": "Edit content"
   }
 }
