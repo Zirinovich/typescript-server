@@ -19,8 +19,8 @@ export interface ISignInAction extends IAction {
     signInResponse: IAjaxResponse<SessionDto>;
 }
 
-export async function signInRequest(credentials: {username?: string, password?: string}) {
-    const data = {username: credentials.username, password: getMD5base64(credentials.password)};
+export async function signInRequest(credentials: {login?: string, password?: string}) {
+    const data = {username: credentials.login, password: getMD5base64(credentials.password)};
 
     let response = await Core.postAsync<SessionDto>({
         url: "api/login",

@@ -28,6 +28,7 @@ export class PassportLocalStrategyMiddlewareFunctions implements IAuthentication
                 if (error) {
                     return next(error);
                 }
+                console.log(JSON.stringify(sessionResponse));
                 return res.json(sessionResponse)
             });
 

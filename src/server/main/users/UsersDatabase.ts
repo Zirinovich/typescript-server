@@ -56,7 +56,7 @@ export class UsersDatabase implements IUsersDatabase {
     }
 
     async findRoleByIdAsync(idrole: number): Promise<IDatabaseResult<RoleDto>> {
-        let query = `SELECT idroe
+        let query = `SELECT idrole
                             ,rolename
                        FROM troles
                        WHERE idrole=@idrole`;

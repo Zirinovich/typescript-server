@@ -4,7 +4,11 @@ import {authenticationMiddleware, usersLogic} from "../../registration";
 import {IAjaxResponse} from "../../../shared/ajaxDto/IAjaxResponse";
 import {LoginDto} from "../../../shared/ajaxDto/authentication/LoginDto";
 
-router.post('/login', authenticationMiddleware.login);
+router.post('/login',
+    (req, res, next)=>{
+    let body = req.body;
+    authenticationMiddleware.login(req, res, next)}
+    );
 router.post('/logout', authenticationMiddleware.logout, AuthClaims.Authenticated);
 
 router.get('/article/:articleId', (req, res) => {

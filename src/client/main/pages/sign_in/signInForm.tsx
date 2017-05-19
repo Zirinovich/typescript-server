@@ -45,10 +45,10 @@ export class SignInForm extends React.Component<IProps, any> {
     }
 
     submitHandler(e) {
+        e.preventDefault();
         const {signInRequest} =this.props;
         console.log(this.state);
         signInRequest(this.state);
-        e.preventDefault();
     }
 
     public render() {

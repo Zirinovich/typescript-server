@@ -5,17 +5,17 @@ import {LinkContainer} from 'react-router-bootstrap';
 const {connect} = require('react-redux');
 const Sticky = require('sticky-js');
 
-import {UserDto} from '../../../../shared/ajaxDto/authentication/UserDto';
 import {i18n} from '../../../_common/tools/i18n/i18n';
 import {ILanguage} from '../../../_common/tools/i18n/II18n';
 import {Icon} from '../../../_common/components/icon/icon';
+import {SessionDto} from "../../../../shared/ajaxDto/authentication/SessionDto";
 const style = require('./header.scss');
 
 interface IProps {
     currentLanguage?: string;
-    languages?: ILanguage[]
+    languages?: ILanguage[];
     dictionary?: any;
-    user: UserDto;
+    session: SessionDto;
     logout: ()=>void;
     pathname: string;
     setCurrentLanguage?: (language: string)=>void;
@@ -47,7 +47,7 @@ export class Header extends React.Component<IProps, IState> {
     }
 
     render() {
-        const {user, logout, pathname, currentLanguage, languages} = this.props;
+        const {session, logout, pathname, currentLanguage, languages} = this.props;
 
         const pageLinks = [
             {
@@ -79,19 +79,19 @@ export class Header extends React.Component<IProps, IState> {
                             <Grid>
                                 <ul>
                                     <li><Icon name="phone"/>(888) 123-4567</li>
-                                    { user &&
+                                    { session &&
                                     <li>
-                                        <Icon name="user"/>{user.username}
+                                        <Icon name="user"/>{session.user.username}
                                     </li>
                                     }
-                                    { user &&
+                                    { session &&
                                     <li>
                                         <Link to="/admin">
                                             <Icon name="gears"/>{i18n.t('main.adminPanel')}
                                         </Link>
                                     </li>
                                     }
-                                    { user ?
+                                    { session ?
                                         <li>
                                             <a href="#" onClick={logout}>
                                                 <Icon name="user"/>{i18n.t('main.actionLogout')}

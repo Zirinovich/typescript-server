@@ -18,10 +18,10 @@ const databaseConfig = require('./../../config/database');
 //----------------------------- Express Api
 const app = express();
 export const apiRouter = express.Router();
-app.use("/api", apiRouter);
 ExpressCommonTuner.Setup(app);
 ExpressSessionTuner.Setup(app);
 PassportLocalStrategyTuner.Setup(app);
+app.use("/api", apiRouter);
 
 //----------------------------- IoC
 export const authenticationMiddleware: IAuthenticationMiddleware = Ioc.register<IAuthenticationMiddleware>("IAuthenticationMiddleware", true, new PassportLocalStrategyMiddlewareFunctions());
