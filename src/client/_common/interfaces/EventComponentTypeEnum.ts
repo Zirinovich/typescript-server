@@ -1,3 +1,4 @@
 export enum EventComponentTypeEnum {
-    Input
+    Input,
+    Textarea
 }

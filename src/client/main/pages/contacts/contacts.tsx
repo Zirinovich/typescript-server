@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {reduxForm} from 'redux-form';
 const {connect} = require('react-redux');
 import {Grid, Row, Col, Button, Checkbox} from 'react-bootstrap';
 import {Link} from 'react-router';
@@ -27,9 +26,6 @@ interface IState {
         currentLanguage: state.i18n.currentLanguage
     })
 )
-@reduxForm({
-    form: 'feedback'
-})
 export class Contacts extends React.Component<IProps, IState> {
     public render() {
         const {currentLanguage} = this.props;
