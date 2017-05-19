@@ -2,9 +2,8 @@ import {Strategy, IVerifyOptions} from 'passport-local'
 import * as passport  from "passport";
 import {Express} from "express-serve-static-core";
 import {IAccountDto} from "../../../_interfaces/engine/dto/IAccountDto";
-import {IAuthenticationErrorDto} from "../../../../shared/ajaxDto/authentication/IAuthenticationErrorDto";
-import {usersDatabase} from "../../../registration";
-
+import {IUsersLogicErrorDto} from "../../../../shared/ajaxDto/authentication/IUsersLogicErrorDto";
+import {usersLogic} from "../../../registration";
 
 export class PassportLocalStrategyTuner {
     static Setup(app: Express) {
@@ -23,8 +22,21 @@ export class PassportLocalStrategyTuner {
         passport.deserializeUser<IAccountDto,string>(PassportLocalStrategyTuner.deserializeUser);
     }
 
-    private static verifyFunction(username: string, password: string, done: (error: any, user?: any, options?: IVerifyOptions) => void) {
-        usersDatabase.FindUser(username, password, (err: IAuthenticationErrorDto, account: IAccountDto) => {
+    private static /*async*/ verifyFunction(username: string, password: string, done: (error: any, user?: any, options?: IVerifyOptions) => void) {
+        // var json = JSON.stringify({
+        //     login: username,
+        //     password: password,
+        // });
+        // let response = await (await fetch(`${API_HTTP_HOST}/api/main/users/finduserbyloginpassword`, {
+        //     method: 'post',
+        //     headers: {
+        //         'Accept': 'application/json, text/plain, */*',
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: json
+        // })).json();
+
+        usersLogic.findUserByLoginPassword(username, password, (err: IUsersLogicErrorDto, account: IAccountDto) => {
             if (err) {
                 return done(err, false);
             }
@@ -39,6 +51,6 @@ export class PassportLocalStrategyTuner {
     }
 
     private static deserializeUser(id: string, done: (err, user?)=>void) {
-        usersDatabase.FindUserById(id, done);
+        usersLogic.findUserById(id, done);
     }
 }

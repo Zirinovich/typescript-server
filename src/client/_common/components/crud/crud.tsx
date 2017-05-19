@@ -6,6 +6,7 @@ import {Alert, Confirm} from '../../../_common/components/dialog/dialog';
 import {ReactBootstrapTable} from '../../../_common/components/reactBootstrapTable/reactBootstrapTable';
 const style = require('./crud.scss');
 
+//#region Interfaces
 interface IModalFormProps {
     show: boolean;
     onHide: Function;
@@ -16,9 +17,14 @@ interface IModalFormProps {
 interface IModalForm extends React.ComponentClass<IModalFormProps> {
 
 }
-
+export interface ICrudHeader {
+    name: string;
+    label?: any;
+    key?: boolean;
+    hidden?: boolean;
+}
 interface IProps {
-    headers: any;
+    headers: Array<ICrudHeader>;
     data: any;
     actions: {
         text: any;
@@ -44,6 +50,7 @@ interface IState {
     key: string;
     selectedRowData: any;
 }
+//#endregion
 
 export class Crud extends React.Component<IProps, IState> {
     constructor(props) {
