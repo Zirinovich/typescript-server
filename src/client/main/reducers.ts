@@ -11,7 +11,7 @@ export const reducers = Object.assign({
     routing: routerReducer,
     i18n: i18n.getReducer(),
     form: formReducer,
-    user: signInReducer,
+    session: signInReducer,
     articles: articleReducer,
     reduxAsyncConnect: reducer
 }, administrationReducers);

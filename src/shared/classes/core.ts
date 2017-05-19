@@ -1,3 +1,4 @@
+import {IAjaxResponse} from "../ajaxDto/IAjaxResponse";
 const formData = require('form-urlencoded');
 
 export class Core {
@@ -8,15 +9,11 @@ export class Core {
                 request.callback(response);
         })
     }
-    static async postAsync(request:IAjaxRequest) {
+    static async postAsync<T>(request:IAjaxRequest) {
         request.method = HttpMethod.POST;
-        return new Promise<IResponseAjax>((resolve) => {
+        return new Promise<IAjaxResponse<T>>((resolve) => {
             Core.sendAsync(request).then(async(response) => {
-                resolve({
-                    isSuccess: response.ok,
-                    errorMessage: response.ok ? undefined : response.statusText,
-                    data: await response.json()
-                });
+                resolve(await response.json());
             });
         });
     }
@@ -26,15 +23,11 @@ export class Core {
                 request.callback(response);
         })
     }
-    static async getAsync(request:IAjaxRequest) {
+    static async getAsync<T>(request:IAjaxRequest) {
         request.method = HttpMethod.GET;
-        return new Promise<IResponseAjax>((resolve) => {
+        return new Promise<IAjaxResponse<T>>((resolve) => {
             Core.sendAsync(request).then(async(response) => {
-                resolve({
-                    isSuccess: response.ok,
-                    errorMessage: response.ok ? undefined : response.statusText,
-                    data: await response.json()
-                });
+                resolve(await response.json());
             });
         });
     }
@@ -69,8 +62,4 @@ export interface IAjaxRequest {
     data?:any,
     callback?:(response)=>void
 }
-export interface IResponseAjax{
-    isSuccess:boolean,
-    errorMessage?:string,
-    data:any
-}
+

@@ -4,47 +4,55 @@ import {SubmissionError} from 'redux-form';
 import {browserHistory} from 'react-router';
 import {getMD5base64} from '../../../shared/tools/index';
 import {UserDto} from '../../../shared/ajaxDto/authentication/UserDto';
+import {Core, HttpMethod} from "../../../shared/classes/core";
+import {IAjaxResponse} from "../../../shared/ajaxDto/IAjaxResponse";
+import Session = Express.Session;
+import {SessionDto} from "../../../shared/ajaxDto/authentication/SessionDto";
+import {ErrorCodeEnum} from "../../../shared/classes/ErrorCodeEnum";
 
 
-export const LOGIN_SUCCESS = 'LOGIN_REQUEST_FINISHED',
-    LOGOUT = 'LOGOUT_REQUEST';
+export const LOGIN_SUCCESS = 'signIn/LOGIN_REQUEST_FINISHED',
+    LOGIN_ERROR = 'signIn/LOGIN_REQUEST_FAILED',
+    LOGOUT = 'signIn/LOGOUT_REQUEST';
 
 export interface ISignInAction extends IAction {
-    user: UserDto;
+    signInResponse: IAjaxResponse<SessionDto>;
 }
 
-export function signInRequest(credentials: {username?: string, password?: string}) {
+export async function signInRequest(credentials: {username?: string, password?: string}) {
     const data = {username: credentials.username, password: getMD5base64(credentials.password)};
 
-    return fetch('/api/login', {
-        method: 'POST',
-        credentials: 'same-origin',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: formData(data)
-    })
-        .then(res => res.json())
-        .then((json: any) => {
-            if (!json.errors) {
-                return json.user;
-            }
-            throw new SubmissionError({...json.errors});
-        })
-        .catch(err => {
-            if (err.name === 'SubmissionError') {
-                throw err;
-            }
-            throw new SubmissionError({_error: err.message});
-        });
+    let response = await Core.postAsync<SessionDto>({
+        url: "api/login",
+        data,
+    });
+
+    if (response.errorCode === ErrorCodeEnum.NoErrors) {
+        return async(dispatch) => {
+            browserHistory.push('/');
+            dispatch(signInSuccess(response));
+        };
+    }
+    else {
+        return async(dispatch) => {
+            dispatch(signInError(response));
+        };
+    }
+
 }
 
-export function signInSuccess(user, dispatch) {
-    dispatch({
+export function signInSuccess(response: IAjaxResponse<SessionDto>) {
+    return {
         type: LOGIN_SUCCESS,
-        user: user
-    });
-    browserHistory.push('/');
+        signInResponse: response
+    };
+}
+
+export function signInError(response: IAjaxResponse<SessionDto>) {
+    return {
+        type: LOGIN_ERROR,
+        signInResponse: response
+    };
 }
 
 export function logout(dispatch) {
