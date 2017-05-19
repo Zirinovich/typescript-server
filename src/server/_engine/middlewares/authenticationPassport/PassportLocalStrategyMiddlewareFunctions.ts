@@ -2,8 +2,8 @@ import * as passportStatic  from "passport";
 import HTTP_STATUS_CODES from 'http-status-enum';
 import {IAuthenticationMiddleware} from "../../../_interfaces/engine/IAuthenticationMiddleware";
 import {ErrorCodeEnum} from "../../../../shared/classes/ErrorCodeEnum";
-import {SessionDto} from "../../../_interfaces/engine/dto/SessionDto";
-import {IAjaxResponse} from "../../../../shared/classes/IAjaxResponse";
+import {SessionDto} from "../../../../shared/ajaxDto/authentication/SessionDto";
+import {IAjaxResponse} from "../../../../shared/ajaxDto/IAjaxResponse";
 
 export class PassportLocalStrategyMiddlewareFunctions implements IAuthenticationMiddleware {
     login(req, res, next) {

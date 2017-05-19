@@ -1,4 +1,4 @@
-import {SessionDto} from "../engine/dto/SessionDto";
+import {SessionDto} from "../../../shared/ajaxDto/authentication/SessionDto";
 import {LoginDto} from "../../../shared/ajaxDto/authentication/LoginDto";
 import {IDatabaseResult} from "../engine/database/IDatabaseResult";
 

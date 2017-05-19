@@ -4,10 +4,10 @@ import {Modal, Form, Button, Row, Col, ControlLabel} from 'react-bootstrap';
 
 import {generator} from '../../../../shared/tools/generator';
 import {i18n} from '../../../_common/tools/i18n/i18n';
-import {Input} from '../../components/input/input';
+import {Input} from '../../../_common/components/input/input';
 import {saveRole} from '../../redux/rolesActions';
-import {EventArgsDto} from "../../../_common/interfaces/EventArgsDto";
-import {EventMethodEnum} from "../../../_common/interfaces/EventMethodEnum";
+import {EventArgsDto} from '../../../_common/interfaces/EventArgsDto';
+import {EventMethodEnum} from '../../../_common/interfaces/EventMethodEnum';
 
 //#region interfaces
 interface IProps {

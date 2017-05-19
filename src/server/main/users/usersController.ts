@@ -1,7 +1,7 @@
 import {router, AuthClaims} from "../../_engine/routers/router";
 import HTTP_STATUS_CODES from 'http-status-enum';
 import {authenticationMiddleware, usersLogic} from "../../registration";
-import {IAjaxResponse} from "../../../shared/classes/IAjaxResponse";
+import {IAjaxResponse} from "../../../shared/ajaxDto/IAjaxResponse";
 import {LoginDto} from "../../../shared/ajaxDto/authentication/LoginDto";
 
 router.post('/login', authenticationMiddleware.login);

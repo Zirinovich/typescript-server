@@ -1,9 +1,14 @@
 import * as React from 'react';
-import {reduxForm} from 'redux-form';
+const {connect} = require('react-redux');
 import {Grid, Row, Col, Button} from 'react-bootstrap';
 
 import {i18n} from '../../../_common/tools/i18n/i18n';
 import {IconInput} from '../../components/icon_input/iconInput';
+import {Input} from "../../../_common/components/input/input";
+import {EventArgsDto} from "../../../_common/interfaces/EventArgsDto";
+import {EventMethodEnum} from "../../../_common/interfaces/EventMethodEnum";
+import {signInRequest, signInSuccess} from '../../redux/signInActions';
+
 const style = require('./signInForm.scss');
 
 interface IProps {
@@ -14,12 +19,38 @@ interface IProps {
     error?: any,
     onSubmit?: any,
     onSubmitSuccess?: any
+    signInRequest?: any;
 }
 
-@reduxForm({
-    form: 'signIn'
-})
+@connect(
+    (state) => ({}),
+    (dispatch) => ({
+        signInRequest: (role) => dispatch(signInRequest(role))
+    })
+)
 export class SignInForm extends React.Component<IProps, any> {
+    constructor(props) {
+        super(props);
+
+        this.fieldChangeHandler = this.fieldChangeHandler.bind(this);
+        this.submitHandler = this.submitHandler.bind(this);
+    }
+
+    fieldChangeHandler(args: EventArgsDto) {
+        if (args.event == EventMethodEnum.OnChange) {
+            let state = {};
+            state[args.name] = args.value;
+            this.setState(state);
+        }
+    }
+
+    submitHandler(e) {
+        const {signInRequest} =this.props;
+        console.log(this.state);
+        signInRequest(this.state);
+        e.preventDefault();
+    }
+
     public render() {
         const {handleSubmit, submitting, method, actionUrl, error} = this.props;
         return (
@@ -27,9 +58,7 @@ export class SignInForm extends React.Component<IProps, any> {
                 <div className={style.section}>
                     <Grid>
                         <div className={style.login_form}>
-                            <form action={actionUrl}
-                                  method={method}
-                                  onSubmit={handleSubmit}>
+                            <form onSubmit={this.submitHandler}>
                                 <header>{i18n.t('main.loginForm')}</header>
 
                                 <fieldset>
@@ -39,8 +68,8 @@ export class SignInForm extends React.Component<IProps, any> {
                                                 <label>{i18n.t('main.login')}</label>
                                             </Col>
                                             <Col md={8}>
-                                                <IconInput name="username"
-                                                           iconName="user"/>
+                                                <Input name="login"
+                                                       onEvent={this.fieldChangeHandler}/>
                                             </Col>
                                         </Row>
                                     </section>
@@ -51,9 +80,9 @@ export class SignInForm extends React.Component<IProps, any> {
                                                 <label>{i18n.t('main.password')}</label>
                                             </Col>
                                             <Col md={8}>
-                                                <IconInput name="password"
-                                                           type="password"
-                                                           iconName="lock"/>
+                                                <Input name="password"
+                                                       type="password"
+                                                       onEvent={this.fieldChangeHandler}/>
                                                 <div className={style.note}>
                                                     <a href="#sky-form2"
                                                        className="modal-opener">{i18n.t('main.forgotPassword')}</a>

@@ -50,7 +50,7 @@ export const Header = (props: {user: UserDto, logout: ()=>void}) => (
                     </LinkContainer>
                 }
             </Nav>
-            {props.user && <Navbar.Text pullRight>{props.user.fullName}</Navbar.Text>}
+            {props.user && <Navbar.Text pullRight>{props.user.username}</Navbar.Text>}
         </Navbar.Collapse>
     </Navbar>
     /*<nav className={style.Nav}>

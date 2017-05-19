@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {FormControl} from 'react-bootstrap';
-import {EventDelegate} from "../../../_common/interfaces/EventDelegate";
-import {EventMethodEnum} from "../../../_common/interfaces/EventMethodEnum";
-import {EventComponentTypeEnum} from "../../../_common/interfaces/EventComponentTypeEnum";
+import {EventDelegate} from "../../interfaces/EventDelegate";
+import {EventMethodEnum} from "../../interfaces/EventMethodEnum";
+import {EventComponentTypeEnum} from "../../interfaces/EventComponentTypeEnum";
 
 interface IProps {
     name: string;

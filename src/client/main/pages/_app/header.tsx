@@ -81,7 +81,7 @@ export class Header extends React.Component<IProps, IState> {
                                     <li><Icon name="phone"/>(888) 123-4567</li>
                                     { user &&
                                     <li>
-                                        <Icon name="user"/>{user.fullName}
+                                        <Icon name="user"/>{user.username}
                                     </li>
                                     }
                                     { user &&

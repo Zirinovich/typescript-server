@@ -1,4 +1,3 @@
-import {UserRoleEnum} from "./UserRoleEnum";
 import {LoginStatusEnum} from "./LoginStatusEnum";
 
 export interface LoginDto {

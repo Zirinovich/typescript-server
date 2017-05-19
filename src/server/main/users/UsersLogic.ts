@@ -3,7 +3,7 @@ import {usersDatabase} from "../../registration";
 import {LoginStatusEnum} from "../../../shared/ajaxDto/authentication/LoginStatusEnum";
 // import {IVerifyOptions} from "passport-local";
 import {ErrorCodeEnum} from "../../../shared/classes/ErrorCodeEnum";
-import {SessionDto} from "../../_interfaces/engine/dto/SessionDto";
+import {SessionDto} from "../../../shared/ajaxDto/authentication/SessionDto";
 import {LoginDto} from "../../../shared/ajaxDto/authentication/LoginDto";
 import {IDatabaseResult} from "../../_interfaces/engine/database/IDatabaseResult";
 

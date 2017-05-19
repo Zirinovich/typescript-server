@@ -2,7 +2,7 @@ import {Strategy, IVerifyOptions} from 'passport-local'
 import * as passport  from "passport";
 import {Express} from "express-serve-static-core";
 import {usersLogic} from "../../../registration";
-import {SessionDto} from "../../../_interfaces/engine/dto/SessionDto";
+import {SessionDto} from "../../../../shared/ajaxDto/authentication/SessionDto";
 import {ErrorCodeEnum} from "../../../../shared/classes/ErrorCodeEnum";
 import {IDatabaseResult} from "../../../_interfaces/engine/database/IDatabaseResult";
 
