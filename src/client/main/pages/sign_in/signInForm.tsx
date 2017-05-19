@@ -17,7 +17,7 @@ interface IProps {
 @connect(
     (state) => ({}),
     (dispatch) => ({
-        signInRequest: (role) => dispatch(signInRequest(role))
+        signInRequest: (credentials) => dispatch(signInRequest(credentials))
     })
 )
 export class SignInForm extends React.Component<IProps, any> {
@@ -38,8 +38,7 @@ export class SignInForm extends React.Component<IProps, any> {
 
     submitHandler(e) {
         e.preventDefault();
-        const {signInRequest} =this.props;
-        console.log(this.state);
+        const {signInRequest} = this.props;
         signInRequest(this.state);
     }
 

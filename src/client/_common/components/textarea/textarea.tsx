@@ -7,7 +7,6 @@ import {EventComponentTypeEnum} from '../../interfaces/EventComponentTypeEnum';
 
 interface IProps {
     name: string;
-    type?: string;
     value?: string;
     onEvent?: EventDelegate;
     required?: boolean;
@@ -29,11 +28,10 @@ export class Textarea extends React.Component<IProps, IState> {
     }
 
     render() {
-        const {name, type, value, required} = this.props;
+        const {name, value, required} = this.props;
         return (
             <FormControl componentClass="textarea"
                          name={name}
-                         type={type ? type : 'text'}
                          value={value}
                          onChange={this.onChange.bind(this)}
                          required={required}/>

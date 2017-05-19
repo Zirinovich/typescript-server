@@ -31,7 +31,11 @@ export class Input extends React.Component<IProps, IState> {
     render() {
         const {name, type, value, required} = this.props;
         return (
-            <FormControl name={name} type={type ? type : 'text'} value={value} onChange={this.onChange.bind(this)} required={required}/>
+            <FormControl name={name}
+                         type={type ? type : 'text'}
+                         value={value}
+                         onChange={this.onChange.bind(this)}
+                         required={required}/>
         )
     }
 }

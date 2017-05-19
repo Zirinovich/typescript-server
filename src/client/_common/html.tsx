@@ -14,7 +14,7 @@ interface IHtmlProps {
 }
 
 @connect(
-    (state) => ({user: state.user}),
+    (state) => ({}),
     (dispatch) => ({
         setResources: (resources, key) => dispatch(i18n.setResources(resources, key))
     })

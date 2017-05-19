@@ -15,7 +15,7 @@ export class PassportLocalStrategyTuner {
 
     private static InitializePassport() {
         passport.use(new Strategy({
-                usernameField: "username",
+                usernameField: "login",
                 passwordField: "password"
             }, PassportLocalStrategyTuner.verifyFunction
         ));

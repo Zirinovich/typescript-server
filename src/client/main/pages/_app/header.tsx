@@ -8,7 +8,7 @@ const Sticky = require('sticky-js');
 import {i18n} from '../../../_common/tools/i18n/i18n';
 import {ILanguage} from '../../../_common/tools/i18n/II18n';
 import {Icon} from '../../../_common/components/icon/icon';
-import {SessionDto} from "../../../../shared/ajaxDto/authentication/SessionDto";
+import {SessionDto} from '../../../../shared/ajaxDto/authentication/SessionDto';
 const style = require('./header.scss');
 
 interface IProps {
@@ -81,6 +81,7 @@ export class Header extends React.Component<IProps, IState> {
                                     <li><Icon name="phone"/>(888) 123-4567</li>
                                     { session &&
                                     <li>
+                                        {console.log(session)}
                                         <Icon name="user"/>{session.user.username}
                                     </li>
                                     }

@@ -54,22 +54,16 @@ export class RoleCreateEditModal extends React.Component<IProps, IState> {
         }
     }
 
-    fieldChangeHandler(args:EventArgsDto) {
-        if(args.event == EventMethodEnum.OnClick || args.event == EventMethodEnum.OnDblClick){
-
+    onEventHandler(args:EventArgsDto) {
+        if(args.event == EventMethodEnum.OnChange){
+            let state = {};
+            state[args.name] = args.value;
+            this.setState(state);
         }
-        console.log('onEvent', args.name, args.value);
-        let state = {};
-        if(name === 'login'){
-
-        }
-        state[args.name] = args.value;
-        this.setState(state);
     }
 
     submitHandler(e) {
         const {onHide, saveRole} = this.props;
-        //handleSubmit(e);
         saveRole(this.state);
         onHide();
         e.preventDefault();
@@ -90,7 +84,7 @@ export class RoleCreateEditModal extends React.Component<IProps, IState> {
                         <Row>
                             <Col md={4}>
                                 <ControlLabel>{i18n.t('administration.role')}</ControlLabel>
-                                <Input name="name" value={name} onEvent={this.fieldChangeHandler.bind(this)}/>
+                                <Input name="name" value={name} onEvent={this.onEventHandler.bind(this)} required/>
                             </Col>
                         </Row>
                     </Modal.Body>
