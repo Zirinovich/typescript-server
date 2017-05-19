@@ -17,21 +17,26 @@ interface IState {
 
 }
 
-export class Input extends React.Component<IProps, IState> {
+export class Textarea extends React.Component<IProps, IState> {
     onChange(e) {
         const {name, onEvent} = this.props;
         onEvent({
             event: EventMethodEnum.OnChange,
             value: e.target.value,
             name,
-            type: EventComponentTypeEnum.Input
+            type: EventComponentTypeEnum.Textarea
         });
     }
 
     render() {
         const {name, type, value, required} = this.props;
         return (
-            <FormControl name={name} type={type ? type : 'text'} value={value} onChange={this.onChange.bind(this)} required={required}/>
+            <FormControl componentClass="textarea"
+                         name={name}
+                         type={type ? type : 'text'}
+                         value={value}
+                         onChange={this.onChange.bind(this)}
+                         required={required}/>
         )
     }
 }
