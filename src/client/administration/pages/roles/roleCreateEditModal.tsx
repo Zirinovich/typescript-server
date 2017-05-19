@@ -1,12 +1,13 @@
 import * as React from 'react';
 const {connect} = require('react-redux');
-import {Field, reduxForm, change as fieldChange} from 'redux-form';
-import {Modal, Form, Button, Row, Col, FormControl, ControlLabel} from 'react-bootstrap';
+import {Modal, Form, Button, Row, Col, ControlLabel} from 'react-bootstrap';
 
 import {generator} from '../../../../shared/tools/generator';
 import {i18n} from '../../../_common/tools/i18n/i18n';
 import {Input} from '../../components/input/input';
 import {saveRole} from '../../redux/rolesActions';
+import {EventArgsDto} from "../../../_common/interfaces/EventArgsDto";
+import {EventMethodEnum} from "../../../_common/interfaces/EventMethodEnum";
 
 //#region interfaces
 interface IProps {
@@ -53,10 +54,16 @@ export class RoleCreateEditModal extends React.Component<IProps, IState> {
         }
     }
 
-    fieldChangeHandler(e, name, value) {
-        console.log('onEvent', e, name);
+    fieldChangeHandler(args:EventArgsDto) {
+        if(args.event == EventMethodEnum.OnClick || args.event == EventMethodEnum.OnDblClick){
+
+        }
+        console.log('onEvent', args.name, args.value);
         let state = {};
-        state[name] = value;
+        if(name === 'login'){
+
+        }
+        state[args.name] = args.value;
         this.setState(state);
     }
 

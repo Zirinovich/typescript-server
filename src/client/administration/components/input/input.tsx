@@ -1,11 +1,14 @@
 import * as React from 'react';
 import {FormControl} from 'react-bootstrap';
+import {EventDelegate} from "../../../_common/interfaces/EventDelegate";
+import {EventMethodEnum} from "../../../_common/interfaces/EventMethodEnum";
+import {EventComponentTypeEnum} from "../../../_common/interfaces/EventComponentTypeEnum";
 
 interface IProps {
     name: string;
     type?: string;
     value?: string;
-    onEvent?: (event: any, name: string, value: string)=> void;
+    onEvent?: EventDelegate;
 }
 
 interface IState {
@@ -15,7 +18,12 @@ interface IState {
 export class Input extends React.Component<IProps, IState> {
     onChange(e) {
         const {name, onEvent} = this.props;
-        onEvent(e, name, e.target.value);
+        onEvent({
+            event: EventMethodEnum.OnChange,
+            value: e.target.value,
+            name,
+            type: EventComponentTypeEnum.Input
+        });
     }
 
     render() {
