@@ -16,7 +16,7 @@ export class UsersLogic implements IUsersLogic {
         return usersDatabase.getLoginListAsync();
     }
 
-    async getAccountListAsync(): Promise<IDatabaseResult<AccountDto[]>>{
+    async getAccountListAsync(): Promise<IDatabaseResult<AccountDto[]>> {
         return usersDatabase.getAccountListAsync();
     }
 
@@ -59,5 +59,9 @@ export class UsersLogic implements IUsersLogic {
 
     async findLoginByIdAsync(id: number): Promise<IDatabaseResult<LoginDto>> {
         return usersDatabase.findLoginDtoByIdAsync(id);
+    }
+
+    async addChangeLoginAsync(login: LoginDto): Promise<IDatabaseResult<LoginDto>> {
+        return usersDatabase.addChangeLoginAsync(login);
     }
 }

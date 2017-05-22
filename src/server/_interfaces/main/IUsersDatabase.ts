@@ -12,4 +12,5 @@ export interface IUsersDatabase {
     findRoleByIdAsync(idrole: number): Promise<IDatabaseResult<RoleDto>>;
     getLoginListAsync(): Promise<IDatabaseResult<LoginDto[]>>;
     getAccountListAsync(): Promise<IDatabaseResult<AccountDto[]>>;
+    addChangeLoginAsync(login: LoginDto): Promise<IDatabaseResult<LoginDto>>;
 }

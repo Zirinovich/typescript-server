@@ -9,4 +9,5 @@ export interface IUsersLogic {
     findLoginByLoginAsync(login: string): Promise<IDatabaseResult<LoginDto>>;
     findLoginByIdAsync(id: number): Promise<IDatabaseResult<LoginDto>>;
     checkLoginAndFillSessionAsync(login: string, password: string, callback: (response: IDatabaseResult<SessionDto>)=>void): void;
+    addChangeLoginAsync(login: LoginDto): Promise<IDatabaseResult<LoginDto>>;
 }

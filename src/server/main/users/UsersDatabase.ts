@@ -127,4 +127,9 @@ export class UsersDatabase implements IUsersDatabase {
                        WHERE idrole=@idrole`;
         return dbEngine.querySingleAsync<RoleDto>({text: query, values: {idrole}});
     }
+
+    async addChangeLoginAsync(login: LoginDto): Promise<IDatabaseResult<LoginDto>> {
+        let query = ``;
+        return dbEngine.querySingleAsync<LoginDto>({text: query, values: login});
+    }
 }
