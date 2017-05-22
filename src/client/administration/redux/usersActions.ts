@@ -1,8 +1,8 @@
 import {IAction} from '../../_common/interfaces/IAction';
 import {IAccountDto} from '../../../server/_interfaces/engine/dto/IAccountDto';
 import {Core} from '../../../shared/classes/core';
-import {LoginDto} from '../../../shared/ajaxDto/authentication/LoginDto';
 import {ErrorCodeEnum} from '../../../shared/classes/ErrorCodeEnum';
+import {AccountDto} from '../../../shared/ajaxDto/authentication/AccountDto';
 
 export const GET_USERS_REQUEST: string = 'users/GET_USERS_REQUEST';
 export const GET_USERS_SUCCESS: string = 'users/GET_USERS_SUCCESS';
@@ -45,8 +45,8 @@ export function getUsers() {
         dispatch(getUsersRequest());
 
         try {
-            let response = await Core.postAsync<LoginDto[]>({
-                url: '/api/main/users/getloginlist',
+            let response = await Core.postAsync<AccountDto[]>({
+                url: '/api/main/users/getaccountlist',
             });
 
             if (response.errorCode === ErrorCodeEnum.NoErrors) {

@@ -51,7 +51,7 @@ export class Core {
             requestOptions,
             body && {body, headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
         try {
-            return fetch(config.apiHost + request.url, requestData);
+            return fetch(API_HTTP_HOST + request.url, requestData);
         }
         catch (error) {
             throw error;
