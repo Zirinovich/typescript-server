@@ -1,12 +1,11 @@
 import {browserHistory} from 'react-router';
 
-import {IAction} from "../../_common/interfaces/IAction";
+import {IAction} from '../../_common/interfaces/IAction';
 import {getMD5base64} from '../../../shared/tools/index';
-import {Core} from "../../../shared/classes/core";
-import {IAjaxResponse} from "../../../shared/ajaxDto/IAjaxResponse";
-import Session = Express.Session;
-import {SessionDto} from "../../../shared/ajaxDto/authentication/SessionDto";
-import {ErrorCodeEnum} from "../../../shared/classes/ErrorCodeEnum";
+import {Core} from '../../../shared/classes/core';
+import {IAjaxResponse} from '../../../shared/ajaxDto/IAjaxResponse';
+import {SessionDto} from '../../../shared/ajaxDto/authentication/SessionDto';
+import {ErrorCodeEnum} from '../../../shared/classes/ErrorCodeEnum';
 
 export const LOGIN_SUCCESS = 'signIn/LOGIN_REQUEST_SUCCESS',
     LOGIN_FAILED = 'signIn/LOGIN_REQUEST_FAILED',
@@ -22,7 +21,7 @@ export function signInRequest(credentials: {login?: string, password?: string}) 
         const data = {login: credentials.login, password: getMD5base64(credentials.password)};
 
         let response = await Core.postAsync<SessionDto>({
-            url: "api/login",
+            url: 'api/login',
             data,
         });
 
@@ -53,7 +52,7 @@ export function signInError(response: IAjaxResponse<SessionDto>) {
 export function logout() {
     return async(dispatch) => {
         let response = await Core.postAsync<SessionDto>({
-            url: "api/logout"
+            url: 'api/logout'
         });
 
         if (response.errorCode === ErrorCodeEnum.NoErrors) {
