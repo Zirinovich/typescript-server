@@ -2,15 +2,16 @@ import {browserHistory} from 'react-router';
 
 import {IAction} from "../../_common/interfaces/IAction";
 import {getMD5base64} from '../../../shared/tools/index';
-import {Core, HttpMethod} from "../../../shared/classes/core";
+import {Core} from "../../../shared/classes/core";
 import {IAjaxResponse} from "../../../shared/ajaxDto/IAjaxResponse";
 import Session = Express.Session;
 import {SessionDto} from "../../../shared/ajaxDto/authentication/SessionDto";
 import {ErrorCodeEnum} from "../../../shared/classes/ErrorCodeEnum";
 
-export const LOGIN_SUCCESS = 'signIn/LOGIN_REQUEST_FINISHED',
-    LOGIN_ERROR = 'signIn/LOGIN_REQUEST_FAILED',
-    LOGOUT = 'signIn/LOGOUT_REQUEST';
+export const LOGIN_SUCCESS = 'signIn/LOGIN_REQUEST_SUCCESS',
+    LOGIN_FAILED = 'signIn/LOGIN_REQUEST_FAILED',
+    LOGOUT_SUCCESS = 'signIn/LOGOUT_SUCCESS',
+    LOGOUT_FAILED = 'signIn/LOGOUT_FAILED';
 
 export interface ISignInAction extends IAction {
     signInResponse: IAjaxResponse<SessionDto>;
@@ -44,19 +45,37 @@ export function signInSuccess(response: IAjaxResponse<SessionDto>) {
 
 export function signInError(response: IAjaxResponse<SessionDto>) {
     return {
-        type: LOGIN_ERROR,
+        type: LOGIN_FAILED,
         signInResponse: response
     };
 }
 
-export function logout(dispatch) {
-    fetch('/api/logout', {
-        method: 'POST',
-        credentials: 'same-origin'
-    })
-        .then(() => dispatch({
-            type: LOGOUT,
-            account: null
-        }));
-    browserHistory.push('/login');
+export function logout() {
+    return async(dispatch) => {
+        let response = await Core.postAsync<SessionDto>({
+            url: "api/logout"
+        });
+
+        if (response.errorCode === ErrorCodeEnum.NoErrors) {
+            browserHistory.push('/login');
+            dispatch(logoutSuccess(response));
+        }
+        else {
+            dispatch(logoutError(response));
+        }
+    };
+}
+
+export function logoutSuccess(response: IAjaxResponse<SessionDto>) {
+    return {
+        type: LOGOUT_SUCCESS,
+        signInResponse: response
+    };
+}
+
+export function logoutError(response: IAjaxResponse<SessionDto>) {
+    return {
+        type: LOGOUT_FAILED,
+        signInResponse: response
+    };
 }

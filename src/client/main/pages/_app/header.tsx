@@ -9,16 +9,17 @@ import {i18n} from '../../../_common/tools/i18n/i18n';
 import {ILanguage} from '../../../_common/tools/i18n/II18n';
 import {Icon} from '../../../_common/components/icon/icon';
 import {SessionDto} from '../../../../shared/ajaxDto/authentication/SessionDto';
+import {logout} from '../../redux/signInActions';
 const style = require('./header.scss');
 
 interface IProps {
     currentLanguage?: string;
     languages?: ILanguage[];
     dictionary?: any;
-    session: SessionDto;
-    logout: ()=>void;
+    session?: SessionDto;
     pathname: string;
     setCurrentLanguage?: (language: string)=>void;
+    logout?: () => void;
 }
 
 interface IState {
@@ -27,11 +28,13 @@ interface IState {
 
 @connect(
     (state) => ({
+        session: state.session,
         currentLanguage: state.i18n.currentLanguage,
         languages: state.i18n.languages
     }),
     (dispatch) => ({
-        setCurrentLanguage: (language) => dispatch(i18n.setCurrentLanguage(language))
+        setCurrentLanguage: (language) => dispatch(i18n.setCurrentLanguage(language)),
+        logout: () => dispatch(logout())
     })
 )
 export class Header extends React.Component<IProps, IState> {

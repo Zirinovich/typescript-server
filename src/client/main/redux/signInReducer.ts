@@ -1,4 +1,4 @@
-import {LOGOUT, LOGIN_SUCCESS, ISignInAction, LOGIN_ERROR} from './signInActions';
+import {LOGIN_SUCCESS, LOGOUT_SUCCESS, ISignInAction} from './signInActions';
 import {IAction} from '../../_common/interfaces/IAction';
 import {SessionDto} from "../../../shared/ajaxDto/authentication/SessionDto";
 
@@ -9,11 +9,8 @@ export function signInReducer(state: SessionDto = initialState, action: IAction)
         case LOGIN_SUCCESS:
             let session = (<ISignInAction>action).signInResponse.data;
             return Object.assign({}, state, {...session});
-        case LOGOUT:
+        case LOGOUT_SUCCESS:
             return null;
-        case LOGIN_ERROR:
-        // let {signInResponse} = <ISignInAction>action;
-        //return _.cloneDeep(signInResponse.data);
         default:
             return state;
     }

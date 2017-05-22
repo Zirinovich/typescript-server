@@ -4,16 +4,15 @@ import * as  ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import {Clearfix}  from 'react-bootstrap';
 const {connect} = require('react-redux');
 
-import {getMD5base64} from '../../../../shared/tools/index';
 const appConfig = require('../../../../../config/main');
+import {getMD5base64} from '../../../../shared/tools/index';
+import {SessionDto} from '../../../../shared/ajaxDto/authentication/SessionDto';
 import {i18n} from '../../../_common/tools/i18n/i18n';
 import '../../../_common/content/template/template.scss';
-import {logout} from '../../redux/signInActions';
 // TODO: привести в порядок подобные ссылки, каким то образом посредством указания корневых каталогов или типа того
 import {Header} from './header';
 import {ScrollUp} from './scrollUp';
 import {Footer}from './footer';
-import {SessionDto} from "../../../../shared/ajaxDto/authentication/SessionDto";
 const languages = require('../../i18nLanguages.json');
 const resources = require('../../i18n.json');
 const style = require('./app.scss');
@@ -25,7 +24,6 @@ interface IProps {
     session: SessionDto;
     setLanguages: any;
     setResources: any;
-    dispatch: ()=>void;
 }
 
 @connect(
@@ -43,7 +41,7 @@ class App extends React.Component<IProps, any> {
     }
 
     public render() {
-        const {session, dispatch, location: {pathname}, routes} = this.props;
+        const {session, location: {pathname}, routes} = this.props;
         const key = getMD5base64(pathname);
         const transitionName = {
             enter: style.page_transition_enter,
@@ -57,7 +55,7 @@ class App extends React.Component<IProps, any> {
         return (
             <div className={style.app}>
                 <Helmet {...appConfig.app} {...appConfig.app.head}/>
-                {!isAdminPanel && <Header session={session} logout={()=>{logout(dispatch)}} pathname={pathname}/>}
+                {!isAdminPanel && <Header pathname={pathname}/>}
                 <div className={style.content}>
                     <ReactCSSTransitionGroup
                         key={key}
