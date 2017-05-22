@@ -4,6 +4,7 @@ export enum ErrorCodeEnum{
     DataBaseQueryError,
     DataBaseConnectionError,
 //------ Authentication errors
+    AuthInvalidCredentialsError,
     AuthNoSuchLoginError,
     AuthWrongPasswordError,
     AuthLoginDisabledError,

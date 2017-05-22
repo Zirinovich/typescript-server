@@ -28,7 +28,7 @@ app.get('*', (req, res) => {
     const location = req.url;
     const memoryHistory = createMemoryHistory(req.originalUrl);
     const clientApplication = new ClientApplication();
-    const store = clientApplication.configureStore(memoryHistory, ( req.user ? {user: Object.assign({}, req.user, {password: undefined})} : {}));
+    const store = clientApplication.configureStore(memoryHistory, ( req.user ? {session: _.cloneDeep(req.user)} : {}));
     const routes = clientApplication.clientRoutes;
     const history = syncHistoryWithStore(memoryHistory, store);
 

@@ -6,6 +6,7 @@ import {ErrorCodeEnum} from "../../../shared/classes/ErrorCodeEnum";
 import {SessionDto} from "../../../shared/ajaxDto/authentication/SessionDto";
 import {LoginDto} from "../../../shared/ajaxDto/authentication/LoginDto";
 import {IDatabaseResult} from "../../_interfaces/engine/database/IDatabaseResult";
+import {LoginStatusConstants} from "../../../shared/ajaxDto/authentication/LoginStatusConstants";
 
 export class UsersLogic implements IUsersLogic {
 
@@ -16,7 +17,7 @@ export class UsersLogic implements IUsersLogic {
 
     async checkLoginAndFillSessionAsync(login: string, password: string, callback: (response: IDatabaseResult<SessionDto>)=>void) {
 
-        let loginResult = await usersDatabase.findLoginDtoByLoginAsync(login);
+        let loginResult = await usersDatabase.findLoginDtoByCredentialsAsync(login, password);
         if (loginResult.errorCode !== ErrorCodeEnum.NoErrors) {
             return callback({
                 errorCode: loginResult.errorCode,
@@ -25,20 +26,14 @@ export class UsersLogic implements IUsersLogic {
         }
         if (!loginResult.data) {
             return callback({
-                errorCode: ErrorCodeEnum.AuthNoSuchLoginError,
-                errorMessage: "IncorrectLogin"
+                errorCode: ErrorCodeEnum.AuthInvalidCredentialsError,
+                errorMessage: "InvalidCredentials"
             });
         }
-        if (loginResult.data.status === LoginStatusEnum.Disabled) {
+        if (loginResult.data.status === LoginStatusConstants.Disabled) {
             return callback({
                 errorCode: ErrorCodeEnum.AuthLoginDisabledError,
                 errorMessage: "LoginDisabled"
-            });
-        }
-        if (loginResult.data.password !== password) {
-            return callback({
-                errorCode: ErrorCodeEnum.AuthWrongPasswordError,
-                errorMessage: "WrongPassword"
             });
         }
         let userResult = await usersDatabase.findUserByIdAsync(loginResult.data.idlogin);

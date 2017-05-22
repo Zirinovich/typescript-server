@@ -11,7 +11,7 @@ export class UsersDatabase implements IUsersDatabase {
     async findLoginDtoByLoginAsync(login: string): Promise<IDatabaseResult<LoginDto>> {
         let query = `SELECT idlogin
                          ,login
-                         ,password
+                         ,'buS2t+Dy3JwvJmdv/vif7A==' AS password
                          ,status
                          ,idrole
                          ,logincreated
@@ -21,10 +21,23 @@ export class UsersDatabase implements IUsersDatabase {
         return dbEngine.querySingleAsync<LoginDto>({text: query, values: {login}});
     }
 
+    async findLoginDtoByCredentialsAsync(login: string, password: string): Promise<IDatabaseResult<LoginDto>> {
+        let query = `SELECT idlogin
+                         ,login
+                         ,'buS2t+Dy3JwvJmdv/vif7A==' AS password
+                         ,status
+                         ,idrole
+                         ,logincreated
+                         ,loginupdated
+                    FROM tlogins
+                    WHERE login = @login AND password = @password`;
+        return dbEngine.querySingleAsync<LoginDto>({text: query, values: {login, password}});
+    }
+
     async findLoginDtoByIdAsync(idlogin: number): Promise<IDatabaseResult<LoginDto>> {
         let query = `SELECT idlogin
                          ,login
-                         ,password
+                         ,'buS2t+Dy3JwvJmdv/vif7A==' AS password
                          ,status
                          ,idrole
                          ,logincreated
@@ -37,7 +50,7 @@ export class UsersDatabase implements IUsersDatabase {
     async getLoginListAsync(): Promise<IDatabaseResult<LoginDto[]>> {
         let query = `SELECT idlogin
                          ,login
-                         ,password
+                         ,'buS2t+Dy3JwvJmdv/vif7A==' AS password
                          ,status
                          ,idrole
                          ,firstname

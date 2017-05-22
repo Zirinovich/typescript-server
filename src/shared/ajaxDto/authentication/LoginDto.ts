@@ -4,7 +4,7 @@ export interface LoginDto {
     idlogin: number,
     login: string,
     password: string,
-    status: LoginStatusEnum,
+    status: string,
     idrole: number,
     logincreated?: string,
     loginupdated?: string
