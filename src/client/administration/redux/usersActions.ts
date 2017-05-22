@@ -1,5 +1,8 @@
 import {IAction} from '../../_common/interfaces/IAction';
-import {IAccountDto} from "../../../server/_interfaces/engine/dto/IAccountDto";
+import {IAccountDto} from '../../../server/_interfaces/engine/dto/IAccountDto';
+import {Core} from '../../../shared/classes/core';
+import {IAjaxResponse} from '../../../shared/ajaxDto/IAjaxResponse';
+import {LoginDto} from '../../../shared/ajaxDto/authentication/LoginDto';
 
 export const GET_USERS_REQUEST: string = 'users/GET_USERS_REQUEST';
 export const GET_USERS_SUCCESS: string = 'users/GET_USERS_SUCCESS';
@@ -43,14 +46,19 @@ export function getUsers() {
 
         try {
             //let response = await fetch('https://api.github.com/repos/barbar/vortigern');
-            let response = {ok: true};
-            if (response.ok) {
+            let response = await Core.postAsync<LoginDto[]>({
+                url: '/api/main/users/getloginlist',
+            });
+
+            //console.log(response);
+
+            if (true) {
 
                 dispatch(getUsersSuccess(users));
             } else {
                 //let errText = await response.text();
                 //dispatch(getUsersFailure('!!!Alarm!!! ' + errText));
-                return "";
+                //return '';
             }
         }
         catch (error) {
@@ -101,7 +109,7 @@ export function saveUser(user: IAccountDto) {
             } else {
                 //let errText = await response.text();
                 //dispatch(getUsersFailure('!!!Alarm!!! ' + errText));
-                return "";
+                return '';
             }
         }
         catch (error) {
@@ -145,7 +153,7 @@ export function deleteUsers(ids: string[]) {
             } else {
                 //let errText = await response.text();
                 //dispatch(getUsersFailure('!!!Alarm!!! ' + errText));
-                return "";
+                return '';
             }
         }
         catch (error) {

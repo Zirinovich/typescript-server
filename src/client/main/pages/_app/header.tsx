@@ -84,7 +84,6 @@ export class Header extends React.Component<IProps, IState> {
                                     <li><Icon name="phone"/>(888) 123-4567</li>
                                     { session &&
                                     <li>
-                                        {console.log(session)}
                                         <Icon name="user"/>{session.user.username}
                                     </li>
                                     }
