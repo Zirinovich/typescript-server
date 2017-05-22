@@ -7,7 +7,6 @@ import {IconInput} from '../../components/icon_input/iconInput';
 import {EventArgsDto} from "../../../_common/interfaces/EventArgsDto";
 import {EventMethodEnum} from "../../../_common/interfaces/EventMethodEnum";
 import {signInRequest} from '../../redux/signInActions';
-
 const style = require('./signInForm.scss');
 
 interface IProps {

@@ -1,9 +1,12 @@
 import * as React from 'react';
 const {connect} = require('react-redux');
-import {Modal, Button, Row, Col, FormControl, ControlLabel} from 'react-bootstrap';
+import {Modal, Form, Button, Row, Col, ControlLabel} from 'react-bootstrap';
 
 import {generator} from '../../../../shared/tools/generator';
 import {i18n} from '../../../_common/tools/i18n/i18n';
+import {Input} from '../../../_common/components/input/input';
+import {EventArgsDto} from '../../../_common/interfaces/EventArgsDto';
+import {EventMethodEnum} from '../../../_common/interfaces/EventMethodEnum';
 import {saveUser} from '../../redux/usersActions';
 
 //#region interfaces
@@ -33,6 +36,8 @@ export class UserCreateEditModal extends React.Component<IProps, IState> {
     constructor(props) {
         super(props);
 
+        this.onEventHandler = this.onEventHandler.bind(this);
+        this.submitHandler = this.submitHandler.bind(this);
         this.state = {
             fullName: '',
             username: '',
@@ -55,28 +60,19 @@ export class UserCreateEditModal extends React.Component<IProps, IState> {
         }
     }
 
-    usernameChangeHandler(e) {
-        this.setState({
-            username: e.target.value
-        });
+    onEventHandler(args: EventArgsDto) {
+        if (args.event == EventMethodEnum.OnChange) {
+            let state = {};
+            state[args.name] = args.value;
+            this.setState(state);
+        }
     }
 
-    passwordChangeHandler(e) {
-        this.setState({
-            password: e.target.value
-        });
-    }
-
-    fullNameChangeHandler(e) {
-        this.setState({
-            fullName: e.target.value
-        });
-    }
-
-    saveClickHandler() {
+    submitHandler(e) {
         const {saveUser, onHide} = this.props;
         saveUser(this.state);
         onHide();
+        e.preventDefault();
     }
 
     render() {
@@ -84,43 +80,46 @@ export class UserCreateEditModal extends React.Component<IProps, IState> {
         const {id, username, password, fullName} = this.state;
         return (
             <Modal show={show} onHide={onHide} bsSize="large" aria-labelledby={this.id}>
-                <Modal.Header closeButton>
-                    <Modal.Title id={this.id}>
-                        {id ? i18n.t('administration.editUser') : i18n.t('administration.createUser')}
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Row>
-                        <Col md={4}>
-                            <ControlLabel>{i18n.t('administration.login')}</ControlLabel>
-                            <FormControl
-                                type="text"
-                                value={username}
-                                onChange={this.usernameChangeHandler.bind(this)}
-                            />
-                        </Col>
-                        <Col md={4}>
-                            <ControlLabel>{i18n.t('administration.password')}</ControlLabel>
-                            <FormControl
-                                type="text"
-                                value={password}
-                                onChange={this.passwordChangeHandler.bind(this)}
-                            />
-                        </Col>
-                        <Col md={4}>
-                            <ControlLabel>{i18n.t('administration.fullName')}</ControlLabel>
-                            <FormControl
-                                type="text"
-                                value={fullName}
-                                onChange={this.fullNameChangeHandler.bind(this)}
-                            />
-                        </Col>
-                    </Row>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button bsStyle="primary" onClick={this.saveClickHandler.bind(this)}>{i18n.t('administration.save')}</Button>
-                    <Button onClick={onHide}>{i18n.t('administration.close')}</Button>
-                </Modal.Footer>
+                <Form onSubmit={this.submitHandler}>
+                    <Modal.Header closeButton>
+                        <Modal.Title id={this.id}>
+                            {id ? i18n.t('administration.editUser') : i18n.t('administration.createUser')}
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Row>
+                            <Col md={4}>
+                                <ControlLabel>{i18n.t('administration.login')}</ControlLabel>
+                                <Input
+                                    name="username"
+                                    value={username}
+                                    onEvent={this.onEventHandler}
+                                    required
+                                />
+                            </Col>
+                            <Col md={4}>
+                                <ControlLabel>{i18n.t('administration.password')}</ControlLabel>
+                                <Input
+                                    name="password"
+                                    value={password}
+                                    onEvent={this.onEventHandler}
+                                />
+                            </Col>
+                            <Col md={4}>
+                                <ControlLabel>{i18n.t('administration.fullName')}</ControlLabel>
+                                <Input
+                                    name="fullName"
+                                    value={fullName}
+                                    onEvent={this.onEventHandler}
+                                />
+                            </Col>
+                        </Row>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button type="submit" bsStyle="primary">{i18n.t('administration.save')}</Button>
+                        <Button onClick={onHide}>{i18n.t('administration.close')}</Button>
+                    </Modal.Footer>
+                </Form>
             </Modal>
         )
     }

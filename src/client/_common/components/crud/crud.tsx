@@ -34,7 +34,6 @@ interface IProps {
             isSingleRowSelected?: boolean;
             confirm?: boolean;
         };
-        handleSubmit?: any;
         method?: (selected: any[])=>void;
     }[];
 }
@@ -198,7 +197,7 @@ export class Crud extends React.Component<IProps, IState> {
                     <Col md={12} className={style.buttons_wrapper}>
                         {
                             actions.map((action, index) => {
-                                const {text, handleSubmit} = action;
+                                const {text} = action;
                                 const ModalForm = action.modalForm;
                                 return (
                                     <span key={index}>
@@ -207,7 +206,6 @@ export class Crud extends React.Component<IProps, IState> {
                                         </Button>
                                         {ModalForm &&
                                         <ModalForm show={modalsShow[index]}
-                                                   onSubmit={handleSubmit ? handleSubmit : function(){}}
                                                    onHide={() => modalClose(index)}
                                                    data={selectedRowData}/>}
                                     </span>

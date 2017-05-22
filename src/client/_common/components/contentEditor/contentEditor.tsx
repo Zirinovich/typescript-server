@@ -2,11 +2,15 @@ import * as React from 'react';
 import * as TinyMCE from 'react-tinymce';
 
 import {generator} from '../../../../shared/tools/generator';
+import {EventDelegate} from '../../interfaces/EventDelegate';
+import {EventMethodEnum} from '../../interfaces/EventMethodEnum';
+import {EventComponentTypeEnum} from '../../interfaces/EventComponentTypeEnum';
 
 //#region interfaces
 interface IProps {
-    onChange?: any;
+    name: string;
     value?: string;
+    onEvent?: EventDelegate;
 }
 
 interface IState {
@@ -78,9 +82,14 @@ export class ContentEditor extends React.Component<IProps, IState> {
         if (tinymce) tinymce.get(this.id).setContent(value ? value : '');
     }
 
-    handleEditorChange(e) {
-        const {onChange} = this.props;
-        onChange(e.target.getContent());
+    changeHandler(e) {
+        const {name, onEvent} = this.props;
+        onEvent({
+            event: EventMethodEnum.OnChange,
+            value: e.target.getContent(),
+            name,
+            type: EventComponentTypeEnum.Textarea
+        });
     }
 
     render() {
@@ -95,7 +104,7 @@ export class ContentEditor extends React.Component<IProps, IState> {
                 id={this.id}
                 content={value}
                 config={config}
-                onChange={this.handleEditorChange.bind(this)}
+                onChange={this.changeHandler.bind(this)}
             />
         );
     }
