@@ -4,6 +4,8 @@ import {IDatabaseResult} from "../../_interfaces/engine/database/IDatabaseResult
 import {UserDto} from "../../../shared/ajaxDto/authentication/UserDto";
 import {RoleDto} from "../../../shared/ajaxDto/authentication/RoleDto";
 import {dbEngine} from "../../registration";
+import {AccountDto} from "../../../shared/ajaxDto/authentication/AccountDto";
+import {ErrorCodeEnum} from "../../../shared/classes/ErrorCodeEnum";
 
 export class UsersDatabase implements IUsersDatabase {
     // TODO: Может во всех методах где возвращается LoginDto вместо пароля возвращать пустую строку или null
@@ -58,6 +60,56 @@ export class UsersDatabase implements IUsersDatabase {
                     FROM tlogins
                     ORDER BY login`;
         return dbEngine.queryAsync<LoginDto>({text: query});
+    }
+
+    async getAccountListAsync(): Promise<IDatabaseResult<AccountDto[]>> {
+        let query = `SELECT idlogin
+                         ,login
+                         ,'buS2t+Dy3JwvJmdv/vif7A==' AS password
+                         ,status
+                         ,tlogins.idrole
+                         ,logincreated
+                         ,loginupdated
+						 ,rolename
+						 ,iduser
+						 ,username
+                    FROM tlogins
+                    LEFT JOIN tusers ON tlogins.idlogin = tusers.iduser
+					LEFT JOIN troles ON tlogins.idrole = troles.idrole
+                    ORDER BY login`;
+        return new Promise<IDatabaseResult<AccountDto[]>>(async(resolve) => {
+            let accounts = await dbEngine.queryAsync({text: query});
+            if (accounts.errorCode !== ErrorCodeEnum.NoErrors) {
+                resolve(<IDatabaseResult<AccountDto[]>>accounts);
+            }
+            else {
+                resolve({
+                    errorCode: accounts.errorCode,
+                    errorMessage: accounts.errorMessage,
+                    data: _.map(accounts.data, (obj: any) => {
+                        return {
+                            login: {
+                                idlogin: obj.idlogin,
+                                login: obj.login,
+                                password: obj.password,
+                                status: obj.status,
+                                idrole: obj.idrole,
+                                logincreated: obj.logincreated,
+                                loginupdated: obj.loginupdated
+                            },
+                            user: {
+                                iduser: obj.iduser,
+                                username: obj.username
+                            },
+                            role: {
+                                idrole: obj.idrole,
+                                rolename: obj.rolename
+                            }
+                        }
+                    })
+                });
+            }
+        })
     }
 
     async findUserByIdAsync(iduser: number): Promise<IDatabaseResult<UserDto>> {

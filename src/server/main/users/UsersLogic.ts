@@ -7,12 +7,17 @@ import {SessionDto} from "../../../shared/ajaxDto/authentication/SessionDto";
 import {LoginDto} from "../../../shared/ajaxDto/authentication/LoginDto";
 import {IDatabaseResult} from "../../_interfaces/engine/database/IDatabaseResult";
 import {LoginStatusConstants} from "../../../shared/ajaxDto/authentication/LoginStatusConstants";
+import {AccountDto} from "../../../shared/ajaxDto/authentication/AccountDto";
 
 export class UsersLogic implements IUsersLogic {
 
 
     async getLoginListAsync(): Promise<IDatabaseResult<LoginDto[]>> {
         return usersDatabase.getLoginListAsync();
+    }
+
+    async getAccountListAsync(): Promise<IDatabaseResult<AccountDto[]>>{
+        return usersDatabase.getAccountListAsync();
     }
 
     async checkLoginAndFillSessionAsync(login: string, password: string, callback: (response: IDatabaseResult<SessionDto>)=>void) {

@@ -3,12 +3,13 @@ import HTTP_STATUS_CODES from 'http-status-enum';
 import {authenticationMiddleware, usersLogic} from "../../registration";
 import {IAjaxResponse} from "../../../shared/ajaxDto/IAjaxResponse";
 import {LoginDto} from "../../../shared/ajaxDto/authentication/LoginDto";
+import {AccountDto} from "../../../shared/ajaxDto/authentication/AccountDto";
 
 router.post('/login',
-    (req, res, next)=>{
-    let body = req.body;
-    authenticationMiddleware.login(req, res, next)}
-    );
+    (req, res, next) => {
+        authenticationMiddleware.login(req, res, next)
+    }
+);
 router.post('/logout', authenticationMiddleware.logout, AuthClaims.Authenticated);
 
 router.get('/article/:articleId', (req, res) => {
@@ -18,6 +19,11 @@ router.get('/article/:articleId', (req, res) => {
 router.post('/main/users/getloginlist', async(req, res) => {
         let logins: IAjaxResponse<LoginDto[]> = await usersLogic.getLoginListAsync();
         res.json(logins);
+    },
+    AuthClaims.Authenticated);
+router.post('/main/users/getaccountlist', async(req, res) => {
+        let accounts: IAjaxResponse<AccountDto[]> = await usersLogic.getAccountListAsync();
+        res.json(accounts);
     },
     AuthClaims.Authenticated);
 
