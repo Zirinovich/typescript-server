@@ -53,8 +53,8 @@ export class UsersDatabase implements IUsersDatabase {
                          ,'buS2t+Dy3JwvJmdv/vif7A==' AS password
                          ,status
                          ,idrole
-                         ,firstname
-                         ,lastname
+                         ,logincreated
+                         ,loginupdated
                     FROM tlogins
                     ORDER BY login`;
         return dbEngine.queryAsync<LoginDto>({text: query});
