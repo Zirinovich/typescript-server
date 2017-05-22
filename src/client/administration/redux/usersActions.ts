@@ -1,8 +1,8 @@
 import {IAction} from '../../_common/interfaces/IAction';
 import {IAccountDto} from '../../../server/_interfaces/engine/dto/IAccountDto';
 import {Core} from '../../../shared/classes/core';
-import {IAjaxResponse} from '../../../shared/ajaxDto/IAjaxResponse';
 import {LoginDto} from '../../../shared/ajaxDto/authentication/LoginDto';
+import {ErrorCodeEnum} from '../../../shared/classes/ErrorCodeEnum';
 
 export const GET_USERS_REQUEST: string = 'users/GET_USERS_REQUEST';
 export const GET_USERS_SUCCESS: string = 'users/GET_USERS_SUCCESS';
@@ -45,20 +45,14 @@ export function getUsers() {
         dispatch(getUsersRequest());
 
         try {
-            //let response = await fetch('https://api.github.com/repos/barbar/vortigern');
             let response = await Core.postAsync<LoginDto[]>({
                 url: '/api/main/users/getloginlist',
             });
 
-            //console.log(response);
-
-            if (true) {
-
-                dispatch(getUsersSuccess(users));
-            } else {
-                //let errText = await response.text();
-                //dispatch(getUsersFailure('!!!Alarm!!! ' + errText));
-                //return '';
+            if (response.errorCode === ErrorCodeEnum.NoErrors) {
+                dispatch(getUsersSuccess(response.data));
+            }else{
+                dispatch(getUsersFailure(response.errorCode));
             }
         }
         catch (error) {

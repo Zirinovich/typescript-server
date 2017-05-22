@@ -21,7 +21,7 @@ export function signInRequest(credentials: {login?: string, password?: string}) 
         const data = {login: credentials.login, password: getMD5base64(credentials.password)};
 
         let response = await Core.postAsync<SessionDto>({
-            url: 'api/login',
+            url: '/api/login',
             data,
         });
 

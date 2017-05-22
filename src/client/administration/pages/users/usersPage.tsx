@@ -32,20 +32,16 @@ export class UsersPage extends React.Component<IProps, IState> {
         const {users: {list}, deleteUsers} = this.props;
         const headers = [
             {
-                name: 'id',
+                name: 'idlogin',
                 hidden: true,
                 key:true
             },
             {
-                name: 'username',
+                name: 'login',
                 label: i18n.t('administration.login')
             },
             {
-                name: 'fullName',
-                label: i18n.t('administration.fullName')
-            },
-            {
-                name: 'role',
+                name: 'status',
                 label: i18n.t('administration.role')
             }
         ];
