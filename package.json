@@ -8,7 +8,7 @@
     "prestart": "npm run clean",
     "start": "parallel-webpack --watch",
     "prebuild": "npm run clean",
-    "build": "set NODE_ENV=build&& parallel-webpack -p2",
+    "build": "set NODE_ENV=build&& parallel-webpack --watch -p2",
     "build:front": "set NODE_ENV=production&& webpack --debug --config webpack.client.config.js",
     "build:server": "set NODE_ENV=build&& webpack --config webpack.server.config.js"
 

@@ -49,6 +49,62 @@ export class UsersDatabase implements IUsersDatabase {
         return dbEngine.querySingleAsync<LoginDto>({text: query, values: {idlogin}});
     }
 
+    async insertLoginAsync(login: LoginDto): Promise<IDatabaseResult<LoginDto>> {
+        let query = `INSERT INTO public.tlogins (login, password, status, idrole, logincreated)
+                     VALUES (@login
+                       ,@password
+                       ,@status
+                       ,@idrole
+                       ,now() AT TIME ZONE 'utc')
+                     ON CONFLICT (login)
+                       DO NOTHING
+                     RETURNING *`;
+        return dbEngine.querySingleAsync<LoginDto>({text: query, values: login});
+    };
+
+    async updateLoginAsync(login: LoginDto): Promise<IDatabaseResult<LoginDto>> {
+        let query = `UPDATE tlogins
+                     SET password = @password
+                        ,status = @status
+                        ,idrole = @idrole
+                        ,loginupdated = now() AT TIME ZONE 'utc'
+                     WHERE idlogin = @idlogin AND login = @login
+                     RETURNING *`;
+        return dbEngine.querySingleAsync<LoginDto>({text: query, values: login});
+    };
+
+    async addChangeLoginAsync(login: LoginDto): Promise<IDatabaseResult<LoginDto>> {
+        let query = `WITH new_values (idlogin, login, password, status, idrole, loginupdated) AS (
+                      VALUES (@idlogin, @login, @password, @status, @idrole, now() AT TIME ZONE 'utc')
+                    ),
+                        upsert AS (
+                        UPDATE tlogins t
+                        SET password     = nv.password
+                          , status       = nv.status
+                          , idrole       = nv.idrole
+                          , loginupdated = nv.loginupdated
+                        FROM new_values nv
+                        WHERE t.idlogin = nv.idlogin AND t.login = nv.login
+                        RETURNING t.idlogin, t.login, t.password, t.status, t.idrole, t.logincreated, t.loginupdated
+                      )
+                    
+                    INSERT INTO tlogins (login, password, status, idrole, logincreated)
+                      SELECT
+                        login,
+                        password,
+                        status,
+                        idrole,
+                        loginupdated
+                      FROM new_values
+                      WHERE NOT EXISTS(SELECT 1
+                                       FROM upsert up
+                                       WHERE up.idlogin = new_values.idlogin
+                      )
+                    RETURNING *;`;
+
+        return dbEngine.querySingleAsync<LoginDto>({text: query, values: login});
+    }
+
     async getLoginListAsync(): Promise<IDatabaseResult<LoginDto[]>> {
         let query = `SELECT idlogin
                          ,login
@@ -126,10 +182,5 @@ export class UsersDatabase implements IUsersDatabase {
                        FROM troles
                        WHERE idrole=@idrole`;
         return dbEngine.querySingleAsync<RoleDto>({text: query, values: {idrole}});
-    }
-
-    async addChangeLoginAsync(login: LoginDto): Promise<IDatabaseResult<LoginDto>> {
-        let query = ``;
-        return dbEngine.querySingleAsync<LoginDto>({text: query, values: login});
     }
 }

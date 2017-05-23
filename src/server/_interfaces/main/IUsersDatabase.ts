@@ -13,4 +13,6 @@ export interface IUsersDatabase {
     getLoginListAsync(): Promise<IDatabaseResult<LoginDto[]>>;
     getAccountListAsync(): Promise<IDatabaseResult<AccountDto[]>>;
     addChangeLoginAsync(login: LoginDto): Promise<IDatabaseResult<LoginDto>>;
+    insertLoginAsync(login: LoginDto): Promise<IDatabaseResult<LoginDto>>;
+    updateLoginAsync(login: LoginDto): Promise<IDatabaseResult<LoginDto>>;
 }

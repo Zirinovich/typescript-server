@@ -38,6 +38,6 @@ export class PassportLocalStrategyMiddlewareFunctions implements IAuthentication
     }
 
     mustAuthenticate(req, res, next) {
-        req.isAuthenticated() ? next() : res.status(HTTP_STATUS_CODES.UNAUTHORIZED).json({errorCode: ErrorCodeEnum.AuthorizationRequiredError});
+        req.isAuthenticated() ? next() : res.status(HTTP_STATUS_CODES.UNAUTHORIZED).json({errorCode: ErrorCodeEnum.AuthorizationRequiredError, errorMessage: "Authorization required"});
     }
 }

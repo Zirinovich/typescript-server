@@ -9,5 +9,8 @@ export enum ErrorCodeEnum{
     AuthWrongPasswordError,
     AuthLoginDisabledError,
 //------ Authorization errors
-    AuthorizationRequiredError
+    AuthorizationRequiredError,
+
+//------ UsersController
+    UsersLoginExistsError
 }

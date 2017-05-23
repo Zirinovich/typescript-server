@@ -62,6 +62,20 @@ export class UsersLogic implements IUsersLogic {
     }
 
     async addChangeLoginAsync(login: LoginDto): Promise<IDatabaseResult<LoginDto>> {
-        return usersDatabase.addChangeLoginAsync(login);
+        return new Promise<IDatabaseResult<LoginDto>>(async resolve => {
+            let changeResult = await usersDatabase.updateLoginAsync(login);
+            if (changeResult.data || changeResult.errorCode !== ErrorCodeEnum.NoErrors) {
+                return resolve(changeResult);
+            }
+
+            let addResult = await usersDatabase.insertLoginAsync(login);
+            if (addResult.data || addResult.errorCode !== ErrorCodeEnum.NoErrors) {
+                return resolve(addResult);
+            }
+            resolve({
+                errorCode: ErrorCodeEnum.UsersLoginExistsError,
+                errorMessage: "LoginAlreadyExists",
+            })
+        });
     }
 }

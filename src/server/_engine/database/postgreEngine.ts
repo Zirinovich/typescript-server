@@ -3,6 +3,7 @@ import {ErrorCodeEnum} from "../../../shared/classes/ErrorCodeEnum";
 import {IDbQuery} from "../../_interfaces/engine/database/IDbQuery";
 import {IDatabaseResult} from "../../_interfaces/engine/database/IDatabaseResult";
 import {IDatabaseEngine} from "../../_interfaces/engine/database/IDatabaseEngine";
+import isNaN = require("lodash/isNaN");
 
 export class PostgreEngine implements IDatabaseEngine {
     private pool: Pool;
@@ -17,9 +18,13 @@ export class PostgreEngine implements IDatabaseEngine {
             let queryParams = query.values;
             let newParams = [];
 
+            let j=0;
             Object.keys(queryParams).forEach((paramName, i) => {
-                queryText = queryText.replace(new RegExp(`(@${paramName})($|:|\\s+|\\)|^_|^-)`, 'g'), `$$${i + 1}$2`);
-                newParams.push(queryParams[paramName]);
+                let testExp = new RegExp(`(@${paramName})[$|:|\\s+|\\)||,|^_|^-]`);
+                if(testExp.test(queryText)){
+                    queryText = queryText.replace(new RegExp(`(@${paramName})($|:|\\s+|\\)||,|^_|^-)`, 'g'), `$$${++j}${typeof(queryParams[paramName]) === 'number' ? (/\./.test(queryParams[paramName]) ? '::numeric' : '::integer') : ''}$2`);
+                    newParams.push(queryParams[paramName]);
+                }
             });
             return {
                 name: query.name && query.name,
@@ -37,14 +42,25 @@ export class PostgreEngine implements IDatabaseEngine {
 
     async querySingleAsync<T>(query: IDbQuery): Promise<IDatabaseResult<T>> {
         return new Promise<IDatabaseResult<T>>((resolve) => {
-            this.query(query, (dbResult: IDatabaseResult<Array<T>>) => {
-                let res: IDatabaseResult<T> = {
-                    errorCode: dbResult.errorCode,
-                    errorMessage: dbResult.errorMessage,
-                    data: dbResult.data.length > 0 && dbResult.data[0]
-                };
-                resolve(res);
-            });
+            try {
+                this.query(query, (dbResult: IDatabaseResult<Array<T>>) => {
+                    console.log("dbResult is " + JSON.stringify(dbResult));
+                    let res: IDatabaseResult<T> = {
+                        errorCode: dbResult.errorCode,
+                        errorMessage: dbResult.errorMessage,
+                        data: dbResult.data && dbResult.data.length > 0 && dbResult.data[0]
+                    };
+                    resolve(res);
+                });
+            }
+            catch (e) {
+                console.log("catch e is " + JSON.stringify(e));
+                resolve({
+                    errorCode: ErrorCodeEnum.DataBaseQueryError,
+                    errorMessage: "Some Error Message",
+                    data: undefined
+                })
+            }
         });
     }
 
@@ -58,6 +74,7 @@ export class PostgreEngine implements IDatabaseEngine {
 
     private query<T>(query: IDbQuery, doneCallback: (result: IDatabaseResult<Array<T>>) => void) {
         let pgQuery = PostgreEngine.transformQuery(query);
+        console.log(pgQuery.text);
         this.pool.connect()
             .then(client => {
                 client.query(pgQuery)
