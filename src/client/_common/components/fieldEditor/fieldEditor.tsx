@@ -18,15 +18,15 @@ interface IState {
 }
 //#endregion
 
-export class ContentEditor extends React.Component<IProps, IState> {
+export class FieldEditor extends React.Component<IProps, IState> {
     id = generator.genId();
 
     static isLoaded = false;
     static tinymce;
 
     static loadJsClient() {
-        if (!ContentEditor.isLoaded) {
-            ContentEditor.tinymce = require('imports-loader?this=>window!exports-loader?window.tinymce!tinymce/tinymce');
+        if (!FieldEditor.isLoaded) {
+            FieldEditor.tinymce = require('imports-loader?this=>window!exports-loader?window.tinymce!tinymce/tinymce');
             require('imports-loader?this=>window!tinymce/themes/modern/theme');
 
             require('tinymce/plugins/advlist');
@@ -72,13 +72,13 @@ export class ContentEditor extends React.Component<IProps, IState> {
             //require('tinymce/plugins/visualchars');
             //require('tinymce/plugins/wordcount');
 
-            ContentEditor.isLoaded = true;
+            FieldEditor.isLoaded = true;
         }
     }
 
     componentDidUpdate() {
         const {value} = this.props;
-        const tinymce = ContentEditor.tinymce;
+        const tinymce = FieldEditor.tinymce;
         if (tinymce) tinymce.get(this.id).setContent(value ? value : '');
     }
 
@@ -94,7 +94,7 @@ export class ContentEditor extends React.Component<IProps, IState> {
 
     render() {
         const {value} = this.props;
-        ContentEditor.loadJsClient();
+        FieldEditor.loadJsClient();
         const config = {
             plugins: 'link image code',
             toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'

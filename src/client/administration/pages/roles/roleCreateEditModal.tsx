@@ -1,10 +1,12 @@
 import * as React from 'react';
 const {connect} = require('react-redux');
-import {Modal, Form, Button, Row, Col, ControlLabel} from 'react-bootstrap';
+import {Modal, Form, Button, FormGroup, Clearfix, Col} from 'react-bootstrap';
 
 import {generator} from '../../../../shared/tools/generator';
 import {i18n} from '../../../_common/tools/i18n/i18n';
-import {Input} from '../../../_common/components/input/input';
+import {FieldInput} from '../../../_common/components/fieldInput/fieldInput';
+import {FieldTextarea} from '../../../_common/components/fieldTextarea/fieldTextarea';
+import {FieldCheckbox} from '../../../_common/components/fieldCheckbox/fieldCheckbox';
 import {EventArgsDto} from '../../../_common/interfaces/EventArgsDto';
 import {EventMethodEnum} from '../../../_common/interfaces/EventMethodEnum';
 import {saveRole} from '../../redux/rolesActions';
@@ -24,6 +26,29 @@ interface IState {
     name?: string;
 }
 //#endregion
+
+const rules = [
+    {
+        name: 'test_string',
+        label: 'test string',
+        type: 'string'
+    },
+    {
+        name: 'test_number',
+        label: 'test number',
+        type: 'number'
+    },
+    {
+        name: 'test_boolean',
+        label: 'test boolean',
+        type: 'boolean'
+    },
+    {
+        name: 'test_text',
+        label: 'test text',
+        type: 'text'
+    }
+];
 
 @connect(
     (state) => ({}),
@@ -54,8 +79,8 @@ export class RoleCreateEditModal extends React.Component<IProps, IState> {
         }
     }
 
-    onEventHandler(args:EventArgsDto) {
-        if(args.event == EventMethodEnum.OnChange){
+    onEventHandler(args: EventArgsDto) {
+        if (args.event == EventMethodEnum.OnChange) {
             let state = {};
             state[args.name] = args.value;
             this.setState(state);
@@ -81,12 +106,54 @@ export class RoleCreateEditModal extends React.Component<IProps, IState> {
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Row>
+                        <FormGroup>
                             <Col md={4}>
-                                <ControlLabel>{i18n.t('administration.role')}</ControlLabel>
-                                <Input name="name" value={name} onEvent={this.onEventHandler.bind(this)} required/>
+                                <FieldInput name="name" value={name} onEvent={this.onEventHandler.bind(this)}
+                                            label={i18n.t('administration.role')} required/>
                             </Col>
-                        </Row>
+                            <Clearfix/>
+                        </FormGroup>
+                        {
+                            rules.map((rule, index) => {
+                                let control;
+                                let value = this.state[rule.name];
+                                switch (rule.type) {
+                                    case 'boolean':
+                                        control = (
+                                            <FieldCheckbox name={rule.name}
+                                                           value={value}
+                                                           label={rule.label}
+                                                           onEvent={this.onEventHandler.bind(this)}/>);
+                                        break;
+                                    case "number":
+                                        control = (<FieldInput type="number"
+                                                               name={rule.name}
+                                                               label={rule.label}
+                                                               value={value}
+                                                               onEvent={this.onEventHandler.bind(this)}/>);
+                                        break;
+                                    case "text":
+                                        control = (<FieldTextarea name={rule.name}
+                                                                  value={value}
+                                                                  onEvent={this.onEventHandler.bind(this)}/>);
+                                        break;
+                                    default:
+                                        control = (
+                                            <FieldInput name={rule.name}
+                                                        label={rule.label}
+                                                        value={value}
+                                                        onEvent={this.onEventHandler.bind(this)}/>);
+                                }
+                                return (
+                                    <FormGroup key={index}>
+                                        <Col md={12}>
+                                            {control}
+                                        </Col>
+                                        <Clearfix/>
+                                    </FormGroup>
+                                )
+                            })
+                        }
                     </Modal.Body>
                     <Modal.Footer>
                         <Button type="submit" bsStyle="primary">{i18n.t('administration.save')}</Button>

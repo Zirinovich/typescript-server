@@ -4,7 +4,7 @@ import {Modal, Form, Button, Row, Col, ControlLabel} from 'react-bootstrap';
 
 import {generator} from '../../../../shared/tools/generator';
 import {i18n} from '../../../_common/tools/i18n/i18n';
-import {Input} from '../../../_common/components/input/input';
+import {FieldInput} from '../../../_common/components/fieldInput/fieldInput';
 import {EventArgsDto} from '../../../_common/interfaces/EventArgsDto';
 import {EventMethodEnum} from '../../../_common/interfaces/EventMethodEnum';
 import {saveUser} from '../../redux/usersActions';
@@ -89,26 +89,26 @@ export class UserCreateEditModal extends React.Component<IProps, IState> {
                     <Modal.Body>
                         <Row>
                             <Col md={4}>
-                                <ControlLabel>{i18n.t('administration.login')}</ControlLabel>
-                                <Input
+                                <FieldInput
                                     name="username"
+                                    label={i18n.t('administration.login')}
                                     value={username}
                                     onEvent={this.onEventHandler}
                                     required
                                 />
                             </Col>
                             <Col md={4}>
-                                <ControlLabel>{i18n.t('administration.password')}</ControlLabel>
-                                <Input
+                                <FieldInput
                                     name="password"
+                                    label={i18n.t('administration.password')}
                                     value={password}
                                     onEvent={this.onEventHandler}
                                 />
                             </Col>
                             <Col md={4}>
-                                <ControlLabel>{i18n.t('administration.fullName')}</ControlLabel>
-                                <Input
+                                <FieldInput
                                     name="fullName"
+                                    label={i18n.t('administration.fullName')}
                                     value={fullName}
                                     onEvent={this.onEventHandler}
                                 />

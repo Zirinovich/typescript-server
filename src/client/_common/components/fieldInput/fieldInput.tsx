@@ -1,14 +1,16 @@
 import * as React from 'react';
-import {FormControl} from 'react-bootstrap';
+import {FormControl, ControlLabel} from 'react-bootstrap';
 
 import {EventDelegate} from '../../interfaces/EventDelegate';
 import {EventMethodEnum} from '../../interfaces/EventMethodEnum';
 import {EventComponentTypeEnum} from '../../interfaces/EventComponentTypeEnum';
 
+//#region interfaces
 interface IProps {
     name: string;
+    label?: any;
     type?: string;
-    value?: string;
+    value?: any;
     onEvent?: EventDelegate;
     required?: boolean;
 }
@@ -16,8 +18,9 @@ interface IProps {
 interface IState {
 
 }
+//#endregion
 
-export class Input extends React.Component<IProps, IState> {
+export class FieldInput extends React.Component<IProps, IState> {
     onChange(e) {
         const {name, onEvent} = this.props;
         onEvent({
@@ -29,13 +32,16 @@ export class Input extends React.Component<IProps, IState> {
     }
 
     render() {
-        const {name, type, value, required} = this.props;
+        const {name, label, type, value, required} = this.props;
         return (
-            <FormControl name={name}
-                         type={type ? type : 'text'}
-                         value={value}
-                         onChange={this.onChange.bind(this)}
-                         required={required}/>
+            <div>
+                {label && <ControlLabel>{label}</ControlLabel>}
+                <FormControl name={name}
+                             type={type ? type : 'text'}
+                             value={value}
+                             onChange={this.onChange.bind(this)}
+                             required={required}/>
+            </div>
         )
     }
 }
