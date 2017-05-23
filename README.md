@@ -9,6 +9,13 @@
 	npm install
 	npm start
 
+Если необходимо выполнить только сборку то вместо:
+
+	npm start
+выполнить
+
+    npm build
+
 ## Утилиты и расширения для браузера Chrome:
 * [React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi) - позволяет просматривать разметку **react** в окне инструментов разработчика.
 * [Redux DevTools Extension](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd) - инструменты разработчика для просмотра и контроля за хранилищем **redux**

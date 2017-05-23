@@ -6,8 +6,8 @@ var postcssNext = require('postcss-cssnext');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var WebpackShellPlugin = require('webpack-shell-plugin');
 var copyWebpackPlugin = require('copy-webpack-plugin');
-const IS_PRODUCTION = process.env.NODE_ENV === 'production';
-var ExtractPlugin = new ExtractTextPlugin(IS_PRODUCTION ? 'css/styles-[hash].css' : 'css/styles.css');
+const NODE_ENV = process.env.NODE_ENV;
+var ExtractPlugin = new ExtractTextPlugin(NODE_ENV === 'production' ? 'css/styles-[hash].css' : 'css/styles.css');
 var helpers = require('./config/helpers');
 var appConfig = require('./config/main');
 
@@ -158,7 +158,7 @@ var config = {
             classNames: "classnames"
         }),
         new copyWebpackPlugin([
-            { from: './node_modules/tinymce/skins', to: './js/skins' } //TODO: Move import to TinyMCE component
+            {from: './node_modules/tinymce/skins', to: './js/skins'} //TODO: Move import to TinyMCE component
         ]),
         new webpack.DefinePlugin({
             APP_ENTRY_PATH: JSON.stringify(helpers.getFullPath(appConfig.appEntryName)),
@@ -192,7 +192,8 @@ const createIfDoesntExist = dest => {
     }
 };
 
-if (!IS_PRODUCTION) {
+if (NODE_ENV !== 'production' && NODE_ENV !== 'build') {
+    console.log("NODE_ENV=" + NODE_ENV + (NODE_ENV !== "'build'"));
     config.plugins.push(new WebpackShellPlugin({onBuildEnd: ['nodemon --delay 2 build/server.js --watch build']}));
 }
 
