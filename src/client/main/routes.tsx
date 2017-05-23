@@ -19,16 +19,18 @@ declare module 'react-router/lib/Route' {
     }
 }
 
-export const routes = (
-    <Route name={i18n.t('mainPage')} path="/" component={App}>
-        <IndexRoute component={Home}/>
-        {AdminPanelRoutes}
-        <Route path="about" component={About}/>
-        <Route name={i18n.t('authorizationPage')} path="login" component={SignIn}/>
-        <Route name={i18n.t('contactsPage')} path="contacts" component={Contacts}/>
-        <Route name={i18n.t('presentationsPage')} path="presentations" component={Presentations}>
-            <Route path=":id" component={PresentationDetail}/>
+export function routes (store) {
+    return (
+        <Route name={i18n.t('mainPage')} path="/" component={App}>
+            <IndexRoute component={Home}/>
+            {AdminPanelRoutes(store)}
+            <Route path="about" component={About}/>
+            <Route name={i18n.t('authorizationPage')} path="login" component={SignIn}/>
+            <Route name={i18n.t('contactsPage')} path="contacts" component={Contacts}/>
+            <Route name={i18n.t('presentationsPage')} path="presentations" component={Presentations}>
+                <Route path=":id" component={PresentationDetail}/>
+            </Route>
+            <Route path="*" component={NotFound}/>
         </Route>
-        <Route path="*" component={NotFound}/>
-    </Route>
-);
+    )
+}

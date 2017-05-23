@@ -29,7 +29,7 @@ app.get('*', (req, res) => {
     const memoryHistory = createMemoryHistory(req.originalUrl);
     const clientApplication = new ClientApplication();
     const store = clientApplication.configureStore(memoryHistory, ( req.user ? {session: _.cloneDeep(req.user)} : {}));
-    const routes = clientApplication.clientRoutes;
+    const routes = clientApplication.clientRoutes(store);
     const history = syncHistoryWithStore(memoryHistory, store);
 
     match({history, routes, location},

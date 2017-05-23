@@ -52,7 +52,7 @@ export function signInError(response: IAjaxResponse<SessionDto>) {
 export function logout() {
     return async(dispatch) => {
         let response = await Core.postAsync<SessionDto>({
-            url: 'api/logout'
+            url: '/api/logout'
         });
 
         if (response.errorCode === ErrorCodeEnum.NoErrors) {
