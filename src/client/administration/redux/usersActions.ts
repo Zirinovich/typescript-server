@@ -1,11 +1,11 @@
-import {IAction} from '../../_common/interfaces/IAction';
-import {IAccountDto} from '../../../server/_interfaces/engine/dto/IAccountDto';
 import {Core} from '../../../shared/classes/core';
+import {getMD5base64} from '../../../shared/tools/index';
+import {LoginStatusConstants} from '../../../shared/ajaxDto/authentication/LoginStatusConstants';
 import {ErrorCodeEnum} from '../../../shared/classes/ErrorCodeEnum';
 import {AccountDto} from '../../../shared/ajaxDto/authentication/AccountDto';
+import {IAction} from '../../_common/interfaces/IAction';
 import {LoginDto} from "../../../shared/ajaxDto/authentication/LoginDto";
-import {getMD5base64} from "../../../shared/tools/index";
-import {LoginStatusConstants} from "../../../shared/ajaxDto/authentication/LoginStatusConstants";
+import {UserDto} from "../../../shared/ajaxDto/authentication/UserDto";
 
 export const GET_USERS_REQUEST: string = 'users/GET_USERS_REQUEST';
 export const GET_USERS_SUCCESS: string = 'users/GET_USERS_SUCCESS';
@@ -18,7 +18,7 @@ export const DELETE_USER_SUCCESS: string = 'users/DELETE_USER_SUCCESS';
 export const DELETE_USER_FAILURE: string = 'users/DELETE_USER_FAILURE';
 
 export interface IGetUsersSuccessAction extends IAction {
-    list: IAccountDto[];
+    list: AccountDto[];
 }
 
 export interface IGetUsersFailureAction extends IAction {
@@ -33,16 +33,6 @@ export interface IDeleteUserFailureAction extends IAction {
     errorMessage: string;
 }
 
-let users = [];
-for (let i = 1; i <= 10; i++) {
-    users.push({
-        id: i,
-        fullName: 'user_' + i,
-        username: 'user_' + i,
-        role: 'super user'
-    });
-}
-
 export function getUsers() {
     return async(dispatch) => {
         dispatch(getUsersRequest());
@@ -54,7 +44,7 @@ export function getUsers() {
 
             if (response.errorCode === ErrorCodeEnum.NoErrors) {
                 dispatch(getUsersSuccess(response.data));
-            }else{
+            } else {
                 dispatch(getUsersFailure(response.errorCode));
             }
         }
@@ -89,34 +79,32 @@ export function saveUser(login) {
         dispatch(saveUserRequest());
 
         try {
-            //let response = await fetch('https://api.github.com/repos/barbar/vortigern');
-            let response = {ok: true};
-            if (response.ok) {
-                let response = await Core.postAsync<LoginDto>({
-                    url: '/api/main/users/addchangelogin',
+            const response = await Core.postAsync<LoginDto>({
+                url: '/api/main/users/addchangelogin',
+                data: {
+                    idlogin: -1,
+                    login: login.login,
+                    password: getMD5base64(login.password),
+                    status: LoginStatusConstants.Enabled,
+                    idrole: 2,
+                }
+            });
+            if (response.errorCode === ErrorCodeEnum.NoErrors) {
+                const responseUser = await Core.postAsync<UserDto>({
+                    url: '/api/main/users/addchangeuser',
                     data: {
-                        idlogin: -1,
-                        login: login.username,
-                        password: getMD5base64('test'),
-                        status: LoginStatusConstants.Enabled,
-                        idrole: 2,
+                        iduser: response.data.idlogin,
+                        username: login.username
                     }
                 });
-                /*const index = _.findIndex(users, function (u) {
-                    return parseInt(u.id) === parseInt(user.id);
-                });
-                if (index > 0) {
-                    users[index] = user;
+                if (responseUser.errorCode === ErrorCodeEnum.NoErrors) {
+                    dispatch(saveUserSuccess());
+                    dispatch(getUsers());
                 } else {
-                    user.id = JSON.stringify(users.length + 1);
-                    users.push(user);
-                }*/
-                dispatch(saveUserSuccess());
-                dispatch(getUsers());
+                    dispatch(getUsersFailure(response.errorCode));
+                }
             } else {
-                //let errText = await response.text();
-                //dispatch(getUsersFailure('!!!Alarm!!! ' + errText));
-                return '';
+                dispatch(getUsersFailure(response.errorCode));
             }
         }
         catch (error) {
@@ -149,18 +137,17 @@ export function deleteUsers(ids: string[]) {
         dispatch(deleteUsersRequest());
 
         try {
-            //let response = await fetch('https://api.github.com/repos/barbar/vortigern');
-            let response = {ok: true};
-            if (response.ok) {
-                users = users.filter((user) => {
-                    return ids.indexOf(user.id) === -1;
-                });
+            const response = await Core.postAsync({
+                url: '/api/main/users/deletelogins',
+                data: {
+                    idlogins: ids
+                }
+            });
+            if (response.errorCode === ErrorCodeEnum.NoErrors) {
                 dispatch(deleteUsersSuccess());
                 dispatch(getUsers());
             } else {
-                //let errText = await response.text();
-                //dispatch(getUsersFailure('!!!Alarm!!! ' + errText));
-                return '';
+                dispatch(getUsersFailure(response.errorCode));
             }
         }
         catch (error) {

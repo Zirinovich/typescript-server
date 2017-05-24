@@ -19,7 +19,7 @@ interface IProps {
 
 interface IState {
     id?: any;
-    fullName: string;
+    login: string;
     username: string;
     password: string;
     role: number;
@@ -39,7 +39,7 @@ export class UserCreateEditModal extends React.Component<IProps, IState> {
         this.onEventHandler = this.onEventHandler.bind(this);
         this.submitHandler = this.submitHandler.bind(this);
         this.state = {
-            fullName: '',
+            login: '',
             username: '',
             password: '',
             role: 1
@@ -54,7 +54,7 @@ export class UserCreateEditModal extends React.Component<IProps, IState> {
         if (data.id !== id) {
             this.setState({
                 id: data.id,
-                fullName: data.fullName,
+                login: data.login,
                 username: data.username
             });
         }
@@ -77,7 +77,7 @@ export class UserCreateEditModal extends React.Component<IProps, IState> {
 
     render() {
         const {show, onHide} = this.props;
-        const {id, username, password, fullName} = this.state;
+        const {id, login, password, username} = this.state;
         return (
             <Modal show={show} onHide={onHide} bsSize="large" aria-labelledby={this.id}>
                 <Form onSubmit={this.submitHandler}>
@@ -90,9 +90,9 @@ export class UserCreateEditModal extends React.Component<IProps, IState> {
                         <Row>
                             <Col md={4}>
                                 <FieldInput
-                                    name="username"
+                                    name="login"
                                     label={i18n.t('administration.login')}
-                                    value={username}
+                                    value={login}
                                     onEvent={this.onEventHandler}
                                     required
                                 />
@@ -107,9 +107,9 @@ export class UserCreateEditModal extends React.Component<IProps, IState> {
                             </Col>
                             <Col md={4}>
                                 <FieldInput
-                                    name="fullName"
+                                    name="username"
                                     label={i18n.t('administration.fullName')}
-                                    value={fullName}
+                                    value={username}
                                     onEvent={this.onEventHandler}
                                 />
                             </Col>
