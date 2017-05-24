@@ -91,4 +91,14 @@ export class UsersLogic implements IUsersLogic {
             resolve(addResult);
         });
     }
+
+    deleteLoginsAsync(ids: number[]): Promise<IDatabaseResult<number[]>> {
+        return new Promise<IDatabaseResult<number[]>>(async resolve => {
+            let resonse = [];
+            _.forEach(ids, async id => {
+                let dbResponse = await usersDatabase.deleteLoginAsync(id);
+            })
+        });
+        //return usersDatabase.deleteLoginsAsync(ids)
+    }
 }

@@ -11,5 +11,7 @@ export interface IUsersLogic {
     findLoginByIdAsync(id: number): Promise<IDatabaseResult<LoginDto>>;
     checkLoginAndFillSessionAsync(login: string, password: string, callback: (response: IDatabaseResult<SessionDto>)=>void): void;
     addChangeLoginAsync(login: LoginDto): Promise<IDatabaseResult<LoginDto>>;
+    deleteLoginsAsync(ids: number[]): Promise<IDatabaseResult<void>>;
     addChangeUserAsync(login: UserDto): Promise<IDatabaseResult<UserDto>>;
+
 }

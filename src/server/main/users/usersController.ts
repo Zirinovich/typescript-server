@@ -45,3 +45,9 @@ router.post('/main/users/addchangeuser', async(req, res) => {
     let user: IAjaxResponse<UserDto> = await usersLogic.addChangeUserAsync(requestData);
     res.json(user);
 });
+
+router.post('/main/users/deletelogins', async(req, res) => {
+    const requestData = req.body;
+    let login: IAjaxResponse<void> = await usersLogic.deleteLoginsAsync(requestData);
+    res.json(login);
+});

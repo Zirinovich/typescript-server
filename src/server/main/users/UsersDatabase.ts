@@ -73,6 +73,11 @@ export class UsersDatabase implements IUsersDatabase {
         return dbEngine.querySingleAsync<LoginDto>({text: query, values: login});
     };
 
+    async deleteLoginAsync(id: number): Promise<IDatabaseResult<{idlogin: number}>> {
+        let query = `DELETE FROM tlogins WHERE idlogin=@idlogin RETURNING idlogin`;
+        return dbEngine.querySingleAsync<{idlogin: number}>({text: query, values: {idlogin: id}});
+    };
+
     async insertUserAsync(user: UserDto): Promise<IDatabaseResult<UserDto>> {
         let query = `INSERT INTO tusers (iduser, username)
                      VALUES (@iduser

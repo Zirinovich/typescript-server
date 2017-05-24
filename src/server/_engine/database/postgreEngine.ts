@@ -3,7 +3,6 @@ import {ErrorCodeEnum} from "../../../shared/classes/ErrorCodeEnum";
 import {IDbQuery} from "../../_interfaces/engine/database/IDbQuery";
 import {IDatabaseResult} from "../../_interfaces/engine/database/IDatabaseResult";
 import {IDatabaseEngine} from "../../_interfaces/engine/database/IDatabaseEngine";
-import isNaN = require("lodash/isNaN");
 
 export class PostgreEngine implements IDatabaseEngine {
     private pool: Pool;
@@ -44,7 +43,6 @@ export class PostgreEngine implements IDatabaseEngine {
         return new Promise<IDatabaseResult<T>>((resolve) => {
             try {
                 this.query(query, (dbResult: IDatabaseResult<Array<T>>) => {
-                    console.log("dbResult is " + JSON.stringify(dbResult));
                     let res: IDatabaseResult<T> = {
                         errorCode: dbResult.errorCode,
                         errorMessage: dbResult.errorMessage,
@@ -74,7 +72,6 @@ export class PostgreEngine implements IDatabaseEngine {
 
     private query<T>(query: IDbQuery, doneCallback: (result: IDatabaseResult<Array<T>>) => void) {
         let pgQuery = PostgreEngine.transformQuery(query);
-        console.log(pgQuery.text);
         this.pool.connect()
             .then(client => {
                 client.query(pgQuery)

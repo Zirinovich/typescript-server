@@ -17,6 +17,7 @@ export interface IUsersDatabase {
 
     insertLoginAsync(login: LoginDto): Promise<IDatabaseResult<LoginDto>>;
     updateLoginAsync(login: LoginDto): Promise<IDatabaseResult<LoginDto>>;
+    deleteLoginAsync(id: number): Promise<IDatabaseResult<{idlogin: number}>>;
 
     insertUserAsync(user: UserDto): Promise<IDatabaseResult<UserDto>>;
     updateUserAsync(user: UserDto): Promise<IDatabaseResult<UserDto>>;

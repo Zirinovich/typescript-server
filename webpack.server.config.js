@@ -193,7 +193,6 @@ const createIfDoesntExist = dest => {
 };
 
 if (NODE_ENV !== 'production' && NODE_ENV !== 'build') {
-    console.log("NODE_ENV=" + NODE_ENV + (NODE_ENV !== "'build'"));
     config.plugins.push(new WebpackShellPlugin({onBuildEnd: ['nodemon --delay 2 build/server.js --watch build']}));
 }
 
