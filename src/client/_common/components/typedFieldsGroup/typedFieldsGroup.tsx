@@ -4,66 +4,61 @@ import {FormGroup, Clearfix, Col} from 'react-bootstrap';
 import {FieldInput} from '../fieldInput/fieldInput';
 import {FieldTextarea} from '../fieldTextarea/fieldTextarea';
 import {FieldCheckbox} from '../fieldCheckbox/fieldCheckbox';
-import {EventArgsDto} from '../../interfaces/EventArgsDto';
-import {EventMethodEnum} from '../../interfaces/EventMethodEnum';
+import {EventDelegate} from '../../interfaces/EventDelegate';
 
-interface IField{
+export interface ITypedField {
     name: string;
+    value?: any;
     label: any;
     type: string;
 }
 
+//#region interfaces
 interface IProps {
-    fields: IField[];
+    fields: ITypedField[];
+    onEvent?: EventDelegate;
 }
 
 interface IState {
 
 }
+//#endregion
 
-export class GroupFields extends React.Component<IProps, IState> {
-    onEventHandler(args: EventArgsDto) {
-        if (args.event == EventMethodEnum.OnChange) {
-            let state = {};
-            state[args.name] = args.value;
-            this.setState(state);
-        }
-    }
-    
-    render(){
-        const {fields} = this.props;
+export class TypedFieldsGroup extends React.Component<IProps, IState> {
+    render() {
+        const {fields, onEvent} = this.props;
         return (
             <div>
                 {
                     fields.map((field, index) => {
                         let control;
-                        let value = this.state[field.name];
+                        const {name, value, label} = field;
                         switch (field.type) {
                             case 'boolean':
                                 control = (
-                                    <FieldCheckbox name={field.name}
+                                    <FieldCheckbox name={name}
                                                    value={value}
-                                                   label={field.label}
-                                                   onEvent={this.onEventHandler.bind(this)}/>);
+                                                   label={label}
+                                                   onEvent={onEvent}/>);
                                 break;
                             case "number":
                                 control = (<FieldInput type="number"
-                                                       name={field.name}
-                                                       label={field.label}
+                                                       name={name}
+                                                       label={label}
                                                        value={value}
-                                                       onEvent={this.onEventHandler.bind(this)}/>);
+                                                       onEvent={onEvent}/>);
                                 break;
                             case "text":
-                                control = (<FieldTextarea name={field.name}
+                                control = (<FieldTextarea name={name}
                                                           value={value}
-                                                          onEvent={this.onEventHandler.bind(this)}/>);
+                                                          onEvent={onEvent}/>);
                                 break;
                             default:
                                 control = (
-                                    <FieldInput name={field.name}
-                                                label={field.label}
+                                    <FieldInput name={name}
+                                                label={label}
                                                 value={value}
-                                                onEvent={this.onEventHandler.bind(this)}/>);
+                                                onEvent={onEvent}/>);
                         }
                         return (
                             <FormGroup key={index}>
