@@ -34,7 +34,7 @@ router.post('/main/users/finduserbyid', async(req, res) => {
     res.json(login);
 });
 
-router.post('/main/users/addchangeuser', async(req, res) => {
+router.post('/main/users/addchangelogin', async(req, res) => {
     // const {id} = req.params;
     let login: IAjaxResponse<LoginDto> = await usersLogic.addChangeLoginAsync({
         idlogin: 55,
