@@ -4,7 +4,7 @@ import {authenticationMiddleware, usersLogic} from "../../registration";
 import {IAjaxResponse} from "../../../shared/ajaxDto/IAjaxResponse";
 import {LoginDto} from "../../../shared/ajaxDto/authentication/LoginDto";
 import {AccountDto} from "../../../shared/ajaxDto/authentication/AccountDto";
-import {LoginStatusConstants} from "../../../shared/ajaxDto/authentication/LoginStatusConstants";
+import {UserDto} from "../../../shared/ajaxDto/authentication/UserDto";
 
 router.post('/login',
     (req, res, next) => {
@@ -38,4 +38,10 @@ router.post('/main/users/addchangelogin', async(req, res) => {
     const requestData = req.body;
     let login: IAjaxResponse<LoginDto> = await usersLogic.addChangeLoginAsync(requestData);
     res.json(login);
+});
+
+router.post('/main/users/addchangeuser', async(req, res) => {
+    const requestData = req.body;
+    let user: IAjaxResponse<UserDto> = await usersLogic.addChangeUserAsync(requestData);
+    res.json(user);
 });

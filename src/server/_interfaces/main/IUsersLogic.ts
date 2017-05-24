@@ -2,6 +2,7 @@ import {SessionDto} from "../../../shared/ajaxDto/authentication/SessionDto";
 import {LoginDto} from "../../../shared/ajaxDto/authentication/LoginDto";
 import {IDatabaseResult} from "../engine/database/IDatabaseResult";
 import {AccountDto} from "../../../shared/ajaxDto/authentication/AccountDto";
+import {UserDto} from "../../../shared/ajaxDto/authentication/UserDto";
 
 export interface IUsersLogic {
     getLoginListAsync(): Promise<IDatabaseResult<LoginDto[]>>;
@@ -10,4 +11,5 @@ export interface IUsersLogic {
     findLoginByIdAsync(id: number): Promise<IDatabaseResult<LoginDto>>;
     checkLoginAndFillSessionAsync(login: string, password: string, callback: (response: IDatabaseResult<SessionDto>)=>void): void;
     addChangeLoginAsync(login: LoginDto): Promise<IDatabaseResult<LoginDto>>;
+    addChangeUserAsync(login: UserDto): Promise<IDatabaseResult<UserDto>>;
 }

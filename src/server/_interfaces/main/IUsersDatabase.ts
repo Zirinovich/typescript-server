@@ -12,7 +12,12 @@ export interface IUsersDatabase {
     findRoleByIdAsync(idrole: number): Promise<IDatabaseResult<RoleDto>>;
     getLoginListAsync(): Promise<IDatabaseResult<LoginDto[]>>;
     getAccountListAsync(): Promise<IDatabaseResult<AccountDto[]>>;
+
     addChangeLoginAsync(login: LoginDto): Promise<IDatabaseResult<LoginDto>>;
+
     insertLoginAsync(login: LoginDto): Promise<IDatabaseResult<LoginDto>>;
     updateLoginAsync(login: LoginDto): Promise<IDatabaseResult<LoginDto>>;
+
+    insertUserAsync(user: UserDto): Promise<IDatabaseResult<UserDto>>;
+    updateUserAsync(user: UserDto): Promise<IDatabaseResult<UserDto>>;
 }

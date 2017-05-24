@@ -8,6 +8,7 @@ import {LoginDto} from "../../../shared/ajaxDto/authentication/LoginDto";
 import {IDatabaseResult} from "../../_interfaces/engine/database/IDatabaseResult";
 import {LoginStatusConstants} from "../../../shared/ajaxDto/authentication/LoginStatusConstants";
 import {AccountDto} from "../../../shared/ajaxDto/authentication/AccountDto";
+import {UserDto} from "../../../shared/ajaxDto/authentication/UserDto";
 
 export class UsersLogic implements IUsersLogic {
 
@@ -76,6 +77,18 @@ export class UsersLogic implements IUsersLogic {
                 errorCode: ErrorCodeEnum.UsersLoginExistsError,
                 errorMessage: "LoginAlreadyExists",
             })
+        });
+    }
+
+    async addChangeUserAsync(user: UserDto): Promise<IDatabaseResult<UserDto>> {
+        return new Promise<IDatabaseResult<UserDto>>(async resolve => {
+            let changeResult = await usersDatabase.updateUserAsync(user);
+            if (changeResult.data || changeResult.errorCode !== ErrorCodeEnum.NoErrors) {
+                return resolve(changeResult);
+            }
+
+            let addResult = await usersDatabase.insertUserAsync(user);
+            resolve(addResult);
         });
     }
 }

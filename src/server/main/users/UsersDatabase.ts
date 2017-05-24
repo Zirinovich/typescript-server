@@ -50,7 +50,7 @@ export class UsersDatabase implements IUsersDatabase {
     }
 
     async insertLoginAsync(login: LoginDto): Promise<IDatabaseResult<LoginDto>> {
-        let query = `INSERT INTO public.tlogins (login, password, status, idrole, logincreated)
+        let query = `INSERT INTO tlogins (login, password, status, idrole, logincreated)
                      VALUES (@login
                        ,@password
                        ,@status
@@ -71,6 +71,22 @@ export class UsersDatabase implements IUsersDatabase {
                      WHERE idlogin = @idlogin AND login = @login
                      RETURNING *`;
         return dbEngine.querySingleAsync<LoginDto>({text: query, values: login});
+    };
+
+    async insertUserAsync(user: UserDto): Promise<IDatabaseResult<UserDto>> {
+        let query = `INSERT INTO tusers (iduser, username)
+                     VALUES (@iduser
+                       ,@username)
+                     RETURNING *`;
+        return dbEngine.querySingleAsync<UserDto>({text: query, values: user});
+    };
+
+    async updateUserAsync(user: UserDto): Promise<IDatabaseResult<UserDto>> {
+        let query = `UPDATE tusers
+                     SET username = @username
+                     WHERE iduser = @iduser
+                     RETURNING *`;
+        return dbEngine.querySingleAsync<UserDto>({text: query, values: user});
     };
 
     async addChangeLoginAsync(login: LoginDto): Promise<IDatabaseResult<LoginDto>> {
