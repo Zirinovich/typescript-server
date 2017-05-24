@@ -20,7 +20,7 @@ export class PostgreEngine implements IDatabaseEngine {
 
             let j=0;
             Object.keys(queryParams).forEach((paramName, i) => {
-                let testExp = new RegExp(`(@${paramName})[$|:|\\s+|\\)||,|^_|^-]`);
+                let testExp = new RegExp(`(@${paramName}$|@${paramName}[:|\\s+|\\)||,|^_|^-])`);
                 if(testExp.test(queryText)){
                     queryText = queryText.replace(new RegExp(`(@${paramName})($|:|\\s+|\\)||,|^_|^-)`, 'g'), `$$${++j}${typeof(queryParams[paramName]) === 'number' ? (/\./.test(queryParams[paramName]) ? '::numeric' : '::integer') : ''}$2`);
                     newParams.push(queryParams[paramName]);
