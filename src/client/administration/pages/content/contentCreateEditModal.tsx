@@ -3,9 +3,9 @@ const {connect} = require('react-redux');
 import {Modal, Form, Button, FormGroup, ControlLabel} from 'react-bootstrap';
 
 import {generator} from '../../../../shared/tools/generator';
-import {ContentEditor} from '../../../_common/components/contentEditor/contentEditor';
+import {FieldEditor} from '../../../_common/components/fieldEditor/fieldEditor';
 import {i18n} from '../../../_common/tools/i18n/i18n';
-import {Input} from '../../../_common/components/input/input';
+import {FieldInput} from '../../../_common/components/fieldInput/fieldInput';
 import {EventArgsDto} from '../../../_common/interfaces/EventArgsDto';
 import {EventMethodEnum} from '../../../_common/interfaces/EventMethodEnum';
 import {saveRole} from '../../redux/contentActions';
@@ -60,8 +60,8 @@ export class ContentCreateEditModal extends React.Component<IProps, IState> {
         }
     }
 
-    onEventHandler(args:EventArgsDto) {
-        if(args.event == EventMethodEnum.OnChange){
+    onEventHandler(args: EventArgsDto) {
+        if (args.event == EventMethodEnum.OnChange) {
             let state = {};
             state[args.name] = args.value;
             this.setState(state);
@@ -88,11 +88,11 @@ export class ContentCreateEditModal extends React.Component<IProps, IState> {
                     </Modal.Header>
                     <Modal.Body>
                         <FormGroup>
-                            <ControlLabel>{i18n.t('administration.link')}</ControlLabel>
-                            <Input name="link" value={link} onEvent={this.onEventHandler} required/>
+                            <FieldInput name="link" label={i18n.t('administration.link')} value={link}
+                                        onEvent={this.onEventHandler} required/>
                         </FormGroup>
                         <FormGroup>
-                            <ContentEditor name="content" value={content} onEvent={this.onEventHandler}/>
+                            <FieldEditor name="content" value={content} onEvent={this.onEventHandler}/>
                         </FormGroup>
                     </Modal.Body>
                     <Modal.Footer>

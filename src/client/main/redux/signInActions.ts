@@ -21,7 +21,7 @@ export function signInRequest(credentials: {login?: string, password?: string}) 
         const data = {login: credentials.login, password: getMD5base64(credentials.password)};
 
         let response = await Core.postAsync<SessionDto>({
-            url: 'api/login',
+            url: '/api/login',
             data,
         });
 
@@ -52,7 +52,7 @@ export function signInError(response: IAjaxResponse<SessionDto>) {
 export function logout() {
     return async(dispatch) => {
         let response = await Core.postAsync<SessionDto>({
-            url: 'api/logout'
+            url: '/api/logout'
         });
 
         if (response.errorCode === ErrorCodeEnum.NoErrors) {

@@ -14,12 +14,24 @@ declare module 'react-router/lib/Route' {
     }
 }
 
-export const routes = (
-    <Route path="admin" component={App}>
-        <IndexRoute component={Main}/>
-        <Route path="content" component={ContentPage}/>
-        <Route path="users" component={UsersPage}/>
-        <Route path="roles" component={RolesPage}/>
-    </Route>
-);
+let store;
 
+function requirePermission(nextState, transition, cb) {
+    const state = store.getState();
+    if(!state || !state.session){
+        transition('/');
+    }
+    cb();
+}
+
+export function routes(storeRef) {
+    store = storeRef;
+    return (
+        <Route path="admin" component={App} onEnter={requirePermission}>
+            <IndexRoute component={Main}/>
+            <Route path="content" component={ContentPage}/>
+            <Route path="users" component={UsersPage}/>
+            <Route path="roles" component={RolesPage}/>
+        </Route>
+    )
+}

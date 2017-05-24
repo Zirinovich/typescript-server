@@ -1,10 +1,11 @@
 import * as React from 'react';
 const {connect} = require('react-redux');
-import {Modal, Form, Button, Row, Col, ControlLabel} from 'react-bootstrap';
+import {Modal, Form, Button, FormGroup, Clearfix, Col} from 'react-bootstrap';
 
 import {generator} from '../../../../shared/tools/generator';
 import {i18n} from '../../../_common/tools/i18n/i18n';
-import {Input} from '../../../_common/components/input/input';
+import {FieldInput} from '../../../_common/components/fieldInput/fieldInput';
+import {TypedFieldsGroup, ITypedField} from '../../../_common/components/typedFieldsGroup/typedFieldsGroup';
 import {EventArgsDto} from '../../../_common/interfaces/EventArgsDto';
 import {EventMethodEnum} from '../../../_common/interfaces/EventMethodEnum';
 import {saveRole} from '../../redux/rolesActions';
@@ -25,6 +26,29 @@ interface IState {
 }
 //#endregion
 
+let rules: ITypedField[] = [
+    {
+        name: 'test_string',
+        label: 'test string',
+        type: 'string'
+    },
+    {
+        name: 'test_number',
+        label: 'test number',
+        type: 'number'
+    },
+    {
+        name: 'test_boolean',
+        label: 'test boolean',
+        type: 'boolean'
+    },
+    {
+        name: 'test_text',
+        label: 'test text',
+        type: 'text'
+    }
+];
+
 @connect(
     (state) => ({}),
     (dispatch) => ({
@@ -35,6 +59,7 @@ export class RoleCreateEditModal extends React.Component<IProps, IState> {
     constructor(props) {
         super(props);
 
+        this.onEventHandler = this.onEventHandler.bind(this);
         this.state = {
             name: ''
         }
@@ -54,8 +79,8 @@ export class RoleCreateEditModal extends React.Component<IProps, IState> {
         }
     }
 
-    onEventHandler(args:EventArgsDto) {
-        if(args.event == EventMethodEnum.OnChange){
+    onEventHandler(args: EventArgsDto) {
+        if (args.event == EventMethodEnum.OnChange) {
             let state = {};
             state[args.name] = args.value;
             this.setState(state);
@@ -72,6 +97,10 @@ export class RoleCreateEditModal extends React.Component<IProps, IState> {
     render() {
         const {show, onHide} = this.props;
         const {id, name} = this.state;
+        rules.map((r) => {
+            r.value = this.state[r.name];
+           return r;
+        });
         return (
             <Modal show={show} onHide={onHide} bsSize="large" aria-labelledby={this.id}>
                 <Form onSubmit={this.submitHandler.bind(this)}>
@@ -81,12 +110,14 @@ export class RoleCreateEditModal extends React.Component<IProps, IState> {
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Row>
+                        <FormGroup>
                             <Col md={4}>
-                                <ControlLabel>{i18n.t('administration.role')}</ControlLabel>
-                                <Input name="name" value={name} onEvent={this.onEventHandler.bind(this)} required/>
+                                <FieldInput name="name" value={name} onEvent={this.onEventHandler}
+                                            label={i18n.t('administration.role')} required/>
                             </Col>
-                        </Row>
+                            <Clearfix/>
+                        </FormGroup>
+                        <TypedFieldsGroup fields={rules} onEvent={this.onEventHandler}/>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button type="submit" bsStyle="primary">{i18n.t('administration.save')}</Button>

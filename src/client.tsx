@@ -1,4 +1,3 @@
-// import './client/registration';
 import * as e6p from 'es6-promise';
 (e6p as any).polyfill();
 import 'isomorphic-fetch';
@@ -28,7 +27,7 @@ ReactDOM.render(
             history={history}
             render={connectedCmp}
         >
-            {routes}
+            {routes(store)}
         </Router>
     </Provider>,
     document.getElementById('app'),

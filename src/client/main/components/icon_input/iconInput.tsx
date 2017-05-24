@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import {Icon} from '../../../_common/components/icon/icon';
-import {Input} from '../../../_common/components/input/input';
+import {FieldInput} from '../../../_common/components/fieldInput/fieldInput';
 const style = require('./iconInput.scss');
 
 interface IProps {
@@ -22,7 +22,7 @@ export class IconInput extends React.Component<IProps, IState> {
         return (
             <label className={style.input}>
                 <Icon name={iconName}/>
-                <Input
+                <FieldInput
                     name={name}
                     type={type ? type : 'text'}
                     onEvent={onEvent}

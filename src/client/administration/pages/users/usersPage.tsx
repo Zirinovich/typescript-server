@@ -30,22 +30,30 @@ interface IState {
 export class UsersPage extends React.Component<IProps, IState> {
     render() {
         const {users: {list}, deleteUsers} = this.props;
+        const data = list.map((a) => {
+            return{
+                idlogin: a.login.idlogin,
+                login: a.login.login,
+                rolename: a.role.rolename,
+                username: a.user.username,
+            }
+        });
         const headers = [
             {
-                name: 'id',
+                name: 'idlogin',
                 hidden: true,
                 key:true
             },
             {
-                name: 'username',
+                name: 'login',
                 label: i18n.t('administration.login')
             },
             {
-                name: 'fullName',
+                name: 'username',
                 label: i18n.t('administration.fullName')
             },
             {
-                name: 'role',
+                name: 'rolename',
                 label: i18n.t('administration.role')
             }
         ];
@@ -73,7 +81,7 @@ export class UsersPage extends React.Component<IProps, IState> {
             }
         ];
         return (
-            <Crud headers={headers} data={list} actions={actions}/>
+            <Crud headers={headers} data={data} actions={actions}/>
         )
     }
 }

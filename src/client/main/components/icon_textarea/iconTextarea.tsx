@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import {Icon} from '../../../_common/components/icon/icon';
-import {Textarea} from '../../../_common/components/textarea/textarea';
+import {FieldTextarea} from '../../../_common/components/fieldTextarea/fieldTextarea';
 const style = require('./iconTextarea.scss');
 
 interface IProps {
@@ -21,7 +21,7 @@ export class IconTextarea extends React.Component<IProps, IState> {
         return (
             <label className={style.input}>
                 <Icon name={iconName}/>
-                <Textarea
+                <FieldTextarea
                     name={name}
                     onEvent={onEvent}
                     required={required}
