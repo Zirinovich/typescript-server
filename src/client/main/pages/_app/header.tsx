@@ -52,26 +52,30 @@ export class Header extends React.Component<IProps, IState> {
     render() {
         const {session, logout, pathname, currentLanguage, languages} = this.props;
 
-        const pageLinks = [
+        const pagesLinks = [
             {
                 to: '/',
                 label: i18n.t('main.mainPage')
-            },
-            {
-                to: '/contacts',
-                label: i18n.t('main.contactsPage')
             },
             {
                 to: '/presentations',
                 label: i18n.t('main.presentationsPage')
             },
             {
-                to: '/partners',
-                label: i18n.t('main.partnersPage')
+                to: '/services',
+                label: i18n.t('main.servicesPage')
             },
             {
                 to: '/oss',
                 label: i18n.t('main.ossPage')
+            },
+            {
+                to: '/partners',
+                label: i18n.t('main.partnersPage')
+            },
+            {
+                to: '/contacts',
+                label: i18n.t('main.contactsPage')
             }
         ];
         return (
@@ -156,7 +160,7 @@ export class Header extends React.Component<IProps, IState> {
                                             <Navbar.Collapse>
                                                 <nav>
                                                     <Nav>
-                                                        {pageLinks.map((page, index) => {
+                                                        {pagesLinks.map((page, index) => {
                                                             let activeClassName = style.active;
                                                             let className = classNames(page.to === pathname && activeClassName);
                                                             return (

@@ -3,6 +3,9 @@ import {IAccountDto} from '../../../server/_interfaces/engine/dto/IAccountDto';
 import {Core} from '../../../shared/classes/core';
 import {ErrorCodeEnum} from '../../../shared/classes/ErrorCodeEnum';
 import {AccountDto} from '../../../shared/ajaxDto/authentication/AccountDto';
+import {LoginDto} from "../../../shared/ajaxDto/authentication/LoginDto";
+import {getMD5base64} from "../../../shared/tools/index";
+import {LoginStatusConstants} from "../../../shared/ajaxDto/authentication/LoginStatusConstants";
 
 export const GET_USERS_REQUEST: string = 'users/GET_USERS_REQUEST';
 export const GET_USERS_SUCCESS: string = 'users/GET_USERS_SUCCESS';
@@ -81,7 +84,7 @@ export function getUsersFailure(message): IGetUsersFailureAction {
     };
 }
 
-export function saveUser(user: IAccountDto) {
+export function saveUser(login) {
     return async(dispatch) => {
         dispatch(saveUserRequest());
 
@@ -89,7 +92,17 @@ export function saveUser(user: IAccountDto) {
             //let response = await fetch('https://api.github.com/repos/barbar/vortigern');
             let response = {ok: true};
             if (response.ok) {
-                const index = _.findIndex(users, function (u) {
+                let response = await Core.postAsync<LoginDto>({
+                    url: '/api/main/users/addchangelogin',
+                    data: {
+                        idlogin: -1,
+                        login: login.username,
+                        password: getMD5base64('test'),
+                        status: LoginStatusConstants.Enabled,
+                        idrole: 2,
+                    }
+                });
+                /*const index = _.findIndex(users, function (u) {
                     return parseInt(u.id) === parseInt(user.id);
                 });
                 if (index > 0) {
@@ -97,7 +110,7 @@ export function saveUser(user: IAccountDto) {
                 } else {
                     user.id = JSON.stringify(users.length + 1);
                     users.push(user);
-                }
+                }*/
                 dispatch(saveUserSuccess());
                 dispatch(getUsers());
             } else {

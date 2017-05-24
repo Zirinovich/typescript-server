@@ -248,38 +248,44 @@ class Home extends React.Component<any, any> {
             }
         ];
 
-        const cardsSectionTitle = 'What We Offer';
-        const cardsSectionSubtitle = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Suspendisse et justo. Praesent mattis commodo augue. Aliquam ornare hendrerit augue';
+        const cardsSectionTitle = 'Что мы предлагаем';
+        const cardsSectionSubtitle = 'АНАЛИЗ, ПРОЕКТ, КАЧЕСТВЕННОЕ РЕШЕНИЕ';
         const cards = [
             {
-                title: 'Dedicated Servers',
+                title: 'Презентация решений',
                 icon: <Icon name="desktop"/>,
-                text: 'Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words'
+                text: 'Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words',
+                to: '/presentations'
             },
             {
-                title: 'Shared Hosting',
+                title: 'Партнеры',
                 icon: <Icon name="desktop"/>,
-                text: 'Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words'
+                text: 'Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words',
+                to: '/partners'
             },
             {
-                title: 'Reseller Hosting',
+                title: 'OSS Решения',
                 icon: <Icon name="desktop"/>,
-                text: 'Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words'
+                text: 'Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words',
+                to: '/oss'
             },
             {
-                title: 'Domain Transfer',
+                title: 'Проектирование и консалтинг',
                 icon: <Icon name="desktop"/>,
-                text: 'Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words'
+                text: 'Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words',
+                to: '/services'
             },
             {
-                title: 'Linux or Windows',
+                title: 'Разработка ПО',
                 icon: <Icon name="desktop"/>,
-                text: 'Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words'
+                text: 'Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words',
+                to: '/services'
             },
             {
-                title: '24/7 Excellent Support',
+                title: 'Тестирование/Внедрение',
                 icon: <Icon name="phone"/>,
-                text: 'Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words'
+                text: 'Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words',
+                to: '/services'
             }
         ];
 
@@ -289,7 +295,8 @@ class Home extends React.Component<any, any> {
             <div className={style.home}>
                 <RevolutionSlider slides={slides}/>
                 <SectionCards title={cardsSectionTitle} subtitle={cardsSectionSubtitle} cards={cards}/>
-                <SectionText title={textSectionTitle} text={textSectionText} button={<Button bsStyle="primary">Узнать больше</Button>}/>
+                <SectionText title={textSectionTitle} text={textSectionText}
+                             button={<Button bsStyle="primary">Узнать больше</Button>}/>
                 <SectionTabs/>
             </div>
         );

@@ -36,6 +36,7 @@
     float: left;
     padding: 10px;
     margin: 0;
+    cursor: pointer;
     background-color: $component-active-color;
     @include transition(background-color 0.3s ease-out, color 0.3s ease-out);
 

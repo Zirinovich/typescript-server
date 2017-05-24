@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {Grid, Row, Col, Clearfix} from 'react-bootstrap';
+import {LinkContainer} from 'react-router-bootstrap';
+import {Grid, Row, Col} from 'react-bootstrap';
 
 const style = require('./sectionCards.scss');
 
@@ -10,6 +11,7 @@ interface IProps {
         title: string;
         icon?: JSX.Element,
         text?: string;
+        to: string;
     }[]
 }
 
@@ -31,15 +33,17 @@ export class SectionCards extends React.Component<IProps, IState> {
                         {cards && cards.map((card, i) => {
                             return (
                                 <Col key={i} md={4}>
-                                    <div className={style.card}>
-                                        <div className={style.icon}>
-                                            {card.icon}
+                                    <LinkContainer to={card.to}>
+                                        <div className={style.card}>
+                                            <div className={style.icon}>
+                                                {card.icon}
+                                            </div>
+                                            <div className={style.text}>
+                                                <h4>{card.title}</h4>
+                                                <p>{card.text}</p>
+                                            </div>
                                         </div>
-                                        <div className={style.text}>
-                                            <h4>{card.title}</h4>
-                                            <p>{card.text}</p>
-                                        </div>
-                                    </div>
+                                    </LinkContainer>
                                 </Col>
                             )
                         })}
