@@ -1,0 +1,25 @@
+.section {
+  padding: 0 0 70px 0;
+
+  .item {
+    float: left;
+    width: 100%;
+    padding: 15px 0 15px 0;
+    margin: 0;
+    border-top: 1px solid #e5e5e5;
+
+    .img {
+      float: left;
+      width: 14%;
+      padding: 0;
+      margin: 0;
+    }
+
+    .text {
+      float: right;
+      width: 86%;
+      padding: 0;
+      margin: 0;
+    }
+  }
+}

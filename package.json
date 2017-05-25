@@ -11,7 +11,6 @@
     "build": "set NODE_ENV=build&& parallel-webpack --watch -p2",
     "build:front": "set NODE_ENV=production&& webpack --debug --config webpack.client.config.js",
     "build:server": "set NODE_ENV=build&& webpack --config webpack.server.config.js"
-
   },
   "author": "Developers team",
   "contributors": [
@@ -87,6 +86,7 @@
     "@types/redux-mock-store": "0.0.7",
     "@types/redux-thunk": "^2.1.31",
     "@types/sinon": "^1.16.34",
+    "@types/slick-carousel": "^1.6.31",
     "@types/source-map": "^0.5.0",
     "@types/uglify-js": "^2.6.28",
     "@types/webpack": "^2.2.2",
@@ -198,6 +198,7 @@
     "redux-thunk": "^2.2.0",
     "serve-favicon": "^2.3.2",
     "session-memory-store": "^0.2.2",
+    "slick-carousel": "^1.6.0",
     "sticky-js": "^1.1.9",
     "tinymce": "^4.5.6"
   }
