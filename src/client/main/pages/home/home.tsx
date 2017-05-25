@@ -3,6 +3,7 @@ import {Button} from 'react-bootstrap';
 
 import {Icon} from '../../../_common/components/icon/icon';
 import {RevolutionSlider} from '../../../_common/components/revolutionSlider/revolutionSlider';
+import {SectionHeader} from '../../components/section_header/sectionHeader';
 import {SectionCards} from '../../components/section_cards/sectionCards';
 import {SectionText} from '../../components/section_text/sectionText';
 import {SectionTabs} from '../../components/section_tabs/sectionTabs';
@@ -248,8 +249,8 @@ class Home extends React.Component<any, any> {
             }
         ];
 
-        const cardsSectionTitle = 'Что мы предлагаем';
-        const cardsSectionSubtitle = 'АНАЛИЗ, ПРОЕКТ, КАЧЕСТВЕННОЕ РЕШЕНИЕ';
+        const title = 'Что мы предлагаем';
+        const subtitle = 'АНАЛИЗ, ПРОЕКТ, КАЧЕСТВЕННОЕ РЕШЕНИЕ';
         const cards = [
             {
                 title: 'Презентация решений',
@@ -294,7 +295,8 @@ class Home extends React.Component<any, any> {
         return (
             <div className={style.home}>
                 <RevolutionSlider slides={slides}/>
-                <SectionCards title={cardsSectionTitle} subtitle={cardsSectionSubtitle} cards={cards}/>
+                <SectionHeader title={title} subtitle={subtitle}/>
+                <SectionCards cards={cards}/>
                 <SectionText title={textSectionTitle} text={textSectionText}
                              button={<Button bsStyle="primary">Узнать больше</Button>}/>
                 <SectionTabs/>

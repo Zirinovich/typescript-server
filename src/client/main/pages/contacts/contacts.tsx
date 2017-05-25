@@ -28,7 +28,7 @@ interface IState {
 )
 export class Contacts extends React.Component<IProps, IState> {
     public render() {
-        const {currentLanguage} = this.props;
+        const {currentLanguage, params, routes} = this.props;
         const textSectionSubtitle = 'Точные телеком решения';
 
         const company = {
@@ -41,7 +41,7 @@ export class Contacts extends React.Component<IProps, IState> {
         return (
             <div>
                 <SectionText subtitle={textSectionSubtitle} button={<Button bsStyle="primary">Узнать больше</Button>}/>
-                <Breadcrumbs title={i18n.t('main.contactsPage')} params={this.props.params} routes={this.props.routes}/>
+                <Breadcrumbs title={i18n.t('main.contactsPage')} params={params} routes={routes}/>
 
                 <div className={style.section}>
                     <Grid>

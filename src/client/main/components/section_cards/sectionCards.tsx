@@ -5,9 +5,7 @@ import {Grid, Row, Col} from 'react-bootstrap';
 const style = require('./sectionCards.scss');
 
 interface IProps {
-    title?: any;
-    subtitle?: string;
-    cards?: {
+    cards: {
         title: string;
         icon?: JSX.Element,
         text?: string;
@@ -21,14 +19,10 @@ interface IState {
 
 export class SectionCards extends React.Component<IProps, IState> {
     render() {
-        const {title, subtitle, cards} = this.props;
+        const {cards} = this.props;
         return (
             <div className={style.section}>
                 <Grid>
-                    <h1 className={style.title}>{title}</h1>
-                    <div className={style.line}></div>
-                    <p className={style.subtitle}>{subtitle}</p>
-
                     <Row>
                         {cards && cards.map((card, i) => {
                             return (

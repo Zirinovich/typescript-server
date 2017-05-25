@@ -1,0 +1,33 @@
+@import "../../variables";
+@import "../../mixins";
+
+.section {
+  width: 100%;
+  float: left;
+  padding: 70px 0 0 0;
+  margin: 0;
+
+  .title {
+    font-size: 43px;
+    padding: 0;
+    margin: 0;
+    font-weight: 300;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .line {
+    height: 3px;
+    padding: 0;
+    margin: 15px auto 20px;
+    text-align: center;
+    background: url(./content/title_line.png) center top no-repeat;
+  }
+
+  .subtitle {
+    width: 60%;
+    padding: 0;
+    margin: 0 auto 60px;
+    text-align: center;
+  }
+}
