@@ -7,7 +7,6 @@ interface IProps {
     title?: string;
     subtitle?: string;
     text?: string;
-    button?: JSX.Element;
 }
 
 interface IState {
@@ -16,7 +15,7 @@ interface IState {
 
 export class SectionText extends React.Component<IProps, IState> {
     render() {
-        const {title, subtitle, text, button} = this.props;
+        const {title, subtitle, text, children} = this.props;
         return (
             <div className={style.section}>
                 <Grid>
@@ -24,8 +23,7 @@ export class SectionText extends React.Component<IProps, IState> {
                     {subtitle && <h1 className={style.subtitle}>{subtitle}</h1>}
                     <br/>
                     {text && <p className={style.text}>{text}</p>}
-                    {false && <a href="#" className={style.button}>Purchase now!</a>}
-                    {button}
+                    {children}
                 </Grid>
             </div>
         )

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {LinkContainer} from 'react-router-bootstrap';
 import {Button} from 'react-bootstrap';
 
 import {Icon} from '../../../_common/components/icon/icon';
@@ -273,19 +274,19 @@ class Home extends React.Component<any, any> {
             {
                 title: 'Проектирование и консалтинг',
                 icon: <Icon name="desktop"/>,
-                text: 'Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words',
+                text: 'Временный локальный или офшорный найм специалистов лучше всего подходит для регулирования размера команды и независимой экспертизы.',
                 to: '/services'
             },
             {
                 title: 'Разработка ПО',
                 icon: <Icon name="desktop"/>,
-                text: 'Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words',
+                text: 'ALT-LAN предоставляет полный спектр экономически эффективных IT-услуг организациям по всему миру, которые нуждаются в профессиональной технической поддержке различных сфер бизнеса.',
                 to: '/services'
             },
             {
                 title: 'Тестирование/Внедрение',
                 icon: <Icon name="phone"/>,
-                text: 'Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words',
+                text: 'Тестирование - это наиболее объективный способ проверки и оценки программного обеспечения перед презентацией пользователям.',
                 to: '/services'
             }
         ];
@@ -297,8 +298,12 @@ class Home extends React.Component<any, any> {
                 <RevolutionSlider slides={slides}/>
                 <SectionHeader title={title} subtitle={subtitle}/>
                 <SectionCards cards={cards}/>
-                <SectionText title={textSectionTitle} text={textSectionText}
-                             button={<Button bsStyle="primary">Узнать больше</Button>}/>
+                <SectionText title={textSectionTitle}
+                             text={textSectionText}>
+                    <LinkContainer to="/services">
+                        <Button bsStyle="primary">Узнать больше</Button>
+                    </LinkContainer>
+                </SectionText>
                 <SectionTabs/>
             </div>
         );

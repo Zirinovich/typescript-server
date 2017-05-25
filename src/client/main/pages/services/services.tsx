@@ -1,8 +1,9 @@
 import * as React from 'react';
-import {Grid} from 'react-bootstrap';
+import {Grid, Row, Col} from 'react-bootstrap';
 
 import {i18n} from '../../../_common/tools/i18n/i18n';
 import {Breadcrumbs} from '../../components/breadcrumbs/breadcrumbs';
+import {SectionText} from '../../components/section_text/sectionText';
 import {SectionHeader} from '../../components/section_header/sectionHeader';
 
 //#region interfaces
@@ -19,22 +20,92 @@ interface IState {
 class Services extends React.Component<IProps, IState> {
     public render() {
         const {params, routes} = this.props;
-        const title = 'READ OUR HISTORY';
-        const subtitle = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Suspendisse et justo. Praesent mattis commodo augue. Aliquam ornare hendrerit augue';
+
+        const textSectionSubtitle = 'Точные телеком решения';
+        const title = 'Наши услуги';
+        const subtitle = 'Группа компаний ALT-LAN - это лучший опыт по разработке и внедрению OSS, BSS, VAS решений для телекоммуникационных компаний. Мы предлагаем услуги в области Разработки ПО, внедрению собственной линейки OSS-продуктов и системной интеграции проверенных решений.';
         return (
             <div>
+                <SectionText subtitle={textSectionSubtitle}/>
                 <Breadcrumbs title={i18n.t('main.servicesPage')} params={params} routes={routes}/>
                 <SectionHeader title={title} subtitle={subtitle}/>
                 <Grid>
-                    <div>
-                        <h6>
-                            Lorem ipsum dolor sit amet consectetuer adipiscing elit Suspendisse et justo. Praesent mattis comm</h6>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Suspendisse et justo. Praesent mattis commyolk augue. Aliquam ornare hendrerit augue. Cras tellus. In pulvinar lectus a est.  Lorem ipsum dolor sit amet.</p>
-                        <br/>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Suspendisse et justo. Praesent mattis commyolk augue. Aliquam ornare hendrerit augue. Cras tellus. In pulvinar lectus a est. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Suspendisse et justo. Praesent mattis commyolk augue. Aliquam ornare hendrerit augue. Cras tellus. In pulvinar lectus a est. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Suspendisse et justo. Praesent mattis commyolk augue. Aliquam ornare hendrerit augue. Cras tellus.</p>
-                    </div>
+                    <Row>
+                        <Col md={6}>
+                            <h3 id="designing">
+                                Проектирование и консалтинг</h3>
+                            <p>
+                                Повышение прибыли заинтересованных лиц и достижение на рынке часто требует оптимизации внутренних процессов. ALT-LAN может поделиться своим опытом в следующих областях:</p>
+                            <ul>
+                                <li>Методология разработки ПО</li>
+                                <li>Оптимизация процессов разработки и тестирования</li>
+                                <li>Запуск оффшорной разработки</li>
+                            </ul>
+                        </Col>
+                        <Col md={6}>
+                            <img src={require('./content/designing.png')}/>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col md={6}>
+                            <img src={require('./content/development.png')}/>
+                        </Col>
+                        <Col md={6}>
+                            <h3 id="development">
+                                Разработка ПО</h3>
+                            <p>ALT-LAN предоставляет <strong>полный спектр экономически эффективных IT-услуг</strong>
+                                организациям по всему миру, которые нуждаются в профессиональной технической поддержке различных сфер бизнеса.
+                            </p>
+                            <p>Разработка осуществляется на <strong>оффшорных</strong> площадках ALT-LAN или на <strong>вашей площадке</strong>
+                                (на всей продолжительности проекта или только в период сбора требований, интеграции и передачи данных).
+                            </p>
+                            <p><strong>Работа со “сложными” требованиями</strong></p>
+                            <p>
+                                Когда клиенту ещё только предстоит определиться с конечным обликом продукта, мы предлагаем создание прототипа, чтобы получить наглядное представление о будущем продукте. Визуальная презентация предполагаемого продукта помогает понять:</p>
+                            <ul>
+                                <li>каким должен быть дизайн;</li>
+                                <li>какие функции являются необходимыми;</li>
+                                <li>от каких функций можно отказаться;</li>
+                                <li>введение каких функций можно отложить до следующих версий продукта.</li>
+                            </ul>
+                            <p>
+                                Построение сложной комплексной системы часто вызывает вопрос, является ли такая программа технически осуществимой. В таком случае, для минмизации рисков мы предлагаем начальную фазу R&amp;D.</p>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col md={6}>
+                            <h3 id="testing">
+                                Тестирование/Внедрение</h3>
+                            <p>
+                                Независимое тестирование - это наиболее объективный способ проверки и оценки программного обеспечения перед презентацией пользователям. ALT-LAN осуществляет
+                                <strong>полный спектр услуг по независимому тестированию</strong>:</p>
+                            <ul>
+                                <li>Планирование стратегии тестирования</li>
+                                <li>Разработка тестов ПО</li>
+                                <li>Ручное, автоматизированное и функциональное тестирование</li>
+                                <li>Выездное тестирование сложного оборудования</li>
+                            </ul>
+                            <p>Запуск независимого тестирования с нуля включает:</p>
+                            <ul>
+                                <li>Предварительная настройка, включающая создание процессов, настройки проекта и т.д.</li>
+                                <li>Передача знаний</li>
+                                <li>Детализированное планирование, в том числе и этапов реализации</li>
+                                <li>Сам процесс тестирования</li>
+                            </ul>
+                            <p><strong>Выездное тестирование</strong>
+                                может проводиться на объекте заказчика в следующих случаях:</p>
+                            <ul>
+                                <li>
+                                    Затраты или риски, возникающие при транспортировке сложного оборудования, являются необоснованными
+                                </li>
+                                <li>Проект предполагает большой объём работ по передаче знаний</li>
+                            </ul>
+                            <p>
+                                Нет времени или надлежащей документации для детализированного тестирования? Попробуйте быстрое и экономически эффективное исследовательское тестирование, которое предполагает общий обзор качества продукта с затрагиванием всех областей. Это вид тестирование не предполагает разработки теста по специфичными характеристиками.</p></Col>
+                        <Col md={6}>
+                            <img src={require('./content/testing.png')}/>
+                        </Col>
+                    </Row>
                 </Grid>
             </div>
         );

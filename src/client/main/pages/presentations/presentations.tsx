@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {LinkContainer} from 'react-router-bootstrap';
 import {Grid, Button} from 'react-bootstrap';
 
 import {i18n} from '../../../_common/tools/i18n/i18n';
@@ -66,7 +67,11 @@ export class Presentations extends React.Component<IProps, IState> {
         ];
         return (
             this.props.children ? this.props.children : <div className={style.presentations}>
-                <SectionText subtitle={textSectionSubtitle} button={<Button bsStyle="primary">Узнать больше</Button>}/>
+                <SectionText subtitle={textSectionSubtitle}>
+                    <LinkContainer to="/services">
+                        <Button bsStyle="primary">Узнать больше</Button>
+                    </LinkContainer>
+                </SectionText>
                 <Breadcrumbs title={i18n.t('main.presentationsPage')} params={this.props.params} routes={this.props.routes}/>
                 <div className={style.portfolio_section}>
                     <Grid>

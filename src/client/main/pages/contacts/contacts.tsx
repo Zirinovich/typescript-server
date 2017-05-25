@@ -1,7 +1,8 @@
 import * as React from 'react';
-const {connect} = require('react-redux');
+import {LinkContainer} from 'react-router-bootstrap';
 import {Grid, Row, Col, Button, Checkbox} from 'react-bootstrap';
 import {Link} from 'react-router';
+const {connect} = require('react-redux');
 
 import {GoogleMapContainer} from '../../../_common/components/googleMapContainer/googleMapContainer';
 import {i18n} from '../../../_common/tools/i18n/i18n';
@@ -40,7 +41,11 @@ export class Contacts extends React.Component<IProps, IState> {
         };
         return (
             <div>
-                <SectionText subtitle={textSectionSubtitle} button={<Button bsStyle="primary">Узнать больше</Button>}/>
+                <SectionText subtitle={textSectionSubtitle}>
+                    <LinkContainer to="/services">
+                        <Button bsStyle="primary">Узнать больше</Button>
+                    </LinkContainer>
+                </SectionText>
                 <Breadcrumbs title={i18n.t('main.contactsPage')} params={params} routes={routes}/>
 
                 <div className={style.section}>
