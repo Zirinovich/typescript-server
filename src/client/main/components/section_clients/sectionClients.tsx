@@ -7,8 +7,7 @@ const style = require('./sectionClients.scss');
 
 //#region interfaces
 interface IProps {
-    params?: any;
-    routes?: any;
+
 }
 
 interface IState {
@@ -20,11 +19,11 @@ class SectionClients extends React.Component<IProps, IState> {
     public render() {
         const sectionCarouselTitle = 'Наши клиенты';
         const clients = [
-            <img src={require('./content/logo-rt.svg')} height={48}/>,
-            <img src={require('./content/tele2-logo.png')} height={48}/>,
+            <img src={require('./content/logo_rt.svg')} height={48}/>,
+            <img src={require('./content/tele2_logo.png')} height={48}/>,
             <img src={require('./content/ellco_logo.png')} height={48}/>,
-            <img src={require('./content/beeline-logo.jpg')} height={48}/>,
-            <img src={require('./content/mts_logo.png')} height={48}/>
+            <img src={require('./content/beeline_logo.jpg')} height={48}/>,
+            <img src={require('./content/beeline_kz_logo.png')} height={48}/>
         ];
         return (
             <div className={style.section}>

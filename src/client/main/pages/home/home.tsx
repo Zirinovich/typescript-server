@@ -8,6 +8,7 @@ import {SectionHeader} from '../../components/section_header/sectionHeader';
 import {SectionCards} from '../../components/section_cards/sectionCards';
 import {SectionText} from '../../components/section_text/sectionText';
 import {SectionClients} from '../../components/section_clients/sectionClients';
+import {SectionOrderButton} from '../../components/section_order_button/sectionOrderButton';
 
 const style = require('./home.scss');
 
@@ -298,6 +299,7 @@ class Home extends React.Component<any, any> {
                 <RevolutionSlider slides={slides}/>
                 <SectionHeader title={title} subtitle={subtitle}/>
                 <SectionCards cards={cards}/>
+                <SectionOrderButton/>
                 <SectionText title={textSectionTitle}
                              text={textSectionText}>
                     <LinkContainer to="/services">
