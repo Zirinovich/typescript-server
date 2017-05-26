@@ -8,6 +8,7 @@ import {SectionHeader} from '../../components/section_header/sectionHeader';
 import {ItemHover} from '../../components/item_hover/itemHover';
 import {SectionOrderButton} from '../../components/section_order_button/sectionOrderButton';
 import {SectionClients} from '../../components/section_clients/sectionClients';
+import {Lightbox} from "../../../_common/components/lightbox/lightbox";
 const style = require('./solutions.scss');
 
 //#region interfaces
@@ -32,17 +33,29 @@ class Solutions extends React.Component<IProps, IState> {
             {
                 title: 'ERMS',
                 text: 'Trouble management',
-                src: require('./content/erms.jpg')
+                src: require('./content/erms.jpg'),
+                element: <Lightbox
+                    src={require('./content/erms_license.jpg')}
+                    id="license"
+                    title="Лицензия">Лицензия</Lightbox>
             },
             {
                 title: 'OPL',
                 text: 'Maintenance & Resource coordination',
-                src: require('./content/opl.jpg')
+                src: require('./content/opl.jpg'),
+                element: <Lightbox
+                    src={require('./content/opl_license.jpg')}
+                    id="license"
+                    title="Лицензия">Лицензия</Lightbox>
             },
             {
                 title: 'WFM',
                 text: 'Workforce management',
-                src: require('./content/wfm.jpg')
+                src: require('./content/wfm.jpg'),
+                element: <Lightbox
+                    src={require('./content/alnot_license.jpg')}
+                    id="license"
+                    title="Лицензия">Лицензия</Lightbox>
             }
         ];
         return (
@@ -57,7 +70,8 @@ class Solutions extends React.Component<IProps, IState> {
                                 return (
                                     <Col key={index} md={4}>
                                         <ItemHover title={solution.title}
-                                                   text={solution.text}>
+                                                   text={solution.text}
+                                                   element={solution.element}>
                                             <img src={solution.src} className={style.image}/>
                                         </ItemHover>
                                     </Col>

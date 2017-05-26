@@ -170,6 +170,7 @@
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^3.1.1",
     "lazy-require": "^2.2.0",
+    "lightbox2": "^2.9.0",
     "lodash": "^4.17.4",
     "md5-base64": "0.0.3",
     "node-ensure": "0.0.0",

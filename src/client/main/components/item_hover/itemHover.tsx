@@ -5,6 +5,7 @@ const style = require('./itemHover.scss');
 interface IProps {
     title: string;
     text?: string;
+    element?: JSX.Element;
 }
 
 interface IState {
@@ -13,17 +14,17 @@ interface IState {
 
 class ItemHover extends React.Component<IProps, IState> {
     render() {
-        const {children, title, text} = this.props;
+        const {children, title, text, element} = this.props;
         return (
-            <div className={style.img_ho_st_holder}>
-                <div className={style.img_ho_st3}>
-                    <div className={style.imgbox}>
+            <div className={style.hover}>
+                <div className={style.wrapper}>
+                    <div className={style.image_box}>
                         {children}
                     </div>
                     <div className={style.text}>
                         <h3>{title}</h3>
                         <p>{text}</p>
-                        <a href="#" className={style.readmore_small}>Лицензия</a>
+                        {element}
                     </div>
                 </div>
             </div>
