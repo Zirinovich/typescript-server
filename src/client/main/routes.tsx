@@ -13,6 +13,7 @@ import {PresentationDetail} from './pages/presentation_detail/presentationDetail
 import {Presentations} from './pages/presentations/presentations';
 import {Services} from './pages/services/services';
 import {SignIn} from './pages/sign_in/signIn';
+import {Solutions} from './pages/solutions/solutions';
 
 declare module 'react-router/lib/Route' {
     interface RouteProps {
@@ -28,6 +29,7 @@ export function routes (store) {
             <Route name={i18n.t('main.authorizationPage')} path="login" component={SignIn}/>
             <Route name={i18n.t('main.contactsPage')} path="contacts" component={Contacts}/>
             <Route name={i18n.t('main.servicesPage')} path="services" component={Services}/>
+            <Route name={i18n.t('main.solutionsPage')} path="solutions" component={Solutions}/>
             <Route name={i18n.t('main.partnersPage')} path="partners" component={Partners}/>
             <Route name={i18n.t('main.presentationsPage')} path="presentations" component={Presentations}>
                 <Route path=":id" component={PresentationDetail}/>
