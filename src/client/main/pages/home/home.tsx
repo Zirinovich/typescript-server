@@ -7,7 +7,7 @@ import {RevolutionSlider} from '../../../_common/components/revolutionSlider/rev
 import {SectionHeader} from '../../components/section_header/sectionHeader';
 import {SectionCards} from '../../components/section_cards/sectionCards';
 import {SectionText} from '../../components/section_text/sectionText';
-import {SectionTabs} from '../../components/section_tabs/sectionTabs';
+import {SectionClients} from '../../components/section_clients/sectionClients';
 
 const style = require('./home.scss');
 
@@ -304,7 +304,7 @@ class Home extends React.Component<any, any> {
                         <Button bsStyle="primary">Узнать больше</Button>
                     </LinkContainer>
                 </SectionText>
-                <SectionTabs/>
+                <SectionClients/>
             </div>
         );
     }
