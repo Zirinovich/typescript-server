@@ -6,12 +6,14 @@ import {UserDto} from "../../../shared/ajaxDto/authentication/UserDto";
 
 export interface IUsersLogic {
     getLoginListAsync(): Promise<IDatabaseResult<LoginDto[]>>;
-    getAccountListAsync(): Promise<IDatabaseResult<AccountDto[]>>;
     findLoginByLoginAsync(login: string): Promise<IDatabaseResult<LoginDto>>;
     findLoginByIdAsync(id: number): Promise<IDatabaseResult<LoginDto>>;
-    checkLoginAndFillSessionAsync(login: string, password: string, callback: (response: IDatabaseResult<SessionDto>)=>void): void;
+    deleteLoginsAsync(ids: number[]): Promise<IDatabaseResult<number[]>>;
     addChangeLoginAsync(login: LoginDto): Promise<IDatabaseResult<LoginDto>>;
-    deleteLoginsAsync(ids: number[]): Promise<IDatabaseResult<void>>;
+
     addChangeUserAsync(login: UserDto): Promise<IDatabaseResult<UserDto>>;
 
+    getAccountListAsync(): Promise<IDatabaseResult<AccountDto[]>>;
+
+    checkLoginAndFillSessionAsync(login: string, password: string, callback: (response: IDatabaseResult<SessionDto>)=>void): void;
 }

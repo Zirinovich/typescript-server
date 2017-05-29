@@ -48,6 +48,6 @@ router.post('/main/users/addchangeuser', async(req, res) => {
 
 router.post('/main/users/deletelogins', async(req, res) => {
     const requestData = req.body;
-    let login: IAjaxResponse<void> = await usersLogic.deleteLoginsAsync(requestData);
-    res.json(login);
+    let ids: IAjaxResponse<number[]> = await usersLogic.deleteLoginsAsync(requestData);
+    res.json(ids);
 });

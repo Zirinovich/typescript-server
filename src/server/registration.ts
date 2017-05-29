@@ -12,6 +12,10 @@ import {PostgreEngine} from "./_engine/database/postgreEngine";
 import {ExpressSessionTuner} from "./_engine/middlewares/common/ExpressSessionTuner";
 import {ExpressCommonTuner} from "./_engine/middlewares/common/ExpressCommonTuner";
 import {PassportLocalStrategyTuner} from "./_engine/middlewares/authenticationPassport/PassportLocalStrategyTuner";
+import {IContentLogic} from "./_interfaces/main/IContentLogic";
+import {ContentLogic} from "./main/content/ContentLogic";
+import {IContentDatabase} from "./_interfaces/main/IContentDatabase";
+import {ContentDatabase} from "./main/content/ContentDatabase";
 
 const databaseConfig = require('./../../config/database');
 
@@ -26,7 +30,9 @@ app.use("/api", apiRouter);
 //----------------------------- IoC
 export const authenticationMiddleware: IAuthenticationMiddleware = Ioc.register<IAuthenticationMiddleware>("IAuthenticationMiddleware", true, new PassportLocalStrategyMiddlewareFunctions());
 export const usersLogic: IUsersLogic = Ioc.register<IUsersLogic>("IUsersLogic", true, new UsersLogic());
+export const contentLogic: IContentLogic = Ioc.register<IContentLogic>("IContentLogic", true, new ContentLogic());
 export const usersDatabase: IUsersDatabase = Ioc.register<IUsersDatabase>("IUsersDatabase", true, new UsersDatabase());
+export const contentDatabase: IContentDatabase = Ioc.register<IContentDatabase>("IContentDatabase", true, new ContentDatabase());
 export const dbEngine: IDatabaseEngine = Ioc.register<IDatabaseEngine>("IDatabaseEngine", true, new PostgreEngine(databaseConfig));
 //----------------------------- Controllers
 require("./main/users/usersController");

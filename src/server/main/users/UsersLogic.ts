@@ -9,12 +9,65 @@ import {IDatabaseResult} from "../../_interfaces/engine/database/IDatabaseResult
 import {LoginStatusConstants} from "../../../shared/ajaxDto/authentication/LoginStatusConstants";
 import {AccountDto} from "../../../shared/ajaxDto/authentication/AccountDto";
 import {UserDto} from "../../../shared/ajaxDto/authentication/UserDto";
+import {resolvePtr} from "dns";
 
 export class UsersLogic implements IUsersLogic {
 
 
     async getLoginListAsync(): Promise<IDatabaseResult<LoginDto[]>> {
         return usersDatabase.getLoginListAsync();
+    }
+
+    async findLoginByLoginAsync(login: string): Promise<IDatabaseResult<LoginDto>> {
+        return usersDatabase.findLoginDtoByLoginAsync(login);
+    }
+
+    async findLoginByIdAsync(id: number): Promise<IDatabaseResult<LoginDto>> {
+        return usersDatabase.findLoginDtoByIdAsync(id);
+    }
+
+    async deleteLoginsAsync(ids: number[]): Promise<IDatabaseResult<number[]>> {
+        return new Promise<IDatabaseResult<number[]>>(async resolve => {
+            let response:number[] = [];
+            _.forEach(ids, async id => {
+                let dbResponse = await usersDatabase.deleteLoginAsync(id);
+                response.push(dbResponse.data.idlogin);
+            });
+            resolve({
+                errorCode: ErrorCodeEnum.NoErrors,
+                data: response
+            }); // TODO: тут кажется какая то фигня???????
+        });
+    }
+
+    async addChangeLoginAsync(login: LoginDto): Promise<IDatabaseResult<LoginDto>> {
+        return new Promise<IDatabaseResult<LoginDto>>(async resolve => {
+            let changeResult = await usersDatabase.updateLoginAsync(login);
+            if (changeResult.data || changeResult.errorCode !== ErrorCodeEnum.NoErrors) {
+                return resolve(changeResult);
+            }
+
+            let addResult = await usersDatabase.insertLoginAsync(login);
+            if (addResult.data || addResult.errorCode !== ErrorCodeEnum.NoErrors) {
+                return resolve(addResult);
+            }
+            resolve({
+                errorCode: ErrorCodeEnum.UsersLoginExistsError,
+                errorMessage: "LoginAlreadyExists",
+            })
+        });
+    }
+
+    async addChangeUserAsync(user: UserDto): Promise<IDatabaseResult<UserDto>> {
+        return new Promise<IDatabaseResult<UserDto>>(async resolve => {
+            let changeResult = await usersDatabase.updateUserAsync(user);
+            if (changeResult.data || changeResult.errorCode !== ErrorCodeEnum.NoErrors) {
+                return resolve(changeResult);
+            }
+
+            let addResult = await usersDatabase.insertUserAsync(user);
+            resolve(addResult);
+        });
     }
 
     async getAccountListAsync(): Promise<IDatabaseResult<AccountDto[]>> {
@@ -52,53 +105,5 @@ export class UsersLogic implements IUsersLogic {
                 role: roleResult.errorCode === ErrorCodeEnum.NoErrors && roleResult.data
             }
         });
-    }
-
-    async findLoginByLoginAsync(login: string): Promise<IDatabaseResult<LoginDto>> {
-        return usersDatabase.findLoginDtoByLoginAsync(login);
-    }
-
-    async findLoginByIdAsync(id: number): Promise<IDatabaseResult<LoginDto>> {
-        return usersDatabase.findLoginDtoByIdAsync(id);
-    }
-
-    async addChangeLoginAsync(login: LoginDto): Promise<IDatabaseResult<LoginDto>> {
-        return new Promise<IDatabaseResult<LoginDto>>(async resolve => {
-            let changeResult = await usersDatabase.updateLoginAsync(login);
-            if (changeResult.data || changeResult.errorCode !== ErrorCodeEnum.NoErrors) {
-                return resolve(changeResult);
-            }
-
-            let addResult = await usersDatabase.insertLoginAsync(login);
-            if (addResult.data || addResult.errorCode !== ErrorCodeEnum.NoErrors) {
-                return resolve(addResult);
-            }
-            resolve({
-                errorCode: ErrorCodeEnum.UsersLoginExistsError,
-                errorMessage: "LoginAlreadyExists",
-            })
-        });
-    }
-
-    async addChangeUserAsync(user: UserDto): Promise<IDatabaseResult<UserDto>> {
-        return new Promise<IDatabaseResult<UserDto>>(async resolve => {
-            let changeResult = await usersDatabase.updateUserAsync(user);
-            if (changeResult.data || changeResult.errorCode !== ErrorCodeEnum.NoErrors) {
-                return resolve(changeResult);
-            }
-
-            let addResult = await usersDatabase.insertUserAsync(user);
-            resolve(addResult);
-        });
-    }
-
-    deleteLoginsAsync(ids: number[]): Promise<IDatabaseResult<number[]>> {
-        return new Promise<IDatabaseResult<number[]>>(async resolve => {
-            let resonse = [];
-            _.forEach(ids, async id => {
-                let dbResponse = await usersDatabase.deleteLoginAsync(id);
-            })
-        });
-        //return usersDatabase.deleteLoginsAsync(ids)
     }
 }

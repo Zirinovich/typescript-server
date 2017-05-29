@@ -139,9 +139,7 @@ export function deleteUsers(ids: string[]) {
         try {
             const response = await Core.postAsync({
                 url: '/api/main/users/deletelogins',
-                data: {
-                    idlogins: ids
-                }
+                data: ids
             });
             if (response.errorCode === ErrorCodeEnum.NoErrors) {
                 dispatch(deleteUsersSuccess());
