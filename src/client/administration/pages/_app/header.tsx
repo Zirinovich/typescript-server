@@ -30,11 +30,14 @@ export class Header extends React.Component<IProps, IState> {
                         <LinkContainer to="/admin/content">
                             <NavItem eventKey={1}>{i18n.t('administration.content')}</NavItem>
                         </LinkContainer>
+                        <LinkContainer to="/admin/files">
+                            <NavItem eventKey={2}>{i18n.t('administration.files')}</NavItem>
+                        </LinkContainer>
                         <LinkContainer to="/admin/users">
-                            <NavItem eventKey={2}>{i18n.t('administration.users')}</NavItem>
+                            <NavItem eventKey={3}>{i18n.t('administration.users')}</NavItem>
                         </LinkContainer>
                         <LinkContainer to="/admin/roles">
-                            <NavItem eventKey={3}>{i18n.t('administration.roles')}</NavItem>
+                            <NavItem eventKey={4}>{i18n.t('administration.roles')}</NavItem>
                         </LinkContainer>
                     </Nav>
                     <Nav pullRight>

@@ -5,6 +5,7 @@ import {RouteProps} from '@types/react-router';
 import {App} from './pages/_app/app';
 import {Main} from './pages/main/main';
 import {ContentPage} from './pages/content/contentPage';
+import {FilesPage} from './pages/files/filesPage';
 import {UsersPage} from './pages/users/usersPage';
 import {RolesPage} from './pages/roles/rolesPage';
 
@@ -30,6 +31,7 @@ export function routes(storeRef) {
         <Route path="admin" component={App} onEnter={requirePermission}>
             <IndexRoute component={Main}/>
             <Route path="content" component={ContentPage}/>
+            <Route path="files" component={FilesPage}/>
             <Route path="users" component={UsersPage}/>
             <Route path="roles" component={RolesPage}/>
         </Route>
