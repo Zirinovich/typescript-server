@@ -78,7 +78,7 @@ export class FileCreateEditModal extends React.Component<IProps, IState> {
         const {id, link, name} = this.state;
         return (
             <Modal show={show} onHide={onHide} bsSize="large" aria-labelledby={this.id}>
-                <Form method="post" action="/api/main/content/upload">
+                <Form method="post" action="/api/main/content/upload" encType="multipart/form-data">
                     <Modal.Header closeButton>
                         <Modal.Title id={this.id}>
                             {i18n.t(id ? 'administration.editContent' : 'administration.createContent')}
