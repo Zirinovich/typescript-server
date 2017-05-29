@@ -22,6 +22,7 @@ interface IState {
 
 export class FieldInput extends React.Component<IProps, IState> {
     onChange(e) {
+        console.log('onChange', e);
         const {name, onEvent} = this.props;
         onEvent({
             event: EventMethodEnum.OnChange,

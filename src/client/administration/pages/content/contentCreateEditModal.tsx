@@ -72,6 +72,19 @@ export class ContentCreateEditModal extends React.Component<IProps, IState> {
         const {saveContent, onHide} = this.props;
         saveContent(this.state);
         onHide();
+
+        /*var myFormData = new FormData();
+        myFormData.append('pictureFile', pictureInput.files[0]);
+
+        $.ajax({
+            url: 'upload.php',
+            type: 'POST',
+            processData: false, // important
+            contentType: false, // important
+            dataType : 'json',
+            data: myFormData
+        });*/
+
         e.preventDefault();
     }
 
