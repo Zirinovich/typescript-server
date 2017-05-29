@@ -23,7 +23,7 @@ export class Presentations extends React.Component<IProps, IState> {
         const textSectionSubtitle = 'Точные телеком решения';
         const filters = [
             {
-                name: 'Trouble Ticket System',
+                name: 'Система тикетов',
                 value: 'trouble-ticket-system'
             },
             {
@@ -39,7 +39,7 @@ export class Presentations extends React.Component<IProps, IState> {
             {
                 src: require('./content/supr.png'),
                 title: 'Система управления плановыми работами (СУПР)',
-                text: 'Trouble Ticket System',
+                text: 'Тикет-система',
                 classes: ['trouble-ticket-system'],
                 to: '/presentations/1'
             },
@@ -53,7 +53,7 @@ export class Presentations extends React.Component<IProps, IState> {
             {
                 src: require('./content/tele2.png'),
                 title: 'Система тикетов Tele2',
-                text: 'Trouble Ticket System',
+                text: 'Система тикетов',
                 classes: ['trouble-ticket-system'],
                 to: '/presentations/3'
             },

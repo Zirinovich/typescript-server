@@ -103,7 +103,7 @@ export class CubePortfolio extends React.Component<IProps, IState> {
         return (
             <div>
                 <div id="filters-container" className="cbp-l-filters-alignCenter two">
-                    <Button data-filter="*" className="cbp-filter-item-active cbp-filter-item">{i18n.t('all')}</Button>
+                    <Button data-filter="*" className="cbp-filter-item-active cbp-filter-item">{i18n.t('_common.all')}</Button>
                     {
                         filters && filters.map((filter, index) => {
                             return (
@@ -130,10 +130,10 @@ export class CubePortfolio extends React.Component<IProps, IState> {
                                             <div className="cbp-caption-activeWrap">
                                                 <div className="cbp-l-caption-alignCenter">
                                                     <div className="cbp-l-caption-body">
-                                                        <Link to={item.to} className="cbp-l-caption-buttonLeft">more info</Link>
+                                                        <Link to={item.to} className="cbp-l-caption-buttonLeft">{i18n.t('_common.moreInfo')}</Link>
                                                         <a href={item.src}
                                                            className="cbp-lightbox cbp-l-caption-buttonRight"
-                                                           data-title={item.title + '<br/>' + item.text}>view larger</a>
+                                                           data-title={item.title + '<br/>' + item.text}>{i18n.t('_common.viewLarger')}</a>
                                                     </div>
                                                 </div>
                                             </div>

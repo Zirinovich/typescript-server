@@ -17,7 +17,10 @@
     "attention": "Внимание",
     "confirmAction": "Подтвердите действие",
     "ok": "Ок",
-    "cancel": "Отмена"
+    "cancel": "Отмена",
+    "all": "Все",
+    "moreInfo": "Подробнее",
+    "viewLarger": "Просмотреть увеличенную"
   },
   "en-EN": {
     "create": "Create",
@@ -37,6 +40,9 @@
     "attention": "Attention",
     "confirmAction": "Confirm action",
     "ok": "Ok",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "all": "All",
+    "moreInfo": "More info",
+    "viewLarger": "View Larger"
   }
 }
