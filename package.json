@@ -4,7 +4,7 @@
   "description": "Develpment platform for universal site",
   "main": "build/server.js",
   "scripts": {
-    "clean": "rimraf build",
+    "clean": "rimraf build&& mkdirp build/upload",
     "prestart": "npm run clean",
     "start": "parallel-webpack --watch",
     "prebuild": "npm run clean",
@@ -90,6 +90,7 @@
     "@types/slick-carousel": "^1.6.31",
     "@types/source-map": "^0.5.0",
     "@types/uglify-js": "^2.6.28",
+    "@types/uuid": "^2.0.29",
     "@types/webpack": "^2.2.2",
     "awesome-typescript-loader": "^3.1.2",
     "babel-core": "^6.22.1",
@@ -206,6 +207,7 @@
     "session-memory-store": "^0.2.2",
     "slick-carousel": "^1.6.0",
     "sticky-js": "^1.1.9",
-    "tinymce": "^4.5.6"
+    "tinymce": "^4.5.6",
+    "uuid": "^3.0.1"
   }
 }
