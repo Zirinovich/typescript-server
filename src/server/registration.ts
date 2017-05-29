@@ -37,6 +37,7 @@ export const dbEngine: IDatabaseEngine = Ioc.register<IDatabaseEngine>("IDatabas
 //----------------------------- Controllers
 require("./main/users/usersController");
 require("./main/other/otherController");
+require("./main/content/contentController");
 router.init();
 
 //----------------------------------- exports
