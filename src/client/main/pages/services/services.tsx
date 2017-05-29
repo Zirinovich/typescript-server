@@ -5,6 +5,7 @@ import {i18n} from '../../../_common/tools/i18n/i18n';
 import {Breadcrumbs} from '../../components/breadcrumbs/breadcrumbs';
 import {SectionText} from '../../components/section_text/sectionText';
 import {SectionHeader} from '../../components/section_header/sectionHeader';
+import {SectionOrderButton} from '../../components/section_order_button/sectionOrderButton';
 
 //#region interfaces
 interface IProps {
@@ -43,12 +44,14 @@ class Services extends React.Component<IProps, IState> {
                             </ul>
                         </Col>
                         <Col md={6}>
-                            <img src={require('./content/designing.png')}/>
+                            <img src={require('./content/designing.jpg')}/>
                         </Col>
+                        <br/>
                     </Row>
+                    <br/>
                     <Row>
                         <Col md={6}>
-                            <img src={require('./content/development.png')}/>
+                            <img src={require('./content/development.jpg')}/>
                         </Col>
                         <Col md={6}>
                             <h3 id="development">
@@ -71,7 +74,9 @@ class Services extends React.Component<IProps, IState> {
                             <p>
                                 Построение сложной комплексной системы часто вызывает вопрос, является ли такая программа технически осуществимой. В таком случае, для минмизации рисков мы предлагаем начальную фазу R&amp;D.</p>
                         </Col>
+                        <br/>
                     </Row>
+                    <br/>
                     <Row>
                         <Col md={6}>
                             <h3 id="testing">
@@ -87,7 +92,8 @@ class Services extends React.Component<IProps, IState> {
                             </ul>
                             <p>Запуск независимого тестирования с нуля включает:</p>
                             <ul>
-                                <li>Предварительная настройка, включающая создание процессов, настройки проекта и т.д.</li>
+                                <li>Предварительная настройка, включающая создание процессов, настройки проекта и т.д.
+                                </li>
                                 <li>Передача знаний</li>
                                 <li>Детализированное планирование, в том числе и этапов реализации</li>
                                 <li>Сам процесс тестирования</li>
@@ -101,12 +107,14 @@ class Services extends React.Component<IProps, IState> {
                                 <li>Проект предполагает большой объём работ по передаче знаний</li>
                             </ul>
                             <p>
-                                Нет времени или надлежащей документации для детализированного тестирования? Попробуйте быстрое и экономически эффективное исследовательское тестирование, которое предполагает общий обзор качества продукта с затрагиванием всех областей. Это вид тестирование не предполагает разработки теста по специфичными характеристиками.</p></Col>
+                                Нет времени или надлежащей документации для детализированного тестирования? Попробуйте быстрое и экономически эффективное исследовательское тестирование, которое предполагает общий обзор качества продукта с затрагиванием всех областей. Это вид тестирование не предполагает разработки теста по специфичными характеристиками.</p>
+                        </Col>
                         <Col md={6}>
-                            <img src={require('./content/testing.png')}/>
+                            <img src={require('./content/testing.jpg')}/>
                         </Col>
                     </Row>
                 </Grid>
+                <SectionOrderButton/>
             </div>
         );
     }
