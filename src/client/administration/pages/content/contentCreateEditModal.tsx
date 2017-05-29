@@ -8,14 +8,14 @@ import {i18n} from '../../../_common/tools/i18n/i18n';
 import {FieldInput} from '../../../_common/components/fieldInput/fieldInput';
 import {EventArgsDto} from '../../../_common/interfaces/EventArgsDto';
 import {EventMethodEnum} from '../../../_common/interfaces/EventMethodEnum';
-import {saveRole} from '../../redux/contentActions';
+import {saveContent} from '../../redux/contentActions';
 
 //#region interfaces
 interface IProps {
     show: boolean;
     onHide: any;
     data?: any;
-    saveRole: any;
+    saveContent: any;
 }
 
 interface IState {
@@ -29,7 +29,7 @@ interface IState {
 @connect(
     (state) => ({users: state.users}),
     (dispatch) => ({
-        saveRole: (user) => dispatch(saveRole(user))
+        saveContent: (user) => dispatch(saveContent(user))
     })
 )
 export class ContentCreateEditModal extends React.Component<IProps, IState> {
@@ -69,8 +69,8 @@ export class ContentCreateEditModal extends React.Component<IProps, IState> {
     }
 
     submitHandler(e) {
-        const {saveRole, onHide} = this.props;
-        saveRole(this.state);
+        const {saveContent, onHide} = this.props;
+        saveContent(this.state);
         onHide();
         e.preventDefault();
     }

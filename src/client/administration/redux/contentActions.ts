@@ -1,3 +1,5 @@
+import {Core} from '../../../shared/classes/core';
+import {ErrorCodeEnum} from '../../../shared/classes/ErrorCodeEnum';
 import {IAction} from '../../_common/interfaces/IAction';
 
 export const GET_CONTENT_REQUEST: string = 'content/GET_CONTENT_REQUEST';
@@ -26,41 +28,19 @@ export interface IDeleteRoleFailureAction extends IAction {
     errorMessage: string;
 }
 
-let content = [
-    {
-        id: 1,
-        link: 'lol1',
-        datetime: '12:01 15.05.2017',
-        content: '<p>This is the initial content of the editor</p>'
-    },
-    {
-        id: 2,
-        link: 'lol2',
-        datetime: '12:01 15.05.2017',
-        content: '<p>This is the initial content of the editor</p>'
-    },
-    {
-        id: 3,
-        link: 'lol3',
-        datetime: '12:01 15.05.2017',
-        content: '<p>This is the initial content of the editor</p>'
-    }
-];
-
 export function getContent() {
     return async(dispatch) => {
         dispatch(getContentRequest());
 
         try {
-            //let response = await fetch('https://api.github.com/repos/barbar/vortigern');
-            let response = {ok: true};
-            if (response.ok) {
+            let response = await Core.postAsync<any>({
+                url: '/api/main/content/getcarticlelist',
+            });
 
-                dispatch(getContentSuccess(content));
+            if (response.errorCode === ErrorCodeEnum.NoErrors) {
+                dispatch(getContentSuccess(response.data));
             } else {
-                //let errText = await response.text();
-                //dispatch(getcontentFailure('!!!Alarm!!! ' + errText));
-                return "";
+                dispatch(getContentFailure(response.errorCode));
             }
         }
         catch (error) {
@@ -89,50 +69,42 @@ export function getContentFailure(message): IGetContentFailureAction {
     };
 }
 
-export function saveRole(role) {
+export function saveContent(content) {
     return async(dispatch) => {
-        dispatch(saveRoleRequest());
+        dispatch(saveContentRequest());
 
         try {
-            //let response = await fetch('https://api.github.com/repos/barbar/vortigern');
-            let response = {ok: true};
-            if (response.ok) {
-                const index = _.findIndex(content, function (u) {
-                    return u.id === parseInt(role.id);
-                });
-                if (index > 0) {
-                    content[index] = role;
-                } else {
-                    role.id = content.length + 1;
-                    content.push(role);
-                }
-                dispatch(saveRoleSuccess());
+            let response = await Core.postAsync<any>({
+                url: '/api/main/content/addchangearticle',
+                data: content
+            });
+
+            if (response.errorCode === ErrorCodeEnum.NoErrors) {
+                dispatch(saveContentSuccess());
                 dispatch(getContent());
             } else {
-                //let errText = await response.text();
-                //dispatch(getcontentFailure('!!!Alarm!!! ' + errText));
-                return "";
+                dispatch(saveContentFailure(response.errorCode));
             }
         }
         catch (error) {
-            dispatch(saveRoleFailure(error));
+            dispatch(saveContentFailure(error));
         }
     };
 }
 
-export function saveRoleRequest(): IAction {
+export function saveContentRequest(): IAction {
     return {
         type: SAVE_CONTENT_REQUEST
     };
 }
 
-export function saveRoleSuccess(): IAction {
+export function saveContentSuccess(): IAction {
     return {
         type: SAVE_CONTENT_SUCCESS
     };
 }
 
-export function saveRoleFailure(message): ISaveRoleFailureAction {
+export function saveContentFailure(message): ISaveRoleFailureAction {
     return {
         type: SAVE_CONTENT_FAILURE,
         errorMessage: message
@@ -144,18 +116,18 @@ export function deleteContent(ids: number[]) {
         dispatch(deleteContentRequest());
 
         try {
-            //let response = await fetch('https://api.github.com/repos/barbar/vortigern');
-            let response = {ok: true};
-            if (response.ok) {
-                content = content.filter((role) => {
-                    return ids.indexOf(role.id) === -1;
-                });
+            let response = await Core.postAsync<any>({
+                url: '/api/main/content/deletearticle',
+                data: {
+                    idarticles: ids
+                }
+            });
+
+            if (response.errorCode === ErrorCodeEnum.NoErrors) {
                 dispatch(deleteContentSuccess());
                 dispatch(getContent());
             } else {
-                //let errText = await response.text();
-                //dispatch(getcontentFailure('!!!Alarm!!! ' + errText));
-                return "";
+                dispatch(saveContentFailure(response.errorCode));
             }
         }
         catch (error) {

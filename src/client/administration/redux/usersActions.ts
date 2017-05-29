@@ -4,8 +4,8 @@ import {LoginStatusConstants} from '../../../shared/ajaxDto/authentication/Login
 import {ErrorCodeEnum} from '../../../shared/classes/ErrorCodeEnum';
 import {AccountDto} from '../../../shared/ajaxDto/authentication/AccountDto';
 import {IAction} from '../../_common/interfaces/IAction';
-import {LoginDto} from "../../../shared/ajaxDto/authentication/LoginDto";
-import {UserDto} from "../../../shared/ajaxDto/authentication/UserDto";
+import {LoginDto} from '../../../shared/ajaxDto/authentication/LoginDto';
+import {UserDto} from '../../../shared/ajaxDto/authentication/UserDto';
 
 export const GET_USERS_REQUEST: string = 'users/GET_USERS_REQUEST';
 export const GET_USERS_SUCCESS: string = 'users/GET_USERS_SUCCESS';

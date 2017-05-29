@@ -82,6 +82,10 @@ main {
       list-style: none;
     }
   }
+
+  img {
+    max-width: 100%;
+  }
 }
 
 .app {
@@ -91,7 +95,6 @@ main {
   & > header {
     height: $header-height;
   }
-
 
   .content {
     padding-bottom: $footer-height;

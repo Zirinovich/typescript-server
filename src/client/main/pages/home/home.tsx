@@ -1,11 +1,14 @@
 import * as React from 'react';
+import {LinkContainer} from 'react-router-bootstrap';
 import {Button} from 'react-bootstrap';
 
 import {Icon} from '../../../_common/components/icon/icon';
 import {RevolutionSlider} from '../../../_common/components/revolutionSlider/revolutionSlider';
+import {SectionHeader} from '../../components/section_header/sectionHeader';
 import {SectionCards} from '../../components/section_cards/sectionCards';
 import {SectionText} from '../../components/section_text/sectionText';
-import {SectionTabs} from '../../components/section_tabs/sectionTabs';
+import {SectionClients} from '../../components/section_clients/sectionClients';
+import {SectionOrderButton} from '../../components/section_order_button/sectionOrderButton';
 
 const style = require('./home.scss');
 
@@ -248,8 +251,8 @@ class Home extends React.Component<any, any> {
             }
         ];
 
-        const cardsSectionTitle = 'Что мы предлагаем';
-        const cardsSectionSubtitle = 'АНАЛИЗ, ПРОЕКТ, КАЧЕСТВЕННОЕ РЕШЕНИЕ';
+        const title = 'Что мы предлагаем';
+        const subtitle = 'АНАЛИЗ, ПРОЕКТ, КАЧЕСТВЕННОЕ РЕШЕНИЕ';
         const cards = [
             {
                 title: 'Презентация решений',
@@ -267,24 +270,24 @@ class Home extends React.Component<any, any> {
                 title: 'OSS Решения',
                 icon: <Icon name="desktop"/>,
                 text: 'Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words',
-                to: '/oss'
+                to: '/solutions'
             },
             {
                 title: 'Проектирование и консалтинг',
                 icon: <Icon name="desktop"/>,
-                text: 'Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words',
+                text: 'Временный локальный или офшорный найм специалистов лучше всего подходит для регулирования размера команды и независимой экспертизы.',
                 to: '/services'
             },
             {
                 title: 'Разработка ПО',
                 icon: <Icon name="desktop"/>,
-                text: 'Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words',
+                text: 'ALT-LAN предоставляет полный спектр экономически эффективных IT-услуг организациям по всему миру, которые нуждаются в профессиональной технической поддержке различных сфер бизнеса.',
                 to: '/services'
             },
             {
                 title: 'Тестирование/Внедрение',
                 icon: <Icon name="phone"/>,
-                text: 'Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words',
+                text: 'Тестирование - это наиболее объективный способ проверки и оценки программного обеспечения перед презентацией пользователям.',
                 to: '/services'
             }
         ];
@@ -294,10 +297,16 @@ class Home extends React.Component<any, any> {
         return (
             <div className={style.home}>
                 <RevolutionSlider slides={slides}/>
-                <SectionCards title={cardsSectionTitle} subtitle={cardsSectionSubtitle} cards={cards}/>
-                <SectionText title={textSectionTitle} text={textSectionText}
-                             button={<Button bsStyle="primary">Узнать больше</Button>}/>
-                <SectionTabs/>
+                <SectionHeader title={title} subtitle={subtitle}/>
+                <SectionCards cards={cards}/>
+                <SectionOrderButton/>
+                <SectionText title={textSectionTitle}
+                             text={textSectionText}>
+                    <LinkContainer to="/services">
+                        <Button bsStyle="primary">Узнать больше</Button>
+                    </LinkContainer>
+                </SectionText>
+                <SectionClients/>
             </div>
         );
     }

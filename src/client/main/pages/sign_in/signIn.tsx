@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {LinkContainer} from 'react-router-bootstrap';
 import {Button, Clearfix} from 'react-bootstrap';
 
 import {i18n} from '../../../_common/tools/i18n/i18n';
@@ -11,7 +12,11 @@ export class SignIn extends React.Component<any, any> {
         const textSectionSubtitle = 'Точные телеком решения';
         return (
             <div>
-                <SectionText subtitle={textSectionSubtitle} button={<Button bsStyle="primary">Узнать больше</Button>}/>
+                <SectionText subtitle={textSectionSubtitle}>
+                    <LinkContainer to="/services">
+                        <Button bsStyle="primary">Узнать больше</Button>
+                    </LinkContainer>
+                </SectionText>
                 <Breadcrumbs title={i18n.t('main.authorizationPage')} params={this.props.params} routes={this.props.routes}/>
                 <Clearfix/>
                 <SignInForm/>

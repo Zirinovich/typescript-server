@@ -10,9 +10,8 @@
     resize: none;
     display: block;
     width: 100%;
-    padding: 8px 46px 8px 10px;
+    padding-right: 46px;
     outline: none;
-    border: 1px solid $input-border;
     border-radius: 0;
     @include transition(border-color 0.35s ease);
 
