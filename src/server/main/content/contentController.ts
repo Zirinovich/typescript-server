@@ -18,7 +18,10 @@ router.post('/main/content/addchangecontent', async(req, res) => {
 // router.post('/main/content/upload', multiparty({uploadDir: './build/upload'}));
 router.post('/main/content/upload', async(req: any, res) => {
     const {files, fields} = await busboyEr(req);
-    console.log(files);
+    console.log(files[0].length);
+    fs.readFile("./uploaded/1.t", "hex", (err, data) => {
+        console.log(data.length);
+    });
     if (req.files && req.files.link) {
         // TODO: вынести логику БД в database, вернуть данные на фронт, удалить файл из upload
         let id = await contentLogic.addChangeFileAsync(req.files.link);
@@ -95,27 +98,20 @@ async function busboyEr(request, options = null): Promise<any> {
 
 
 function onFile(filePromises, fieldname, file, filename, encoding, mimetype) {
+    let filePromise = new Promise<any>(resolve => {
+        const chunks = [];
+        file.setEncoding("hex");
+
+        file.on("data", (chunk) => {
+            chunks.push(chunk);
+        });
+        file.on("end", () => {
+            resolve(chunks.join());
+        });
+    });
 
 
-    const tmpName = file.tmpName = Math.random().toString(16).substring(2) + '-' + filename;
-
-    const saveTo = path.join(os.tmpdir(), path.basename(tmpName));
-    const writeStream = fs.createWriteStream(saveTo);
-    const filePromise = new Promise((resolve, reject) => writeStream
-        .on('open', async() => file
-            .pipe(writeStream)
-            .on('error', reject)
-            .on('finish', () => {
-                const readStream = fs.createReadStream(saveTo);
-                readStream.fieldname = fieldname;
-                readStream.filename = filename;
-                readStream.transferEncoding = readStream.encoding = encoding;
-                readStream.mimeType = readStream.mime = mimetype;
-                resolve(readStream);
-            })
-        )
-        .on('error', reject)
-    );
+    // const filePromise = toArray(file);
     filePromises.push(filePromise);
 }
 
