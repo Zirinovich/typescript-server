@@ -1,6 +1,8 @@
-import {ContentDto} from "../../../shared/ajaxDto/authentication/ContentDto";
 import {IDatabaseResult} from "../engine/database/IDatabaseResult";
+import {FileDto} from "../../../shared/ajaxDto/authentication/FileDto";
+import {UploadDto} from "../engine/dto/UploadDto";
+
 export interface IContentDatabase{
-    insertContentAsync(content: ContentDto): Promise<IDatabaseResult<ContentDto>>;
-    updateContentAsync(content: ContentDto): Promise<IDatabaseResult<ContentDto>>;
+    insertFileAsync(content: UploadDto): Promise<IDatabaseResult<FileDto>>;
+    updateFileAsync(content: UploadDto): Promise<IDatabaseResult<FileDto>>;
 }
