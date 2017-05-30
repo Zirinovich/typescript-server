@@ -1,25 +1,40 @@
 import * as React from 'react';
 import {LinkContainer} from 'react-router-bootstrap';
 import {Grid, Button} from 'react-bootstrap';
+const {connect} = require('react-redux');
+const {asyncConnect} = require('redux-connect');
 
 import {i18n} from '../../../_common/tools/i18n/i18n';
 import {CubePortfolio} from '../../../_common/components/cubePortfolio/cubePortfolio';
 import {Breadcrumbs} from '../../components/breadcrumbs/breadcrumbs';
 import {SectionText} from '../../components/section_text/sectionText';
+import {getPresentations} from '../../redux/presentationsActions';
 const style = require('./presentations.scss');
 
 interface IProps {
-    children?: any;
     params?: any;
     routes?: any;
+    presentations?: any;
+    children?: any;
 }
 
 interface IState {
 
 }
 
+@asyncConnect([{
+    promise: ({store: {dispatch}}) => {
+        return dispatch(getPresentations());
+    }
+}])
+@connect(
+    (state) => ({
+        presentations: state.presentations
+    })
+)
 export class Presentations extends React.Component<IProps, IState> {
     render() {
+        const {presentations: {list}, children} = this.props;
         const textSectionSubtitle = 'Точные телеком решения';
         const filters = [
             {
@@ -35,47 +50,18 @@ export class Presentations extends React.Component<IProps, IState> {
                 value: 'site'
             }
         ];
-        const items = [
-            {
-                src: require('./content/supr.png'),
-                title: 'Система управления плановыми работами (СУПР)',
-                text: 'Тикет-система',
-                classes: ['trouble-ticket-system'],
-                to: '/presentations/1'
-            },
-            {
-                src: require('./content/ellco.png'),
-                title: 'Личный кабинет Ellco',
-                text: '',
-                classes: ['dashboard'],
-                to: '/presentations/2'
-            },
-            {
-                src: require('./content/tele2.png'),
-                title: 'Система тикетов Tele2',
-                text: 'Система тикетов',
-                classes: ['trouble-ticket-system'],
-                to: '/presentations/3'
-            },
-            {
-                src: require('./content/ladony.png'),
-                title: 'Сайт ladony.ru',
-                text: '',
-                classes: ['site'],
-                to: '/presentations/4'
-            }
-        ];
         return (
-            this.props.children ? this.props.children : <div className={style.presentations}>
+            children ? children : <div className={style.presentations}>
                 <SectionText subtitle={textSectionSubtitle}>
                     <LinkContainer to="/services">
                         <Button bsStyle="primary">Узнать больше</Button>
                     </LinkContainer>
                 </SectionText>
-                <Breadcrumbs title={i18n.t('main.presentationsPage')} params={this.props.params} routes={this.props.routes}/>
+                <Breadcrumbs title={i18n.t('main.presentationsPage')} params={this.props.params}
+                             routes={this.props.routes}/>
                 <div className={style.portfolio_section}>
                     <Grid>
-                        <CubePortfolio filters={filters} items={items}/>
+                        <CubePortfolio filters={filters} items={list}/>
                     </Grid>
                 </div>
             </div>
