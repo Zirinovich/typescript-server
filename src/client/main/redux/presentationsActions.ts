@@ -105,9 +105,10 @@ export function getPresentationById(id) {
             let response = {ok: true};
             if (response.ok) {
 
-                dispatch(getPresentationByIdSuccess(_.find(presentations, (p) => {
+                const item = _.find(presentations, (p) => {
                     return p.id === id;
-                })));
+                });
+                dispatch(getPresentationByIdSuccess(item));
             } else {
                 //let errText = await response.text();
                 //dispatch(getpresentationsFailure('!!!Alarm!!! ' + errText));

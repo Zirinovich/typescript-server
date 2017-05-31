@@ -10,6 +10,7 @@ interface IProps {
     params?: any;
     routes?: any;
     getPresentationById?: any;
+    presentations?: any;
 }
 
 interface IState {
@@ -26,13 +27,14 @@ interface IState {
 )
 export class PresentationDetail extends React.Component<IProps, IState> {
     componentDidMount() {
-        const {params, routes} = this.props;
+        const {params, routes, getPresentationById} = this.props;
         //console.log(params, routes);
-
+        getPresentationById(params.id);
     }
 
     render() {
-        const {params, routes} = this.props;
+        const {params, routes, presentations: {item}} = this.props;
+        console.log('item', item);
         const slides = [
             {
                 src: require('./content/login_page.png'),
