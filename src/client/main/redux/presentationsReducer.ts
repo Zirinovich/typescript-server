@@ -3,10 +3,12 @@ import {IAction} from '../../_common/interfaces/IAction';
 
 interface IState {
     list: any[];
+    item?: any;
 }
 
-const initialState = {
-    list: []
+const initialState: IState = {
+    list: [],
+    item: {}
 };
 
 

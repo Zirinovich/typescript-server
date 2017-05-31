@@ -51,8 +51,9 @@ export class Presentations extends React.Component<IProps, IState> {
             }
         ];
         const items = list.map((item) => {
-            item.to = '/presentations/' + item.id;
-            return item;
+            return Object.assign(item, {
+                to: '/presentations/' + item.id
+            });
         });
         return (
             children ? children : <div className={style.presentations}>
