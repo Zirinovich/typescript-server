@@ -9,7 +9,6 @@ import {IDatabaseResult} from "../../_interfaces/engine/database/IDatabaseResult
 import {LoginStatusConstants} from "../../../shared/ajaxDto/authentication/LoginStatusConstants";
 import {AccountDto} from "../../../shared/ajaxDto/authentication/AccountDto";
 import {UserDto} from "../../../shared/ajaxDto/authentication/UserDto";
-import {resolvePtr} from "dns";
 
 export class UsersLogic implements IUsersLogic {
 

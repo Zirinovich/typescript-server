@@ -29,11 +29,11 @@ app.use("/api", apiRouter);
 
 //----------------------------- IoC
 export const authenticationMiddleware: IAuthenticationMiddleware = Ioc.register<IAuthenticationMiddleware>("IAuthenticationMiddleware", true, new PassportLocalStrategyMiddlewareFunctions());
-export const usersLogic: IUsersLogic = Ioc.register<IUsersLogic>("IUsersLogic", true, new UsersLogic());
-export const contentLogic: IContentLogic = Ioc.register<IContentLogic>("IContentLogic", true, new ContentLogic());
-export const usersDatabase: IUsersDatabase = Ioc.register<IUsersDatabase>("IUsersDatabase", true, new UsersDatabase());
-export const contentDatabase: IContentDatabase = Ioc.register<IContentDatabase>("IContentDatabase", true, new ContentDatabase());
 export const dbEngine: IDatabaseEngine = Ioc.register<IDatabaseEngine>("IDatabaseEngine", true, new PostgreEngine(databaseConfig));
+export const usersDatabase: IUsersDatabase = Ioc.register<IUsersDatabase>("IUsersDatabase", true, new UsersDatabase());
+export const usersLogic: IUsersLogic = Ioc.register<IUsersLogic>("IUsersLogic", true, new UsersLogic());
+export const contentDatabase: IContentDatabase = Ioc.register<IContentDatabase>("IContentDatabase", true, new ContentDatabase());
+export const contentLogic: IContentLogic = Ioc.register<IContentLogic>("IContentLogic", true, new ContentLogic());
 //----------------------------- Controllers
 require("./main/users/usersController");
 require("./main/other/otherController");

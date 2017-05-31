@@ -1,19 +1,26 @@
 import {IContentLogic} from "../../_interfaces/main/IContentLogic";
-import {ContentDto} from "../../../shared/ajaxDto/authentication/ContentDto";
 import {IDatabaseResult} from "../../_interfaces/engine/database/IDatabaseResult";
 import {contentDatabase} from "../../registration";
+import {FileDto} from "../../../shared/ajaxDto/authentication/FileDto";
+import {UploadedFileDto} from "../../_interfaces/engine/dto/UploadedFileDto";
+import uuid = require("uuid");
 import {ErrorCodeEnum} from "../../../shared/classes/ErrorCodeEnum";
 
 export class ContentLogic implements IContentLogic {
-    async addChangeContentAsync(content: ContentDto): Promise<IDatabaseResult<void>> {
-        return new Promise<IDatabaseResult<void>>(async resolve => {
-            let changeResult = await contentDatabase.updateContentAsync(content);
-            if (changeResult.data || changeResult.errorCode !== ErrorCodeEnum.NoErrors) {
-                return resolve(Object.assign({}, {...changeResult}, {data: undefined}));
-            }
+    async uploadFileAsync(upload: UploadedFileDto): Promise<IDatabaseResult<FileDto>> {
 
-            let addResult = await contentDatabase.insertContentAsync(content);
-            resolve(Object.assign({}, {...addResult}, {data: undefined}));
+        return contentDatabase.insertUploadedFileAsync(upload);
+    }
+
+    async addChangeFileAsync(file: FileDto): Promise<IDatabaseResult<FileDto>> {
+
+        return new Promise<IDatabaseResult<FileDto>>(async resolve => {
+            let changeResult = await contentDatabase.updateFileAsync(file);
+            if (changeResult.data || changeResult.errorCode !== ErrorCodeEnum.NoErrors) {
+                return resolve(changeResult);
+            }
+            let addResult = await contentDatabase.insertFileAsync(file);
+            resolve(addResult);
         });
     }
 }
