@@ -50,6 +50,10 @@ export class Presentations extends React.Component<IProps, IState> {
                 value: 'site'
             }
         ];
+        const items = list.map((item) => {
+            item.to = '/presentations/' + item.id;
+            return item;
+        });
         return (
             children ? children : <div className={style.presentations}>
                 <SectionText subtitle={textSectionSubtitle}>
@@ -61,7 +65,7 @@ export class Presentations extends React.Component<IProps, IState> {
                              routes={this.props.routes}/>
                 <div className={style.portfolio_section}>
                     <Grid>
-                        <CubePortfolio filters={filters} items={list}/>
+                        <CubePortfolio filters={filters} items={items}/>
                     </Grid>
                 </div>
             </div>
