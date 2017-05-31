@@ -1,18 +1,18 @@
 import {Request} from "express-serve-static-core";
-import {UploadDto} from "../../../_interfaces/engine/dto/UploadDto";
+import {UploadedFileDto} from "../../../_interfaces/engine/dto/UploadedFileDto";
 const Busboy = require('busboy');
 import * as path from "path";
 
 export class MultipartFormParser {
 
-    async ParseForm(req: Request, options = null): Promise<{fields: any,uploads: UploadDto[]}> {
+    async ParseForm(req: Request, options = null): Promise<{fields: any,uploadedFiles: UploadedFileDto[]}> {
         options = options || {};
         options.headers = req.headers;
         const busboy = new Busboy(options);
 
-        return new Promise<{fields: any,uploads: UploadDto[]}>((resolve, reject) => {
+        return new Promise<{fields: any,uploadedFiles: UploadedFileDto[]}>((resolve, reject) => {
                 const fields = {};
-                const uploadPromises: Promise<UploadDto>[] = [];
+                const uploadPromises: Promise<UploadedFileDto>[] = [];
 
                 req.on('close', cleanup);
 
@@ -50,10 +50,10 @@ export class MultipartFormParser {
                     if (err) return reject(err);
                     if (uploadPromises.length) {
                         Promise.all(uploadPromises)
-                            .then(files => resolve({fields, uploads: files}))
+                            .then(files => resolve({fields, uploadedFiles: files}))
                             .catch(reject);
                     } else {
-                        resolve({fields, uploads: []});
+                        resolve({fields, uploadedFiles: []});
                     }
                 }
 
@@ -73,7 +73,7 @@ export class MultipartFormParser {
     }
 
     private static onFile(filePromises, fieldname, file, filename, encoding, mimetype) {
-        let uploadPromise = new Promise<UploadDto>(resolve => {
+        let uploadPromise = new Promise<UploadedFileDto>(resolve => {
             const chunks: string[] = [];
             file.setEncoding("hex");
 

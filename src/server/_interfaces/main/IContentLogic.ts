@@ -1,7 +1,8 @@
 import {IDatabaseResult} from "../engine/database/IDatabaseResult";
-import {UploadDto} from "../engine/dto/UploadDto";
+import {UploadedFileDto} from "../engine/dto/UploadedFileDto";
 import {FileDto} from "../../../shared/ajaxDto/authentication/FileDto";
 
 export interface IContentLogic{
-    addChangeFileAsync(content: UploadDto): Promise<IDatabaseResult<FileDto>>;
+    uploadFileAsync(content: UploadedFileDto): Promise<IDatabaseResult<FileDto>>;
+    addChangeFileAsync(content: FileDto): Promise<IDatabaseResult<FileDto>>;
 }

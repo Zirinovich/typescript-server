@@ -7,4 +7,5 @@ export interface FileDto{
     mimetype?: string,
     filedata?: any,
     filecreated: string
+    fileupdated?: string
 }

@@ -1,4 +1,4 @@
-export interface UploadDto{
+export interface UploadedFileDto{
     fieldName?: string;
     fileName?: string;
     size: number;
