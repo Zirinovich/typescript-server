@@ -9,21 +9,30 @@ import {getPresentationById} from '../../redux/presentationsActions';
 interface IProps {
     params?: any;
     routes?: any;
+    getPresentationById?: any;
 }
 
 interface IState {
 
 }
 
+@connect(
+    (state) => ({
+        presentations: state.presentations
+    }),
+    (dispatch) => ({
+        getPresentationById: (id) => dispatch(getPresentationById(id))
+    })
+)
 export class PresentationDetail extends React.Component<IProps, IState> {
     componentDidMount() {
         const {params, routes} = this.props;
+        //console.log(params, routes);
 
     }
 
     render() {
         const {params, routes} = this.props;
-        console.log(params, routes);
         const slides = [
             {
                 src: require('./content/login_page.png'),
