@@ -12,6 +12,7 @@ router.post('/main/content/upload', async(req: any, res) => {
     let parser = new MultipartFormParser();
     const {fields, uploadedFiles} = await parser.ParseForm(req);
     let result = await contentLogic.uploadFileAsync(uploadedFiles[0]);
+    result = Object.assign({}, {...result}, {success: true});
     res.json(result);
 });
 
