@@ -33,7 +33,7 @@ export class FieldFile extends React.Component<IProps, IState> {
         this.uploader = new FineUploaderTraditional({
             options: {
                 chunking: {
-                    enabled: true
+                    enabled: false
                 },
                 deleteFile: {
                     enabled: true,
@@ -43,7 +43,7 @@ export class FieldFile extends React.Component<IProps, IState> {
                     endpoint: '/api/main/content/upload'
                 },
                 retry: {
-                    enableAuto: true
+                    enableAuto: false
                 }
             }
         })
