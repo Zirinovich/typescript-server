@@ -3,6 +3,7 @@ import {IDatabaseResult} from "../engine/database/IDatabaseResult";
 import {UserDto} from "../../../shared/ajaxDto/authentication/UserDto";
 import {RoleDto} from "../../../shared/ajaxDto/authentication/RoleDto";
 import {AccountDto} from "../../../shared/ajaxDto/authentication/AccountDto";
+import {RuleDto} from "../../../shared/ajaxDto/authentication/RuleDto";
 
 export interface IUsersDatabase {
     findLoginDtoByIdAsync(idlogin: number): Promise<IDatabaseResult<LoginDto>>;
@@ -21,4 +22,6 @@ export interface IUsersDatabase {
 
     insertUserAsync(user: UserDto): Promise<IDatabaseResult<UserDto>>;
     updateUserAsync(user: UserDto): Promise<IDatabaseResult<UserDto>>;
+
+    findRuleDtoByRoleIdAsync(idrule: number): Promise<IDatabaseResult<RuleDto[]>>
 }

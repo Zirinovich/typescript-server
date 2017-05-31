@@ -23,4 +23,8 @@ export class ContentLogic implements IContentLogic {
             resolve(addResult);
         });
     }
+
+    async findFileDtoByIdAsync(idfile: string): Promise<IDatabaseResult<FileDto>> {
+        return contentDatabase.findFileDtoByIdAsync(idfile);
+    }
 }

@@ -6,4 +6,5 @@ export interface IContentDatabase{
     insertUploadedFileAsync(content: UploadedFileDto): Promise<IDatabaseResult<FileDto>>;
     insertFileAsync(content: FileDto): Promise<IDatabaseResult<FileDto>>;
     updateFileAsync(content: FileDto): Promise<IDatabaseResult<FileDto>>;
+    findFileDtoByIdAsync(idfile: string): Promise<IDatabaseResult<FileDto>>;
 }

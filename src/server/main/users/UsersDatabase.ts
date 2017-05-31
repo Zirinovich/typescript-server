@@ -6,6 +6,7 @@ import {RoleDto} from "../../../shared/ajaxDto/authentication/RoleDto";
 import {dbEngine} from "../../registration";
 import {AccountDto} from "../../../shared/ajaxDto/authentication/AccountDto";
 import {ErrorCodeEnum} from "../../../shared/classes/ErrorCodeEnum";
+import {RuleDto} from "../../../shared/ajaxDto/authentication/RuleDto";
 
 export class UsersDatabase implements IUsersDatabase {
     // TODO: Может во всех методах где возвращается LoginDto вместо пароля возвращать пустую строку или null
@@ -203,5 +204,14 @@ export class UsersDatabase implements IUsersDatabase {
                        FROM troles
                        WHERE idrole=@idrole`;
         return dbEngine.querySingleAsync<RoleDto>({text: query, values: {idrole}});
+    }
+
+    async findRuleDtoByRoleIdAsync(idrole: number): Promise<IDatabaseResult<RuleDto[]>>{
+        let query = `SELECT idrule
+                           ,ruletype
+                           ,nullvalue
+                     FROM trules
+                                `;
+        return undefined;
     }
 }

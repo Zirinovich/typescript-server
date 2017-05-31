@@ -5,4 +5,5 @@ import {FileDto} from "../../../shared/ajaxDto/authentication/FileDto";
 export interface IContentLogic{
     uploadFileAsync(content: UploadedFileDto): Promise<IDatabaseResult<FileDto>>;
     addChangeFileAsync(content: FileDto): Promise<IDatabaseResult<FileDto>>;
+    findFileDtoByIdAsync(idfile: string): Promise<IDatabaseResult<FileDto>>
 }
