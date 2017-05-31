@@ -1,5 +1,7 @@
 import * as React from 'react';
 import {FormControl, ControlLabel} from 'react-bootstrap';
+//import * as FineUploaderTraditional from 'fine-uploader-wrappers'
+//import * as Gallery from 'react-fine-uploader'
 
 import {EventDelegate} from '../../interfaces/EventDelegate';
 import {EventMethodEnum} from '../../interfaces/EventMethodEnum';
@@ -19,10 +21,37 @@ interface IState {
 }
 //#endregion
 
+let Gallery;
+
 export class FieldFile extends React.Component<IProps, IState> {
+    uploader;
+
+    componentDidMount() {
+        require('react-fine-uploader/gallery/gallery.css');
+        Gallery = require('react-fine-uploader').default;
+        const FineUploaderTraditional = require('fine-uploader-wrappers').default;
+        this.uploader = new FineUploaderTraditional({
+            options: {
+                chunking: {
+                    enabled: true
+                },
+                deleteFile: {
+                    enabled: true,
+                    endpoint: '/api/main/content/upload'
+                },
+                request: {
+                    endpoint: '/api/main/content/upload'
+                },
+                retry: {
+                    enableAuto: true
+                }
+            }
+        })
+    }
+
     onChange(e) {
         const {name, onEvent} = this.props;
-        if(onEvent){
+        if (onEvent) {
             onEvent({
                 event: EventMethodEnum.OnChange,
                 value: e.target.value,
@@ -37,11 +66,7 @@ export class FieldFile extends React.Component<IProps, IState> {
         return (
             <div>
                 {label && <ControlLabel>{label}</ControlLabel>}
-                <FormControl name={name}
-                             type="file"
-                             value={value}
-                             onChange={this.onChange.bind(this)}
-                             required={required}/>
+                {Gallery && this.uploader && <Gallery uploader={ this.uploader }/>}
             </div>
         )
     }

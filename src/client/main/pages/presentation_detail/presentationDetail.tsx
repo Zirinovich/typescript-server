@@ -1,19 +1,38 @@
 import * as React from 'react';
+const {connect} = require('react-redux');
+const {asyncConnect} = require('redux-connect');
 
 import {RevolutionSlider} from '../../../_common/components/revolutionSlider/revolutionSlider';
 import {Breadcrumbs} from '../../components/breadcrumbs/breadcrumbs';
+import {getPresentationById} from '../../redux/presentationsActions';
 
 interface IProps {
     params?: any;
     routes?: any;
+    getPresentationById?: any;
 }
 
 interface IState {
 
 }
 
+@connect(
+    (state) => ({
+        presentations: state.presentations
+    }),
+    (dispatch) => ({
+        getPresentationById: (id) => dispatch(getPresentationById(id))
+    })
+)
 export class PresentationDetail extends React.Component<IProps, IState> {
+    componentDidMount() {
+        const {params, routes} = this.props;
+        //console.log(params, routes);
+
+    }
+
     render() {
+        const {params, routes} = this.props;
         const slides = [
             {
                 src: require('./content/login_page.png'),
@@ -278,7 +297,7 @@ export class PresentationDetail extends React.Component<IProps, IState> {
         return (
             <div>
                 <RevolutionSlider slides={slides}/>
-                <Breadcrumbs params={this.props.params} routes={this.props.routes}/>
+                <Breadcrumbs params={params} routes={routes}/>
             </div>
         )
     }

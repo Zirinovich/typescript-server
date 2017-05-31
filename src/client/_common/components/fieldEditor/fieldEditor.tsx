@@ -97,7 +97,8 @@ export class FieldEditor extends React.Component<IProps, IState> {
         FieldEditor.loadJsClient();
         const config = {
             plugins: 'link image code',
-            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
+            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code',
+            height: 500
         };
         return (
             <TinyMCE

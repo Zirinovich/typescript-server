@@ -58,7 +58,6 @@ export class FileCreateEditModal extends React.Component<IProps, IState> {
     }
 
     onEventHandler(args: EventArgsDto) {
-        console.log(args);
         if (args.event == EventMethodEnum.OnChange) {
             let state = {};
             state[args.name] = args.value;
