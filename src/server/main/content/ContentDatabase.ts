@@ -7,7 +7,7 @@ import {dbEngine} from "../../registration";
 import uuid = require("uuid");
 
 export class ContentDatabase implements IContentDatabase {
-    insertUploadedFileAsync(upload: UploadedFileDto): Promise<IDatabaseResult<FileDto>> {
+    async insertUploadedFileAsync(upload: UploadedFileDto): Promise<IDatabaseResult<FileDto>> {
         let query = `INSERT INTO tfiles (idfile, filename, extension, tags, size, mimetype, filedata, filecreated)
                                 VALUES(@idfile
                                     ,@filename
@@ -33,7 +33,7 @@ export class ContentDatabase implements IContentDatabase {
         });
     }
 
-    insertFileAsync(file: FileDto): Promise<IDatabaseResult<FileDto>> {
+    async insertFileAsync(file: FileDto): Promise<IDatabaseResult<FileDto>> {
         let query = `INSERT INTO tfiles (idfile, filename, extension, tags, size, mimetype, filedata, filecreated)
                                 VALUES(@idfile
                                     ,@filename
@@ -59,7 +59,7 @@ export class ContentDatabase implements IContentDatabase {
         });
     }
 
-    updateFileAsync(file: FileDto): Promise<IDatabaseResult<FileDto>> {
+    async updateFileAsync(file: FileDto): Promise<IDatabaseResult<FileDto>> {
         let query = `UPDATE tfiles
                      SET filename = @filename
                          extension = @extension
@@ -81,6 +81,24 @@ export class ContentDatabase implements IContentDatabase {
                 filedata: file.filedata,
                 fileupdated: new Date().toISOString()
             }
+        });
+    }
+
+    async findFileDtoByIdAsync(idfile: string): Promise<IDatabaseResult<FileDto>> {
+        let query = `SELECT idfile
+                           ,filename
+                           ,extension
+                           ,tags
+                           ,size
+                           ,mimetype
+                           ,filedata
+                           ,filecreated
+                           ,fileupdated
+	                FROM public.tfiles
+                    WHERE idfile=@idfile`;
+        return dbEngine.querySingleAsync<FileDto>({
+            text: query,
+            values: {idfile}
         });
     }
 }
