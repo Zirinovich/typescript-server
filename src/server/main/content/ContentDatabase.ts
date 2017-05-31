@@ -5,6 +5,7 @@ import {UploadedFileDto} from "../../_interfaces/engine/dto/UploadedFileDto";
 import {dbEngine} from "../../registration";
 
 import uuid = require("uuid");
+import {ContentDto} from "../../../shared/ajaxDto/authentication/ContentDto";
 
 export class ContentDatabase implements IContentDatabase {
     async insertUploadedFileAsync(upload: UploadedFileDto): Promise<IDatabaseResult<FileDto>> {
@@ -99,6 +100,20 @@ export class ContentDatabase implements IContentDatabase {
         return dbEngine.querySingleAsync<FileDto>({
             text: query,
             values: {idfile}
+        });
+    }
+
+    insertContentAsync(content: ContentDto): Promise<IDatabaseResult<ContentDto>>{
+        let query = `INSERT INTO tcontent (idcontent, idfile)
+                                VALUES(@idcontent
+                                    ,@idfile)
+                                RETURNING idcontent, idfile`;
+        return dbEngine.querySingleAsync<ContentDto>({
+            text: query,
+            values: {
+                idcontent: content.idcontent,
+                idfile: content.idfile
+            }
         });
     }
 }

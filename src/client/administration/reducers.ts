@@ -4,7 +4,7 @@ import {usersReducer} from './redux/usersReducer';
 import {rolesReducer} from './redux/rolesReducer';
 
 export const reducers = {
-    content: contentReducer,
+    contentdata: contentReducer,
     files: filesReducer,
     users: usersReducer,
     roles: rolesReducer

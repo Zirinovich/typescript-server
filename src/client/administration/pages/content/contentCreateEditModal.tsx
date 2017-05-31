@@ -18,30 +18,28 @@ interface IProps {
     saveContent: any;
 }
 
-interface IState {
+interface IContentCreateEditModalState {
     id?: any;
-    link: string;
-    datetime: string;
-    content: string;
+    idcontent: string;
+    contentdata: string;
 }
 //#endregion
 
 @connect(
-    (state) => ({users: state.users}),
+    (state) => ({contentdata: state.contentdata}),
     (dispatch) => ({
-        saveContent: (user) => dispatch(saveContent(user))
+        saveContent: (content) => dispatch(saveContent(content))
     })
 )
-export class ContentCreateEditModal extends React.Component<IProps, IState> {
+export class ContentCreateEditModal extends React.Component<IProps, IContentCreateEditModalState> {
     constructor(props) {
         super(props);
 
         this.onEventHandler = this.onEventHandler.bind(this);
         this.submitHandler = this.submitHandler.bind(this);
         this.state = {
-            link: '',
-            datetime: '',
-            content: ''
+            idcontent: '',
+            contentdata: ''
         }
     }
 
@@ -53,9 +51,8 @@ export class ContentCreateEditModal extends React.Component<IProps, IState> {
         if (data.id !== id) {
             this.setState({
                 id: data.id,
-                link: data.link,
-                datetime: data.datetime,
-                content: data.content
+                idcontent: data.idcontent,
+                contentdata: data.contentdata
             });
         }
     }
@@ -90,22 +87,22 @@ export class ContentCreateEditModal extends React.Component<IProps, IState> {
 
     render() {
         const {show, onHide} = this.props;
-        const {id, link, content} = this.state;
+        const {id, idcontent, contentdata} = this.state;
         return (
             <Modal show={show} onHide={onHide} bsSize="large" aria-labelledby={this.id}>
                 <Form onSubmit={this.submitHandler}>
                     <Modal.Header closeButton>
-                        <Modal.Title id={this.id}>
+                        <Modal.Title>
                             {i18n.t(id ? 'administration.editContent' : 'administration.createContent')}
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <FormGroup>
-                            <FieldInput name="link" label={i18n.t('administration.link')} value={link}
+                            <FieldInput name="idcontent" label={i18n.t('administration.link')} value={idcontent}
                                         onEvent={this.onEventHandler} required/>
                         </FormGroup>
                         <FormGroup>
-                            <FieldEditor name="content" value={content} onEvent={this.onEventHandler}/>
+                            <FieldEditor name="contentdata" value={contentdata} onEvent={this.onEventHandler}/>
                         </FormGroup>
                     </Modal.Body>
                     <Modal.Footer>

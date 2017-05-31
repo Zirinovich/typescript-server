@@ -5,6 +5,7 @@ import {FileDto} from "../../../shared/ajaxDto/authentication/FileDto";
 import {UploadedFileDto} from "../../_interfaces/engine/dto/UploadedFileDto";
 import uuid = require("uuid");
 import {ErrorCodeEnum} from "../../../shared/classes/ErrorCodeEnum";
+import {ContentDto} from "../../../shared/ajaxDto/authentication/ContentDto";
 
 export class ContentLogic implements IContentLogic {
     async uploadFileAsync(upload: UploadedFileDto): Promise<IDatabaseResult<FileDto>> {
@@ -26,5 +27,9 @@ export class ContentLogic implements IContentLogic {
 
     async findFileDtoByIdAsync(idfile: string): Promise<IDatabaseResult<FileDto>> {
         return contentDatabase.findFileDtoByIdAsync(idfile);
+    }
+
+    addChangeContentAsync(content: ContentDto): Promise<IDatabaseResult<ContentDto>>{
+        return contentDatabase.insertContentAsync(content);
     }
 }

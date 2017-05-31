@@ -1,6 +1,7 @@
 import {Core} from '../../../shared/classes/core';
 import {ErrorCodeEnum} from '../../../shared/classes/ErrorCodeEnum';
 import {IAction} from '../../_common/interfaces/IAction';
+import {ContentDto} from "../../../shared/ajaxDto/authentication/ContentDto";
 
 export const GET_CONTENT_REQUEST: string = 'content/GET_CONTENT_REQUEST';
 export const GET_CONTENT_SUCCESS: string = 'content/GET_CONTENT_SUCCESS';
@@ -33,7 +34,7 @@ export function getContent() {
         dispatch(getContentRequest());
 
         try {
-            let response = await Core.postAsync<any>({
+            let response = await Core.postAsync<ContentDto[]>({
                 url: '/api/main/content/getcarticlelist',
             });
 
@@ -44,7 +45,13 @@ export function getContent() {
             }
         }
         catch (error) {
-            dispatch(getContentFailure(error));
+            //dispatch(getContentFailure(error));
+            dispatch(getContentSuccess( // NOTE: Заглушка
+                [{
+                    idcontent: "жжжжж",
+                    contentdata: "lorem"
+                }]
+            ));
         }
     };
 }
@@ -69,7 +76,7 @@ export function getContentFailure(message): IGetContentFailureAction {
     };
 }
 
-export function saveContent(content) {
+export function saveContent(content: ContentDto) {
     return async(dispatch) => {
         dispatch(saveContentRequest());
 

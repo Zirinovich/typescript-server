@@ -4,8 +4,21 @@ import {MultipartFormParser} from "../../_engine/middlewares/common/MultipartFor
 import HTTP_STATUS_CODES from 'http-status-enum';
 const fs = require('fs');
 
-router.post('/main/content/addchangecontent', (req, res) => {
-    return undefined;
+router.post('/main/content/addchangearticle', async(req, res) => {
+    let {idcontent, contentdata} = req.body;
+    let data = Buffer.from(contentdata).toString("hex");
+    console.log(data);
+    let file = await contentLogic.uploadFileAsync({
+        fileName: `${idcontent}-${new Date().toISOString().replace(/\D/g, "-").substr(0, 21)}.content`,
+        size: data.length / 2,
+        tags: contentdata,
+        mimeType: "text/html,application/xhtml+xml,application/xml",
+        hexData: contentdata,
+        encoding: "utf-8",
+        extension: "content"
+    });
+    let content = await contentLogic.addChangeContentAsync({idcontent, idfile: file.data.idfile});
+    res.json(content);
 });
 
 router.post('/main/content/upload', async(req: any, res) => {
@@ -14,7 +27,7 @@ router.post('/main/content/upload', async(req: any, res) => {
     let result = await contentLogic.uploadFileAsync(uploadedFiles[0]);
     result = Object.assign({}, {...result}, {success: true});
     res.json(result);
-});
+}, AuthClaims.Authenticated);
 
 router.get('/main/content/image/:idfile', async(req, res) => {
     let {idfile} = req.params;
