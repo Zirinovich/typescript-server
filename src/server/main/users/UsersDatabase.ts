@@ -187,7 +187,7 @@ export class UsersDatabase implements IUsersDatabase {
                     })
                 });
             }
-        })
+        });
     }
 
     async findUserByIdAsync(iduser: number): Promise<IDatabaseResult<UserDto>> {
@@ -206,12 +206,14 @@ export class UsersDatabase implements IUsersDatabase {
         return dbEngine.querySingleAsync<RoleDto>({text: query, values: {idrole}});
     }
 
-    async findRuleDtoByRoleIdAsync(idrole: number): Promise<IDatabaseResult<RuleDto[]>>{
-        let query = `SELECT idrule
-                           ,ruletype
-                           ,nullvalue
-                     FROM trules
-                                `;
-        return undefined;
+    async findRulesByRoleIdAsync(idrole: number): Promise<IDatabaseResult<RuleDto[]>> {
+        let query = `SELECT trules.idrule
+                          ,ruletype
+                          ,CASE WHEN truleinroles.value IS NULL THEN trules.nullvalue ELSE truleinroles.value END AS rulevalue
+                          ,idrole
+                    FROM trules
+                      LEFT JOIN truleinroles
+                        ON trules.idrule = truleinroles.idrule AND truleinroles.idrole = @idrole`;
+        return dbEngine.queryAsync<RuleDto>({text: query, values: {idrole}});
     }
 }
