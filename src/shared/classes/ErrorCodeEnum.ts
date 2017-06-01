@@ -12,5 +12,8 @@ export enum ErrorCodeEnum{
     AuthorizationRequiredError,
 
 //------ UsersController
-    UsersLoginExistsError
+    UsersLoginExistsError,
+
+//------ Common Errors
+    InvalidParameterValueSymbol
 }

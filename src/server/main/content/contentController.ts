@@ -9,6 +9,13 @@ const contentMimeType = "text/html,application/xhtml+xml,application/xml";
 
 router.post('/main/content/addchangecontent', async(req, res) => {
     let {idcontent, contentdata} = req.body;
+    if(/[^\w\d\.-_]/.test(idcontent)){
+        return res.json({
+            errorCode: ErrorCodeEnum.InvalidParameterValueSymbol,
+            errorMessage: "Parameter 'idcontent' may contain only 'Aa-Zz','.','-','_' symbols."
+        });
+    }
+    idcontent = _.trimEnd(idcontent, '.');
     let data = Buffer.from(contentdata).toString("hex");
     console.log(data);
     let file = await contentLogic.uploadFileAsync({
@@ -22,7 +29,7 @@ router.post('/main/content/addchangecontent', async(req, res) => {
     });
     let content = await contentLogic.addChangeContentAsync({idcontent, idfile: file.data.idfile});
     res.json(content);
-}, AuthClaims.Authenticated);
+});
 
 router.post('/main/content/getcontent', async(req, res) => {
     let {idcontent} = req.body;
