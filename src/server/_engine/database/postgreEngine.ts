@@ -17,14 +17,54 @@ export class PostgreEngine implements IDatabaseEngine {
             let queryParams = query.values;
             let newParams = [];
 
-            let j=0;
-            Object.keys(queryParams).forEach((paramName, i) => {
-                let testExp = new RegExp(`(@${paramName}$|@${paramName}[:|\\s+|\\)||,|^_|^-])`);
-                if(testExp.test(queryText)){
-                    queryText = queryText.replace(new RegExp(`(@${paramName})($|:|\\s+|\\)||,|^_|^-)`, 'g'), `$$${++j}${typeof(queryParams[paramName]) === 'number' ? (/\./.test(queryParams[paramName]) ? '::numeric' : '::integer') : ''}$2`);
-                    newParams.push(queryParams[paramName]);
+            let dictionary: Map<string, {value: any,postfix: string}> = new Map<string, {value: any,postfix: string}>();
+
+
+            _.forOwn(queryParams, (value, key) => {
+                switch (typeof value) {
+                    case "number":
+                        if (/\./.test(value)) {
+                            dictionary.set("@" + key, {value: value, postfix: "::numeric"});
+                        }
+                        else {
+                            dictionary.set("@" + key, {value: value, postfix: "::integer"});
+                        }
+                        break;
+                    case "object":
+                        let regex = new RegExp(`[Ii][Nn]\s*\(\s*@${key}\s*\)`, "g");
+                        if (_.isArray(value) && regex.test(queryText)) {
+                            let postfix = typeof(value[0]) === "number" ? (/\./.test(value[0].toString()) ? "::numeric" : "::integer") : "";
+                            let whereInParams = [];
+                            _.forEach(value, (o, i) => {
+                                whereInParams.push("@" + key + "~" + i);
+                                dictionary.set("@" + key + "~" + i, {value, postfix});
+                            });
+                            queryText = queryText.replace(regex, `IN (${whereInParams.join(",")})`);
+                            break;
+                        }
+                    default:
+                        dictionary.set("@" + key, {value: value, postfix: ""});
+                        break;
+                }
+
+            });
+            let j = 0;
+            dictionary.forEach((val, key) => {
+                let testExp = new RegExp(`(${key}$|${key}[:|\\s+|\\)||,|^_|^-])`);
+                if (testExp.test(queryText)) {
+                    queryText = queryText.replace(new RegExp(`(${key})($|:|\\s+|\\)||,|^_|^-)`, 'g'), `$$${++j}${val.postfix}$2`);
+                    newParams.push(val.value);
                 }
             });
+
+
+            /*Object.keys(queryParams).forEach((paramName, i) => {
+             let testExp = new RegExp(`(@${paramName}$|@${paramName}[:|\\s+|\\)||,|^_|^-])`);
+             if (testExp.test(queryText)) {
+             queryText = queryText.replace(new RegExp(`(@${paramName})($|:|\\s+|\\)||,|^_|^-)`, 'g'), `$$${++j}${typeof(queryParams[paramName]) === 'number' ? (/\./.test(queryParams[paramName]) ? '::numeric' : '::integer') : ''}$2`);
+             newParams.push(queryParams[paramName]);
+             }
+             });*/
             return {
                 name: query.name && query.name,
                 text: queryText,
@@ -69,7 +109,7 @@ export class PostgreEngine implements IDatabaseEngine {
         });
     }
 
-    async queryValueAsync<T>(query: IDbQuery): Promise<IDatabaseResult<T>>{
+    async queryValueAsync<T>(query: IDbQuery): Promise<IDatabaseResult<T>> {
         return new Promise<IDatabaseResult<any>>((resolve) => {
             try {
                 this.query(query, (dbResult: IDatabaseResult<any[]>) => {

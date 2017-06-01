@@ -14,7 +14,7 @@ router.post('/main/content/addchangecontent', async(req, res) => {
         });
     }
     idcontent = _.trimEnd(idcontent, '.');
-    let filedataHex = Buffer.from(filedata).toString("hex");
+    let filedataHex = "\\x".concat(Buffer.from(filedata).toString("hex"));
     let content = await contentLogic.addChangeContentAsync({idcontent, filedata: filedataHex}, filedata);
     res.json(content);
 });

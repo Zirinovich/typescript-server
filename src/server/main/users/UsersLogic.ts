@@ -27,15 +27,9 @@ export class UsersLogic implements IUsersLogic {
 
     async deleteLoginsAsync(ids: number[]): Promise<IDatabaseResult<number[]>> {
         return new Promise<IDatabaseResult<number[]>>(async resolve => {
-            let response:number[] = [];
-            _.forEach(ids, async id => {
-                let dbResponse = await usersDatabase.deleteLoginAsync(id);
-                response.push(dbResponse.data.idlogin);
-            });
-            resolve({
-                errorCode: ErrorCodeEnum.NoErrors,
-                data: response
-            }); // TODO: тут кажется какая то фигня???????
+            let response = await usersDatabase.deleteLoginsAsync(ids);
+            resolve(
+                Object.assign({},{...response},{data: response.data.map(o=>o.idlogin)}));
         });
     }
 
