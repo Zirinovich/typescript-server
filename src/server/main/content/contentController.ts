@@ -6,7 +6,7 @@ import {ErrorCodeEnum} from "../../../shared/classes/ErrorCodeEnum";
 const fs = require('fs');
 
 router.post('/main/content/addchangecontent', async(req, res) => {
-    let {idcontent, contentdata} = req.body;
+    let {idcontent, filedata} = req.body;
     if (/[^\w\d\.-_]/.test(idcontent)) {
         return res.json({
             errorCode: ErrorCodeEnum.InvalidParameterValueSymbol,
@@ -14,8 +14,8 @@ router.post('/main/content/addchangecontent', async(req, res) => {
         });
     }
     idcontent = _.trimEnd(idcontent, '.');
-    let filedata = Buffer.from(contentdata).toString("hex");
-    let content = await contentLogic.addChangeContentAsync({idcontent, filedata}, contentdata);
+    let filedataHex = Buffer.from(filedata).toString("hex");
+    let content = await contentLogic.addChangeContentAsync({idcontent, filedata: filedataHex}, filedata);
     res.json(content);
 });
 

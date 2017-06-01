@@ -21,10 +21,10 @@ const databaseConfig = require('./../../config/database');
 
 //----------------------------- Express Api
 const app = express();
-export const apiRouter = express.Router();
 ExpressCommonTuner.Setup(app);
 ExpressSessionTuner.Setup(app);
 PassportLocalStrategyTuner.Setup(app);
+export const apiRouter = express.Router();
 app.use("/api", apiRouter);
 
 //----------------------------- IoC
