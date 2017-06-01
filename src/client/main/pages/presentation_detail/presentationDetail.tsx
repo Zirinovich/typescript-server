@@ -4,6 +4,7 @@ const {connect} = require('react-redux');
 const {asyncConnect} = require('redux-connect');
 
 import {RevolutionSlider} from '../../../_common/components/revolutionSlider/revolutionSlider';
+import {ContentWrapper} from '../../../_common/components/contentWrapper/contentWrapper';
 import {Breadcrumbs} from '../../components/breadcrumbs/breadcrumbs';
 import {SectionHeader} from '../../components/section_header/sectionHeader';
 import {getPresentationById} from '../../redux/presentationsActions';
@@ -41,7 +42,9 @@ export class PresentationDetail extends React.Component<IProps, IState> {
                 {slides && slides.length > 0 && <RevolutionSlider slides={slides}/>}
                 <Breadcrumbs title={title} params={params} routes={routes}/>
                 <SectionHeader title={title} subtitle={text}/>
-                <Grid dangerouslySetInnerHTML={{__html: content}}/>
+                <Grid>
+                    <ContentWrapper content={content}/>
+                </Grid>
             </div>
         )
     }

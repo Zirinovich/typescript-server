@@ -40,7 +40,7 @@ export class Core {
     static async sendAsync(request: IAjaxRequest) {
         var body;
         if (request.method == HttpMethod.GET)
-            request.url += request.data && ('?' + $.param(request.data));
+            request.url += request.data ? ('?' + $.param(request.data)) : '';
         else
             body = formData(request.data);
         const requestOptions = {
@@ -51,7 +51,8 @@ export class Core {
             requestOptions,
             body && {body, headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
         try {
-            return fetch(API_HTTP_HOST + request.url, requestData);
+            const url = request.isAbsoluteUrl ? request.url : API_HTTP_HOST + request.url;
+            return fetch(url, requestData);
         }
         catch (error) {
             throw error;
@@ -64,6 +65,7 @@ export enum HttpMethod{
 }
 export interface IAjaxRequest {
     url: string,
+    isAbsoluteUrl?: boolean;
     method?: HttpMethod,
     data?: any,
     callback?: (response)=>void
