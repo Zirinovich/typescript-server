@@ -1,5 +1,6 @@
 import {Core} from '../../../shared/classes/core';
 import {IAjaxResponse} from '../../../shared/ajaxDto/IAjaxResponse';
+import {ContentDto} from '../../../shared/ajaxDto/authentication/ContentDto';
 import {IAction} from '../../_common/interfaces/IAction';
 
 export const GET_PRESENTATIONS_REQUEST: string = 'presentations/GET_PRESENTATIONS_REQUEST';
@@ -202,12 +203,15 @@ export function getPresentationById(id) {
                     return p.id === parseInt(id);
                 });
 
-                const response = await Core.getAsync<{article: string}>({
-                    url: `/api/article/${id}`
+                const response = await Core.postAsync<ContentDto>({
+                    url: '/api/main/content/getcontent',
+                    data: {
+                        idcontent: 'VtoroyPoshel222'
+                    }
                 });
 
                 dispatch(getPresentationByIdSuccess(Object.assign(item, {
-                    content: response.data.article
+                    content: response.data.filedata
                 })));
             } else {
                 //let errText = await response.text();

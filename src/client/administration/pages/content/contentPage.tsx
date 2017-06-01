@@ -4,13 +4,14 @@ const {asyncConnect} = require('redux-connect');
 
 import {i18n} from '../../../_common/tools/i18n/i18n';
 import {Crud} from '../../../_common/components/crud/crud';
-import {getContent, deleteContent} from '../../redux/contentActions';
+import {getContent, getContentById, deleteContent} from '../../redux/contentActions';
 import {ContentCreateEditModal} from './contentCreateEditModal';
 
 //#region interfaces
 interface IProps {
     contentdata: any;
     deleteContent: Function;
+    getContentById: Function;
 }
 
 interface IState {
@@ -26,29 +27,18 @@ interface IState {
 @connect(
     (state) => ({contentdata: state.contentdata}),
     (dispatch) => ({
-        deleteContent: (id) => dispatch(deleteContent(id))
+        deleteContent: (idscontent) => dispatch(deleteContent(idscontent)),
+        getContentById: (idcontent) => dispatch(getContentById(idcontent))
     })
 )
 export class ContentPage extends React.Component<IProps, IState> {
     render() {
-        const {contentdata: {list}, deleteContent} = this.props;
+        const {contentdata: {list}, getContentById, deleteContent} = this.props;
         const headers = [
             {
-                name: 'id',
-                hidden: true,
+                name: 'idcontent',
+                label: i18n.t('administration.contentName'),
                 key: true
-            },
-            {
-                name: 'link',
-                label: i18n.t('administration.link')
-            },
-            {
-                name: 'datetime',
-                label: i18n.t('administration.dateTime')
-            },
-            {
-                name: 'contentdata',
-                label: i18n.t('administration.content')
             }
         ];
         const actions = [
@@ -59,6 +49,9 @@ export class ContentPage extends React.Component<IProps, IState> {
             {
                 text: i18n.t('administration.edit'),
                 modalForm: ContentCreateEditModal,
+                method: (selected) => {
+                    getContentById(_.first(selected));
+                },
                 validate: {
                     isSingleRowSelected: true
                 }

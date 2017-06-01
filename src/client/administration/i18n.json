@@ -28,7 +28,9 @@
     "createContent": "Создать контент",
     "editContent": "Редактировать контент",
     "files": "Файлы",
-    "fileName": "Имя файла"
+    "fileName": "Имя файла",
+    "identifier": "Идентификатор",
+    "contentName": "Наименование контента"
   },
   "en-EN": {
     "adminPanel": "Admin panel",
@@ -59,6 +61,8 @@
     "createContent": "Create content",
     "editContent": "Edit content",
     "files": "Files",
-    "fileName": "File name"
+    "fileName": "File name",
+    "identifier": "Identifier",
+    "contentName": "Content name"
   }
 }

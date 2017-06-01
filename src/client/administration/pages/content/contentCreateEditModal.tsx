@@ -1,6 +1,6 @@
 import * as React from 'react';
 const {connect} = require('react-redux');
-import {Modal, Form, Button, FormGroup, ControlLabel} from 'react-bootstrap';
+import {Modal, Form, Button, FormGroup} from 'react-bootstrap';
 
 import {generator} from '../../../../shared/tools/generator';
 import {FieldEditor} from '../../../_common/components/fieldEditor/fieldEditor';
@@ -15,13 +15,14 @@ interface IProps {
     show: boolean;
     onHide: any;
     data?: any;
+    contentdata?: any;
     saveContent: any;
 }
 
-interface IContentCreateEditModalState {
-    id?: any;
+interface IState {
     idcontent: string;
-    contentdata: string;
+    filedata: string;
+    idfile?: string;
 }
 //#endregion
 
@@ -31,7 +32,7 @@ interface IContentCreateEditModalState {
         saveContent: (content) => dispatch(saveContent(content))
     })
 )
-export class ContentCreateEditModal extends React.Component<IProps, IContentCreateEditModalState> {
+export class ContentCreateEditModal extends React.Component<IProps, IState> {
     constructor(props) {
         super(props);
 
@@ -39,20 +40,21 @@ export class ContentCreateEditModal extends React.Component<IProps, IContentCrea
         this.submitHandler = this.submitHandler.bind(this);
         this.state = {
             idcontent: '',
-            contentdata: ''
+            filedata: ''
         }
     }
 
     id = generator.genId();
 
     componentDidUpdate() {
-        const {data} = this.props;
-        const {id} = this.state;
-        if (data.id !== id) {
+        const {contentdata: {item}} = this.props;
+        const {idcontent} = this.state;
+
+        if (item && item.idcontent !== idcontent) {
             this.setState({
-                id: data.id,
-                idcontent: data.idcontent,
-                contentdata: data.contentdata
+                idcontent: item.idcontent,
+                filedata: item.filedata,
+                idfile: item.idfile
             });
         }
     }
@@ -69,31 +71,18 @@ export class ContentCreateEditModal extends React.Component<IProps, IContentCrea
         const {saveContent, onHide} = this.props;
         saveContent(this.state);
         onHide();
-
-        /*var myFormData = new FormData();
-        myFormData.append('pictureFile', pictureInput.files[0]);
-
-        $.ajax({
-            url: 'upload.php',
-            type: 'POST',
-            processData: false, // important
-            contentType: false, // important
-            dataType : 'json',
-            data: myFormData
-        });*/
-
         e.preventDefault();
     }
 
     render() {
         const {show, onHide} = this.props;
-        const {id, idcontent, contentdata} = this.state;
+        const {idcontent, filedata} = this.state;
         return (
             <Modal show={show} onHide={onHide} bsSize="large" aria-labelledby={this.id}>
                 <Form onSubmit={this.submitHandler}>
                     <Modal.Header closeButton>
                         <Modal.Title>
-                            {i18n.t(id ? 'administration.editContent' : 'administration.createContent')}
+                            {i18n.t(idcontent ? 'administration.editContent' : 'administration.createContent')}
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
@@ -102,7 +91,7 @@ export class ContentCreateEditModal extends React.Component<IProps, IContentCrea
                                         onEvent={this.onEventHandler} required/>
                         </FormGroup>
                         <FormGroup>
-                            <FieldEditor name="contentdata" value={contentdata} onEvent={this.onEventHandler}/>
+                            <FieldEditor name="filedata" value={filedata} onEvent={this.onEventHandler}/>
                         </FormGroup>
                     </Modal.Body>
                     <Modal.Footer>
