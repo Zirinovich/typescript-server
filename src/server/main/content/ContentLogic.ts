@@ -37,7 +37,7 @@ export class ContentLogic implements IContentLogic {
         return contentDatabase.findContentDtoByIdAsync(idcontent);
     }
 
-    async findContentDataHexByIdAsync(idcontent: string): Promise<IDatabaseResult<string>> {
-        return contentDatabase.findContentDataHexByIdAsync(idcontent);
+    async getContentListAsync(): Promise<IDatabaseResult<ContentDto[]>> {
+        return contentDatabase.getContentListAsync();
     }
 }

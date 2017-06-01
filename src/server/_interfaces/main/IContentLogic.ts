@@ -10,5 +10,5 @@ export interface IContentLogic {
 
     addChangeContentAsync(content: ContentDto): Promise<IDatabaseResult<ContentDto>>;
     findContentDtoByIdAsync(idcontent: string): Promise<IDatabaseResult<ContentDto>>;
-    findContentDataHexByIdAsync(idcontent: string): Promise<IDatabaseResult<string>>;
+    getContentListAsync(): Promise<IDatabaseResult<ContentDto[]>>;
 }

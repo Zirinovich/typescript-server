@@ -1,4 +1,5 @@
 export interface ContentDto{
     idcontent: string,
-    idfile?: string
+    idfile?: string,
+    filedata?: string
 }

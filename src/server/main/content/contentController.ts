@@ -7,7 +7,7 @@ const fs = require('fs');
 
 const contentMimeType = "text/html,application/xhtml+xml,application/xml";
 
-router.post('/main/content/addchangearticle', async(req, res) => {
+router.post('/main/content/addchangecontent', async(req, res) => {
     let {idcontent, contentdata} = req.body;
     let data = Buffer.from(contentdata).toString("hex");
     console.log(data);
@@ -22,21 +22,21 @@ router.post('/main/content/addchangearticle', async(req, res) => {
     });
     let content = await contentLogic.addChangeContentAsync({idcontent, idfile: file.data.idfile});
     res.json(content);
+}, AuthClaims.Authenticated);
+
+router.post('/main/content/getcontent', async(req, res) => {
+    let {idcontent} = req.body;
+    let content = await contentLogic.findContentDtoByIdAsync(idcontent);
+    content.data.filedata = Buffer.from(content.data.filedata).toString("utf8");
+    res.json(content);
 });
 
-router.get('/main/content/getcontent/:idcontent', async(req, res) => {
-    let {idcontent} = req.params;
-    let content = await contentLogic.findContentDataHexByIdAsync(idcontent);
-    if (content.errorCode === ErrorCodeEnum.NoErrors && !!content.data) {
-        res.writeHead(HTTP_STATUS_CODES.OK, {'Accept': `${contentMimeType}`});
-        res.end(content.data, 'hex');
-    }
-    else {
-        res.status(HTTP_STATUS_CODES.NOT_FOUND).send(content.errorMessage);
-    }
-});
+router.post('/main/content/getcontentlist', async(req, res) => {
+    let content = await contentLogic.getContentListAsync();
+    res.json(content);
+}, AuthClaims.Authenticated);
 
-router.post('/main/content/upload', async(req: any, res) => {
+router.post('/main/content/uploadfile', async(req: any, res) => {
     let parser = new MultipartFormParser();
     const {fields, uploadedFiles} = await parser.ParseForm(req);
     let result = await contentLogic.uploadFileAsync(uploadedFiles[0]);
@@ -49,5 +49,4 @@ router.get('/main/content/image/:idfile', async(req, res) => {
     let file = await contentLogic.findFileDtoByIdAsync(idfile);
     res.writeHead(<number>HTTP_STATUS_CODES.OK, {'Content-Type': `${file.data.mimetype}`});
     res.end(file.data.filedata, 'hex');
-    console.log(file.data.filename);
-});
+}, AuthClaims.Authenticated);

@@ -121,7 +121,7 @@ export class ContentDatabase implements IContentDatabase {
         let query = `SELECT
                        idcontent,
                        tcontent.idfile,
-                       tfiles.filedata AS contentdata
+                       tfiles.filedata
                      FROM tcontent
                        INNER JOIN tfiles ON tcontent.idfile = tfiles.idfile
                      WHERE idcontent = @idcontent`;
@@ -133,16 +133,12 @@ export class ContentDatabase implements IContentDatabase {
         });
     }
 
-    async findContentDataHexByIdAsync(idcontent: string): Promise<IDatabaseResult<string>> {
-        let query = `SELECT tfiles.filedata
+    async getContentListAsync(): Promise<IDatabaseResult<ContentDto[]>> {
+        let query = `SELECT
+                       idcontent,
+                       tcontent.idfile
                      FROM tcontent
-                       INNER JOIN tfiles ON tcontent.idfile = tfiles.idfile
-                     WHERE idcontent = @idcontent`;
-        return dbEngine.queryValueAsync<string>({
-            text: query,
-            values: {
-                idcontent: idcontent
-            }
-        });
+                       INNER JOIN tfiles ON tcontent.idfile = tfiles.idfile`;
+        return dbEngine.queryAsync<ContentDto>({text: query});
     }
 }
