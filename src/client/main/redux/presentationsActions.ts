@@ -1,3 +1,5 @@
+import {Core} from '../../../shared/classes/core';
+import {IAjaxResponse} from '../../../shared/ajaxDto/IAjaxResponse';
 import {IAction} from '../../_common/interfaces/IAction';
 
 export const GET_PRESENTATIONS_REQUEST: string = 'presentations/GET_PRESENTATIONS_REQUEST';
@@ -29,7 +31,6 @@ let presentations = [
         src: require('./content/supr.png'),
         title: 'Система управления плановыми работами (СУПР)',
         text: 'Тикет-система',
-        content: '<div id="lipsum"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non bibendum ante. Phasellus massa erat, dapibus a odio eget, malesuada tincidunt nisi. Suspendisse pulvinar convallis ipsum, bibendum ultrices erat maximus at. Sed pulvinar finibus suscipit. Nullam eget augue id nibh luctus malesuada. Quisque ac blandit tortor, eu finibus lectus. Nam eget mauris a magna interdum tincidunt sed tincidunt mi. Praesent a erat ut purus fermentum aliquam vitae vitae nisl. Fusce sit amet mi augue. Quisque faucibus rutrum venenatis. Pellentesque vitae semper urna.<p>Ut vitae sem diam. Etiam iaculis convallis purus eu placerat. Sed scelerisque libero magna. Donec ultrices tincidunt tellus, a vestibulum mauris finibus a. Praesent ut convallis enim. Praesent tempus pellentesque ligula, quis sollicitudin leo scelerisque eu. Nullam id nibh in ex egestas porttitor ac sit amet risus. Proin pellentesque massa quis elit mattis euismod. Suspendisse eget varius dui. Phasellus pharetra libero a pretium ullamcorper. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p><p>Cras eget efficitur quam, nec fringilla nisl. Cras egestas orci sit amet eros auctor, a tempor nibh tempor. Donec varius eget eros et porttitor. Donec lobortis massa in volutpat tempor. Vestibulum eget venenatis urna. Vestibulum hendrerit a nibh ut congue. Cras lobortis facilisis lacus, id vehicula ligula laoreet eu. Nam a enim quis libero feugiat ullamcorper. Nullam consectetur odio ut ante molestie, suscipit molestie mi volutpat. Nam accumsan turpis sit amet quam commodo euismod.<p>Nam pharetra ultrices tincidunt. Proin a hendrerit quam. Nulla magna turpis, condimentum sit amet ullamcorper porttitor, tincidunt a ex. Donec eget nisi risus. Curabitur vel egestas nisl. Etiam venenatis ante sit amet orci tristique, ac sollicitudin massa consequat. Pellentesque at nulla blandit, blandit neque quis, egestas lectus. Integer porta accumsan pretium. Aenean elementum rhoncus erat ac condimentum. Nulla nisi mauris, malesuada eu nisl sodales, gravida bibendum sem.</p><p>Nullam pretium augue non tortor aliquet, tincidunt sagittis ligula elementum. Morbi rhoncus ante ex, et facilisis sem condimentum eu. Vivamus nec lectus placerat, luctus turpis iaculis, mattis elit. Proin ultrices dictum ipsum, a pharetra arcu vehicula et. Curabitur vel mauris magna. Pellentesque varius sapien porta turpis sollicitudin pharetra. Sed sit amet lobortis ligula, vitae commodo est. Duis nec neque vel ipsum dignissim consectetur. Etiam at lectus a massa facilisis scelerisque ut non tellus. In lobortis orci felis, at dapibus massa feugiat eget. Mauris sodales arcu eu velit dapibus, eget ultricies neque eleifend. Ut viverra laoreet nunc, sed auctor quam placerat ac.</p></div>',
         classes: ['trouble-ticket-system'],
         slides: [
             {
@@ -200,8 +201,14 @@ export function getPresentationById(id) {
                 const item = _.find(presentations, (p) => {
                     return p.id === parseInt(id);
                 });
-                console.log(id, item);
-                dispatch(getPresentationByIdSuccess(item));
+
+                const response = await Core.getAsync<{article: string}>({
+                    url: `/api/article/${id}`
+                });
+
+                dispatch(getPresentationByIdSuccess(Object.assign(item, {
+                    content: response.data.article
+                })));
             } else {
                 //let errText = await response.text();
                 //dispatch(getpresentationsFailure('!!!Alarm!!! ' + errText));
