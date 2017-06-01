@@ -103,7 +103,7 @@ export class ContentDatabase implements IContentDatabase {
         });
     }
 
-    insertContentAsync(content: ContentDto): Promise<IDatabaseResult<ContentDto>>{
+    async insertContentAsync(content: ContentDto): Promise<IDatabaseResult<ContentDto>> {
         let query = `INSERT INTO tcontent (idcontent, idfile)
                                 VALUES(@idcontent
                                     ,@idfile)
@@ -113,6 +113,35 @@ export class ContentDatabase implements IContentDatabase {
             values: {
                 idcontent: content.idcontent,
                 idfile: content.idfile
+            }
+        });
+    }
+
+    async findContentDtoByIdAsync(idcontent: string): Promise<IDatabaseResult<ContentDto>> {
+        let query = `SELECT
+                       idcontent,
+                       tcontent.idfile,
+                       tfiles.filedata AS contentdata
+                     FROM tcontent
+                       INNER JOIN tfiles ON tcontent.idfile = tfiles.idfile
+                     WHERE idcontent = @idcontent`;
+        return dbEngine.querySingleAsync<ContentDto>({
+            text: query,
+            values: {
+                idcontent: idcontent
+            }
+        });
+    }
+
+    async findContentDataHexByIdAsync(idcontent: string): Promise<IDatabaseResult<string>> {
+        let query = `SELECT tfiles.filedata
+                     FROM tcontent
+                       INNER JOIN tfiles ON tcontent.idfile = tfiles.idfile
+                     WHERE idcontent = @idcontent`;
+        return dbEngine.queryValueAsync<string>({
+            text: query,
+            values: {
+                idcontent: idcontent
             }
         });
     }

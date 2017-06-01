@@ -52,10 +52,9 @@ export class PostgreEngine implements IDatabaseEngine {
                 });
             }
             catch (e) {
-                console.log("catch e is " + JSON.stringify(e));
                 resolve({
                     errorCode: ErrorCodeEnum.DataBaseQueryError,
-                    errorMessage: "Some Error Message",
+                    errorMessage: JSON.stringify(e),
                     data: undefined
                 })
             }
@@ -67,6 +66,28 @@ export class PostgreEngine implements IDatabaseEngine {
             this.query(query, (dbResult: IDatabaseResult<Array<T>>) => {
                 resolve(dbResult);
             });
+        });
+    }
+
+    async queryValueAsync<T>(query: IDbQuery): Promise<IDatabaseResult<T>>{
+        return new Promise<IDatabaseResult<any>>((resolve) => {
+            try {
+                this.query(query, (dbResult: IDatabaseResult<any[]>) => {
+                    let res: IDatabaseResult<T> = {
+                        errorCode: dbResult.errorCode,
+                        errorMessage: dbResult.errorMessage,
+                        data: dbResult.data && dbResult.data.length > 0 && dbResult.data[0][Object.keys(dbResult.data[0])[0]]
+                    };
+                    resolve(res);
+                });
+            }
+            catch (e) {
+                resolve({
+                    errorCode: ErrorCodeEnum.DataBaseQueryError,
+                    errorMessage: JSON.stringify(e),
+                    data: undefined
+                })
+            }
         });
     }
 

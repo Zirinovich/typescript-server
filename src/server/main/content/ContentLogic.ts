@@ -29,7 +29,15 @@ export class ContentLogic implements IContentLogic {
         return contentDatabase.findFileDtoByIdAsync(idfile);
     }
 
-    addChangeContentAsync(content: ContentDto): Promise<IDatabaseResult<ContentDto>>{
+    async addChangeContentAsync(content: ContentDto): Promise<IDatabaseResult<ContentDto>> {
         return contentDatabase.insertContentAsync(content);
+    }
+
+    async findContentDtoByIdAsync(idcontent: string): Promise<IDatabaseResult<ContentDto>> {
+        return contentDatabase.findContentDtoByIdAsync(idcontent);
+    }
+
+    async findContentDataHexByIdAsync(idcontent: string): Promise<IDatabaseResult<string>> {
+        return contentDatabase.findContentDataHexByIdAsync(idcontent);
     }
 }
