@@ -117,6 +117,26 @@ export class ContentDatabase implements IContentDatabase {
         });
     }
 
+    async updateContentAsync(content: ContentDto, tags: string): Promise<IDatabaseResult<ContentDto>> {
+        let query = `UPDATE tfiles
+                     SET tags = @tags
+                        ,filedata = @filedata
+                        ,fileupdated = @fileupdated
+                     FROM tcontent
+                     WHERE tcontent.idcontent = @idcontent AND tcontent.idfile = tfiles.idfile
+                     RETURNING tcontent.idfile AS idfile, tcontent.idcontent AS idcontent;`;
+
+        return dbEngine.querySingleAsync<ContentDto>({
+            text: query,
+            values: {
+                tags: tags,
+                filedata: content.filedata,
+                fileupdated: new Date().toISOString(),
+                idcontent: content.idcontent,
+            }
+        });
+    }
+
     async findContentDtoByIdAsync(idcontent: string): Promise<IDatabaseResult<ContentDto>> {
         let query = `SELECT
                        idcontent,

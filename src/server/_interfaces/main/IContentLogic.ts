@@ -8,7 +8,7 @@ export interface IContentLogic {
     addChangeFileAsync(content: FileDto): Promise<IDatabaseResult<FileDto>>;
     findFileDtoByIdAsync(idfile: string): Promise<IDatabaseResult<FileDto>>;
 
-    addChangeContentAsync(content: ContentDto): Promise<IDatabaseResult<ContentDto>>;
+    addChangeContentAsync(content: ContentDto, tags): Promise<IDatabaseResult<ContentDto>>;
     findContentDtoByIdAsync(idcontent: string): Promise<IDatabaseResult<ContentDto>>;
     getContentListAsync(): Promise<IDatabaseResult<ContentDto[]>>;
 }

@@ -10,6 +10,7 @@ export interface IContentDatabase {
     findFileDtoByIdAsync(idfile: string): Promise<IDatabaseResult<FileDto>>;
 
     insertContentAsync(content: ContentDto): Promise<IDatabaseResult<ContentDto>>;
+    updateContentAsync(content: ContentDto, tags: string): Promise<IDatabaseResult<ContentDto>>;
     findContentDtoByIdAsync(idcontent: string): Promise<IDatabaseResult<ContentDto>>;
     getContentListAsync(): Promise<IDatabaseResult<ContentDto[]>>;
 }

@@ -5,29 +5,17 @@ import HTTP_STATUS_CODES from 'http-status-enum';
 import {ErrorCodeEnum} from "../../../shared/classes/ErrorCodeEnum";
 const fs = require('fs');
 
-const contentMimeType = "text/html,application/xhtml+xml,application/xml";
-
 router.post('/main/content/addchangecontent', async(req, res) => {
     let {idcontent, contentdata} = req.body;
-    if(/[^\w\d\.-_]/.test(idcontent)){
+    if (/[^\w\d\.-_]/.test(idcontent)) {
         return res.json({
             errorCode: ErrorCodeEnum.InvalidParameterValueSymbol,
             errorMessage: "Parameter 'idcontent' may contain only 'Aa-Zz','.','-','_' symbols."
         });
     }
     idcontent = _.trimEnd(idcontent, '.');
-    let data = Buffer.from(contentdata).toString("hex");
-    console.log(data);
-    let file = await contentLogic.uploadFileAsync({
-        fileName: `${idcontent}-${new Date().toISOString().replace(/\D/g, "-").substr(0, 21)}.content`,
-        size: data.length / 2,
-        tags: contentdata,
-        mimeType: contentMimeType,
-        hexData: contentdata,
-        encoding: "utf-8",
-        extension: "content"
-    });
-    let content = await contentLogic.addChangeContentAsync({idcontent, idfile: file.data.idfile});
+    let filedata = Buffer.from(contentdata).toString("hex");
+    let content = await contentLogic.addChangeContentAsync({idcontent, filedata}, contentdata);
     res.json(content);
 });
 
