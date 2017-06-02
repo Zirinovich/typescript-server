@@ -57,6 +57,13 @@ export class ContentLogic implements IContentLogic {
         });
     }
 
+    async deleteContentAsync(ids: string[]): Promise<IDatabaseResult<number>> {
+        return new Promise<IDatabaseResult<number>>(async resolve => {
+            let deleted = await contentDatabase.deleteContentAsync(ids);
+            resolve(Object.assign({}, {...deleted}, {data: deleted.data ? deleted.data.length : undefined}));
+        });
+    }
+
     async findContentDtoByIdAsync(idcontent: string): Promise<IDatabaseResult<ContentDto>> {
         return contentDatabase.findContentDtoByIdAsync(idcontent);
     }

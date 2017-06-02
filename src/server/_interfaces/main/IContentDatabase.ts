@@ -11,6 +11,7 @@ export interface IContentDatabase {
 
     insertContentAsync(content: ContentDto): Promise<IDatabaseResult<ContentDto>>;
     updateContentAsync(content: ContentDto, tags: string): Promise<IDatabaseResult<ContentDto>>;
+    deleteContentAsync(ids: string[]): Promise<IDatabaseResult<string[]>>;
     findContentDtoByIdAsync(idcontent: string): Promise<IDatabaseResult<ContentDto>>;
     getContentListAsync(): Promise<IDatabaseResult<ContentDto[]>>;
 }

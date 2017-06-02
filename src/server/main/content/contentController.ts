@@ -26,6 +26,12 @@ router.post('/main/content/getcontent', async(req, res) => {
     res.json(content);
 });
 
+router.post('/main/content/deletecontent', async(req, res) => {
+    const {ids} = req.body;
+    let content = await contentLogic.deleteContentAsync(ids);
+    res.json(content);
+});
+
 router.post('/main/content/getcontentlist', async(req, res) => {
     let content = await contentLogic.getContentListAsync();
     res.json(content);

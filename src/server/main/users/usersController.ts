@@ -49,9 +49,9 @@ router.post('/main/users/addchangeuser', async(req, res) => {
 }, AuthClaims.Authenticated);
 
 router.post('/main/users/deletelogins', async(req, res) => {
-    const requestData = req.body;
-    let ids: IAjaxResponse<number[]> = await usersLogic.deleteLoginsAsync(requestData);
-    res.json(ids);
+    const {ids} = req.body;
+    let deleted: IAjaxResponse<number[]> = await usersLogic.deleteLoginsAsync(ids);
+    res.json(deleted);
 }, AuthClaims.Authenticated);
 
 router.post('/main/secure/obtainsession', (req, res) => {
@@ -62,7 +62,7 @@ router.post('/main/secure/obtainsession', (req, res) => {
         });
     }
     res.json({
-        errorCode: ErrorCodeEnum.NoErrors,
-        data: {}
+        errorCode: ErrorCodeEnum.UnexpectedError,
+        errorMessage: "Unexpected error inside 'passport'. User authenticated, but 'req.user' is empty!"
     });
 }, AuthClaims.Authenticated);

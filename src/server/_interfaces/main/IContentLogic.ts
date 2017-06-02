@@ -9,6 +9,7 @@ export interface IContentLogic {
     findFileDtoByIdAsync(idfile: string): Promise<IDatabaseResult<FileDto>>;
 
     addChangeContentAsync(content: ContentDto, tags): Promise<IDatabaseResult<ContentDto>>;
+    deleteContentAsync(ids: string[]): Promise<IDatabaseResult<number>>;
     findContentDtoByIdAsync(idcontent: string): Promise<IDatabaseResult<ContentDto>>;
     getContentListAsync(): Promise<IDatabaseResult<ContentDto[]>>;
 }

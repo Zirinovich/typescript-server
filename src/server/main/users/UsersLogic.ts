@@ -29,7 +29,7 @@ export class UsersLogic implements IUsersLogic {
         return new Promise<IDatabaseResult<number[]>>(async resolve => {
             let response = await usersDatabase.deleteLoginsAsync(ids);
             resolve(
-                Object.assign({},{...response},{data: response.data.map(o=>o.idlogin)}));
+                Object.assign({}, {...response}, {data: response.data ? response.data.length : undefined}));
         });
     }
 

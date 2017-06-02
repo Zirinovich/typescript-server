@@ -137,6 +137,20 @@ export class ContentDatabase implements IContentDatabase {
         });
     }
 
+    async deleteContentAsync(ids: string[]): Promise<IDatabaseResult<string[]>> {
+        let query = `DELETE FROM tfiles
+                     WHERE idfile IN (
+                        SELECT idfile 
+                        FROM tcontent WHERE idcontent IN (@ids)
+                     )
+                     RETURNING idfile`;
+
+        return dbEngine.queryAsync<string>({
+            text: query,
+            values: {ids}
+        });
+    }
+
     async findContentDtoByIdAsync(idcontent: string): Promise<IDatabaseResult<ContentDto>> {
         let query = `SELECT
                        idcontent,
