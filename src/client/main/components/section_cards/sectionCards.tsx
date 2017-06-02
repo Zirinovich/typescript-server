@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {LinkContainer} from 'react-router-bootstrap';
+import {Link} from 'react-router';
 import {Grid, Row, Col} from 'react-bootstrap';
 
 const style = require('./sectionCards.scss');
@@ -27,7 +27,7 @@ export class SectionCards extends React.Component<IProps, IState> {
                         {cards && cards.map((card, i) => {
                             return (
                                 <Col key={i} md={4}>
-                                    <LinkContainer to={card.to}>
+                                    <Link to={card.to}>
                                         <div className={style.card}>
                                             <div className={style.icon}>
                                                 {card.icon}
@@ -37,7 +37,7 @@ export class SectionCards extends React.Component<IProps, IState> {
                                                 <p>{card.text}</p>
                                             </div>
                                         </div>
-                                    </LinkContainer>
+                                    </Link>
                                 </Col>
                             )
                         })}
