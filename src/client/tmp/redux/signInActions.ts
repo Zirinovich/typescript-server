@@ -3,7 +3,7 @@ import {IAction} from "../../_common/interfaces/IAction";
 import {browserHistory} from 'react-router';
 import {getMD5base64} from '../../../shared/tools/index';
 import {UserDto} from '../../../shared/ajaxDto/authentication/UserDto';
-import {Core} from '../../../shared/classes/core';
+import {Fetcher} from '../../../shared/classes/Fetcher';
 
 
 export const LOGIN_SUCCESS = 'LOGIN_REQUEST_FINISHED',
@@ -15,7 +15,7 @@ export interface ISignInAction extends IAction {
 
 export function signInRequest(credentials: {username?: string, password?: string}) {
     const data = {username: credentials.username, password: getMD5base64(credentials.password)};
-    var y = Core.postAsync({url:'/api/login', data:data}).then(response=>{
+    var y = Fetcher.postAsync({url:'/api/login', data:data}).then(response=>{
         console.log(response);
     });
     return y;
@@ -49,7 +49,7 @@ export function logout(dispatch) {
         account: null
     })
     /*
-    Core.POSTAsync('/api/logout')
+    Fetcher.POSTAsync('/api/logout')
         .then(() => dispatch({
             type: LOGOUT,
             account: null

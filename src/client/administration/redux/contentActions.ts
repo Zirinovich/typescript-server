@@ -1,4 +1,4 @@
-import {Core} from '../../../shared/classes/core';
+import {Fetcher} from '../../../shared/classes/Fetcher';
 import {ErrorCodeEnum} from '../../../shared/classes/ErrorCodeEnum';
 import {IAction} from '../../_common/interfaces/IAction';
 import {ContentDto} from '../../../shared/ajaxDto/authentication/ContentDto';
@@ -45,7 +45,7 @@ export function getContent() {
         dispatch(getContentRequest());
 
         try {
-            let response = await Core.postAsync<ContentDto[]>({
+            let response = await Fetcher.postAsync<ContentDto[]>({
                 url: '/api/main/content/getcontentlist',
             });
 
@@ -85,7 +85,7 @@ export function getContentById(idcontent: string) {
     return async(dispatch) => {
         if (idcontent) {
             try {
-                const response = await Core.postAsync<ContentDto>({
+                const response = await Fetcher.postAsync<ContentDto>({
                     url: '/api/main/content/getcontent',
                     data: {
                         idcontent: idcontent
@@ -133,7 +133,7 @@ export function saveContent(content: ContentDto) {
         dispatch(saveContentRequest());
 
         try {
-            let response = await Core.postAsync<any>({
+            let response = await Fetcher.postAsync<any>({
                 url: '/api/main/content/addchangecontent',
                 data: content
             });
@@ -175,7 +175,7 @@ export function deleteContent(ids: number[]) {
         dispatch(deleteContentRequest());
 
         try {
-            let response = await Core.postAsync({
+            let response = await Fetcher.postAsync({
                 url: '/api/main/content/deletecontent',
                 data: ids
             });

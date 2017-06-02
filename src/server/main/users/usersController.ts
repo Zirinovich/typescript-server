@@ -5,6 +5,7 @@ import {IAjaxResponse} from "../../../shared/ajaxDto/IAjaxResponse";
 import {LoginDto} from "../../../shared/ajaxDto/authentication/LoginDto";
 import {AccountDto} from "../../../shared/ajaxDto/authentication/AccountDto";
 import {UserDto} from "../../../shared/ajaxDto/authentication/UserDto";
+import {ErrorCodeEnum} from "../../../shared/classes/ErrorCodeEnum";
 
 router.post('/login',
     (req, res, next) => {
@@ -51,4 +52,17 @@ router.post('/main/users/deletelogins', async(req, res) => {
     const requestData = req.body;
     let ids: IAjaxResponse<number[]> = await usersLogic.deleteLoginsAsync(requestData);
     res.json(ids);
+}, AuthClaims.Authenticated);
+
+router.post('/main/secure/obtainsession', (req, res) => {
+    if (req.user) {
+        return res.json({
+            errorCode: ErrorCodeEnum.NoErrors,
+            data: req.user
+        });
+    }
+    res.json({
+        errorCode: ErrorCodeEnum.NoErrors,
+        data: {}
+    });
 }, AuthClaims.Authenticated);

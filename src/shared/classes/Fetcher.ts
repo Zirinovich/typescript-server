@@ -3,10 +3,10 @@ const formData = require('form-urlencoded');
 import {IAjaxResponse} from '../ajaxDto/IAjaxResponse';
 const config = require('../../../config/main.js');
 
-export class Core {
+export class Fetcher {
 
     static post(request: IAjaxRequest) {
-        Core.postAsync(request).then((response) => {
+        Fetcher.postAsync(request).then((response) => {
             if (request.callback)
                 request.callback(response);
         })
@@ -15,14 +15,14 @@ export class Core {
     static async postAsync<T>(request: IAjaxRequest) {
         request.method = HttpMethod.POST;
         return new Promise<IAjaxResponse<T>>((resolve) => {
-            Core.sendAsync(request).then(async(response) => {
+            Fetcher.sendAsync(request).then(async(response) => {
                 resolve(await response.json());
             });
         });
     }
 
     static get(request: IAjaxRequest) {
-        Core.getAsync(request).then((response) => {
+        Fetcher.getAsync(request).then((response) => {
             if (request.callback)
                 request.callback(response);
         })
@@ -31,14 +31,14 @@ export class Core {
     static async getAsync<T>(request: IAjaxRequest) {
         request.method = HttpMethod.GET;
         return new Promise<IAjaxResponse<T>>((resolve) => {
-            Core.sendAsync(request).then(async(response) => {
+            Fetcher.sendAsync(request).then(async(response) => {
                 resolve(await response.json());
             });
         });
     }
 
     static async sendAsync(request: IAjaxRequest) {
-        var body;
+        let body;
         if (request.method == HttpMethod.GET)
             request.url += request.data ? ('?' + $.param(request.data)) : '';
         else
@@ -47,11 +47,16 @@ export class Core {
             method: HttpMethod[request.method],
             credentials: 'same-origin'
         };
+        if (global && (global as any).xSessionCookies) {
+            (<any>requestOptions).headers = {
+                'Cookie': 'x-session='+(global as any).xSessionCookies
+            };
+        }
         const requestData = Object.assign(
             requestOptions,
             body && {body, headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
         try {
-            const url = request.isAbsoluteUrl ? request.url : API_HTTP_HOST + request.url;
+            const url = request.isAbsoluteUrl ? request.url : _.trimEnd(API_HTTP_HOST,"/").concat("/",_.trimStart(request.url,"/"));
             return fetch(url, requestData);
         }
         catch (error) {

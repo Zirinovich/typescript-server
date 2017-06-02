@@ -2,7 +2,7 @@ import {browserHistory} from 'react-router';
 
 import {IAction} from '../../_common/interfaces/IAction';
 import {getMD5base64} from '../../../shared/tools/index';
-import {Core} from '../../../shared/classes/core';
+import {Fetcher} from '../../../shared/classes/Fetcher';
 import {IAjaxResponse} from '../../../shared/ajaxDto/IAjaxResponse';
 import {SessionDto} from '../../../shared/ajaxDto/authentication/SessionDto';
 import {ErrorCodeEnum} from '../../../shared/classes/ErrorCodeEnum';
@@ -20,7 +20,7 @@ export function signInRequest(credentials: {login?: string, password?: string}) 
     return async(dispatch) => {
         const data = {login: credentials.login, password: getMD5base64(credentials.password)};
 
-        let response = await Core.postAsync<SessionDto>({
+        let response = await Fetcher.postAsync<SessionDto>({
             url: '/api/login',
             data,
         });
@@ -51,7 +51,7 @@ export function signInError(response: IAjaxResponse<SessionDto>) {
 
 export function logout() {
     return async(dispatch) => {
-        let response = await Core.postAsync<SessionDto>({
+        let response = await Fetcher.postAsync<SessionDto>({
             url: '/api/logout'
         });
 
