@@ -83,25 +83,28 @@ export function getContentFailure(message): IGetContentFailureAction {
 
 export function getContentById(idcontent: string) {
     return async(dispatch) => {
-        dispatch(getContentByIdRequest());
+        if (idcontent) {
+            try {
+                const response = await Fetcher.postAsync<ContentDto>({
+                    url: '/api/main/content/getcontent',
+                    data: {
+                        idcontent: idcontent
+                    }
+                });
 
-        try {
-            const response = await Fetcher.postAsync<ContentDto>({
-                url: '/api/main/content/getcontent',
-                data: {
-                    idcontent: idcontent
+                if (response.errorCode === ErrorCodeEnum.NoErrors) {
+                    dispatch(getContentByIdSuccess(response.data));
+                } else {
+                    dispatch(getContentByIdFailure(response.errorCode));
                 }
-            });
-
-            if (response.errorCode === ErrorCodeEnum.NoErrors) {
-                dispatch(getContentByIdSuccess(response.data));
-            } else {
-                dispatch(getContentByIdFailure(response.errorCode));
             }
+            catch (error) {
+                dispatch(getContentByIdFailure(error));
+            }
+        } else {
+            dispatch(getContentByIdSuccess(null));
         }
-        catch (error) {
-            dispatch(getContentByIdFailure(error));
-        }
+        dispatch(getContentByIdRequest());
     };
 }
 
@@ -172,11 +175,9 @@ export function deleteContent(ids: number[]) {
         dispatch(deleteContentRequest());
 
         try {
-            let response = await Fetcher.postAsync<any>({
-                url: '/api/main/content/deletearticle',
-                data: {
-                    idarticles: ids
-                }
+            let response = await Fetcher.postAsync({
+                url: '/api/main/content/deletecontent',
+                data: ids
             });
 
             if (response.errorCode === ErrorCodeEnum.NoErrors) {
