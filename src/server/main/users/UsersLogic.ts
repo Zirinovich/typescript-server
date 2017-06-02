@@ -25,8 +25,8 @@ export class UsersLogic implements IUsersLogic {
         return usersDatabase.findLoginDtoByIdAsync(id);
     }
 
-    async deleteLoginsAsync(ids: number[]): Promise<IDatabaseResult<number[]>> {
-        return new Promise<IDatabaseResult<number[]>>(async resolve => {
+    async deleteLoginsAsync(ids: number[]): Promise<IDatabaseResult<number>> {
+        return new Promise<IDatabaseResult<number>>(async resolve => {
             let response = await usersDatabase.deleteLoginsAsync(ids);
             resolve(
                 Object.assign({}, {...response}, {data: response.data ? response.data.length : undefined}));

@@ -49,8 +49,8 @@ router.post('/main/users/addchangeuser', async(req, res) => {
 }, AuthClaims.Authenticated);
 
 router.post('/main/users/deletelogins', async(req, res) => {
-    const {ids} = req.body;
-    let deleted: IAjaxResponse<number[]> = await usersLogic.deleteLoginsAsync(ids);
+    const ids = req.body;
+    let deleted = await usersLogic.deleteLoginsAsync(ids);
     res.json(deleted);
 }, AuthClaims.Authenticated);
 

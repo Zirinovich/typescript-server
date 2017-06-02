@@ -177,9 +177,7 @@ export function deleteContent(ids: number[]) {
         try {
             let response = await Fetcher.postAsync({
                 url: '/api/main/content/deletecontent',
-                data: {
-                    ids
-                }
+                data: ids
             });
 
             if (response.errorCode === ErrorCodeEnum.NoErrors) {

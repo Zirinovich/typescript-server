@@ -42,7 +42,7 @@ export class Fetcher {
         if (request.method == HttpMethod.GET)
             request.url += request.data ? ('?' + $.param(request.data)) : '';
         else
-            body = formData(request.data);
+            body = JSON.stringify(request.data);//formData(request.data);
         const requestOptions = {
             method: HttpMethod[request.method],
             credentials: 'same-origin'
@@ -54,7 +54,7 @@ export class Fetcher {
         }
         const requestData = Object.assign(
             requestOptions,
-            body && {body, headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
+            body && {body, headers: {'Content-Type': 'application/json'}});
         try {
             const url = request.isAbsoluteUrl ? request.url : _.trimEnd(API_HTTP_HOST,"/").concat("/",_.trimStart(request.url,"/"));
             return fetch(url, requestData);

@@ -8,7 +8,7 @@ export interface IUsersLogic {
     getLoginListAsync(): Promise<IDatabaseResult<LoginDto[]>>;
     findLoginByLoginAsync(login: string): Promise<IDatabaseResult<LoginDto>>;
     findLoginByIdAsync(id: number): Promise<IDatabaseResult<LoginDto>>;
-    deleteLoginsAsync(ids: number[]): Promise<IDatabaseResult<number[]>>;
+    deleteLoginsAsync(ids: number[]): Promise<IDatabaseResult<number>>
     addChangeLoginAsync(login: LoginDto): Promise<IDatabaseResult<LoginDto>>;
 
     addChangeUserAsync(login: UserDto): Promise<IDatabaseResult<UserDto>>;

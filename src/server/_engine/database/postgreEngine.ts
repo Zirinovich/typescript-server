@@ -31,13 +31,13 @@ export class PostgreEngine implements IDatabaseEngine {
                         }
                         break;
                     case "object":
-                        let regex = new RegExp(`[Ii][Nn]\s*\(\s*@${key}\s*\)`, "g");
+                        let regex = new RegExp(`[Ii][Nn]\\s*\\(\\s*@${key}\\s*\\)`, "g");
                         if (_.isArray(value) && regex.test(queryText)) {
                             let postfix = typeof(value[0]) === "number" ? (/\./.test(value[0].toString()) ? "::numeric" : "::integer") : "";
                             let whereInParams = [];
                             _.forEach(value, (o, i) => {
                                 whereInParams.push("@" + key + "~" + i);
-                                dictionary.set("@" + key + "~" + i, {value, postfix});
+                                dictionary.set("@" + key + "~" + i, {value: value[i], postfix});
                             });
                             queryText = queryText.replace(regex, `IN (${whereInParams.join(",")})`);
                             break;
