@@ -45,6 +45,9 @@ export class ContentPage extends React.Component<IProps, IState> {
             {
                 text: i18n.t('administration.create'),
                 modalForm: ContentCreateEditModal,
+                method: () => {
+                    getContentById();
+                }
             },
             {
                 text: i18n.t('administration.edit'),

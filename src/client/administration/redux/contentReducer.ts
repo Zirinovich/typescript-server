@@ -1,5 +1,10 @@
 import {ContentDto} from '../../../shared/ajaxDto/authentication/ContentDto';
-import {GET_CONTENT_SUCCESS, GET_CONTENT_BY_ID_SUCCESS, IGetContentSuccessAction, IGetContentByIdSuccessAction} from './contentActions';
+import {
+    GET_CONTENT_SUCCESS,
+    GET_CONTENT_BY_ID_SUCCESS,
+    IGetContentSuccessAction,
+    IGetContentByIdSuccessAction
+} from './contentActions';
 import {IAction} from '../../_common/interfaces/IAction';
 
 interface IState {
@@ -18,6 +23,7 @@ export function contentReducer(state: IState = initialState, action: IAction) {
             return Object.assign({}, state, {list});
         case GET_CONTENT_BY_ID_SUCCESS:
             const {item} = <IGetContentByIdSuccessAction>action;
+            console.log(GET_CONTENT_BY_ID_SUCCESS, item, Object.assign({}, state, {item}));
             return Object.assign({}, state, {item});
         default:
             return state;

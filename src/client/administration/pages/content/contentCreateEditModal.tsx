@@ -10,6 +10,11 @@ import {EventArgsDto} from '../../../_common/interfaces/EventArgsDto';
 import {EventMethodEnum} from '../../../_common/interfaces/EventMethodEnum';
 import {saveContent} from '../../redux/contentActions';
 
+enum Mode {
+    Create,
+    Edit
+}
+
 //#region interfaces
 interface IProps {
     show: boolean;
@@ -44,18 +49,21 @@ export class ContentCreateEditModal extends React.Component<IProps, IState> {
         }
     }
 
-    id = generator.genId();
+    id: string = generator.genId();
+    mode: Mode = Mode.Create;
 
     componentDidUpdate() {
         const {contentdata: {item}} = this.props;
         const {idcontent} = this.state;
 
-        if (item && item.idcontent !== idcontent) {
+        const lastMode = this.mode;
+        this.mode = !!item ? Mode.Edit : Mode.Create;
+        if ((lastMode === Mode.Edit && this.mode === Mode.Create) || (this.mode === Mode.Edit && item.idcontent !== idcontent)) {
             this.setState({
-                idcontent: item.idcontent,
-                filedata: item.filedata,
-                idfile: item.idfile
-            });
+                idcontent: item ? item.idcontent : '',
+                filedata: item ? item.filedata : '',
+                idfile: item ? item.idfile : ''
+            })
         }
     }
 
