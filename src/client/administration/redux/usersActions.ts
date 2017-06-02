@@ -139,7 +139,9 @@ export function deleteUsers(ids: string[]) {
         try {
             const response = await Fetcher.postAsync({
                 url: '/api/main/users/deletelogins',
-                data: ids
+                data: {
+                    ids
+                }
             });
             if (response.errorCode === ErrorCodeEnum.NoErrors) {
                 dispatch(deleteUsersSuccess());
