@@ -51,6 +51,10 @@ export class ContentCreateEditModal extends React.Component<IProps, IState> {
 
     id: string = generator.genId();
     mode: Mode = Mode.Create;
+    fieldNames = {
+        idcontent: 'idcontent',
+        filedata: 'filedata'
+    };
 
     componentDidUpdate() {
         const {contentdata: {item}} = this.props;
@@ -67,15 +71,27 @@ export class ContentCreateEditModal extends React.Component<IProps, IState> {
         }
     }
 
-    onEventHandler(args: EventArgsDto) {
+    formatIdcontent(idcontent: string): string {
+        function upperToHyphenLower(match) {
+            return match.toLowerCase();
+        }
+
+        return idcontent.replace(/[A-Z]/g, upperToHyphenLower).replace(/[^a-z0-9_]/g, '');
+    }
+
+    onEventHandler(args: EventArgsDto): void {
         if (args.event == EventMethodEnum.OnChange) {
             let state = {};
-            state[args.name] = args.value;
+            let value = args.value;
+            if (args.name === this.fieldNames.idcontent) {
+                value = this.formatIdcontent(value);
+            }
+            state[args.name] = value;
             this.setState(state);
         }
     }
 
-    submitHandler(e) {
+    submitHandler(e): void {
         const {saveContent, onHide} = this.props;
         saveContent(this.state);
         onHide();
@@ -90,16 +106,22 @@ export class ContentCreateEditModal extends React.Component<IProps, IState> {
                 <Form onSubmit={this.submitHandler}>
                     <Modal.Header closeButton>
                         <Modal.Title>
-                            {i18n.t(idcontent ? 'administration.editContent' : 'administration.createContent')}
+                            {i18n.t(this.mode === Mode.Create ? 'administration.createContent' : 'administration.editContent')}
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <FormGroup>
-                            <FieldInput name="idcontent" label={i18n.t('administration.link')} value={idcontent}
-                                        onEvent={this.onEventHandler} required/>
+                            <FieldInput name={this.fieldNames.idcontent}
+                                        label={i18n.t('administration.link')}
+                                        value={idcontent}
+                                        disabled={this.mode === Mode.Edit}
+                                        onEvent={this.onEventHandler}
+                                        required/>
                         </FormGroup>
                         <FormGroup>
-                            <FieldEditor name="filedata" value={filedata} onEvent={this.onEventHandler}/>
+                            <FieldEditor name={this.fieldNames.filedata}
+                                         value={filedata}
+                                         onEvent={this.onEventHandler}/>
                         </FormGroup>
                     </Modal.Body>
                     <Modal.Footer>

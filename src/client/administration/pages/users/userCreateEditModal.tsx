@@ -1,6 +1,6 @@
 import * as React from 'react';
 const {connect} = require('react-redux');
-import {Modal, Form, Button, Row, Col, ControlLabel} from 'react-bootstrap';
+import {Modal, Form, Button, Row, Col} from 'react-bootstrap';
 
 import {generator} from '../../../../shared/tools/generator';
 import {i18n} from '../../../_common/tools/i18n/i18n';
@@ -46,7 +46,14 @@ export class UserCreateEditModal extends React.Component<IProps, IState> {
         }
     }
 
-    id = generator.genId();
+    id: string = generator.genId();
+    fieldNames = {
+        id: 'id',
+        login: 'login',
+        password: 'password',
+        username: 'username',
+        role: 'role'
+    };
 
     componentDidUpdate() {
         const {data} = this.props;
@@ -60,15 +67,27 @@ export class UserCreateEditModal extends React.Component<IProps, IState> {
         }
     }
 
+    formatLogin(idcontent: string): string {
+        function upperToHyphenLower(match) {
+            return match.toLowerCase();
+        }
+
+        return idcontent.replace(/[A-Z]/g, upperToHyphenLower).replace(/[^a-z0-9@._]/g, '');
+    }
+
     onEventHandler(args: EventArgsDto) {
         if (args.event == EventMethodEnum.OnChange) {
             let state = {};
-            state[args.name] = args.value;
+            let value = args.value;
+            if (args.name === this.fieldNames.login) {
+                value = this.formatLogin(value);
+            }
+            state[args.name] = value;
             this.setState(state);
         }
     }
 
-    submitHandler(e) {
+    submitHandler(e): void {
         const {saveUser, onHide} = this.props;
         saveUser(this.state);
         onHide();
@@ -90,7 +109,7 @@ export class UserCreateEditModal extends React.Component<IProps, IState> {
                         <Row>
                             <Col md={4}>
                                 <FieldInput
-                                    name="login"
+                                    name={this.fieldNames.login}
                                     label={i18n.t('administration.login')}
                                     value={login}
                                     onEvent={this.onEventHandler}
@@ -99,7 +118,8 @@ export class UserCreateEditModal extends React.Component<IProps, IState> {
                             </Col>
                             <Col md={4}>
                                 <FieldInput
-                                    name="password"
+                                    name={this.fieldNames.password}
+                                    type="password"
                                     label={i18n.t('administration.password')}
                                     value={password}
                                     onEvent={this.onEventHandler}
@@ -107,7 +127,7 @@ export class UserCreateEditModal extends React.Component<IProps, IState> {
                             </Col>
                             <Col md={4}>
                                 <FieldInput
-                                    name="username"
+                                    name={this.fieldNames.username}
                                     label={i18n.t('administration.fullName')}
                                     value={username}
                                     onEvent={this.onEventHandler}

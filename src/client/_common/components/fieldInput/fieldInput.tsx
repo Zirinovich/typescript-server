@@ -13,6 +13,7 @@ interface IProps {
     value?: any;
     onEvent?: EventDelegate;
     required?: boolean;
+    disabled?: boolean;
 }
 
 interface IState {
@@ -22,7 +23,6 @@ interface IState {
 
 export class FieldInput extends React.Component<IProps, IState> {
     onChange(e) {
-        console.log('onChange', e);
         const {name, onEvent} = this.props;
         onEvent({
             event: EventMethodEnum.OnChange,
@@ -33,7 +33,7 @@ export class FieldInput extends React.Component<IProps, IState> {
     }
 
     render() {
-        const {name, label, type, value, required} = this.props;
+        const {name, label, type, value, required, disabled} = this.props;
         return (
             <div>
                 {label && <ControlLabel>{label}</ControlLabel>}
@@ -41,7 +41,8 @@ export class FieldInput extends React.Component<IProps, IState> {
                              type={type ? type : 'text'}
                              value={value}
                              onChange={this.onChange.bind(this)}
-                             required={required}/>
+                             required={required}
+                             disabled={disabled}/>
             </div>
         )
     }
