@@ -19,6 +19,13 @@ interface IState {
 //#endregion
 
 export class FieldEditor extends React.Component<IProps, IState> {
+    constructor(props) {
+        super(props);
+
+        this.setContent = this.setContent.bind(this);
+        this.changeHandler = this.changeHandler.bind(this);
+    }
+
     id = generator.genId();
 
     static isLoaded = false;
@@ -76,12 +83,6 @@ export class FieldEditor extends React.Component<IProps, IState> {
         }
     }
 
-    componentDidUpdate() {
-        const {value} = this.props;
-        const tinymce = FieldEditor.tinymce;
-        if (tinymce) tinymce.get(this.id).setContent(value ? value : '');
-    }
-
     changeHandler(e) {
         const {name, onEvent} = this.props;
         onEvent({
@@ -92,20 +93,25 @@ export class FieldEditor extends React.Component<IProps, IState> {
         });
     }
 
+    setContent(editor) {
+        const {value} = this.props;
+        editor.setContent(value);
+    }
+
     render() {
         const {value} = this.props;
         FieldEditor.loadJsClient();
         const config = {
             plugins: 'link image code',
             toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code',
-            height: 500
+            height: 500,
+            init_instance_callback: this.setContent
         };
         return (
             <TinyMCE
-                id={this.id}
                 content={value}
                 config={config}
-                onChange={this.changeHandler.bind(this)}
+                onChange={this.changeHandler}
             />
         );
     }
