@@ -20,15 +20,24 @@ import * as express from 'express';
 
 const {ClientApplication} = require(APP_ENTRY_PATH);
 import {serverRouter} from './server/_engine/routers/serverRouter';
+import {Fetcher} from "./shared/classes/Fetcher";
+import {SessionDto} from "./shared/ajaxDto/authentication/SessionDto";
+import {AccountDto} from "./shared/ajaxDto/authentication/AccountDto";
 
 
 const app = express();
 app.use(serverRouter);
-app.get('*', (req, res) => {
+app.get('*', async(req, res) => {
     const location = req.url;
     const memoryHistory = createMemoryHistory(req.originalUrl);
+
+    (global as any).xSessionCookies = req.cookies["x-session"];
+    let sessionResponse = await Fetcher.postAsync<AccountDto[]>({
+        url: '/api/main/secure/obtainsession',
+    });
+
     const clientApplication = new ClientApplication();
-    const store = clientApplication.configureStore(memoryHistory, ( req.user ? {session: _.cloneDeep(req.user)} : {}));
+    const store = clientApplication.configureStore(memoryHistory, ( sessionResponse.data ? {session: sessionResponse.data} : {}));
     const routes = clientApplication.clientRoutes(store);
     const history = syncHistoryWithStore(memoryHistory, store);
 

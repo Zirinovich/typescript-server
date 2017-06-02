@@ -1,4 +1,4 @@
-import {Core} from '../../../shared/classes/core';
+import {Fetcher} from '../../../shared/classes/Fetcher';
 import {IAjaxResponse} from '../../../shared/ajaxDto/IAjaxResponse';
 import {ContentDto} from '../../../shared/ajaxDto/authentication/ContentDto';
 import {IAction} from '../../_common/interfaces/IAction';
@@ -203,7 +203,7 @@ export function getPresentationById(id) {
                     return p.id === parseInt(id);
                 });
 
-                const response = await Core.postAsync<ContentDto>({
+                const response = await Fetcher.postAsync<ContentDto>({
                     url: '/api/main/content/getcontent',
                     data: {
                         idcontent: 'VtoroyPoshel222'

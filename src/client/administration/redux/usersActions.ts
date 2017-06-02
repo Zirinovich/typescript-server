@@ -1,4 +1,4 @@
-import {Core} from '../../../shared/classes/core';
+import {Fetcher} from '../../../shared/classes/Fetcher';
 import {getMD5base64} from '../../../shared/tools/index';
 import {LoginStatusConstants} from '../../../shared/ajaxDto/authentication/LoginStatusConstants';
 import {ErrorCodeEnum} from '../../../shared/classes/ErrorCodeEnum';
@@ -38,7 +38,7 @@ export function getUsers() {
         dispatch(getUsersRequest());
 
         try {
-            let response = await Core.postAsync<AccountDto[]>({
+            let response = await Fetcher.postAsync<AccountDto[]>({
                 url: '/api/main/users/getaccountlist',
             });
 
@@ -79,7 +79,7 @@ export function saveUser(login) {
         dispatch(saveUserRequest());
 
         try {
-            const response = await Core.postAsync<LoginDto>({
+            const response = await Fetcher.postAsync<LoginDto>({
                 url: '/api/main/users/addchangelogin',
                 data: {
                     idlogin: -1,
@@ -90,7 +90,7 @@ export function saveUser(login) {
                 }
             });
             if (response.errorCode === ErrorCodeEnum.NoErrors) {
-                const responseUser = await Core.postAsync<UserDto>({
+                const responseUser = await Fetcher.postAsync<UserDto>({
                     url: '/api/main/users/addchangeuser',
                     data: {
                         iduser: response.data.idlogin,
@@ -137,7 +137,7 @@ export function deleteUsers(ids: string[]) {
         dispatch(deleteUsersRequest());
 
         try {
-            const response = await Core.postAsync({
+            const response = await Fetcher.postAsync({
                 url: '/api/main/users/deletelogins',
                 data: ids
             });
