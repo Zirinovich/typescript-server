@@ -175,11 +175,9 @@ export function deleteContent(ids: number[]) {
         dispatch(deleteContentRequest());
 
         try {
-            let response = await Core.postAsync<any>({
-                url: '/api/main/content/deletearticle',
-                data: {
-                    idarticles: ids
-                }
+            let response = await Core.postAsync({
+                url: '/api/main/content/deletecontent',
+                data: ids
             });
 
             if (response.errorCode === ErrorCodeEnum.NoErrors) {
