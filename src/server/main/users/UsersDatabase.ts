@@ -221,4 +221,16 @@ export class UsersDatabase implements IUsersDatabase {
                         ON trules.idrule = truleinroles.idrule AND truleinroles.idrole = @idrole`;
         return dbEngine.queryAsync<RuleDto>({text: query, values: {idrole}});
     }
+
+    async findRulesByRoleIdRuleIdsAsync(idrole: number, idrules: string[]): Promise<IDatabaseResult<RuleDto[]>> {
+        let query = `SELECT trules.idrule
+                          ,ruletype
+                          ,CASE WHEN truleinroles.value IS NULL THEN trules.nullvalue ELSE truleinroles.value END AS rulevalue
+                          ,idrole
+                    FROM trules
+                      LEFT JOIN truleinroles
+                        ON trules.idrule = truleinroles.idrule AND truleinroles.idrole = @idrole
+                    WHERE trules.idrule IN (@idrules)`;
+        return dbEngine.queryAsync<RuleDto>({text: query, values: {idrole, idrules}});
+    }
 }

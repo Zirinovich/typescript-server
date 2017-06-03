@@ -9,6 +9,7 @@ import {IDatabaseResult} from "../../_interfaces/engine/database/IDatabaseResult
 import {LoginStatusConstants} from "../../../shared/ajaxDto/authentication/LoginStatusConstants";
 import {AccountDto} from "../../../shared/ajaxDto/authentication/AccountDto";
 import {UserDto} from "../../../shared/ajaxDto/authentication/UserDto";
+import {RuleDto} from "../../../shared/ajaxDto/authentication/RuleDto";
 
 export class UsersLogic implements IUsersLogic {
 
@@ -98,5 +99,13 @@ export class UsersLogic implements IUsersLogic {
                 role: roleResult.errorCode === ErrorCodeEnum.NoErrors && roleResult.data
             }
         });
+    }
+
+    async findRulesByRoleIdAsync(idrole: number): Promise<IDatabaseResult<RuleDto[]>> {
+        return usersDatabase.findRulesByRoleIdAsync(idrole);
+    }
+
+    async findRulesByRoleIdRuleIdsAsync(idrole: number, idrules: string[]): Promise<IDatabaseResult<RuleDto[]>> {
+        return usersDatabase.findRulesByRoleIdRuleIdsAsync(idrole, idrules)
     }
 }

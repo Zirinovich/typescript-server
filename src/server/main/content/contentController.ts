@@ -27,10 +27,17 @@ router.post('/main/content/getcontent', async(req, res) => {
 });
 
 router.post('/main/content/deletecontent', async(req, res) => {
-    const ids = req.body;
-    let content = await contentLogic.deleteContentAsync(ids);
-    res.json(content);
-});
+        const ids = req.body;
+        let content = await contentLogic.deleteContentAsync(ids);
+        res.json(content);
+    }, AuthClaims.Authenticated,
+    {
+        idRule: "main_content_delete",
+        resolve: (ruleDto, req) => {
+            return ruleDto.rulevalue == "true";
+        }
+    }
+);
 
 router.post('/main/content/getcontentlist', async(req, res) => {
     let content = await contentLogic.getContentListAsync();

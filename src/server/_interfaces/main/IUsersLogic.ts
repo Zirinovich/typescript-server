@@ -3,6 +3,7 @@ import {LoginDto} from "../../../shared/ajaxDto/authentication/LoginDto";
 import {IDatabaseResult} from "../engine/database/IDatabaseResult";
 import {AccountDto} from "../../../shared/ajaxDto/authentication/AccountDto";
 import {UserDto} from "../../../shared/ajaxDto/authentication/UserDto";
+import {RuleDto} from "../../../shared/ajaxDto/authentication/RuleDto";
 
 export interface IUsersLogic {
     getLoginListAsync(): Promise<IDatabaseResult<LoginDto[]>>;
@@ -16,4 +17,7 @@ export interface IUsersLogic {
     getAccountListAsync(): Promise<IDatabaseResult<AccountDto[]>>;
 
     checkLoginAndFillSessionAsync(login: string, password: string, callback: (response: IDatabaseResult<SessionDto>)=>void): void;
+
+    findRulesByRoleIdAsync(idrole: number): Promise<IDatabaseResult<RuleDto[]>>;
+    findRulesByRoleIdRuleIdsAsync(idrole: number, idrules: string[]): Promise<IDatabaseResult<RuleDto[]>>;
 }

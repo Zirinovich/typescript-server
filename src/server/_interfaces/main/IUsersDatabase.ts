@@ -24,5 +24,6 @@ export interface IUsersDatabase {
     insertUserAsync(user: UserDto): Promise<IDatabaseResult<UserDto>>;
     updateUserAsync(user: UserDto): Promise<IDatabaseResult<UserDto>>;
 
-    findRulesByRoleIdAsync(idrule: number): Promise<IDatabaseResult<RuleDto[]>>
+    findRulesByRoleIdAsync(idrule: number): Promise<IDatabaseResult<RuleDto[]>>;
+    findRulesByRoleIdRuleIdsAsync(idrole: number, idrules: string[]): Promise<IDatabaseResult<RuleDto[]>>;
 }
