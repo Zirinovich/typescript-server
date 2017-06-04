@@ -137,6 +137,7 @@ export class PostgreEngine implements IDatabaseEngine {
             .then(client => {
                 client.query(pgQuery)
                     .then(dbResult => {
+                        client.release();
                         if (dbResult.rowCount) {
                             doneCallback({
                                 errorCode: ErrorCodeEnum.NoErrors,
@@ -149,6 +150,7 @@ export class PostgreEngine implements IDatabaseEngine {
                         });
                     })
                     .catch(queryError => {
+                        client.release();
                         doneCallback({
                             errorCode: ErrorCodeEnum.DataBaseQueryError,
                             errorMessage: queryError.toString()
