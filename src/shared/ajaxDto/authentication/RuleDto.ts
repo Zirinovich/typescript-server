@@ -1,6 +1,6 @@
 export interface RuleDto{
     idrule: string;
-    ruletype: string;
-    rulevalue: string;
+    ruletype?: string;
+    value: string;
     idrole?: number
 }

@@ -20,4 +20,6 @@ export interface IUsersLogic {
 
     findRulesByRoleIdAsync(idrole: number): Promise<IDatabaseResult<RuleDto[]>>;
     findRulesByRoleIdRuleIdsAsync(idrole: number, idrules: string[]): Promise<IDatabaseResult<RuleDto[]>>;
+
+    addChangeRulesInRole(rules: RuleDto[]): Promise<IDatabaseResult<RuleDto[]>>;
 }

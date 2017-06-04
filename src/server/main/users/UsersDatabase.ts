@@ -214,8 +214,8 @@ export class UsersDatabase implements IUsersDatabase {
     async findRulesByRoleIdAsync(idrole: number): Promise<IDatabaseResult<RuleDto[]>> {
         let query = `SELECT trules.idrule
                           ,ruletype
-                          ,CASE WHEN truleinroles.value IS NULL THEN trules.nullvalue ELSE truleinroles.value END AS rulevalue
-                          ,idrole
+                          ,CASE WHEN truleinroles.value IS NULL THEN trules.nullvalue ELSE truleinroles.value END AS value
+                          ,@idrole AS idrole
                     FROM trules
                       LEFT JOIN truleinroles
                         ON trules.idrule = truleinroles.idrule AND truleinroles.idrole = @idrole`;
@@ -225,12 +225,29 @@ export class UsersDatabase implements IUsersDatabase {
     async findRulesByRoleIdRuleIdsAsync(idrole: number, idrules: string[]): Promise<IDatabaseResult<RuleDto[]>> {
         let query = `SELECT trules.idrule
                           ,ruletype
-                          ,CASE WHEN truleinroles.value IS NULL THEN trules.nullvalue ELSE truleinroles.value END AS rulevalue
+                          ,CASE WHEN truleinroles.value IS NULL THEN trules.nullvalue ELSE truleinroles.value END AS value
                           ,idrole
                     FROM trules
                       LEFT JOIN truleinroles
                         ON trules.idrule = truleinroles.idrule AND truleinroles.idrole = @idrole
-                    WHERE trules.idrule IN (@idrules)`;
+                    WHERE trules.idrule IN (@idrules)
+                    ORDER BY idrule`;
         return dbEngine.queryAsync<RuleDto>({text: query, values: {idrole, idrules}});
     }
+
+    async updateRuleInRoleAsync(rule: RuleDto): Promise<IDatabaseResult<RuleDto>> {
+        let query = `UPDATE truleinroles
+                     SET value = @value
+                     WHERE idrole=@idrole AND idrule=@idrule
+                     RETURNING *`;
+        return dbEngine.querySingleAsync<RuleDto>({text: query, values: rule});
+    };
+
+    async insertRuleInRoleAsync(rule: RuleDto): Promise<IDatabaseResult<RuleDto>> {
+        let query = `INSERT INTO truleinroles
+                       (idrule, idrole, value)
+                     VALUES (@idrule, @idrole, @value)
+                     RETURNING *`;
+        return dbEngine.querySingleAsync<RuleDto>({text: query, values: rule});
+    };
 }

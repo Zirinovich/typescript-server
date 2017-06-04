@@ -6,24 +6,39 @@ import {LoginDto} from "../../../shared/ajaxDto/authentication/LoginDto";
 import {AccountDto} from "../../../shared/ajaxDto/authentication/AccountDto";
 import {UserDto} from "../../../shared/ajaxDto/authentication/UserDto";
 import {ErrorCodeEnum} from "../../../shared/classes/ErrorCodeEnum";
+import {RuleDto} from "../../../shared/ajaxDto/authentication/RuleDto";
+
+router.post('/logout', authenticationMiddleware.logout, AuthClaims.Authenticated);
 
 router.post('/login',
     (req, res, next) => {
         authenticationMiddleware.login(req, res, next)
     }
 );
-router.post('/logout', authenticationMiddleware.logout, AuthClaims.Authenticated);
+
+router.post('/main/secure/obtainsession', (req, res) => {
+    if (req.user) {
+        return res.json({
+            errorCode: ErrorCodeEnum.NoErrors,
+            data: req.user
+        });
+    }
+    res.json({
+        errorCode: ErrorCodeEnum.UnexpectedError,
+        errorMessage: "Unexpected error inside 'passport'. User authenticated, but 'req.user' is empty!"
+    });
+}, AuthClaims.Authenticated);
 
 router.get('/article/:articleId', (req, res) => {
     const {articleId} = req.params;
     res.status(articleId === "3" ? HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR : HTTP_STATUS_CODES.OK).send(`${articleId}${articleId}${articleId}${articleId} Lorem ipsum dolor sit amet, ne duo saepe prompta recteque. Postulant deterruisset cu pri. Est ne scaevola hendrerit persecuti, oporteat adolescens appellantur usu ne, usu putent nusquam perfecto cu. Eu utinam democritum qui, duo vidisse gloriatur no. At nobis putent duo.`);
 });
-
 router.post('/main/users/getloginlist', async(req, res) => {
         let logins: IAjaxResponse<LoginDto[]> = await usersLogic.getLoginListAsync();
         res.json(logins);
     },
     AuthClaims.Authenticated);
+
 router.post('/main/users/getaccountlist', async(req, res) => {
         let accounts: IAjaxResponse<AccountDto[]> = await usersLogic.getAccountListAsync();
         res.json(accounts);
@@ -54,15 +69,30 @@ router.post('/main/users/deletelogins', async(req, res) => {
     res.json(deleted);
 }, AuthClaims.Authenticated);
 
-router.post('/main/secure/obtainsession', (req, res) => {
-    if (req.user) {
-        return res.json({
-            errorCode: ErrorCodeEnum.NoErrors,
-            data: req.user
-        });
+
+router.post('/main/users/getrolerules', async(req, res) => {
+        const {idrole} = req.body;
+        let rulesResult = await usersLogic.findRulesByRoleIdAsync(idrole);
+        res.json(rulesResult);
+    },
+    AuthClaims.Authenticated,
+    {
+        idRule: "/main/users/getrolerules",
+        resolve: (ruleDto, req) => {
+            return ruleDto.value == "true";
+        }
     }
-    res.json({
-        errorCode: ErrorCodeEnum.UnexpectedError,
-        errorMessage: "Unexpected error inside 'passport'. User authenticated, but 'req.user' is empty!"
+);
+
+router.post('/main/users/addchangerolerules', async(req, res) => {
+        const rulesDto: RuleDto[] = req.body;
+        let result = await usersLogic.addChangeRulesInRole(rulesDto);
+        res.json(result);
+    },
+    AuthClaims.Authenticated,
+    {
+        idRule: "/main/users/addchangerolerules",
+        resolve: (ruleDto, req) => {
+            return ruleDto.value == "true";
+        }
     });
-}, AuthClaims.Authenticated);

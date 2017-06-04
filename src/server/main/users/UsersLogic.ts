@@ -10,6 +10,7 @@ import {LoginStatusConstants} from "../../../shared/ajaxDto/authentication/Login
 import {AccountDto} from "../../../shared/ajaxDto/authentication/AccountDto";
 import {UserDto} from "../../../shared/ajaxDto/authentication/UserDto";
 import {RuleDto} from "../../../shared/ajaxDto/authentication/RuleDto";
+import result = require("lodash/result");
 
 export class UsersLogic implements IUsersLogic {
 
@@ -107,5 +108,41 @@ export class UsersLogic implements IUsersLogic {
 
     async findRulesByRoleIdRuleIdsAsync(idrole: number, idrules: string[]): Promise<IDatabaseResult<RuleDto[]>> {
         return usersDatabase.findRulesByRoleIdRuleIdsAsync(idrole, idrules)
+    }
+
+    async addChangeRulesInRole(rules: RuleDto[]): Promise<IDatabaseResult<RuleDto[]>> {
+        let promises = [];
+        _.forEach(rules, rule => {
+            promises.push(UsersLogic.addChangeRuleInRole(rule));
+        });
+        let results = await Promise.all(promises);
+        let accepted = _.filter(results, o => o.errorCode === ErrorCodeEnum.NoErrors);
+        if (accepted.length === rules.length) {
+            return Promise.resolve({
+                errorCode: ErrorCodeEnum.NoErrors,
+                data: accepted.map(o => o.data)
+            });
+        }
+        else {
+            let errorMessage = results
+                .filter(o => o.errorCode !== ErrorCodeEnum.NoErrors)
+                .map(o => o.errorMessage)
+                .join("\n");
+            return Promise.resolve({
+                errorCode: ErrorCodeEnum.DataBaseError,
+                errorMessage
+            })
+        }
+    }
+
+    private static async addChangeRuleInRole(rule: RuleDto): Promise<IDatabaseResult<RuleDto>> {
+        return new Promise<IDatabaseResult<RuleDto>>(async resolve => {
+            let update = await usersDatabase.updateRuleInRoleAsync(rule);
+            if (update.errorCode !== ErrorCodeEnum.NoErrors || update.data) {
+                return resolve(update)
+            }
+            let insert = usersDatabase.insertRuleInRoleAsync(rule);
+            resolve(insert);
+        });
     }
 }

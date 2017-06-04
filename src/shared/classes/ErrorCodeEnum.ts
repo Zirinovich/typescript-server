@@ -2,6 +2,7 @@ export enum ErrorCodeEnum{
     NoErrors,
     UnexpectedError,
 //------ Database errors
+    DataBaseError,
     DataBaseQueryError,
     DataBaseConnectionError,
 //------ Authentication errors

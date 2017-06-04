@@ -30,11 +30,12 @@ router.post('/main/content/deletecontent', async(req, res) => {
         const ids = req.body;
         let content = await contentLogic.deleteContentAsync(ids);
         res.json(content);
-    }, AuthClaims.Authenticated,
+    },
+    AuthClaims.Authenticated,
     {
         idRule: "main_content_delete",
         resolve: (ruleDto, req) => {
-            return ruleDto.rulevalue == "true";
+            return ruleDto.value == "true";
         }
     }
 );
