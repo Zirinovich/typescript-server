@@ -16,6 +16,12 @@
 
     npm build
 
+## Хранилище сессий переведено на Redis
+Для работы сервера необходимо скачать и установить [Redis](https://redis.io/)
+Настройки подключения сервера к redis находятся в файле:
+ 
+    /config/redis.js
+
 ## Утилиты и расширения для браузера Chrome:
 * [React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi) - позволяет просматривать разметку **react** в окне инструментов разработчика.
 * [Redux DevTools Extension](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd) - инструменты разработчика для просмотра и контроля за хранилищем **redux**

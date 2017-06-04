@@ -1,15 +1,13 @@
 import {Express} from "express-serve-static-core";
 import session = require("express-session");
+const redis = require("connect-redis");
+const config = require("../../../../../config/redis");
 
 export class ExpressSessionTuner {
     static Setup(app: Express) {
         let MemoryStore = require('session-memory-store')(session);
-        app.use(session({
-            name: 'x-session',
-            secret: 'yaouyahanSecretWord',
-            resave: false,
-            saveUninitialized: false,
-            store: new MemoryStore({expires: 60 * 60 * 4})
-        }));
+        const RedisStore = redis(session);
+        // let client = createClient();
+        app.use(session(config(RedisStore)));
     }
 }
