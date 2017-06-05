@@ -1,10 +1,11 @@
 import * as React from 'react';
 const {connect} = require('react-redux');
-import {Modal, Form, Button, Row, Col} from 'react-bootstrap';
+import {Modal, Form, Button, Row, FormGroup, Col, Clearfix} from 'react-bootstrap';
 
 import {generator} from '../../../../shared/tools/generator';
 import {i18n} from '../../../_common/tools/i18n/i18n';
 import {FieldInput} from '../../../_common/components/fieldInput/fieldInput';
+import {FieldSelect} from '../../../_common/components/fieldSelect/fieldSelect';
 import {EventArgsDto} from '../../../_common/interfaces/EventArgsDto';
 import {EventMethodEnum} from '../../../_common/interfaces/EventMethodEnum';
 import {saveUser} from '../../redux/usersActions';
@@ -102,37 +103,51 @@ export class UserCreateEditModal extends React.Component<IProps, IState> {
                 <Form onSubmit={this.submitHandler}>
                     <Modal.Header closeButton>
                         <Modal.Title id={this.id}>
-                            {id ? i18n.t('administration.editUser') : i18n.t('administration.createUser')}
+                            {i18n.t(id ? 'administration.editUser' : 'administration.createUser')}
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <Row>
-                            <Col md={4}>
-                                <FieldInput
-                                    name={this.fieldNames.login}
-                                    label={i18n.t('administration.login')}
-                                    value={login}
-                                    onEvent={this.onEventHandler}
-                                    required
-                                />
-                            </Col>
-                            <Col md={4}>
-                                <FieldInput
-                                    name={this.fieldNames.password}
-                                    type="password"
-                                    label={i18n.t('administration.password')}
-                                    value={password}
-                                    onEvent={this.onEventHandler}
-                                />
-                            </Col>
-                            <Col md={4}>
-                                <FieldInput
-                                    name={this.fieldNames.username}
-                                    label={i18n.t('administration.fullName')}
-                                    value={username}
-                                    onEvent={this.onEventHandler}
-                                />
-                            </Col>
+                            <FormGroup>
+                                <Col md={6}>
+                                    <FieldInput
+                                        name={this.fieldNames.login}
+                                        label={i18n.t('administration.login')}
+                                        value={login}
+                                        onEvent={this.onEventHandler}
+                                        required
+                                    />
+                                </Col>
+                                <Col md={6}>
+                                    <FieldInput
+                                        name={this.fieldNames.password}
+                                        type="password"
+                                        label={i18n.t('administration.password')}
+                                        value={password}
+                                        onEvent={this.onEventHandler}
+                                    />
+                                </Col>
+                                <Clearfix/>
+                            </FormGroup>
+                        </Row>
+                        <Row>
+                            <FormGroup>
+                                <Col md={6}>
+                                    <FieldInput
+                                        name={this.fieldNames.username}
+                                        label={i18n.t('administration.fullName')}
+                                        value={username}
+                                        onEvent={this.onEventHandler}
+                                    />
+                                </Col>
+                                <Col md={6}>
+                                    <FieldSelect
+                                        name={this.fieldNames.role}
+                                        label={i18n.t('administration.role')}
+                                    />
+                                </Col>
+                                <Clearfix/>
+                            </FormGroup>
                         </Row>
                     </Modal.Body>
                     <Modal.Footer>

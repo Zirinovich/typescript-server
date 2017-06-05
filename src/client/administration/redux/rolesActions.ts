@@ -1,3 +1,4 @@
+import {Fetcher} from '../../../shared/classes/Fetcher';
 import {IAction} from '../../_common/interfaces/IAction';
 
 export const GET_ROLES_REQUEST: string = 'roles/GET_ROLES_REQUEST';

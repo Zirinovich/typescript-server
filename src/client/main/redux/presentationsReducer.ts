@@ -1,4 +1,9 @@
-import {GET_PRESENTATIONS_SUCCESS, GET_PRESENTATION_BY_ID_SUCCESS, IGetPresentationsSuccessAction, IGetPresentationByIdSuccessAction} from './presentationsActions';
+import {
+    GET_PRESENTATIONS_SUCCESS,
+    GET_PRESENTATION_BY_ID_SUCCESS,
+    IGetPresentationsSuccessAction,
+    IGetPresentationByIdSuccessAction
+} from './presentationsActions';
 import {IAction} from '../../_common/interfaces/IAction';
 
 interface IState {
