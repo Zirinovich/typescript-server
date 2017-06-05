@@ -41,7 +41,7 @@ export class ContentPage extends React.Component<IProps, IState> {
         const headers = [
             {
                 name: 'idcontent',
-                label: i18n.getString(state, 'administration.create'),
+                label: i18n.getString(state, 'administration.contentName'),
                 key: true
             }
         ];
