@@ -11,8 +11,13 @@ export interface IUsersDatabase {
     findLoginDtoByCredentialsAsync(idlogin: string, password: string): Promise<IDatabaseResult<LoginDto>>;
     findUserByIdAsync(iduser: number): Promise<IDatabaseResult<UserDto>>;
     findRoleByIdAsync(idrole: number): Promise<IDatabaseResult<RoleDto>>;
+    updateRoleAsync(role: RoleDto): Promise<IDatabaseResult<RoleDto>>;
+    insertRoleAsync(role: RoleDto): Promise<IDatabaseResult<RoleDto>>
+    deleteRolesAsync(ids: number[]): Promise<IDatabaseResult<RoleDto[]>>
+    getRoleList(): Promise<IDatabaseResult<RoleDto[]>>;
     getLoginListAsync(): Promise<IDatabaseResult<LoginDto[]>>;
     getAccountListAsync(): Promise<IDatabaseResult<AccountDto[]>>;
+    findAccountByLoginId(idlogin: number): Promise<IDatabaseResult<AccountDto>>;
 
     addChangeLoginAsync(login: LoginDto): Promise<IDatabaseResult<LoginDto>>;
 
