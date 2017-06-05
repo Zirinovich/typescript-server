@@ -23,15 +23,19 @@ import {serverRouter} from './server/_engine/routers/serverRouter';
 import {Fetcher} from "./shared/classes/Fetcher";
 import {SessionDto} from "./shared/ajaxDto/authentication/SessionDto";
 import {AccountDto} from "./shared/ajaxDto/authentication/AccountDto";
+import {HttpContext} from "./server/_engine/context/HttpContext";
 
 
 const app = express();
 app.use(serverRouter);
+app.get("*", HttpContext.Setup(), (req, res, next) => {
+    HttpContext.Set('cookie', 'x-session=' + req.cookies["x-session"], next);
+});
 app.get('*', async(req, res) => {
     const location = req.url;
     const memoryHistory = createMemoryHistory(req.originalUrl);
 
-    (global as any).xSessionCookies = req.cookies["x-session"];
+
     let sessionResponse = await Fetcher.postAsync<AccountDto[]>({
         url: '/api/main/secure/obtainsession',
     });
