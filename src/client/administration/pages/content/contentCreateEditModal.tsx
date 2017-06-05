@@ -112,7 +112,7 @@ export class ContentCreateEditModal extends React.Component<IProps, IState> {
                     <Modal.Body>
                         <FormGroup>
                             <FieldInput name={this.fieldNames.idcontent}
-                                        label={i18n.t('administration.link')}
+                                        label={i18n.t('administration.contentName')}
                                         value={idcontent}
                                         disabled={this.mode === Mode.Edit}
                                         onEvent={this.onEventHandler}

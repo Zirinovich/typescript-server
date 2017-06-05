@@ -9,6 +9,7 @@ import {ContentCreateEditModal} from './contentCreateEditModal';
 
 //#region interfaces
 interface IProps {
+    state: any;
     contentdata: any;
     deleteContent: Function;
     getContentById: Function;
@@ -25,7 +26,10 @@ interface IState {
     }
 }])
 @connect(
-    (state) => ({contentdata: state.contentdata}),
+    (state) => ({
+        state,
+        contentdata: state.contentdata
+    }),
     (dispatch) => ({
         deleteContent: (idscontent) => dispatch(deleteContent(idscontent)),
         getContentById: (idcontent) => dispatch(getContentById(idcontent))
@@ -33,11 +37,11 @@ interface IState {
 )
 export class ContentPage extends React.Component<IProps, IState> {
     render() {
-        const {contentdata: {list}, getContentById, deleteContent} = this.props;
+        const {state, contentdata: {list}, getContentById, deleteContent} = this.props;
         const headers = [
             {
                 name: 'idcontent',
-                label: i18n.t('administration.contentName'),
+                label: i18n.getString(state, 'administration.contentName'),
                 key: true
             }
         ];

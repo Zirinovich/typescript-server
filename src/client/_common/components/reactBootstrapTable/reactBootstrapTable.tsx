@@ -6,7 +6,7 @@ import '../../../_common/content/react-bootstrap-table/react-bootstrap-table.scs
 interface IProps {
     headers: {
         name: string;
-        label?: any;
+        label?: string;
         key?: boolean;
         hidden?: boolean;
     }[];

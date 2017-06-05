@@ -33,6 +33,7 @@ let presentations = [
         title: 'Система управления плановыми работами (СУПР)',
         text: 'Тикет-система',
         classes: ['trouble-ticket-system'],
+        idcontent: 'presentation_supr',
         slides: [
             {
                 src: require('./content/supr.png'),
@@ -116,6 +117,7 @@ let presentations = [
         title: 'Личный кабинет Ellco',
         text: '',
         classes: ['dashboard'],
+        idcontent: 'presentation_ellco',
         slides: [
             {
                 src: require('./content/ellco.png')
@@ -128,6 +130,7 @@ let presentations = [
         title: 'Система тикетов Tele2',
         text: 'Система тикетов',
         classes: ['trouble-ticket-system'],
+        idcontent: 'presentation_tele2',
         slides: [
             {
                 src: require('./content/tele2.png')
@@ -140,6 +143,7 @@ let presentations = [
         title: 'Сайт ladony.ru',
         text: '',
         classes: ['site'],
+        idcontent: 'presentation_ladony',
         slides: [
             {
                 src: require('./content/ladony.png')
@@ -203,15 +207,19 @@ export function getPresentationById(id) {
                     return p.id === parseInt(id);
                 });
 
-                const response = await Fetcher.postAsync<ContentDto>({
-                    url: '/api/main/content/getcontent',
-                    data: {
-                        idcontent: 'VtoroyPoshel222'
-                    }
-                });
+                let content = '';
+                if (item.idcontent) {
+                    const response = await Fetcher.postAsync<ContentDto>({
+                        url: '/api/main/content/getcontent',
+                        data: {
+                            idcontent: item.idcontent
+                        }
+                    });
+                    content = response.data.filedata;
+                }
 
                 dispatch(getPresentationByIdSuccess(Object.assign(item, {
-                    content: response.data.filedata
+                    content
                 })));
             } else {
                 //let errText = await response.text();

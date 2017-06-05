@@ -9,6 +9,7 @@ import {FileCreateEditModal} from './fileCreateEditModal';
 
 //#region interfaces
 interface IProps {
+    state: any;
     files: any;
     deleteFiles: Function;
 }
@@ -24,14 +25,17 @@ interface IState {
     }
 }])
 @connect(
-    (state) => ({files: state.files}),
+    (state) => ({
+        state,
+        files: state.files
+    }),
     (dispatch) => ({
         deleteFiles: (id) => dispatch(deleteFiles(id))
     })
 )
 export class FilesPage extends React.Component<IProps, IState> {
     render() {
-        const {files: {list}, deleteFiles} = this.props;
+        const {state, files: {list}, deleteFiles} = this.props;
         const headers = [
             {
                 name: 'id',
@@ -40,11 +44,11 @@ export class FilesPage extends React.Component<IProps, IState> {
             },
             {
                 name: 'name',
-                label: i18n.t('administration.fileName')
+                label: i18n.getString(state, 'administration.fileName')
             },
             {
                 name: 'link',
-                label: i18n.t('administration.link')
+                label: i18n.getString(state, 'administration.link')
             }
         ];
         const actions = [

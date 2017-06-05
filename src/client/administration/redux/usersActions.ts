@@ -10,6 +10,9 @@ import {UserDto} from '../../../shared/ajaxDto/authentication/UserDto';
 export const GET_USERS_REQUEST: string = 'users/GET_USERS_REQUEST';
 export const GET_USERS_SUCCESS: string = 'users/GET_USERS_SUCCESS';
 export const GET_USERS_FAILURE: string = 'users/GET_USERS_FAILURE';
+export const GET_USER_BY_ID_REQUEST: string = 'users/GET_USER_BY_ID_REQUEST';
+export const GET_USER_BY_ID_SUCCESS: string = 'users/GET_USER_BY_ID_SUCCESS';
+export const GET_USER_BY_ID_FAILURE: string = 'users/GET_USER_BY_ID_FAILURE';
 export const SAVE_USER_REQUEST: string = 'users/SAVE_USER_REQUEST';
 export const SAVE_USER_SUCCESS: string = 'users/SAVE_USER_SUCCESS';
 export const SAVE_USER_FAILURE: string = 'users/SAVE_USER_FAILURE';
@@ -22,6 +25,14 @@ export interface IGetUsersSuccessAction extends IAction {
 }
 
 export interface IGetUsersFailureAction extends IAction {
+    errorMessage: string;
+}
+
+export interface IGetUserByIdSuccessAction extends IAction {
+    item: AccountDto;
+}
+
+export interface IGetUserByIdFailureAction extends IAction {
     errorMessage: string;
 }
 
@@ -70,6 +81,50 @@ export function getUsersSuccess(list): IGetUsersSuccessAction {
 export function getUsersFailure(message): IGetUsersFailureAction {
     return {
         type: GET_USERS_FAILURE,
+        errorMessage: message
+    };
+}
+
+export function getUserById(idlogin) {
+    return async(dispatch) => {
+        dispatch(getUserByIdRequest());
+
+        try {
+            let response = await Fetcher.postAsync<AccountDto>({
+                url: '/api/main/users/findaccountbyid',
+                data: {
+                    idlogin
+                }
+            });
+
+            if (response.errorCode === ErrorCodeEnum.NoErrors) {
+                dispatch(getUserByIdSuccess(response.data));
+            } else {
+                dispatch(getUserByIdFailure(response.errorCode));
+            }
+        }
+        catch (error) {
+            dispatch(getUserByIdFailure(error));
+        }
+    };
+}
+
+export function getUserByIdRequest(): IAction {
+    return {
+        type: GET_USER_BY_ID_REQUEST
+    };
+}
+
+export function getUserByIdSuccess(item): IGetUserByIdSuccessAction{
+    return {
+        type: GET_USER_BY_ID_SUCCESS,
+        item
+    };
+}
+
+export function getUserByIdFailure(message): IGetUserByIdFailureAction{
+    return {
+        type: GET_USER_BY_ID_FAILURE,
         errorMessage: message
     };
 }

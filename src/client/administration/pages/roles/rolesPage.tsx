@@ -9,6 +9,7 @@ import {RoleCreateEditModal} from './roleCreateEditModal';
 
 //#region interfaces
 interface IProps {
+    state: any;
     roles: any;
     deleteRoles: any;
 }
@@ -24,14 +25,17 @@ interface IState {
     }
 }])
 @connect(
-    (state) => ({roles: state.roles}),
+    (state) => ({
+        state,
+        roles: state.roles
+    }),
     (dispatch) => ({
         deleteRoles: (id) => dispatch(deleteRoles(id))
     })
 )
 export class RolesPage extends React.Component<IProps, IState> {
     render() {
-        const {roles: {list}, deleteRoles} = this.props;
+        const {state, roles: {list}, deleteRoles} = this.props;
         const headers = [
             {
                 name: 'id',
@@ -40,7 +44,7 @@ export class RolesPage extends React.Component<IProps, IState> {
             },
             {
                 name: 'name',
-                label: i18n.t('administration.role')
+                label: i18n.getString(state, 'administration.role')
             }
         ];
         const actions = [

@@ -45,7 +45,7 @@ export function getContent() {
         dispatch(getContentRequest());
 
         try {
-            let response = await Fetcher.postAsync<ContentDto[]>({
+            const response = await Fetcher.postAsync<ContentDto[]>({
                 url: '/api/main/content/getcontentlist',
             });
 

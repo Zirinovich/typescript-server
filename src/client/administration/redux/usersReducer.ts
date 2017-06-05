@@ -1,9 +1,15 @@
-import {GET_USERS_SUCCESS, IGetUsersSuccessAction} from './usersActions';
+import {
+    GET_USERS_SUCCESS,
+    GET_USER_BY_ID_SUCCESS,
+    IGetUsersSuccessAction,
+    IGetUserByIdSuccessAction
+} from './usersActions';
 import {IAction} from '../../_common/interfaces/IAction';
-import {UserDto} from '../../../shared/ajaxDto/authentication/UserDto';
+import {AccountDto} from '../../../shared/ajaxDto/authentication/AccountDto';
 
 interface IState {
-    list: UserDto[];
+    list: AccountDto[];
+    item?: AccountDto;
 }
 
 const initialState = {
@@ -16,6 +22,9 @@ export function usersReducer(state: IState = initialState, action: IAction) {
         case GET_USERS_SUCCESS:
             const {list} = <IGetUsersSuccessAction>action;
             return Object.assign({}, state, {list});
+        case GET_USER_BY_ID_SUCCESS:
+            const {item} = <IGetUserByIdSuccessAction>action;
+            return Object.assign({}, state, {item});
         default:
             return state;
     }
