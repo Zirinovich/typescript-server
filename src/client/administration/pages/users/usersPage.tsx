@@ -8,6 +8,7 @@ import {getUsers, getUserById, deleteUsers} from '../../redux/usersActions';
 import {UserCreateEditModal} from './userCreateEditModal';
 
 interface IProps {
+    state: any;
     users: any;
     deleteUsers: any;
     getUserById: any;
@@ -23,7 +24,10 @@ interface IState {
     }
 }])
 @connect(
-    (state) => ({users: state.users}),
+    (state) => ({
+        state,
+        users: state.users
+    }),
     (dispatch) => ({
         getUserById: (id) => dispatch(getUserById(id)),
         deleteUsers: (ids) => dispatch(deleteUsers(ids))
@@ -31,7 +35,7 @@ interface IState {
 )
 export class UsersPage extends React.Component<IProps, IState> {
     render() {
-        const {users: {list}, getUserById, deleteUsers} = this.props;
+        const {state, users: {list}, getUserById, deleteUsers} = this.props;
         const data = list.map((a) => {
             return {
                 idlogin: a.login.idlogin,
@@ -48,15 +52,15 @@ export class UsersPage extends React.Component<IProps, IState> {
             },
             {
                 name: 'login',
-                label: i18n.t('administration.login')
+                label: i18n.getString(state, 'administration.login')
             },
             {
                 name: 'username',
-                label: i18n.t('administration.fullName')
+                label: i18n.getString(state, 'administration.fullName')
             },
             {
                 name: 'rolename',
-                label: i18n.t('administration.role')
+                label: i18n.getString(state, 'administration.role')
             }
         ];
         const actions = [

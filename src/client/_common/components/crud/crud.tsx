@@ -17,14 +17,16 @@ interface IModalFormProps {
 interface IModalForm extends React.ComponentClass<IModalFormProps> {
 
 }
+
 export interface ICrudHeader {
     name: string;
-    label?: any;
+    label?: string;
     key?: boolean;
     hidden?: boolean;
 }
+
 interface IProps {
-    headers: Array<ICrudHeader>;
+    headers: ICrudHeader[];
     data: any;
     actions: {
         text: any;
