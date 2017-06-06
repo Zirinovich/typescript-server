@@ -45,8 +45,8 @@ router.post('/main/users/getaccountlist', async(req, res) => {
     },
     AuthClaims.Authenticated);
 
-router.post('/main/users/finduserbyid', async(req, res) => {
-    const {id} = req.params;
+router.post('/main/users/findlogin', async(req, res) => {
+    const id = req.body;
     let login: IAjaxResponse<LoginDto> = await usersLogic.findLoginByIdAsync(id);
     res.json(login);
 }, AuthClaims.Authenticated);
@@ -95,4 +95,44 @@ router.post('/main/users/addchangerolerules', async(req, res) => {
         resolve: (ruleDto, req) => {
             return ruleDto.value == "true";
         }
-    });
+    }
+);
+
+router.post('/main/users/getrolelist', async(req, res) => {
+        let result = await usersLogic.getRoleListAsync();
+        return res.json(result);
+    },
+    AuthClaims.Authenticated
+);
+
+router.post('/main/users/findrole', async(req, res) => {
+        const idrole = req.body;
+        let result = await usersLogic.findRoleByIdAsync(idrole);
+        res.json(result);
+    },
+    AuthClaims.Authenticated
+);
+
+router.post('/main/users/addchangerole', async(req, res) => {
+        const role = req.body;
+        let result = await usersLogic.addChangeRoleAsync(role);
+        res.json(result);
+    },
+    AuthClaims.Authenticated
+);
+
+router.post('/main/users/deleteroles', async(req, res) => {
+        const ids = req.body;
+        let result = await usersLogic.deleteRolesAsync(ids);
+        res.json(result)
+    },
+    AuthClaims.Authenticated
+);
+
+router.post('/main/users/findaccount', async(req, res) => {
+        const idlogin = req.body;
+        let result = await usersLogic.findAccountByLoginId(idlogin);
+        res.json(result);
+    },
+    AuthClaims.Authenticated
+);

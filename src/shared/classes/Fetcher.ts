@@ -1,3 +1,4 @@
+import {HttpContext} from "../../server/_engine/context/HttpContext";
 const formData = require('form-urlencoded');
 
 import {IAjaxResponse} from '../ajaxDto/IAjaxResponse';
@@ -47,16 +48,18 @@ export class Fetcher {
             method: HttpMethod[request.method],
             credentials: 'same-origin'
         };
-        if (global && (global as any).xSessionCookies) {
-            (<any>requestOptions).headers = {
-                'Cookie': 'x-session='+(global as any).xSessionCookies
-            };
+        if (global) {
+            let cookie;
+            if (cookie = HttpContext.GetFromCurrent<string>("cookie"))
+                (<any>requestOptions).headers = {
+                    'Cookie': cookie
+                };
         }
         const requestData = Object.assign(
             requestOptions,
             body && {body, headers: {'Content-Type': 'application/json'}});
         try {
-            const url = request.isAbsoluteUrl ? request.url : _.trimEnd(API_HTTP_HOST,"/").concat("/",_.trimStart(request.url,"/"));
+            const url = request.isAbsoluteUrl ? request.url : _.trimEnd(API_HTTP_HOST, "/").concat("/", _.trimStart(request.url, "/"));
             return fetch(url, requestData);
         }
         catch (error) {

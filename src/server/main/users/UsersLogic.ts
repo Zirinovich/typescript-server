@@ -1,7 +1,5 @@
 import {IUsersLogic} from "../../_interfaces/main/IUsersLogic";
 import {usersDatabase} from "../../registration";
-import {LoginStatusEnum} from "../../../shared/ajaxDto/authentication/LoginStatusEnum";
-// import {IVerifyOptions} from "passport-local";
 import {ErrorCodeEnum} from "../../../shared/classes/ErrorCodeEnum";
 import {SessionDto} from "../../../shared/ajaxDto/authentication/SessionDto";
 import {LoginDto} from "../../../shared/ajaxDto/authentication/LoginDto";
@@ -10,7 +8,7 @@ import {LoginStatusConstants} from "../../../shared/ajaxDto/authentication/Login
 import {AccountDto} from "../../../shared/ajaxDto/authentication/AccountDto";
 import {UserDto} from "../../../shared/ajaxDto/authentication/UserDto";
 import {RuleDto} from "../../../shared/ajaxDto/authentication/RuleDto";
-import result = require("lodash/result");
+import {RoleDto} from "../../../shared/ajaxDto/authentication/RoleDto";
 
 export class UsersLogic implements IUsersLogic {
 
@@ -33,6 +31,39 @@ export class UsersLogic implements IUsersLogic {
             resolve(
                 Object.assign({}, {...response}, {data: response.data ? response.data.length : undefined}));
         });
+    }
+
+    async findRoleByIdAsync(idrole: number): Promise<IDatabaseResult<RoleDto>> {
+        return usersDatabase.findRoleByIdAsync(idrole);
+    }
+
+    async addChangeRoleAsync(role: RoleDto): Promise<IDatabaseResult<RoleDto>> {
+        return new Promise<IDatabaseResult<RoleDto>>(async(resolve) => {
+            let changeResult = await usersDatabase.updateRoleAsync(role);
+            if (changeResult.data || changeResult.errorCode !== ErrorCodeEnum.NoErrors) {
+                return resolve(changeResult);
+            }
+            let addResult = await usersDatabase.insertRoleAsync(role);
+            resolve(addResult);
+        });
+    }
+
+    async deleteRolesAsync(ids: number[]): Promise<IDatabaseResult<number>> {
+        return new Promise<IDatabaseResult<number>>(async resolve => {
+            let result: any = await usersDatabase.deleteRolesAsync(ids);
+            if (result.errorCode !== ErrorCodeEnum.NoErrors || !result.data) {
+                return resolve(result);
+            }
+            resolve(Object.assign({}, result, {data: result.data.length}))
+        })
+    }
+
+    async findAccountByLoginId(idlogin: number): Promise<IDatabaseResult<AccountDto>> {
+        return usersDatabase.findAccountByLoginId(idlogin);
+    }
+
+    async getRoleListAsync(): Promise<IDatabaseResult<RoleDto[]>> {
+        return usersDatabase.getRoleList();
     }
 
     async addChangeLoginAsync(login: LoginDto): Promise<IDatabaseResult<LoginDto>> {
