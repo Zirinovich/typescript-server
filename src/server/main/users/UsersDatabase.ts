@@ -22,7 +22,7 @@ export class UsersDatabase implements IUsersDatabase {
                     FROM tlogins
                     WHERE login = @login`;
         return dbEngine.querySingleAsync<LoginDto>({text: query, values: {login}});
-    }
+    };
 
     async findLoginDtoByCredentialsAsync(login: string, password: string): Promise<IDatabaseResult<LoginDto>> {
         let query = `SELECT idlogin
@@ -35,7 +35,7 @@ export class UsersDatabase implements IUsersDatabase {
                     FROM tlogins
                     WHERE login = @login AND password = @password`;
         return dbEngine.querySingleAsync<LoginDto>({text: query, values: {login, password}});
-    }
+    };
 
     async findLoginDtoByIdAsync(idlogin: number): Promise<IDatabaseResult<LoginDto>> {
         let query = `SELECT idlogin
@@ -48,7 +48,7 @@ export class UsersDatabase implements IUsersDatabase {
                     FROM tlogins
                     WHERE idlogin=@idlogin`;
         return dbEngine.querySingleAsync<LoginDto>({text: query, values: {idlogin}});
-    }
+    };
 
     async insertLoginAsync(login: LoginDto): Promise<IDatabaseResult<LoginDto>> {
         let query = `INSERT INTO tlogins (login, password, status, idrole, logincreated)
@@ -130,7 +130,7 @@ export class UsersDatabase implements IUsersDatabase {
                     RETURNING *;`;
 
         return dbEngine.querySingleAsync<LoginDto>({text: query, values: login});
-    }
+    };
 
     async getLoginListAsync(): Promise<IDatabaseResult<LoginDto[]>> {
         let query = `SELECT idlogin
@@ -143,7 +143,7 @@ export class UsersDatabase implements IUsersDatabase {
                     FROM tlogins
                     ORDER BY login`;
         return dbEngine.queryAsync<LoginDto>({text: query});
-    }
+    };
 
     async findAccountByLoginId(idlogin: number): Promise<IDatabaseResult<AccountDto>> {
         let query = `SELECT idlogin
@@ -193,7 +193,7 @@ export class UsersDatabase implements IUsersDatabase {
                 });
             }
         });
-    }
+    };
 
     async getAccountListAsync(): Promise < IDatabaseResult < AccountDto[] >> {
         let query = `SELECT idlogin
@@ -243,7 +243,7 @@ export class UsersDatabase implements IUsersDatabase {
                 });
             }
         });
-    }
+    };
 
     async findUserByIdAsync(iduser: number): Promise < IDatabaseResult < UserDto >> {
         let query = `SELECT iduser
@@ -251,7 +251,7 @@ export class UsersDatabase implements IUsersDatabase {
                        FROM tusers
                        WHERE iduser=@iduser`;
         return dbEngine.querySingleAsync<UserDto>({text: query, values: {iduser}});
-    }
+    };
 
     async getRoleList(): Promise < IDatabaseResult < RoleDto[] >> {
         let query = `SELECT
@@ -259,7 +259,7 @@ export class UsersDatabase implements IUsersDatabase {
                        rolename
                      FROM troles`;
         return dbEngine.queryAsync<RoleDto>({text: query})
-    }
+    };
 
     async findRoleByIdAsync(idrole: number): Promise < IDatabaseResult < RoleDto >> {
         let query = `SELECT idrole
@@ -267,7 +267,7 @@ export class UsersDatabase implements IUsersDatabase {
                        FROM troles
                        WHERE idrole=@idrole`;
         return dbEngine.querySingleAsync<RoleDto>({text: query, values: {idrole}});
-    }
+    };
 
     async updateRoleAsync(role: RoleDto): Promise < IDatabaseResult < RoleDto >> {
         let query = `UPDATE troles
@@ -283,16 +283,14 @@ export class UsersDatabase implements IUsersDatabase {
                      VALUES (@rolename)
                      RETURNING *`;
         return dbEngine.querySingleAsync<RoleDto>({text: query, values: role});
-    }
-    ;
+    };
 
     async deleteRolesAsync(ids: number[]): Promise < IDatabaseResult < RoleDto[] >> {
         let query = `DELETE FROM troles
                      WHERE idrole IN (@ids)
-                     RETURNING id`;
+                     RETURNING idrole`;
         return dbEngine.queryAsync<RoleDto>({text: query, values: {ids}});
-    }
-    ;
+    };
 
     async findRulesByRoleIdAsync(idrole: number): Promise < IDatabaseResult < RuleDto[] >> {
         let query = `SELECT trules.idrule
@@ -303,7 +301,7 @@ export class UsersDatabase implements IUsersDatabase {
                       LEFT JOIN truleinroles
                         ON trules.idrule = truleinroles.idrule AND truleinroles.idrole = @idrole`;
         return dbEngine.queryAsync<RuleDto>({text: query, values: {idrole}});
-    }
+    };
 
     async findRulesByRoleIdRuleIdsAsync(idrole: number, idrules: string[]): Promise < IDatabaseResult < RuleDto[] >> {
         let query = `SELECT trules.idrule
@@ -316,7 +314,7 @@ export class UsersDatabase implements IUsersDatabase {
                     WHERE trules.idrule IN (@idrules)
                     ORDER BY idrule`;
         return dbEngine.queryAsync<RuleDto>({text: query, values: {idrole, idrules}});
-    }
+    };
 
     async updateRuleInRoleAsync(rule: RuleDto): Promise < IDatabaseResult < RuleDto >> {
         let query = `UPDATE truleinroles
@@ -324,8 +322,7 @@ export class UsersDatabase implements IUsersDatabase {
                      WHERE idrole=@idrole AND idrule=@idrule
                      RETURNING *`;
         return dbEngine.querySingleAsync<RuleDto>({text: query, values: rule});
-    }
-    ;
+    };
 
     async insertRuleInRoleAsync(rule: RuleDto): Promise < IDatabaseResult < RuleDto >> {
         let query = `INSERT INTO truleinroles
@@ -333,6 +330,5 @@ export class UsersDatabase implements IUsersDatabase {
                      VALUES (@idrule, @idrole, @value)
                      RETURNING *`;
         return dbEngine.querySingleAsync<RuleDto>({text: query, values: rule});
-    }
-    ;
+    };
 }

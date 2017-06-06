@@ -33,7 +33,7 @@ router.post('/main/content/deletecontent', async(req, res) => {
     },
     AuthClaims.Authenticated,
     {
-        idRule: "main_content_delete",
+        idRule: "/main/content/deletecontent",
         resolve: (ruleDto, req) => {
             return ruleDto.value == "true";
         }
