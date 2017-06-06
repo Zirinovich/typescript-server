@@ -3,20 +3,25 @@ const {connect} = require('react-redux');
 const {asyncConnect} = require('redux-connect');
 
 import {i18n} from '../../../_common/tools/i18n/i18n';
-import {Crud, ICrudHeader} from '../../../_common/components/crud/crud';
+import {Crud,} from '../../../_common/components/crud/crud';
+import {IUsers} from '../../interfaces/IUsers';
 import {getUsers, getUserById, deleteUsers} from '../../redux/usersActions';
+import {getRoles} from '../../redux/rolesActions';
 import {UserCreateEditModal} from './userCreateEditModal';
 
+//#region interfaces
 interface IProps {
     state: any;
-    users: any;
+    users: IUsers;
     deleteUsers: any;
     getUserById: any;
+    getRoles: any;
 }
 
 interface IState {
 
 }
+//#endregion
 
 @asyncConnect([{
     promise: ({store: {dispatch}}) => {
@@ -30,12 +35,13 @@ interface IState {
     }),
     (dispatch) => ({
         getUserById: (id) => dispatch(getUserById(id)),
-        deleteUsers: (ids) => dispatch(deleteUsers(ids))
+        deleteUsers: (ids) => dispatch(deleteUsers(ids)),
+        getRoles: () => dispatch(getRoles())
     })
 )
 export class UsersPage extends React.Component<IProps, IState> {
     render() {
-        const {state, users: {list}, getUserById, deleteUsers} = this.props;
+        const {state, users: {list}, getUserById, deleteUsers, getRoles} = this.props;
         const data = list.map((a) => {
             return {
                 idlogin: a.login.idlogin,
@@ -67,6 +73,10 @@ export class UsersPage extends React.Component<IProps, IState> {
             {
                 text: i18n.t('administration.create'),
                 modalForm: UserCreateEditModal,
+                method: () => {
+                    getUserById();
+                    getRoles();
+                }
             },
             {
                 text: i18n.t('administration.edit'),
@@ -75,7 +85,8 @@ export class UsersPage extends React.Component<IProps, IState> {
                     isSingleRowSelected: true
                 },
                 method: (selected) => {
-                    getUserById(_.first(selected)); //TODO: Needs realization
+                    getUserById(_.first(selected));
+                    getRoles();
                 }
             },
             {

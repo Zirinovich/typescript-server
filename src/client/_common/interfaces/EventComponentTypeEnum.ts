@@ -2,5 +2,6 @@ export enum EventComponentTypeEnum {
     Input,
     File,
     Textarea,
-    Checkbox
+    Checkbox,
+    Select
 }

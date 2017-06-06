@@ -71,6 +71,10 @@ export class RoleCreateEditModal extends React.Component<IProps, IState> {
         }
     }
 
+    fieldNames = {
+        rolename: 'rolename'
+    };
+
     mode = Mode.Create;
 
     componentDidUpdate() {
@@ -97,7 +101,6 @@ export class RoleCreateEditModal extends React.Component<IProps, IState> {
 
     submitHandler(e) {
         const {onHide, saveRole} = this.props;
-        console.log(this.state);
         saveRole(this.state);
         onHide();
         e.preventDefault();
@@ -121,8 +124,11 @@ export class RoleCreateEditModal extends React.Component<IProps, IState> {
                     <Modal.Body>
                         <FormGroup>
                             <Col md={4}>
-                                <FieldInput name="rolename" value={rolename} onEvent={this.onEventHandler}
-                                            label={i18n.t('administration.role')} required/>
+                                <FieldInput name={this.fieldNames.rolename}
+                                            value={rolename}
+                                            onEvent={this.onEventHandler}
+                                            label={i18n.t('administration.role')}
+                                            required/>
                             </Col>
                             <Clearfix/>
                         </FormGroup>

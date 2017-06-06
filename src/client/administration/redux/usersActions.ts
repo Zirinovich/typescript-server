@@ -69,14 +69,14 @@ export function getUsersFailure(message): IGetUsersFailureAction {
     };
 }
 
-export function getUserById(id) {
+export function getUserById(idlogin) {
     return async(dispatch) => {
         dispatch(getUserByIdRequest());
 
         try {
             let response = await Fetcher.postAsync<AccountDto>({
-                url: '/api/main/users/findlogin',
-                data: {id}
+                url: '/api/main/users/findaccount',
+                data: {idlogin}
             });
 
             if (response.errorCode === ErrorCodeEnum.NoErrors) {

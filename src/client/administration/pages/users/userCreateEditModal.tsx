@@ -7,14 +7,22 @@ import {FieldInput} from '../../../_common/components/fieldInput/fieldInput';
 import {FieldSelect} from '../../../_common/components/fieldSelect/fieldSelect';
 import {EventArgsDto} from '../../../_common/interfaces/EventArgsDto';
 import {EventMethodEnum} from '../../../_common/interfaces/EventMethodEnum';
+import {IUsers} from '../../interfaces/IUsers';
+import {IRoles} from '../../interfaces/IRoles';
 import {saveUser} from '../../redux/usersActions';
 
 //#region interfaces
+enum Mode {
+    Create,
+    Edit
+}
+
 interface IProps {
     show: boolean;
     onHide: any;
+    users: IUsers;
+    roles: IRoles;
     saveUser: any;
-    data?: any;
 }
 
 interface IState {
@@ -22,12 +30,15 @@ interface IState {
     login: string;
     username: string;
     password: string;
-    role: number;
+    idrole?: number;
 }
 //#endregion
 
 @connect(
-    (state) => ({users: state.users}),
+    (state) => ({
+        users: state.users,
+        roles: state.roles
+    }),
     (dispatch) => ({
         saveUser: (user) => dispatch(saveUser(user))
     })
@@ -41,8 +52,7 @@ export class UserCreateEditModal extends React.Component<IProps, IState> {
         this.state = {
             login: '',
             username: '',
-            password: '',
-            role: 1
+            password: ''
         }
     }
 
@@ -51,17 +61,23 @@ export class UserCreateEditModal extends React.Component<IProps, IState> {
         login: 'login',
         password: 'password',
         username: 'username',
-        role: 'role'
+        idrole: 'idrole'
     };
 
+    mode = Mode.Create;
+
     componentDidUpdate() {
-        const {data} = this.props;
+        const {users: {item}} = this.props;
         const {id} = this.state;
-        if (data.id !== id) {
+
+        const lastMode = this.mode;
+        this.mode = !!item ? Mode.Edit : Mode.Create;
+        if ((lastMode === Mode.Edit && this.mode === Mode.Create) || (this.mode === Mode.Edit && item.login.idlogin !== id)) {
             this.setState({
-                id: data.id,
-                login: data.login,
-                username: data.username
+                id: item ? item.login.idlogin : null,
+                idrole: item ? item.login.idrole : null,
+                login: item ? item.login.login : '',
+                username: item ? item.user.username : '',
             });
         }
     }
@@ -94,8 +110,14 @@ export class UserCreateEditModal extends React.Component<IProps, IState> {
     }
 
     render() {
-        const {show, onHide} = this.props;
-        const {id, login, password, username} = this.state;
+        const {show, onHide, roles} = this.props;
+        const {id, login, password, username, idrole} = this.state;
+        const idroleOptions = roles.list.map((role) => {
+           return {
+               value: role.idrole,
+               name: role.rolename
+           };
+        });
         return (
             <Modal show={show} onHide={onHide} bsSize="large">
                 <Form onSubmit={this.submitHandler}>
@@ -140,8 +162,11 @@ export class UserCreateEditModal extends React.Component<IProps, IState> {
                                 </Col>
                                 <Col md={6}>
                                     <FieldSelect
-                                        name={this.fieldNames.role}
+                                        name={this.fieldNames.idrole}
+                                        value={idrole}
+                                        options={idroleOptions}
                                         label={i18n.t('administration.role')}
+                                        onEvent={this.onEventHandler}
                                     />
                                 </Col>
                                 <Clearfix/>
