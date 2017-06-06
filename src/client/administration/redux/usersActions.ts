@@ -6,6 +6,14 @@ import {AccountDto} from '../../../shared/ajaxDto/authentication/AccountDto';
 import {IAction} from '../../_common/interfaces/IAction';
 import {LoginDto} from '../../../shared/ajaxDto/authentication/LoginDto';
 import {UserDto} from '../../../shared/ajaxDto/authentication/UserDto';
+import {
+    IGetUsersSuccessAction,
+    IGetUsersFailureAction,
+    IGetUserByIdSuccessAction,
+    IGetUserByIdFailureAction,
+    ISaveUserFailureAction,
+    IDeleteUserFailureAction
+} from '../interfaces/IUsers';
 
 export const GET_USERS_REQUEST: string = 'users/GET_USERS_REQUEST';
 export const GET_USERS_SUCCESS: string = 'users/GET_USERS_SUCCESS';
@@ -19,30 +27,6 @@ export const SAVE_USER_FAILURE: string = 'users/SAVE_USER_FAILURE';
 export const DELETE_USER_REQUEST: string = 'users/DELETE_USER_REQUEST';
 export const DELETE_USER_SUCCESS: string = 'users/DELETE_USER_SUCCESS';
 export const DELETE_USER_FAILURE: string = 'users/DELETE_USER_FAILURE';
-
-export interface IGetUsersSuccessAction extends IAction {
-    list: AccountDto[];
-}
-
-export interface IGetUsersFailureAction extends IAction {
-    errorMessage: string;
-}
-
-export interface IGetUserByIdSuccessAction extends IAction {
-    item: AccountDto;
-}
-
-export interface IGetUserByIdFailureAction extends IAction {
-    errorMessage: string;
-}
-
-export interface ISaveUserFailureAction extends IAction {
-    errorMessage: string;
-}
-
-export interface IDeleteUserFailureAction extends IAction {
-    errorMessage: string;
-}
 
 export function getUsers() {
     return async(dispatch) => {
@@ -115,14 +99,14 @@ export function getUserByIdRequest(): IAction {
     };
 }
 
-export function getUserByIdSuccess(item): IGetUserByIdSuccessAction{
+export function getUserByIdSuccess(item): IGetUserByIdSuccessAction {
     return {
         type: GET_USER_BY_ID_SUCCESS,
         item
     };
 }
 
-export function getUserByIdFailure(message): IGetUserByIdFailureAction{
+export function getUserByIdFailure(message): IGetUserByIdFailureAction {
     return {
         type: GET_USER_BY_ID_FAILURE,
         errorMessage: message

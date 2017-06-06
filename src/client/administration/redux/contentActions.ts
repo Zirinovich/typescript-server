@@ -2,6 +2,14 @@ import {Fetcher} from '../../../shared/classes/Fetcher';
 import {ErrorCodeEnum} from '../../../shared/classes/ErrorCodeEnum';
 import {IAction} from '../../_common/interfaces/IAction';
 import {ContentDto} from '../../../shared/ajaxDto/authentication/ContentDto';
+import {
+    IGetContentSuccessAction,
+    IGetContentFailureAction,
+    IGetContentByIdSuccessAction,
+    IGetContentByIdFailureAction,
+    ISaveRoleFailureAction,
+    IDeleteRoleFailureAction
+} from '../interfaces/IContent';
 
 export const GET_CONTENT_REQUEST: string = 'content/GET_CONTENT_REQUEST';
 export const GET_CONTENT_SUCCESS: string = 'content/GET_CONTENT_SUCCESS';
@@ -15,30 +23,6 @@ export const SAVE_CONTENT_FAILURE: string = 'content/SAVE_CONTENT_FAILURE';
 export const DELETE_CONTENT_REQUEST: string = 'content/DELETE_CONTENT_REQUEST';
 export const DELETE_CONTENT_SUCCESS: string = 'content/DELETE_CONTENT_SUCCESS';
 export const DELETE_CONTENT_FAILURE: string = 'content/DELETE_CONTENT_FAILURE';
-
-export interface IGetContentSuccessAction extends IAction {
-    list: any[];
-}
-
-export interface IGetContentFailureAction extends IAction {
-    errorMessage: string;
-}
-
-export interface IGetContentByIdSuccessAction extends IAction {
-    item: ContentDto;
-}
-
-export interface IGetContentByIdFailureAction extends IAction {
-    errorMessage: string;
-}
-
-export interface ISaveRoleFailureAction extends IAction {
-    errorMessage: string;
-}
-
-export interface IDeleteRoleFailureAction extends IAction {
-    errorMessage: string;
-}
 
 export function getContent() {
     return async(dispatch) => {

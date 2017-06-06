@@ -1,23 +1,19 @@
+import {IAction} from '../../_common/interfaces/IAction';
 import {
     GET_USERS_SUCCESS,
     GET_USER_BY_ID_SUCCESS,
-    IGetUsersSuccessAction,
-    IGetUserByIdSuccessAction
 } from './usersActions';
-import {IAction} from '../../_common/interfaces/IAction';
-import {AccountDto} from '../../../shared/ajaxDto/authentication/AccountDto';
-
-interface IState {
-    list: AccountDto[];
-    item?: AccountDto;
-}
+import {
+    IUsers,
+    IGetUsersSuccessAction,
+    IGetUserByIdSuccessAction,
+} from '../interfaces/IUsers';
 
 const initialState = {
     list: []
 };
 
-
-export function usersReducer(state: IState = initialState, action: IAction) {
+export function usersReducer(state: IUsers = initialState, action: IAction) {
     switch (action.type) {
         case GET_USERS_SUCCESS:
             const {list} = <IGetUsersSuccessAction>action;
