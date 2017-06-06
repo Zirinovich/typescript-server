@@ -2,27 +2,31 @@ import * as React from 'react';
 const {connect} = require('react-redux');
 import {Modal, Form, Button, FormGroup, Clearfix, Col} from 'react-bootstrap';
 
-import {generator} from '../../../../shared/tools/generator';
 import {i18n} from '../../../_common/tools/i18n/i18n';
 import {FieldInput} from '../../../_common/components/fieldInput/fieldInput';
 import {TypedFieldsGroup, ITypedField} from '../../../_common/components/typedFieldsGroup/typedFieldsGroup';
 import {EventArgsDto} from '../../../_common/interfaces/EventArgsDto';
 import {EventMethodEnum} from '../../../_common/interfaces/EventMethodEnum';
+import {IRoles} from '../../interfaces/IRoles';
 import {saveRole} from '../../redux/rolesActions';
 
 //#region interfaces
+enum Mode {
+    Create,
+    Edit
+}
+
 interface IProps {
     show: boolean;
     onHide: any;
     handleSubmit: any;
-    data?: any;
-    roles: any;
+    roles: IRoles;
     saveRole?: any;
 }
 
 interface IState {
-    id?: any;
-    name?: string;
+    idrole?: any;
+    rolename?: string;
 }
 //#endregion
 
@@ -50,7 +54,9 @@ let rules: ITypedField[] = [
 ];
 
 @connect(
-    (state) => ({}),
+    (state) => ({
+        roles: state.roles
+    }),
     (dispatch) => ({
         saveRole: (role) => dispatch(saveRole(role))
     })
@@ -61,21 +67,23 @@ export class RoleCreateEditModal extends React.Component<IProps, IState> {
 
         this.onEventHandler = this.onEventHandler.bind(this);
         this.state = {
-            name: ''
+            rolename: ''
         }
     }
 
-    id = generator.genId();
+    mode = Mode.Create;
 
     componentDidUpdate() {
-        const {data} = this.props;
-        const {id} = this.state;
-        if (data.id !== id) {
-            const state = {
-                id: data.id,
-                name: data.name
-            };
-            this.setState(state);
+        const {roles: {item}} = this.props;
+        const {idrole} = this.state;
+
+        const lastMode = this.mode;
+        this.mode = !!item ? Mode.Edit : Mode.Create;
+        if ((lastMode === Mode.Edit && this.mode === Mode.Create) || (this.mode === Mode.Edit && item.idrole !== idrole)) {
+            this.setState({
+                idrole: item ? item.idrole : null,
+                rolename: item ? item.rolename : ''
+            });
         }
     }
 
@@ -89,6 +97,7 @@ export class RoleCreateEditModal extends React.Component<IProps, IState> {
 
     submitHandler(e) {
         const {onHide, saveRole} = this.props;
+        console.log(this.state);
         saveRole(this.state);
         onHide();
         e.preventDefault();
@@ -96,23 +105,23 @@ export class RoleCreateEditModal extends React.Component<IProps, IState> {
 
     render() {
         const {show, onHide} = this.props;
-        const {id, name} = this.state;
+        const {idrole, rolename} = this.state;
         rules.map((r) => {
             r.value = this.state[r.name];
-           return r;
+            return r;
         });
         return (
-            <Modal show={show} onHide={onHide} bsSize="large" aria-labelledby={this.id}>
+            <Modal show={show} onHide={onHide} bsSize="large">
                 <Form onSubmit={this.submitHandler.bind(this)}>
                     <Modal.Header closeButton>
-                        <Modal.Title id={this.id}>
-                            {i18n.t(id ? 'administration.editRole' : 'administration.createRole')}
+                        <Modal.Title>
+                            {i18n.t(idrole ? 'administration.editRole' : 'administration.createRole')}
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <FormGroup>
                             <Col md={4}>
-                                <FieldInput name="name" value={name} onEvent={this.onEventHandler}
+                                <FieldInput name="rolename" value={rolename} onEvent={this.onEventHandler}
                                             label={i18n.t('administration.role')} required/>
                             </Col>
                             <Clearfix/>

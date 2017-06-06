@@ -4,14 +4,16 @@ const {asyncConnect} = require('redux-connect');
 
 import {i18n} from '../../../_common/tools/i18n/i18n';
 import {Crud} from '../../../_common/components/crud/crud';
-import {getRoles, deleteRoles} from '../../redux/rolesActions';
+import {getRoles, getRoleById, deleteRoles} from '../../redux/rolesActions';
+import {IRoles} from '../../interfaces/IRoles';
 import {RoleCreateEditModal} from './roleCreateEditModal';
 
 //#region interfaces
 interface IProps {
     state: any;
-    roles: any;
+    roles: IRoles;
     deleteRoles: any;
+    getRoleById: any;
 }
 
 interface IState {
@@ -30,33 +32,40 @@ interface IState {
         roles: state.roles
     }),
     (dispatch) => ({
-        deleteRoles: (id) => dispatch(deleteRoles(id))
+        getRoleById: (idrole) => dispatch(getRoleById(idrole)),
+        deleteRoles: (ids) => dispatch(deleteRoles(ids))
     })
 )
 export class RolesPage extends React.Component<IProps, IState> {
     render() {
-        const {state, roles: {list}, deleteRoles} = this.props;
+        const {state, roles: {list}, getRoleById, deleteRoles} = this.props;
         const headers = [
             {
-                name: 'id',
+                name: 'idrole',
                 hidden: true,
                 key: true
             },
             {
-                name: 'name',
+                name: 'rolename',
                 label: i18n.getString(state, 'administration.role')
             }
         ];
         const actions = [
             {
                 text: i18n.t('administration.create'),
-                modalForm: RoleCreateEditModal
+                modalForm: RoleCreateEditModal,
+                method: () => {
+                    getRoleById();
+                }
             },
             {
                 text: i18n.t('administration.edit'),
                 modalForm: RoleCreateEditModal,
                 validate: {
                     isSingleRowSelected: true
+                },
+                method: (selected) => {
+                    getRoleById(_.first(selected));
                 }
             },
             {

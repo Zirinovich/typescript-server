@@ -75,7 +75,7 @@ export class UsersPage extends React.Component<IProps, IState> {
                     isSingleRowSelected: true
                 },
                 method: (selected) => {
-                    //getUserById(_.first(selected)); TODO: Needs realization
+                    getUserById(_.first(selected)); //TODO: Needs realization
                 }
             },
             {

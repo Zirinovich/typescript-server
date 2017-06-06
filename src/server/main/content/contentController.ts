@@ -19,7 +19,7 @@ router.post('/main/content/addchangecontent', async(req, res) => {
     res.json(content);
 });
 
-router.post('/main/content/getcontent', async(req, res) => {
+router.post('/main/content/findcontent', async(req, res) => {
     let {idcontent} = req.body;
     let content = await contentLogic.findContentDtoByIdAsync(idcontent);
     content.data.filedata = Buffer.from(content.data.filedata).toString("utf8");

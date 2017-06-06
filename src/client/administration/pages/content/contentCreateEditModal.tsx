@@ -2,7 +2,6 @@ import * as React from 'react';
 const {connect} = require('react-redux');
 import {Modal, Form, Button, FormGroup} from 'react-bootstrap';
 
-import {generator} from '../../../../shared/tools/generator';
 import {FieldEditor} from '../../../_common/components/fieldEditor/fieldEditor';
 import {i18n} from '../../../_common/tools/i18n/i18n';
 import {FieldInput} from '../../../_common/components/fieldInput/fieldInput';
@@ -10,16 +9,15 @@ import {EventArgsDto} from '../../../_common/interfaces/EventArgsDto';
 import {EventMethodEnum} from '../../../_common/interfaces/EventMethodEnum';
 import {saveContent} from '../../redux/contentActions';
 
+//#region interfaces
 enum Mode {
     Create,
     Edit
 }
 
-//#region interfaces
 interface IProps {
     show: boolean;
     onHide: any;
-    data?: any;
     contentdata?: any;
     saveContent: any;
 }
@@ -49,7 +47,6 @@ export class ContentCreateEditModal extends React.Component<IProps, IState> {
         }
     }
 
-    id: string = generator.genId();
     mode: Mode = Mode.Create;
     fieldNames = {
         idcontent: 'idcontent',
@@ -64,7 +61,7 @@ export class ContentCreateEditModal extends React.Component<IProps, IState> {
         this.mode = !!item ? Mode.Edit : Mode.Create;
         if ((lastMode === Mode.Edit && this.mode === Mode.Create) || (this.mode === Mode.Edit && item.idcontent !== idcontent)) {
             this.setState({
-                idcontent: item ? item.idcontent : '',
+                idcontent: item ? item.idcontent : null,
                 filedata: item ? item.filedata : '',
                 idfile: item ? item.idfile : ''
             })
@@ -102,7 +99,7 @@ export class ContentCreateEditModal extends React.Component<IProps, IState> {
         const {show, onHide} = this.props;
         const {idcontent, filedata} = this.state;
         return (
-            <Modal show={show} onHide={onHide} bsSize="large" aria-labelledby={this.id}>
+            <Modal show={show} onHide={onHide} bsSize="large">
                 <Form onSubmit={this.submitHandler}>
                     <Modal.Header closeButton>
                         <Modal.Title>

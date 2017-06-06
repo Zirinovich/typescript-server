@@ -1,9 +1,22 @@
 import {Fetcher} from '../../../shared/classes/Fetcher';
+import {ErrorCodeEnum} from '../../../shared/classes/ErrorCodeEnum';
+import {RoleDto} from '../../../shared/ajaxDto/authentication/RoleDto';
 import {IAction} from '../../_common/interfaces/IAction';
+import {
+    IGetRolesSuccessAction,
+    IGetRolesFailureAction,
+    IGetRoleByIdSuccessAction,
+    IGetRoleByIdFailureAction,
+    ISaveRoleFailureAction,
+    IDeleteRoleFailureAction
+} from '../interfaces/IRoles';
 
 export const GET_ROLES_REQUEST: string = 'roles/GET_ROLES_REQUEST';
 export const GET_ROLES_SUCCESS: string = 'roles/GET_ROLES_SUCCESS';
 export const GET_ROLES_FAILURE: string = 'roles/GET_ROLES_FAILURE';
+export const GET_ROLE_BY_ID_REQUEST: string = 'roles/GET_ROLE_BY_ID_REQUEST';
+export const GET_ROLE_BY_ID_SUCCESS: string = 'roles/GET_ROLE_BY_ID_SUCCESS';
+export const GET_ROLE_BY_ID_FAILURE: string = 'roles/GET_ROLE_BY_ID_FAILURE';
 export const SAVE_ROLE_REQUEST: string = 'roles/SAVE_ROLE_REQUEST';
 export const SAVE_ROLE_SUCCESS: string = 'roles/SAVE_ROLE_SUCCESS';
 export const SAVE_ROLE_FAILURE: string = 'roles/SAVE_ROLE_FAILURE';
@@ -11,54 +24,18 @@ export const DELETE_ROLE_REQUEST: string = 'roles/DELETE_ROLE_REQUEST';
 export const DELETE_ROLE_SUCCESS: string = 'roles/DELETE_ROLE_SUCCESS';
 export const DELETE_ROLE_FAILURE: string = 'roles/DELETE_ROLE_FAILURE';
 
-export interface IGetRolesSuccessAction extends IAction {
-    list: any[];
-}
-
-export interface IGetRolesFailureAction extends IAction {
-    errorMessage: string;
-}
-
-export interface ISaveRoleFailureAction extends IAction {
-    errorMessage: string;
-}
-
-export interface IDeleteRoleFailureAction extends IAction {
-    errorMessage: string;
-}
-
-let roles = [
-    {
-        id: 1,
-        name: 'LOL 1',
-        lalala: 'УоТакУот'
-    },
-    {
-        id: 2,
-        name: 'LOL 2',
-        lalala: 'УоТакУот'
-    },
-    {
-        id: 3,
-        name: 'LOL 3',
-        lalala: 'УоТакУот'
-    }
-];
-
 export function getRoles() {
     return async(dispatch) => {
         dispatch(getRolesRequest());
 
         try {
-            //let response = await fetch('https://api.github.com/repos/barbar/vortigern');
-            let response = {ok: true};
-            if (response.ok) {
-
-                dispatch(getRolesSuccess(roles));
+            const response = await Fetcher.postAsync<RoleDto>({
+                url: '/api/main/users/getrolelist'
+            });
+            if (response.errorCode === ErrorCodeEnum.NoErrors) {
+                dispatch(getRolesSuccess(response.data));
             } else {
-                //let errText = await response.text();
-                //dispatch(getrolesFailure('!!!Alarm!!! ' + errText));
-                return "";
+                dispatch(getRolesFailure(response.errorCode));
             }
         }
         catch (error) {
@@ -87,29 +64,64 @@ export function getRolesFailure(message): IGetRolesFailureAction {
     };
 }
 
-export function saveRole(role) {
+export function getRoleById(idrole) {
+    return async(dispatch) => {
+        dispatch(getRoleByIdRequest());
+        if (idrole) {
+            try {
+                const response = await Fetcher.postAsync<RoleDto>({
+                    url: '/api/main/users/findrole',
+                    data: {idrole}
+                });
+                if (response.errorCode === ErrorCodeEnum.NoErrors) {
+                    dispatch(getRoleByIdSuccess(response.data));
+                } else {
+                    dispatch(getRoleByIdFailure(response.errorCode));
+                }
+            }
+            catch (error) {
+                dispatch(getRoleByIdFailure(error));
+            }
+        } else {
+            dispatch(getRoleByIdSuccess(null));
+        }
+    };
+}
+
+export function getRoleByIdRequest(): IAction {
+    return {
+        type: GET_ROLE_BY_ID_REQUEST
+    };
+}
+
+export function getRoleByIdSuccess(item): IGetRoleByIdSuccessAction {
+    return {
+        type: GET_ROLE_BY_ID_SUCCESS,
+        item
+    };
+}
+
+export function getRoleByIdFailure(message): IGetRoleByIdFailureAction {
+    return {
+        type: GET_ROLE_BY_ID_FAILURE,
+        errorMessage: message
+    };
+}
+
+export function saveRole(role: RoleDto) {
     return async(dispatch) => {
         dispatch(saveRoleRequest());
 
         try {
-            //let response = await fetch('https://api.github.com/repos/barbar/vortigern');
-            let response = {ok: true};
-            if (response.ok) {
-                const index = _.findIndex(roles, function (u) {
-                    return u.id === parseInt(role.id);
-                });
-                if (index > 0) {
-                    roles[index] = role;
-                } else {
-                    role.id = roles.length + 1;
-                    roles.push(role);
-                }
+            const response = await Fetcher.postAsync<RoleDto>({
+                url: '/api/main/users/addchangerole',
+                data: {role}
+            });
+            if (response.errorCode === ErrorCodeEnum.NoErrors) {
                 dispatch(saveRoleSuccess());
                 dispatch(getRoles());
             } else {
-                //let errText = await response.text();
-                //dispatch(getrolesFailure('!!!Alarm!!! ' + errText));
-                return "";
+                dispatch(saveRoleFailure(response.errorCode));
             }
         }
         catch (error) {
@@ -142,18 +154,15 @@ export function deleteRoles(ids: number[]) {
         dispatch(deleteRolesRequest());
 
         try {
-            //let response = await fetch('https://api.github.com/repos/barbar/vortigern');
-            let response = {ok: true};
-            if (response.ok) {
-                roles = roles.filter((role) => {
-                    return ids.indexOf(role.id) === -1;
-                });
+            const response = await Fetcher.postAsync<RoleDto>({
+                url: '/api/main/users/deleteroles',
+                data: ids
+            });
+            if (response.errorCode === ErrorCodeEnum.NoErrors) {
                 dispatch(deleteRolesSuccess());
                 dispatch(getRoles());
             } else {
-                //let errText = await response.text();
-                //dispatch(getrolesFailure('!!!Alarm!!! ' + errText));
-                return "";
+                dispatch(deleteRolesFailure(response.errorCode));
             }
         }
         catch (error) {

@@ -2,7 +2,6 @@ import * as React from 'react';
 const {connect} = require('react-redux');
 import {Modal, Form, Button, Row, FormGroup, Col, Clearfix} from 'react-bootstrap';
 
-import {generator} from '../../../../shared/tools/generator';
 import {i18n} from '../../../_common/tools/i18n/i18n';
 import {FieldInput} from '../../../_common/components/fieldInput/fieldInput';
 import {FieldSelect} from '../../../_common/components/fieldSelect/fieldSelect';
@@ -47,7 +46,6 @@ export class UserCreateEditModal extends React.Component<IProps, IState> {
         }
     }
 
-    id: string = generator.genId();
     fieldNames = {
         id: 'id',
         login: 'login',
@@ -99,10 +97,10 @@ export class UserCreateEditModal extends React.Component<IProps, IState> {
         const {show, onHide} = this.props;
         const {id, login, password, username} = this.state;
         return (
-            <Modal show={show} onHide={onHide} bsSize="large" aria-labelledby={this.id}>
+            <Modal show={show} onHide={onHide} bsSize="large">
                 <Form onSubmit={this.submitHandler}>
                     <Modal.Header closeButton>
-                        <Modal.Title id={this.id}>
+                        <Modal.Title>
                             {i18n.t(id ? 'administration.editUser' : 'administration.createUser')}
                         </Modal.Title>
                     </Modal.Header>

@@ -70,10 +70,8 @@ export function getContentById(idcontent: string) {
         if (idcontent) {
             try {
                 const response = await Fetcher.postAsync<ContentDto>({
-                    url: '/api/main/content/getcontent',
-                    data: {
-                        idcontent: idcontent
-                    }
+                    url: '/api/main/content/findcontent',
+                    data: {idcontent}
                 });
 
                 if (response.errorCode === ErrorCodeEnum.NoErrors) {

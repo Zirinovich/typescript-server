@@ -46,7 +46,7 @@ router.post('/main/users/getaccountlist', async(req, res) => {
     AuthClaims.Authenticated);
 
 router.post('/main/users/findlogin', async(req, res) => {
-    const id = req.body;
+    const {id} = req.body;
     let login: IAjaxResponse<LoginDto> = await usersLogic.findLoginByIdAsync(id);
     res.json(login);
 }, AuthClaims.Authenticated);
@@ -106,7 +106,7 @@ router.post('/main/users/getrolelist', async(req, res) => {
 );
 
 router.post('/main/users/findrole', async(req, res) => {
-        const idrole = req.body;
+        const {idrole} = req.body;
         let result = await usersLogic.findRoleByIdAsync(idrole);
         res.json(result);
     },
@@ -114,7 +114,7 @@ router.post('/main/users/findrole', async(req, res) => {
 );
 
 router.post('/main/users/addchangerole', async(req, res) => {
-        const role = req.body;
+        const {role} = req.body;
         let result = await usersLogic.addChangeRoleAsync(role);
         res.json(result);
     },
@@ -130,7 +130,7 @@ router.post('/main/users/deleteroles', async(req, res) => {
 );
 
 router.post('/main/users/findaccount', async(req, res) => {
-        const idlogin = req.body;
+        const {idlogin} = req.body;
         let result = await usersLogic.findAccountByLoginId(idlogin);
         res.json(result);
     },
