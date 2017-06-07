@@ -1,5 +1,4 @@
 import {Fetcher} from '../../../shared/classes/Fetcher';
-import {IAjaxResponse} from '../../../shared/ajaxDto/IAjaxResponse';
 import {ContentDto} from '../../../shared/ajaxDto/authentication/ContentDto';
 import {IAction} from '../../_common/interfaces/IAction';
 
@@ -73,7 +72,7 @@ let presentations = [
                 ]
             },
             {
-                src: require('./content/ticket.png'),
+                src: require('./content/supr2.png'),
                 captions: [
                     {
                         classes: 'text11 randomrotate customout tp-resizeme',
@@ -139,6 +138,80 @@ let presentations = [
     },
     {
         id: 4,
+        src: require('./content/ttm.png'),
+        title: 'TTM',
+        text: 'Trouble Ticket Management (управление инцидентами и проблемами)',
+        classes: ['trouble-ticket-system'],
+        idcontent: '',
+        slides: [
+            {
+                src: require('./content/ttm.png')
+            },
+            {
+                src: require('./content/ttm2.png')
+            },
+            {
+                src: require('./content/ttm3.png')
+            },
+            {
+                src: require('./content/ttm4.png')
+            }
+        ]
+    },
+    {
+        id: 5,
+        src: require('./content/schlo.png'),
+        title: 'СЧЛО',
+        text: 'Система частотно-лицензионного обеспечения',
+        classes: ['trouble-ticket-system'],
+        idcontent: '',
+        slides: [
+            {
+                src: require('./content/schlo.png')
+            }
+        ]
+    },
+    {
+        id: 6,
+        src: require('./content/alnot.png'),
+        title: 'ALNOT',
+        text: 'Система группового оповещения',
+        classes: ['alert-system'],
+        idcontent: '',
+        slides: [
+            {
+                src: require('./content/alnot.png')
+            }
+        ]
+    },
+    {
+        id: 7,
+        src: require('./content/erms.png'),
+        title: 'ERMS',
+        text: 'Trouble Ticket Management (управление инцидентами и проблемами)',
+        classes: ['trouble-ticket-system'],
+        idcontent: '',
+        slides: [
+            {
+                src: require('./content/erms.png')
+            }
+        ]
+    },
+    {
+        id: 8,
+        src: require('./content/opl.png'),
+        title: 'Operation Log (OPL)',
+        text: 'Система учета плановых работ',
+        classes: ['trouble-ticket-system'],
+        idcontent: '',
+        slides: [
+            {
+                src: require('./content/opl.png')
+            }
+        ]
+    },
+    {
+        id: 9,
         src: require('./content/ladony.png'),
         title: 'Сайт ladony.ru',
         text: '',
@@ -210,7 +283,7 @@ export function getPresentationById(id) {
                 let content = '';
                 if (item.idcontent) {
                     const response = await Fetcher.postAsync<ContentDto>({
-                        url: '/api/main/content/getcontent',
+                        url: '/api/main/content/findcontent',
                         data: {
                             idcontent: item.idcontent
                         }

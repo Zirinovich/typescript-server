@@ -42,6 +42,10 @@ export class Presentations extends React.Component<IProps, IState> {
                 value: 'trouble-ticket-system'
             },
             {
+                name: 'Система оповещения',
+                value: 'alert-system'
+            },
+            {
                 name: 'Личный кабинет',
                 value: 'dashboard'
             },
