@@ -34,7 +34,7 @@ interface IState {
 )
 export class Presentations extends React.Component<IProps, IState> {
     render() {
-        const {presentations: {list}, children} = this.props;
+        const {presentations: {list}, params, routes, children} = this.props;
         const textSectionSubtitle = 'Точные телеком решения';
         const filters = [
             {
@@ -66,8 +66,9 @@ export class Presentations extends React.Component<IProps, IState> {
                         <Button bsStyle="primary">Узнать больше</Button>
                     </LinkContainer>
                 </SectionText>
-                <Breadcrumbs title={i18n.t('main.presentationsPage')} params={this.props.params}
-                             routes={this.props.routes}/>
+                <Breadcrumbs title={i18n.t('main.presentationsPage')}
+                             params={params}
+                             routes={routes}/>
                 <div className={style.portfolio_section}>
                     <Grid>
                         <CubePortfolio filters={filters} items={items}/>

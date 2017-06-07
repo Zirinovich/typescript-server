@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as TinyMCE from 'react-tinymce';
 
-import {generator} from '../../../../shared/tools/generator';
 import {EventDelegate} from '../../interfaces/EventDelegate';
 import {EventMethodEnum} from '../../interfaces/EventMethodEnum';
 import {EventComponentTypeEnum} from '../../interfaces/EventComponentTypeEnum';
@@ -26,8 +25,6 @@ export class FieldEditor extends React.Component<IProps, IState> {
         this.changeHandler = this.changeHandler.bind(this);
     }
 
-    id = generator.genId();
-
     static isLoaded = false;
     static tinymce;
 
@@ -39,45 +36,45 @@ export class FieldEditor extends React.Component<IProps, IState> {
             require('tinymce/plugins/advlist');
             require('tinymce/plugins/anchor');
             require('tinymce/plugins/autolink');
-            //require('tinymce/plugins/autoresize');
-            //require('tinymce/plugins/autosave');
-            //require('tinymce/plugins/bbcode');
+            require('tinymce/plugins/autoresize');
+            require('tinymce/plugins/autosave');
+            require('tinymce/plugins/bbcode');
             require('tinymce/plugins/charmap');
             require('tinymce/plugins/code');
-            //require('tinymce/plugins/codesample');
+            require('tinymce/plugins/codesample');
             require('tinymce/plugins/colorpicker');
-            //require('tinymce/plugins/contextmenu');
-            //require('tinymce/plugins/directionality');
-            //require('tinymce/plugins/emoticons');
-            //require('tinymce/plugins/fullpage');
-            //require('tinymce/plugins/fullscreen');
+            require('tinymce/plugins/contextmenu');
+            require('tinymce/plugins/directionality');
+            require('tinymce/plugins/emoticons');
+            require('tinymce/plugins/fullpage');
+            require('tinymce/plugins/fullscreen');
             require('tinymce/plugins/image');
-            //require('tinymce/plugins/imagetools');
-            //require('tinymce/plugins/importcss');
-            //require('tinymce/plugins/insertdatetime');
+            require('tinymce/plugins/imagetools');
+            require('tinymce/plugins/importcss');
+            require('tinymce/plugins/insertdatetime');
             //require('tinymce/plugins/layer');
-            //require('tinymce/plugins/legacyoutput');
+            require('tinymce/plugins/legacyoutput');
             require('tinymce/plugins/link');
             require('tinymce/plugins/lists');
-            //require('tinymce/plugins/media');
-            //require('tinymce/plugins/nonbreaking');
-            //require('tinymce/plugins/noneditable');
-            //require('tinymce/plugins/pagebreak');
-            //require('tinymce/plugins/paste');
+            require('tinymce/plugins/media');
+            require('tinymce/plugins/nonbreaking');
+            require('tinymce/plugins/noneditable');
+            require('tinymce/plugins/pagebreak');
+            require('tinymce/plugins/paste');
             require('tinymce/plugins/preview');
             require('tinymce/plugins/print');
-            //require('tinymce/plugins/save');
-            //require('tinymce/plugins/searchreplace');
-            //require('tinymce/plugins/spellchecker');
-            //require('tinymce/plugins/tabfocus');
+            require('tinymce/plugins/save');
+            require('tinymce/plugins/searchreplace');
+            require('tinymce/plugins/spellchecker');
+            require('tinymce/plugins/tabfocus');
             require('tinymce/plugins/table');
-            //require('tinymce/plugins/template');
+            require('tinymce/plugins/template');
             require('tinymce/plugins/textcolor');
-            //require('tinymce/plugins/textpattern');
-            //require('tinymce/plugins/toc');
-            //require('tinymce/plugins/visualblocks');
-            //require('tinymce/plugins/visualchars');
-            //require('tinymce/plugins/wordcount');
+            require('tinymce/plugins/textpattern');
+            require('tinymce/plugins/toc');
+            require('tinymce/plugins/visualblocks');
+            require('tinymce/plugins/visualchars');
+            require('tinymce/plugins/wordcount');
 
             FieldEditor.isLoaded = true;
         }
@@ -102,9 +99,19 @@ export class FieldEditor extends React.Component<IProps, IState> {
         const {value} = this.props;
         FieldEditor.loadJsClient();
         const config = {
-            plugins: 'link image code',
-            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code',
+            plugins: [
+                'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                'searchreplace wordcount visualblocks visualchars code fullscreen',
+                'insertdatetime media nonbreaking save table contextmenu directionality',
+                'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc help'
+            ],
+            toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            toolbar2: 'print preview media | forecolor backcolor | codesample help',
             height: 500,
+            content_css: [
+                '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+                '//www.tinymce.com/css/codepen.min.css'
+            ],
             init_instance_callback: this.setContent
         };
         return (

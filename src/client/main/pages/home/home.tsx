@@ -195,7 +195,9 @@ class Home extends React.Component<any, any> {
                         endspeed: 300,
                         captionhidden: 'off',
                         style: {zIndex: 6},
-                        content: <Button bsStyle="primary">Сделать заказ</Button>
+                        content: <LinkContainer to="/contacts">
+                            <Button bsStyle="primary">Сделать заказ</Button>
+                        </LinkContainer>
                     }
                 ]
             },
