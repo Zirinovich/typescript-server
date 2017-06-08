@@ -19,18 +19,38 @@ class SectionClients extends React.Component<IProps, IState> {
     public render() {
         const sectionCarouselTitle = 'Наши клиенты';
         const clients = [
-            <img src={require('./content/logo_rt.svg')} height={48}/>,
-            <img src={require('./content/tele2_logo.png')} height={48}/>,
-            <img src={require('./content/ellco_logo.png')} height={48}/>,
-            <img src={require('./content/beeline_logo.jpg')} height={48}/>,
-            <img src={require('./content/beeline_kz_logo.png')} height={48}/>
+            {
+                src: require('./content/logo_rt.svg'),
+                href: 'http://www.rostelecom.ru/'
+            },
+            {
+                src: require('./content/tele2_logo.png'),
+                href: 'https://tele2.ru/'
+            },
+            {
+                src: require('./content/ellco_logo.png'),
+                href: 'http://ellco.ru/'
+            },
+            {
+                src: require('./content/beeline_logo.jpg'),
+                href: 'https://www.beeline.ru'
+            },
+            {
+                src: require('./content/beeline_kz_logo.png'),
+                href: 'https://www.beeline.kz'
+            }
         ];
+        const items = clients.map((client) => {
+            return (<a href={client.href} target="_blank">
+                <img src={client.src} height={48}/>
+            </a>);
+        });
         return (
             <div className={style.section}>
                 <SectionHeader title={sectionCarouselTitle}/>
                 <Grid>
                     <Clearfix/>
-                    <CarouselSlider items={clients}/>
+                    <CarouselSlider items={items}/>
                 </Grid>
             </div>
         );
