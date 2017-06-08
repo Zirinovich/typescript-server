@@ -20,7 +20,8 @@ interface IState {
 
 class Services extends React.Component<IProps, IState> {
     componentDidMount() {
-        $(document.body).animate({scrollTop: $(location.hash).offset().top - $('header').height()});
+        const $target = $(location.hash);
+        if ($target) $(document.body).animate({scrollTop: $target.offset().top - $('header').height()});
     }
 
     public render() {

@@ -29,41 +29,8 @@ class Home extends React.Component<any, any> {
                         captionhidden: 'on',
                         style: {zIndex: 5, width: 500},
                         content: <img
-                            src={require('../_app/content/logo.svg')}/>
-                    },
-                    {
-                        classes: 'offerbadge5 two sft',
-                        x: 399,
-                        y: 285,
-                        hoffset: 0,
-                        voffset: -10,
-                        speed: 800,
-                        start: 1300,
-                        easing: 'Power4.easeOut',
-                        endeasing: 'Power1.easeIn',
-                        endspeed: 300,
-                        captionhidden: 'off',
-                        style: {zIndex: 6},
-                        content: <span>
-                            15 лет<br/>опыта
-                        </span>
-                    },
-                    {
-                        classes: 'offerbadge4 sfb',
-                        x: 460,
-                        y: 340,
-                        hoffset: 0,
-                        voffset: -10,
-                        speed: 800,
-                        start: 1600,
-                        easing: 'Power4.easeOut',
-                        endeasing: 'Power1.easeIn',
-                        endspeed: 300,
-                        captionhidden: 'off',
-                        style: {zIndex: 6},
-                        content: <span>
-                            Точные<br/>телеком<br/>решения
-                        </span>
+                            src={require('../_app/content/logo.svg')}
+                            width={500}/>
                     },
                     {
                         classes: 'text11 randomrotate customout tp-resizeme',
