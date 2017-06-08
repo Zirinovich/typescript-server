@@ -19,6 +19,10 @@ interface IState {
 //#endregion
 
 class Services extends React.Component<IProps, IState> {
+    componentDidMount() {
+        $(document.body).animate({scrollTop: $(location.hash).offset().top - $('header').height()});
+    }
+
     public render() {
         const {params, routes} = this.props;
 

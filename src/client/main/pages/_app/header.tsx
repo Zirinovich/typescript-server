@@ -66,8 +66,8 @@ export class Header extends React.Component<IProps, IState> {
                 label: i18n.t('main.servicesPage')
             },
             {
-                to: '/solutions',
-                label: i18n.t('main.solutionsPage')
+                to: '/products',
+                label: i18n.t('main.productsPage')
             },
             {
                 to: '/partners',

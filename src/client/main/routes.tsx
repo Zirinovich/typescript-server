@@ -29,7 +29,7 @@ export function routes (store) {
             <Route name={i18n.t('main.authorizationPage')} path="login" component={SignIn}/>
             <Route name={i18n.t('main.contactsPage')} path="contacts" component={Contacts}/>
             <Route name={i18n.t('main.servicesPage')} path="services" component={Services}/>
-            <Route name={i18n.t('main.solutionsPage')} path="solutions" component={Solutions}/>
+            <Route name={i18n.t('main.productsPage')} path="products" component={Solutions}/>
             <Route name={i18n.t('main.partnersPage')} path="partners" component={Partners}/>
             <Route name={i18n.t('main.presentationsPage')} path="presentations" component={Presentations}>
                 <Route path=":id" component={PresentationDetail}/>

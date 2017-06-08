@@ -269,7 +269,7 @@ class Home extends React.Component<any, any> {
                 to: '/partners'
             },
             {
-                title: 'OSS Решения',
+                title: 'Продукты',
                 icon: <Icon name="desktop"/>,
                 text: 'Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words',
                 to: '/solutions'
@@ -278,19 +278,19 @@ class Home extends React.Component<any, any> {
                 title: 'Проектирование и консалтинг',
                 icon: <Icon name="desktop"/>,
                 text: 'Временный локальный или офшорный найм специалистов лучше всего подходит для регулирования размера команды и независимой экспертизы.',
-                to: '/services'
+                to: '/services#designing'
             },
             {
                 title: 'Разработка ПО',
                 icon: <Icon name="desktop"/>,
                 text: 'ALT-LAN предоставляет полный спектр экономически эффективных IT-услуг организациям по всему миру, которые нуждаются в профессиональной технической поддержке различных сфер бизнеса.',
-                to: '/services'
+                to: '/services#development'
             },
             {
                 title: 'Тестирование/Внедрение',
                 icon: <Icon name="phone"/>,
                 text: 'Тестирование - это наиболее объективный способ проверки и оценки программного обеспечения перед презентацией пользователям.',
-                to: '/services'
+                to: '/services#testing'
             }
         ];
 

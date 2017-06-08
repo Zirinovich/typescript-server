@@ -8,7 +8,7 @@ import {SectionHeader} from '../../components/section_header/sectionHeader';
 import {ItemHover} from '../../components/item_hover/itemHover';
 import {SectionOrderButton} from '../../components/section_order_button/sectionOrderButton';
 import {SectionClients} from '../../components/section_clients/sectionClients';
-import {Lightbox} from "../../../_common/components/lightbox/lightbox";
+import {Lightbox} from '../../../_common/components/lightbox/lightbox';
 const style = require('./solutions.scss');
 
 //#region interfaces
@@ -27,7 +27,7 @@ class Solutions extends React.Component<IProps, IState> {
         const {params, routes} = this.props;
 
         const textSectionSubtitle = 'Точные телеком решения';
-        const title = 'OSS решения';
+        const title = 'Продукты';
         const subtitle = 'Наши продукты используются крупнейшими телеком-компаниями России, Казахстана, Таджикистана, Киргизии и других стран. Закажите подробную информацию по нашим продуктам.';
         const solutions = [
             {
