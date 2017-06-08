@@ -23,11 +23,10 @@ $bottom-header-height: 67px;
       float: left;
       width: 100%;
       text-align: left;
-      padding: 5px 0 5px 0;
+      padding: 5px 0;
       background-color: $navbar-inverse-bg;
 
       ul {
-        float: left;
         padding: 0;
         margin: 0;
 
@@ -37,6 +36,20 @@ $bottom-header-height: 67px;
           font-size: 14px;
           margin: 0;
           padding: 0 20px 0 0;
+
+          &.icon_wrapper {
+            float: right;
+
+            .icon {
+              cursor: pointer;
+              opacity: 0.5;
+              transition: opacity 0.35s ease;
+
+              &.active, &:hover {
+                opacity: 1;
+              }
+            }
+          }
 
           span {
             &:first-child {

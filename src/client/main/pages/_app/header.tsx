@@ -42,15 +42,14 @@ export class Header extends React.Component<IProps, IState> {
         new Sticky('.' + style.bottom_header);
     }
 
-    languageChangeHandler(e) {
-        const language = e.target.value;
+    languageClickHandler(language) {
         const {setCurrentLanguage} = this.props;
 
         setCurrentLanguage(language);
     }
 
     render() {
-        const {session, logout, pathname, currentLanguage, languages} = this.props;
+        const {session, logout, pathname, currentLanguage} = this.props;
 
         const pagesLinks = [
             {
@@ -82,6 +81,16 @@ export class Header extends React.Component<IProps, IState> {
             {
                 name: 'twitter',
                 href: 'https://twitter.com/alt_lan'
+            }
+        ];
+        const languages = [
+            {
+                src: require('./content/united-kingdom.svg'),
+                code: 'en-EN'
+            },
+            {
+                src: require('./content/russia.svg'),
+                code: 'ru-RU'
             }
         ];
         return (
@@ -117,22 +126,6 @@ export class Header extends React.Component<IProps, IState> {
                                             </Link>
                                         </li>
                                     }
-                                    <li>
-                                        <div>
-                                            <Icon name="language"/>{i18n.t('main.language')}
-                                            <select className={style.select}
-                                                    onChange={this.languageChangeHandler.bind(this)}
-                                                    value={currentLanguage}>
-                                                {
-                                                    languages.map((lng, index) => {
-                                                        return (
-                                                            <option key={index} value={lng.code}>{lng.name}</option>
-                                                        )
-                                                    })
-                                                }
-                                            </select>
-                                        </div>
-                                    </li>
                                     {
                                         icons.map((icon, index) => {
                                             return (
@@ -140,6 +133,19 @@ export class Header extends React.Component<IProps, IState> {
                                                     <a href={icon.href} target="_blank">
                                                         <Icon name={icon.name}/>
                                                     </a>
+                                                </li>
+                                            )
+                                        })
+                                    }
+                                    {
+                                        languages.map((language, index) => {
+                                            return (
+                                                <li key={index} className={style.icon_wrapper}>
+                                                    <div
+                                                        className={style.icon + ' ' + (language.code === currentLanguage ? style.active : '')}
+                                                        onClick={() => this.languageClickHandler(language.code)}>
+                                                        <img src={language.src} height={24}/>
+                                                    </div>
                                                 </li>
                                             )
                                         })
