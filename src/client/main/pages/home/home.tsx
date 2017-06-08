@@ -272,7 +272,7 @@ class Home extends React.Component<any, any> {
                 title: 'Продукты',
                 icon: <Icon name="desktop"/>,
                 text: 'Lorem Ipsum is simply dummy text  of theprinting and typesetting it has the randomised words',
-                to: '/solutions'
+                to: '/products'
             },
             {
                 title: 'Проектирование и консалтинг',
