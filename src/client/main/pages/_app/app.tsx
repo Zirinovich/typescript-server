@@ -41,7 +41,7 @@ class App extends React.Component<IProps, any> {
     }
 
     public render() {
-        const {session, location: {pathname}, routes} = this.props;
+        const {location: {pathname}, routes} = this.props;
         const key = getMD5base64(pathname);
         const transitionName = {
             enter: style.page_transition_enter,

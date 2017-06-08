@@ -78,6 +78,12 @@ export class Header extends React.Component<IProps, IState> {
                 label: i18n.t('main.contactsPage')
             }
         ];
+        const icons = [
+            {
+                name: 'twitter',
+                href: 'https://twitter.com/alt_lan'
+            }
+        ];
         return (
             <header className={style.header}>
                 <div className={style.top_header}>
@@ -118,21 +124,26 @@ export class Header extends React.Component<IProps, IState> {
                                                     onChange={this.languageChangeHandler.bind(this)}
                                                     value={currentLanguage}>
                                                 {
-                                                    languages.map((lng, i) => {
+                                                    languages.map((lng, index) => {
                                                         return (
-                                                            <option key={i} value={lng.code}>{lng.name}</option>
+                                                            <option key={index} value={lng.code}>{lng.name}</option>
                                                         )
                                                     })
                                                 }
                                             </select>
                                         </div>
                                     </li>
-                                    <li><a href="#"><Icon name="facebook"/></a></li>
-                                    <li><a href="#"><Icon name="twitter"/></a></li>
-                                    <li><a href="#"><Icon name="plus"/></a></li>
-                                    <li>
-                                        <a href="#"><Icon name="linkedin"/></a>
-                                    </li>
+                                    {
+                                        icons.map((icon, index) => {
+                                            return (
+                                                <li key={index}>
+                                                    <a href={icon.href} target="_blank">
+                                                        <Icon name={icon.name}/>
+                                                    </a>
+                                                </li>
+                                            )
+                                        })
+                                    }
                                 </ul>
                             </Grid>
                         </div>
