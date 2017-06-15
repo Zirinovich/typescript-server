@@ -18,8 +18,8 @@ var config = {
     // This part goes to React-Helmet for Head of our HTML
     app: {
         head: {
-            title: 'isomorphic',
-            titleTemplate: 'Платформа: %s',
+            title: 'ALT-LAN',
+            titleTemplate: '%s',
             meta: [
                 {charset: 'utf-8'},
                 {'http-equiv': 'x-ua-compatible', content: 'ie=edge'},
