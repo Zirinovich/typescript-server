@@ -16,7 +16,7 @@ class Home extends React.Component<any, any> {
     public render() {
         const slides = [
             {
-                src: 'http://codelayers.net/foxuhost/layout2/fullwidth/images/sliders/slide2_bg.jpg',
+                src: require('./content/slide2_bg.jpg'),
                 captions: [
                     {
                         classes: 'lfl',
@@ -30,12 +30,12 @@ class Home extends React.Component<any, any> {
                         style: {zIndex: 5, width: 500},
                         content: <img
                             src={require('../_app/content/logo.svg')}
-                            width={500}/>
+                            height={300}/>
                     },
                     {
                         classes: 'text11 randomrotate customout tp-resizeme',
-                        x: 665,
-                        y: 125,
+                        x: 465,
+                        y: 0,
                         customout: 'x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0;scaleY:0;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;',
                         speed: 500,
                         start: 2200,
@@ -50,8 +50,8 @@ class Home extends React.Component<any, any> {
                     },
                     {
                         classes: 'text12 randomrotate customout tp-resizeme',
-                        x: 665,
-                        y: 185,
+                        x: 465,
+                        y: 60,
                         customout: 'x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0;scaleY:0;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;',
                         speed: 500,
                         start: 2200,
@@ -66,8 +66,8 @@ class Home extends React.Component<any, any> {
                     },
                     {
                         classes: 'slide_list sfb',
-                        x: 665,
-                        y: 280,
+                        x: 465,
+                        y: 180,
                         hoffset: 0,
                         voffset: -10,
                         speed: 800,
@@ -83,8 +83,8 @@ class Home extends React.Component<any, any> {
                     },
                     {
                         classes: 'slide_list sfb',
-                        x: 665,
-                        y: 310,
+                        x: 465,
+                        y: 210,
                         hoffset: 0,
                         voffset: -10,
                         speed: 800,
@@ -100,8 +100,8 @@ class Home extends React.Component<any, any> {
                     },
                     {
                         classes: 'slide_list sfb',
-                        x: 665,
-                        y: 340,
+                        x: 465,
+                        y: 240,
                         hoffset: 0,
                         voffset: -10,
                         speed: 800,
@@ -117,8 +117,8 @@ class Home extends React.Component<any, any> {
                     },
                     {
                         classes: 'slide_list sfb',
-                        x: 665,
-                        y: 370,
+                        x: 465,
+                        y: 270,
                         hoffset: 0,
                         voffset: -10,
                         speed: 800,
@@ -134,8 +134,8 @@ class Home extends React.Component<any, any> {
                     },
                     {
                         classes: 'slide_list sfb',
-                        x: 665,
-                        y: 400,
+                        x: 465,
+                        y: 300,
                         hoffset: 0,
                         voffset: -10,
                         speed: 800,
@@ -148,27 +148,10 @@ class Home extends React.Component<any, any> {
                         content: <span>
                             <Icon name="check"/> Анализ, проект, качественное решение
                         </span>
-                    },
-                    {
-                        classes: 'slider_but1 sfb',
-                        x: 665,
-                        y: 465,
-                        hoffset: 0,
-                        voffset: -10,
-                        speed: 800,
-                        start: 4200,
-                        easing: 'Power4.easeOut',
-                        endeasing: 'Power1.easeIn',
-                        endspeed: 300,
-                        captionhidden: 'off',
-                        style: {zIndex: 6},
-                        content: <LinkContainer to="/contacts">
-                            <Button bsStyle="primary">Сделать заказ</Button>
-                        </LinkContainer>
                     }
                 ]
             },
-            {
+            /*{
                 src: require('./content/zwalls.ru-35490.jpg'),
                 captions: [
                     {
@@ -186,7 +169,7 @@ class Home extends React.Component<any, any> {
                     },
                     {
                         classes: 'text11 randomrotate customout tp-resizeme',
-                        x: 665,
+                        x: 465,
                         y: 125,
                         customout: 'x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0;scaleY:0;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;',
                         speed: 500,
@@ -202,7 +185,7 @@ class Home extends React.Component<any, any> {
                     },
                     {
                         classes: 'text12 randomrotate customout tp-resizeme',
-                        x: 665,
+                        x: 465,
                         y: 185,
                         customout: 'x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0;scaleY:0;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;',
                         speed: 500,
@@ -217,7 +200,7 @@ class Home extends React.Component<any, any> {
                         content: <span>ALT-LAN</span>
                     }
                 ]
-            }
+            }*/
         ];
 
         const title = 'Что мы предлагаем';

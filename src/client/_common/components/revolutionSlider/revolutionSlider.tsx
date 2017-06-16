@@ -58,7 +58,7 @@ export class RevolutionSlider extends React.Component<IProps, IState> {
             {
                 delay: 9000,
                 startwidth: 1170,
-                startheight: 610,
+                startheight: 400,
                 hideThumbs: 10,
                 fullWidth: "on",
                 navigationInGrid: "off",
