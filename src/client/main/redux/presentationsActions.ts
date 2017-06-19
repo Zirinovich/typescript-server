@@ -35,78 +35,16 @@ let presentations = [
         idcontent: 'presentation_supr',
         slides: [
             {
-                src: require('./content/supr.png'),
-                captions: [
-                    {
-                        classes: 'text11 randomrotate customout tp-resizeme',
-                        x: 400,
-                        y: 350,
-                        customout: 'x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0;scaleY:0;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;',
-                        speed: 500,
-                        start: 2200,
-                        easing: 'Power3.easeInOut',
-                        splitin: 'chars',
-                        splitout: 'chars',
-                        elementdelay: 0.08,
-                        endelementdelay: 0.08,
-                        endspeed: 300,
-                        style: {zIndex: 7, maxWidth: 'auto', maxHeight: 'auto', whiteSpace: 'nowrap'},
-                        content: 'Легенда Ростелекома'
-                    },
-                    {
-                        classes: 'text12 randomrotate customout tp-resizeme',
-                        x: 400,
-                        y: 400,
-                        customout: 'x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0;scaleY:0;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;',
-                        speed: 500,
-                        start: 2200,
-                        easing: 'Power3.easeInOut',
-                        splitin: 'chars',
-                        splitout: 'chars',
-                        elementdelay: 0.08,
-                        endelementdelay: 0.08,
-                        endspeed: 300,
-                        style: {zIndex: 7, maxWidth: 'auto', maxHeight: 'auto', whiteSpace: 'nowrap'},
-                        content: 'СУПР'
-                    }
-                ]
+                src: require('./content/supr.png')
             },
             {
-                src: require('./content/supr2.png'),
-                captions: [
-                    {
-                        classes: 'text11 randomrotate customout tp-resizeme',
-                        x: 100,
-                        y: 125,
-                        customout: 'x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0;scaleY:0;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;',
-                        speed: 500,
-                        start: 2200,
-                        easing: 'Power3.easeInOut',
-                        splitin: 'chars',
-                        splitout: 'chars',
-                        elementdelay: 0.08,
-                        endelementdelay: 0.08,
-                        endspeed: 300,
-                        style: {zIndex: 7, maxWidth: 'auto', maxHeight: 'auto', whiteSpace: 'nowrap'},
-                        content: 'Фантастическое юзабилити'
-                    },
-                    {
-                        classes: 'text12 randomrotate customout tp-resizeme',
-                        x: 100,
-                        y: 185,
-                        customout: 'x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0;scaleY:0;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;',
-                        speed: 500,
-                        start: 2200,
-                        easing: 'Power3.easeInOut',
-                        splitin: 'chars',
-                        splitout: 'chars',
-                        elementdelay: 0.08,
-                        endelementdelay: 0.08,
-                        endspeed: 300,
-                        style: {zIndex: 7, maxWidth: 'auto', maxHeight: 'auto', whiteSpace: 'nowrap'},
-                        content: 'Заявка СУПР'
-                    }
-                ]
+                src: require('./content/supr_2.png')
+            },
+            {
+                src: require('./content/supr_3.png')
+            },
+            {
+                src: require('./content/supr_4.png')
             }
         ]
     },
