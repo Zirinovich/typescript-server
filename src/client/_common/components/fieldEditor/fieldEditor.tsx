@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as TinyMCE from 'react-tinymce';
 
-import {EventDelegate} from '../../interfaces/EventDelegate';
-import {EventMethodEnum} from '../../interfaces/EventMethodEnum';
-import {EventComponentTypeEnum} from '../../interfaces/EventComponentTypeEnum';
+import { EventDelegate } from '../../interfaces/EventDelegate';
+import { EventMethodEnum } from '../../interfaces/EventMethodEnum';
+import { EventComponentTypeEnum } from '../../interfaces/EventComponentTypeEnum';
 
 //#region interfaces
 interface IProps {
@@ -28,6 +28,14 @@ export class FieldEditor extends React.Component<IProps, IState> {
     static isLoaded = false;
     static tinymce;
 
+    static fixFocusInModals() {
+        $(document).on('focusin', function (e) {
+            if ($(event.target).closest('.mce-window').length) {
+                event.stopImmediatePropagation();
+            }
+        });
+    }
+
     static loadJsClient() {
         if (!FieldEditor.isLoaded) {
             FieldEditor.tinymce = require('imports-loader?this=>window!exports-loader?window.tinymce!tinymce/tinymce');
@@ -48,6 +56,8 @@ export class FieldEditor extends React.Component<IProps, IState> {
             require('tinymce/plugins/emoticons');
             require('tinymce/plugins/fullpage');
             require('tinymce/plugins/fullscreen');
+            require('tinymce/plugins/help');
+            require('tinymce/plugins/hr');
             require('tinymce/plugins/image');
             require('tinymce/plugins/imagetools');
             require('tinymce/plugins/importcss');
@@ -76,18 +86,21 @@ export class FieldEditor extends React.Component<IProps, IState> {
             require('tinymce/plugins/visualchars');
             require('tinymce/plugins/wordcount');
 
+            FieldEditor.fixFocusInModals();
             FieldEditor.isLoaded = true;
         }
     }
 
     changeHandler(e) {
         const {name, onEvent} = this.props;
-        onEvent({
-            event: EventMethodEnum.OnChange,
-            value: e.target.getContent(),
-            name,
-            type: EventComponentTypeEnum.Textarea
-        });
+        if (onEvent) {
+            onEvent({
+                event: EventMethodEnum.OnChange,
+                value: e.target.getContent(),
+                name,
+                type: EventComponentTypeEnum.Textarea
+            });
+        }
     }
 
     setContent(editor) {
