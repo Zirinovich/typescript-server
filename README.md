@@ -4,7 +4,7 @@
 
 Работает на [Node.JS](https://nodejs.org/en/) ver 6.10+
 
-    git clone https://github.com/mamontovgrigory/typescript-server
+    git clone https://github.com/Zirinovich/typescript-server.git
 	cd typescript-server
 	npm install
 	npm start
